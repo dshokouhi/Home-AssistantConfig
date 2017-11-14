@@ -1,0 +1,119 @@
+ - platform: mqtt
+   name: "Den Sliding Door"
+   state_topic: "smartthings/Den Sliding Door/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Den Window"
+   state_topic: "smartthings/Den Window/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Kitchen Window"
+   state_topic: "smartthings/Kitchen Window/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Living Room Side Window"
+   state_topic: "smartthings/Living Room Side Window/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Living Room Left Bay Window"
+   state_topic: "smartthings/Living Room Left Bay Window/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Living Room Right Bay Window"
+   state_topic: "smartthings/Living Room Right Bay Window/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Bedroom Window"
+   state_topic: "smartthings/Bedroom Window/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Office Window"
+   state_topic: "smartthings/Office Window/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Bathroom Window"
+   state_topic: "smartthings/Bathroom Window/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Office Closet Door"
+   state_topic: "smartthings/Office Closet Door/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Bedroom Closet Door"
+   state_topic: "smartthings/Bedroom Closet Door/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: mqtt
+   name: "Front Door"
+   state_topic: "smartthings/Front Door/temperature"
+   unit_of_measurement: "F"
+   qos: 0
+
+ - platform: sabnzbd
+   host: 192.168.1.24
+   port: 6030
+   api_key: !secret sab
+   monitored_variables:
+     - 'current_status'
+     - 'speed'
+     - 'queue_size'
+     - 'queue_remaining'
+     - 'disk_size'
+     - 'disk_free'
+
+ - platform: mqtt
+   name: "Washer"
+   state_topic: "smartthings/Washer/power"
+   unit_of_measurement: "Watts"
+   qos: 0
+
+ - platform: mqtt
+   name: "Dryer"
+   state_topic: "smartthings/Dryer/power"
+   unit_of_measurement: "Watts"
+   qos: 0
+
+ - platform: mqtt
+   name: "Dishwasher"
+   state_topic: "smartthings/Dishwasher/power"
+   unit_of_measurement: "Watts"
+   qos: 0
+
+ - platform: crimereports
+   name: Crime Reports
+   radius: 1000
+
+ - platform: amcrest
+
+ - platform: ring
+
+ - platform: ups
+   username: !secret upsuser
+   password: !secret upspass
+
+ - platform: fedex
+   username: !secret fedexuser
+   password: !secret fedexpass
+
+ - platform: yr

@@ -1,0 +1,98 @@
+close_bay_window_curtains:
+  sequence:
+  - data_template:
+      command: Close
+      device: 44931881
+      entity_id: remote.harmony_hub_den
+    service: remote.send_command
+
+open_bay_window_curtains:
+  sequence:
+  - data_template:
+      command: Open
+      device: 44931881
+      entity_id: remote.harmony_hub_den
+    service: remote.send_command
+
+close_den_curtains:
+  sequence:
+  - data_template:
+      command: Close
+      device: 44914489
+      entity_id: remote.harmony_hub_den
+    service: remote.send_command
+
+open_den_curtains:
+  sequence:
+  - data_template:
+      command: Open
+      device: 44914489
+      entity_id: remote.harmony_hub_den
+    service: remote.send_command
+
+close_bedroom_curtains:
+  sequence:
+  - data_template:
+      command: Close
+      device: 44919307
+      entity_id: remote.harmony_hub_bed
+    service: remote.send_command
+
+open_bedroom_curtains:
+  sequence:
+  - data_template:
+      command: Open
+      device: 44919307
+      entity_id: remote.harmony_hub_bed
+    service: remote.send_command
+
+on_bedroom_fan:
+  sequence:
+  - data_template:
+      command: Low
+      device: 37826190
+      entity_id: remote.harmony_hub_bed
+    service: remote.send_command
+
+off_bedroom_fan:
+  sequence:
+  - alias: bedroom_fan_now_off1
+    data:
+      command: 'Off'
+      device: '37826190'
+      entity_id: remote.harmony_hub_bed
+    service: remote.send_command
+  alias: bedroom_fan_now_off
+on_den_fan:
+  sequence:
+  - data_template:
+      command: Low
+      device: 36480637
+      entity_id: remote.harmony_hub_den
+    service: remote.send_command
+
+den_fan_off:
+  sequence:
+  - alias: den_fan_now_off1
+    data:
+      command: 'No'
+      device: '36480637'
+      entity_id: remote.harmony_hub_den
+    service: remote.send_command
+  alias: den_fan_now_off
+
+off_fireplace:
+  sequence:
+  - data_template:
+      command: PowerToggle
+      device: 36475001
+      entity_id: remote.harmony_hub_den
+    service: remote.send_command
+
+on_fireplace:
+  sequence:
+  - data_template:
+      command: PowerToggle
+      device: 36475001
+      entity_id: remote.harmony_hub_den
+    service: remote.send_command

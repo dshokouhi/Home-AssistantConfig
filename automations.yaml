@@ -1,0 +1,91 @@
+- id: bay_window_close_sunset
+  alias: Close bay window at sunset
+  trigger:
+  - event: sunset
+    platform: sun
+    offset: '-00:30:00'
+  action:
+  - service: script.turn_on
+    entity_id: script.close_bay_window_curtains
+  - service: script.turn_on
+    entity_id: script.close_bedroom_curtains
+
+- action:
+  - alias: Den
+    data:
+      data:
+        color: red
+        duration: 10
+        position: center
+      message: The dryer is done!
+      title: Shokabow Zoo
+    service: notify.den
+  alias: Dryer
+  condition: []
+  id: '1510276719557'
+  trigger:
+  - below: '5'
+    entity_id: sensor.dryer
+    platform: numeric_state
+
+- action:
+  - alias: washer
+    data:
+      data:
+        color: red
+        duration: 10
+        position: center
+      message: The washer is done!
+      title: Shokabow Zoo
+    service: notify.den
+  alias: Washer
+  condition: []
+  id: '1510277108021'
+  trigger:
+  - below: '5'
+    entity_id: sensor.washer
+    platform: numeric_state
+
+- action:
+  - alias: dishwasher
+    data:
+      data:
+        color: red
+        duration: 10
+        position: center
+      message: The dishes are done!
+      title: Shokabow Zoo
+    service: notify.den
+  alias: Dishwasher
+  condition: []
+  id: '1510280497084'
+  trigger:
+  - below: '5'
+    entity_id: sensor.dishwasher
+    platform: numeric_state
+
+- action:
+  - alias: dingdong
+    data:
+      data:
+        color: black
+        duration: 10
+        position: bottom-right
+      message: Someone is at the front door!
+      title: Shokabow Zoo
+    service: notify.den
+  - alias: phone_pic_dingdong
+    data:
+      data:
+        image: ' /api/camera_proxy/camera.front_door?token=0cf3063e3ab36414b43624761c2db8cd9788d9678af88d015a213666160b34f1'
+      message: Someone is at the front door!
+      target: danny_pixel2xl
+      title: Shokabow Zoo
+    service: notify.chrome
+  alias: Ding Dong
+  condition: []
+  id: '1510280858485'
+  trigger:
+  - entity_id: binary_sensor.ring_front_door_ding
+    platform: state
+    to: 'on'

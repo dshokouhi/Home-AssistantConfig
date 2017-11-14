@@ -1,0 +1,89 @@
+ - platform: mqtt
+   name: "Garage Lights"
+   state_topic: "smartthings/Garage Lights/switch"
+   command_topic: "smartthings/Garage Lights/switch"
+   payload_on: "on"
+   payload_off: "off"
+   retain: true
+
+ - platform: mqtt
+   name: "Office Lights"
+   state_topic: "smartthings/Office Lights/switch"
+   command_topic: "smartthings/Office Lights/switch"
+   payload_on: "on"
+   payload_off: "off"
+   retain: true
+
+ - platform: mqtt
+   name: "Kitchen Island Lights"
+   state_topic: "smartthings/Kitchen Island Lights/switch"
+   command_topic: "smartthings/Kitchen Island Lights/switch"
+   payload_on: "on"
+   payload_off: "off"
+   retain: true
+
+ - platform: mqtt
+   name: "Backyard Lights"
+   state_topic: "smartthings/Backyard Lights/switch"
+   command_topic: "smartthings/Backyard Lights/switch"
+   payload_on: "on"
+   payload_off: "off"
+   retain: true
+
+ - platform: rachio
+   access_token: !secret rachiokey
+
+ - platform: template
+   switches:
+     den_fan:
+       friendly_name: Den Fan
+       value_template: "{% if is_state('input_boolean.den_fan', 'on') %}on{% else %}off{% endif %}"
+       turn_on:
+        - service: script.turn_on
+          entity_id: script.on_den_fan
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.den_fan
+       turn_off:
+        - service: script.turn_o
+          entity_id: script.den_fan_off
+        - service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.den_fan
+
+ - platform: template
+   switches:
+     fireplace:
+       friendly_name: Fireplace
+       value_template: "{{ is_state('input_boolean.fireplace', 'on')}}"
+       turn_on:
+        - service: script.turn_on
+          entity_id: script.on_fireplace
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.fireplace
+       turn_off:
+        - service: script.turn_on
+          entity_id: script.off_fireplace
+        - service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.fireplace
+
+ - platform: template
+   switches:
+     bedroom_fan:
+       friendly_name: Bedroom Fan
+       value_template: "{{ is_state('input_boolean.bedroom_fan', 'on')}}"
+       turn_on:
+        - service: script.turn_on
+          entity_id: script.on_bedroom_fan
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.bedroom_fan
+       turn_off:
+        - service: script.turn_on
+          entity_id: script.off_bedroom_fan
+        - service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.bedroom_fan
+
