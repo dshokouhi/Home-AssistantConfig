@@ -116,6 +116,11 @@
    username: !secret fedexuser
    password: !secret fedexpass
 
+ - platform: fitbit
+   clock_format: 12H
+   monitored_resources:
+    - "sleep/startTime"
+
  - platform: yr
 
  - platform: template
@@ -127,3 +132,25 @@
    sensors:
      dryer_running:
        value_template: "{{ states('sensor.dryer') | int > 5}}"
+
+ - platform: pi_hole
+
+ - platform: radarr
+   api_key: !secret radarr
+   host: !secret househost
+   urlbase: /radarr
+   ssl: true
+   port: 443
+   monitored_conditions:
+   - upcoming
+
+ - platform: sonarr
+   api_key: !secret sonarr
+   host: !secret househost
+   urlbase: /sonarr
+   ssl: true
+   port: 443
+   monitored_conditions:
+   - upcoming
+   - wanted
+   - queue

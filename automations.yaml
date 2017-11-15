@@ -108,7 +108,7 @@
     entity_id: remote.harmony_hub_den
   condition:
     condition: template
-    value_template: '{{ trigger.to.state.attributes.current_activity == "Den Fan" }}'
+    value_template: '{{ trigger.to_state.attributes.current_activity == "Den Fan" }}'
   action:
     service: input_boolean.turn_on
     entity_id: input_boolean.den_fan
@@ -119,7 +119,7 @@
     entity_id: remote.harmony_hub_den
   condition:
     condition: template
-    value_template: '{{ trigger.to.state.attributes.current_activity == "PowerOff" }}'
+    value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.den_fan
@@ -132,7 +132,7 @@
     entity_id: remote.harmony_hub_den
   condition:
     condition: template
-    value_template: '{{ trigger.to.state.attributes.current_activity == "Fireplace" }}'
+    value_template: '{{ trigger.to_state.attributes.current_activity == "Fireplace" }}'
   action:
     service: input_boolean.turn_on
     entity_id: input_boolean.fireplace
@@ -143,7 +143,7 @@
     entity_id: remote.harmony_hub_bed
   condition:
     condition: template
-    value_template: '{{ trigger.to.state.attributes.current_activity == "Bedroom fan" }}'
+    value_template: '{{ trigger.to_state.attributes.current_activity == "Bedroom fan" }}'
   action:
     service: input_boolean.turn_on
     entity_id: input_boolean.bedroom_fan
@@ -154,7 +154,7 @@
     entity_id: remote.harmony_hub_bed
   condition:
     condition: template
-    value_template: '{{ trigger.to.state.attributes.current_activity == "PowerOff" }}'
+    value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.bedroom_fan

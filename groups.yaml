@@ -70,6 +70,7 @@ living_room_sensors:
   - sensor.living_room_left_bay_window
   - sensor.living_room_right_bay_window
   - sensor.living_room_side_window
+  - sensor.mailbox
 
 kitchen:
   name: Kitchen

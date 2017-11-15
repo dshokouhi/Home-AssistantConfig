@@ -135,3 +135,10 @@
             or is_state('binary_sensor.living_room_right_bay_window', 'on')
             or is_state('binary_sensor.living_room_side_window', 'on')
             or is_state('binary_sensor.office_window', 'on') }}
+
+ - platform: mqtt
+   name: "Mailbox"
+   state_topic: "smartthings/Mailbox/contact"
+   payload_on: "open"
+   payload_off: "closed"
+   device_class: opening

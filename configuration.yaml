@@ -169,7 +169,7 @@ climate:
    platform: honeywell
    username: !secret honeywell_user
    password: !secret honeywell_pwd
-   scan_interval: 1200
+   scan_interval: 600
    region: us
 
 remote:
@@ -288,6 +288,14 @@ notify:
  - platform: nfandroidtv
    name: Den
    host: 192.168.1.29
+
+ - platform: nfandroidtv
+   name: Kitchen
+   host: 192.168.1.52
+
+ - platform: nfandroidtv
+   name: Bedroom
+   host: 192.168.1.23
 
  - platform: html5
    name: chrome
