@@ -1,0 +1,15 @@
+group.all_devices:
+  hidden: false
+
+group.all_automations:
+  hidden: false
+  friendly_name: All Automations
+
+switch.den_fan:
+  icon: mdi:fan
+
+switch.fireplace:
+  icon: mdi:fire
+
+switch.bedroom_fan:
+  icon: mdi:fan

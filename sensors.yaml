@@ -117,3 +117,13 @@
    password: !secret fedexpass
 
  - platform: yr
+
+ - platform: template
+   sensors:
+     washer_running:
+       value_template: "{{ states('sensor.washer') | int > 5 }}"
+
+ - platform: template
+   sensors:
+     dryer_running:
+       value_template: "{{ states('sensor.dryer') | int > 5}}"

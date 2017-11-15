@@ -10,11 +10,12 @@ homeassistant:
   unit_system: imperial
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/Los_Angeles
-  customize:
-   group.all_devices:
-     hidden: false
-   group.all_automations:
-     hidden: false
+  customize: !include customize.yaml
+  customize_glob: !include custom-ui.yaml
+
+# Custom UI from https://github.com/andrey-git/home-assistant-custom-ui
+customizer:
+  custom_ui: local
 
 # Enables the frontend
 frontend:
@@ -137,6 +138,9 @@ history:
 # View all events in a logbook
 logbook:
 
+#Record events
+recorder:
+
 # Track the sun
 sun:
 
@@ -200,6 +204,14 @@ input_boolean:
   bedroom_fan:
     name: Bedroom Fan
     icon: mdi:fan
+
+  washer_status:
+    name: Washer
+    icon: mdi:washing-machine
+
+  dryer_status:
+    name: Dryer
+    icon: mdi:washing-machine
 
 binary_sensor: !include binary_sensors.yaml
 

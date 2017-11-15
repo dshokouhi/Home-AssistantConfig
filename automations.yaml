@@ -1,5 +1,4 @@
-- id: bay_window_close_sunset
-  alias: Close bay window at sunset
+- alias: Close Curtains At Sunset
   trigger:
   - event: sunset
     platform: sun
@@ -10,8 +9,12 @@
   - service: script.turn_on
     entity_id: script.close_bedroom_curtains
 
-- action:
-  - alias: Den
+- alias: Dryer Notification
+  trigger:
+  - below: '5'
+    entity_id: sensor.dryer
+    platform: numeric_state
+  action:
     data:
       data:
         color: red
@@ -20,16 +23,20 @@
       message: The dryer is done!
       title: Shokabow Zoo
     service: notify.den
-  alias: Dryer
-  condition: []
-  id: '1510276719557'
-  trigger:
-  - below: '5'
-    entity_id: sensor.dryer
-    platform: numeric_state
 
-- action:
-  - alias: washer
+- alias: Washer Notification
+  trigger:
+    platform: state
+    entity_id: sensor.washer_running
+    to: 'False'
+    for:
+      minutes: 3
+  condition:
+    condition: state
+    entity_id: input_boolean.washer_status
+    state: 'on'
+  action:
+  - service: notify.den
     data:
       data:
         color: red
@@ -37,17 +44,19 @@
         position: center
       message: The washer is done!
       title: Shokabow Zoo
-    service: notify.den
-  alias: Washer
-  condition: []
-  id: '1510277108021'
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.washer_status
+  - service: tts.google_say
+    entity_id: media_player.den_home
+    data:
+      message: 'Time to switch laundry!'
+
+- alias: Dishwasher Notification
   trigger:
   - below: '5'
-    entity_id: sensor.washer
+    entity_id: sensor.dishwasher
     platform: numeric_state
-
-- action:
-  - alias: dishwasher
+  action:
     data:
       data:
         color: red
@@ -56,15 +65,13 @@
       message: The dishes are done!
       title: Shokabow Zoo
     service: notify.den
-  alias: Dishwasher
-  condition: []
-  id: '1510280497084'
-  trigger:
-  - below: '5'
-    entity_id: sensor.dishwasher
-    platform: numeric_state
 
-- action:
+- alias: Ding Dong
+  trigger:
+  - entity_id: binary_sensor.ring_front_door_ding
+    platform: state
+    to: 'on'
+  action:
   - alias: dingdong
     data:
       data:
@@ -82,10 +89,126 @@
       target: danny_pixel2xl
       title: Shokabow Zoo
     service: notify.chrome
-  alias: Ding Dong
-  condition: []
-  id: '1510280858485'
+
+- alias: Outside Speakers CC
   trigger:
-  - entity_id: binary_sensor.ring_front_door_ding
+  - platform: state
+    entity_id: media_player.outdoor_speakers
+    to: 'playing'
+  - platform: state
+    entity_id: media_player.outdoor_speakers
+    to: 'paused'
+  action:
+  - service: script.turn_on
+    entity_id: script.zone_2_cc
+
+- alias: Set Den Fan on
+  trigger:
     platform: state
+    entity_id: remote.harmony_hub_den
+  condition:
+    condition: template
+    value_template: '{{ trigger.to.state.attributes.current_activity == "Den Fan" }}'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.den_fan
+
+- alias: Set Den Booleans Off
+  trigger:
+    platform: state
+    entity_id: remote.harmony_hub_den
+  condition:
+    condition: template
+    value_template: '{{ trigger.to.state.attributes.current_activity == "PowerOff" }}'
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.den_fan
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.fireplace
+
+- alias: Set Fireplace on
+  trigger:
+    platform: state
+    entity_id: remote.harmony_hub_den
+  condition:
+    condition: template
+    value_template: '{{ trigger.to.state.attributes.current_activity == "Fireplace" }}'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.fireplace
+
+- alias: Set Bedroom Fan on
+  trigger:
+    platform: state
+    entity_id: remote.harmony_hub_bed
+  condition:
+    condition: template
+    value_template: '{{ trigger.to.state.attributes.current_activity == "Bedroom fan" }}'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.bedroom_fan
+
+- alias: Set Bedroom Booleans Off
+  trigger:
+    platform: state
+    entity_id: remote.harmony_hub_bed
+  condition:
+    condition: template
+    value_template: '{{ trigger.to.state.attributes.current_activity == "PowerOff" }}'
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.bedroom_fan
+
+- alias: Turn on Fireplace Night
+  trigger:
+  - event: sunset
+    platform: sun
+    offset: '-00:30:00'
+  condition:
+    condition: template
+    value_template: "{{ is_state('media_player.sony_bravia_tv', 'on')}}"
+  action:
+  - service: script.turn_on
+    entity_id: script.on_fireplace
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.fireplace
+
+- alias: Washer Start
+  trigger:
+    platform: state
+    entity_id: sensor.washer_running
+    to: 'True'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.washer_status
+
+- alias: Dryer Start
+  trigger:
+    platform: state
+    entity_id: sensor.dryer_running
+    to: 'True'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.dryer_status
+
+- alias: Front Door Open
+  trigger:
+    platform: state
+    entity_id: binary_sensor.front_door
     to: 'on'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.kitchen_home
+    data:
+      message: 'The front door is open'
+
+- alias: Front Door Close
+  trigger:
+    platform: state
+    entity_id: binary_sensor.front_door
+    to: 'off'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.kitchen_home
+    data:
+      message: 'The front door is closed'
