@@ -4,6 +4,10 @@ group.all_devices:
 group.all_automations:
   hidden: false
   friendly_name: All Automations
+  assumed_state: true
+
+group.auto:
+  assumed_state: true
 
 switch.den_fan:
   icon: mdi:fan
@@ -13,3 +17,141 @@ switch.fireplace:
 
 switch.bedroom_fan:
   icon: mdi:fan
+
+switch.kitchen_tv:
+  icon: mdi:television
+
+sensor.fedex:
+  friendly_name: FedEx
+
+sensor.ups:
+  friendly_name: UPS
+
+sensor.yr_symbol:
+  friendly_name: Weather
+
+script.on_bedroom_fan:
+  google_assistant: false
+
+script.off_bedroom_fan:
+  google_assistant: false
+
+script.on_den_fan:
+  google_assistant: false
+
+script.den_fan_off:
+  google_assistant: false
+
+script.on_fireplace:
+  google_assistant: false
+
+script.off_fireplace:
+  google_assistant: false
+
+script.zone_2_cc:
+  google_assistant: false
+
+script.open_den_curtains:
+  google_assistant: false
+
+script.close_den_curtains:
+  google_assistant: false
+
+script.open_bedroom_curtains:
+  google_assistant: false
+
+script.close_bedroom_curtains:
+  google_assistant: false
+
+script.open_bay_window_curtains:
+  google_assistant: false
+
+script.close_bay_window_curtains:
+  google_assistant: false
+
+script.kitchen_tv_on:
+  google_assistant: false
+
+script.kitchen_tv_off:
+  google_assistant: false
+
+script.fire_tv:
+  friendly_name: Fire TV
+
+light.bar_flex:
+  friendly_name: Bar Lights
+
+light.cabinet_lights:
+  friendly_name: Cabinet Lights
+
+light.counter_lights:
+  friendly_name: Counter Lights
+
+switch.kitchen_island_lights:
+  friendly_name: Island Lights
+
+light.bedroom_closet:
+  google_assistant: false
+
+light.office_closet:
+  google_assistant: false
+
+switch.zone_1_patio:
+  google_assistant: false
+
+switch.zone_2_pool:
+  google_assistant: false
+
+switch.zone_3_garage:
+  google_assistant: false
+
+switch.zone_4_firepit:
+  google_assistant: false
+
+switch.zone_5_front_lawn_boogie_car:
+  google_assistant: false
+
+switch.zone_6_front_lawn_walkway:
+  google_assistant: false
+
+switch.zone_7_front_lawn_street:
+  google_assistant: false
+
+light.living_room_lamp:
+  friendly_name: Nook Lamp
+
+light.corner_lamp:
+  friendly_name: Corner Lamp
+
+switch.house_fan:
+  google_assistant: false
+
+light.firepit_lights:
+  friendly_name: Firepit Lights
+
+light.fig_tree_lights:
+  friendly_name: Fig Tree Lights
+
+light.hallway_light:
+  friendly_name: Hallway Light
+
+light.dannys:
+  friendly_name: Dannys Nightstand
+
+light.toshs:
+  friendly_name: Toshs Nightstand
+
+light.o1:
+  google_assistant: false
+
+light.o2:
+  google_assistant: false
+
+light.o3:
+  google_assistant: false
+
+light.o4:
+  google_assistant: false
+
+light.office_lights:
+  friendly_name: Office Lights

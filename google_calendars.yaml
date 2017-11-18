@@ -1,0 +1,54 @@
+
+- cal_id: family03184629390108683075@group.calendar.google.com
+  entities:
+  - device_id: family
+    name: Family
+    track: true
+
+- cal_id: netje2m1f3dbfalblfdpor00j8@group.calendar.google.com
+  entities:
+  - device_id: bills
+    name: Dannys Bills
+    track: true
+
+- cal_id: shorteh7@gmail.com
+  entities:
+  - device_id: shorteh7
+    name: Toshs Calendar
+    track: true
+
+- cal_id: dshokouhi@gmail.com
+  entities:
+  - device_id: dshokouhi
+    name: Dannys Calendar
+    track: true
+
+- cal_id: '#contacts@group.v.calendar.google.com'
+  entities:
+  - device_id: contacts
+    name: Contacts
+    track: false
+
+- cal_id: 17c5co3kkapol150hev2osf8o8@group.calendar.google.com
+  entities:
+  - device_id: danny_work
+    name: Dannys Work
+    track: true
+
+- cal_id: en.judaism#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: jewish_holidays
+    name: Jewish Holidays
+    track: true
+
+- cal_id: en.usa#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: holidays_in_united_states
+    name: Holidays in United States
+    track: true
+
+- cal_id: nba_13_%4cos+%41ngeles+%4cakers#sports@group.v.calendar.google.com
+  entities:
+  - device_id: los_angeles_lakers
+    name: Los Angeles Lakers
+    track: false

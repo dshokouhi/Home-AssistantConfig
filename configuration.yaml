@@ -110,6 +110,7 @@ automation: !include automations.yaml
 
 #secrets: !include secrets.yaml
 
+scene: !include scenes.yaml
 
 http:
   # Uncomment this to add a password (recommended!)
@@ -128,6 +129,9 @@ updater:
 
 # Discover some devices automatically
 discovery:
+  ignore:
+  - netgear_router
+  - harmony
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -138,7 +142,7 @@ history:
 # View all events in a logbook
 logbook:
 
-#Record events
+# Record events
 recorder:
 
 # Track the sun
@@ -155,6 +159,9 @@ tts:
 group: !include groups.yaml
 
 #usps: !include usps.yaml
+
+ifttt:
+   key: !secret ifttt
 
 bloomsky:
    api_key: !secret bloomsky
@@ -188,30 +195,20 @@ mqtt:
   #discovery_prefix: smartthings
   port: 1883
 
+alarm_control_panel:
+  platform: mqtt
+  state_topic: "smartthings/alarm system status/alarmSystemStatus"
+  command_topic: "smartthings/alarm system status/alarmSystemStatus"
+  name: "SHM"
+  payload_disarm: "disarmed"
+  payload_arm_home: "armed_home"
+  payload_arm_away: "armed_away"
+
 light: !include light.yaml
 
 switch: !include switches.yaml
 
-input_boolean:
-  den_fan:
-    name: Den Fan
-    icon: mdi:fan
-
-  fireplace:
-    name: Fireplace
-    icon: mdi:fire
-
-  bedroom_fan:
-    name: Bedroom Fan
-    icon: mdi:fan
-
-  washer_status:
-    name: Washer
-    icon: mdi:washing-machine
-
-  dryer_status:
-    name: Dryer
-    icon: mdi:washing-machine
+input_boolean: !include input_booleans.yaml
 
 binary_sensor: !include binary_sensors.yaml
 
@@ -305,3 +302,22 @@ notify:
 ring:
    username: !secret ringuser
    password: !secret ringpass
+
+google:
+   client_id: !secret google_client_id
+   client_secret: !secret google_secret_key
+
+google_assistant:
+  project_id: hass-ga-908cf
+  client_id: !secret ga_client_id
+  access_token: !secret ga_access_token
+  exposed_domains:
+  - switch
+  - light
+  - script
+  - scene
+
+namecheapdns:
+  host: plex
+  domain: !secret namecheap_site
+  password: !secret namecheap_pw

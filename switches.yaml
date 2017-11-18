@@ -6,13 +6,13 @@
    payload_off: "off"
    retain: true
 
- - platform: mqtt
-   name: "Office Lights"
-   state_topic: "smartthings/Office Lights/switch"
-   command_topic: "smartthings/Office Lights/switch"
-   payload_on: "on"
-   payload_off: "off"
-   retain: true
+ #- platform: mqtt
+ #  name: "Office Lights"
+ #  state_topic: "smartthings/Office Lights/switch"
+ #  command_topic: "smartthings/Office Lights/switch"
+ #  payload_on: "on"
+ #  payload_off: "off"
+ #  retain: true
 
  - platform: mqtt
    name: "Kitchen Island Lights"
@@ -45,7 +45,7 @@
           data:
             entity_id: input_boolean.den_fan
        turn_off:
-        - service: script.turn_o
+        - service: script.turn_on
           entity_id: script.den_fan_off
         - service: input_boolean.turn_off
           data:
@@ -55,7 +55,7 @@
    switches:
      fireplace:
        friendly_name: Fireplace
-       value_template: "{{ is_state('input_boolean.fireplace', 'on')}}"
+       value_template: "{% if is_state('input_boolean.fireplace', 'on') %}on{% else %}off{% endif %}"
        turn_on:
         - service: script.turn_on
           entity_id: script.on_fireplace
@@ -73,7 +73,7 @@
    switches:
      bedroom_fan:
        friendly_name: Bedroom Fan
-       value_template: "{{ is_state('input_boolean.bedroom_fan', 'on')}}"
+       value_template: "{% if is_state('input_boolean.bedroom_fan', 'on') %}on{% else %}off{% endif %}"
        turn_on:
         - service: script.turn_on
           entity_id: script.on_bedroom_fan
@@ -87,3 +87,36 @@
           data:
             entity_id: input_boolean.bedroom_fan
 
+ - platform: template
+   switches:
+     kitchen_tv:
+       friendly_name: Kitchen TV
+       value_template: "{% if is_state('input_boolean.kitchen_tv', 'on') %}on{% else %}off{% endif %}"
+       turn_on:
+        - service: script.turn_on
+          entity_id: script.kitchen_tv_on
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.kitchen_tv
+       turn_off:
+        - service: script.turn_on
+          entity_id: script.kitchen_tv_off
+        - service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.kitchen_tv
+
+ - platform: template
+   switches:
+     house_fan:
+       friendly_name: House Fan
+       value_template: "{% if is_state_attr('climate.thermostat', 'fan_mode', 'on') %}on{% else %}off{% endif %}"
+       turn_on:
+        - service: climate.set_fan_mode
+          data:
+            entity_id: climate.thermostat
+            fan_mode: on
+       turn_off:
+        - service: climate.set_fan_mode
+          data:
+            entity_id: climate.thermostat
+            fan_mode: auto

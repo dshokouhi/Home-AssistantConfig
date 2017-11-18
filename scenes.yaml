@@ -1,0 +1,36 @@
+- name: Goodnight
+  entities:
+    group.all_lights: off
+    switch.bedroom_fan: on
+    switch.kitchen_island_lights: off
+    switch.backyard_lights: off
+
+- name: Colorful
+  entities:
+    light.bar_flex: on
+    light.counter_lights: on
+    light.cabinet_lights: on
+    light.hallway_light: on
+    light.corner_lamp:
+      state: on
+      brightness_pct: 20
+      color_name: 'blue'
+
+- name: Goodbye
+  entities:
+    light.den_lights: off
+    light.kitchen_lights: off
+    switch.kitchen_island_lights: off
+    light.living_room_lights: off
+    switch.backyard_lights: off
+    light.bar_flex: off
+    light.cabinet_lights: off
+    light.counter_lights: off
+    light.dannys: off
+    light.firepit_lights: off
+    light.fig_tree_lights: off
+    light.hallway_light: off
+    light.living_room_lamp: off
+    light.office_lights: off
+    light.patio_lights: off
+    light.toshs: off

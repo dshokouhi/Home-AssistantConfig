@@ -121,6 +121,8 @@
    monitored_resources:
     - "sleep/startTime"
 
+ - platform: moon
+
  - platform: yr
 
  - platform: template
@@ -132,6 +134,11 @@
    sensors:
      dryer_running:
        value_template: "{{ states('sensor.dryer') | int > 5}}"
+
+ - platform: template
+   sensors:
+     dishwasher_running:
+       value_template: "{{ states('sensor.dishwasher') | int > 5}}"
 
  - platform: pi_hole
 
@@ -154,3 +161,101 @@
    - upcoming
    - wanted
    - queue
+
+ - platform: wunderground
+   api_key: !secret wunderground
+   monitored_conditions:
+   - alerts
+   - feelslike_f
+   - heat_index_f
+   - relative_humidity
+   - station_id
+   - temperature_string
+   - temp_f
+   - UV
+   - weather
+   - wind_gust_mph
+   - wind_mph
+   - wind_string
+   - weather_1d
+   - weather_1n
+   - weather_2d
+   - weather_2n
+   - weather_3d
+   - weather_3n
+
+ - platform: template
+   sensors:
+     danny_next_event:
+       friendly_name: Dannys Next Event
+       value_template: >
+         {{ strptime(states.calendar.dshokouhi.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A %B %d at %H:%M") }}:
+         {{ states.calendar.dshokouhi.attributes.message }}
+         {%- if states.calendar.dshokouhi.attributes.location %} at {{ states.calendar.dshokouhi.attributes.location -}}
+         {% endif %}
+       icon_template: >-
+         {% if is_state('calendar.dshokouhi', 'on') %}
+           mdi:message-alert
+         {% else %}
+           mdi:message
+         {% endif %}
+
+ - platform: template
+   sensors:
+     danny_next_meeting:
+       friendly_name: Dannys Next Meeting
+       value_template: >
+         {{ strptime(states.calendar.danny_work.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A %B %d at %H:%M") }}:
+         {{ states.calendar.danny_work.attributes.message }}
+         {%- if states.calendar.danny_work.attributes.location %} at {{ states.calendar.danny_work.attributes.location -}}
+         {% endif %}
+       icon_template: >-
+         {% if is_state('calendar.danny_work', 'on') %}
+           mdi:message-alert
+         {% else %}
+           mdi:message
+         {% endif %}
+
+ - platform: template
+   sensors:
+     tosh_next_event:
+       friendly_name: Toshs Next Event
+       value_template: >
+         {{ strptime(states.calendar.shorteh7.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A %B %d at %H:%M") }}:
+         {{ states.calendar.shorteh7.attributes.message }}
+         {%- if states.calendar.shorteh7.attributes.location %} at {{ states.calendar.shorteh7.attributes.location -}}
+         {% endif %}
+       icon_template: >-
+         {% if is_state('calendar.shorteh7', 'on') %}
+           mdi:message-alert
+         {% else %}
+           mdi:message
+         {% endif %}
+
+ - platform: template
+   sensors:
+     next_us_holiday:
+       friendly_name: Next US Holiday
+       value_template: >
+         {{ strptime(states.calendar.holidays_in_united_states.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A, %B %d") }}:
+         {{ states.calendar.holidays_in_united_states.attributes.message }}
+       icon_template: >-
+         {% if is_state('calendar.holidays_in_united_states', 'on') %}
+           mdi:briefcase-check
+         {% else %}
+           mdi:domain
+         {% endif %}
+
+ - platform: template
+   sensors:
+     next_jewish_holiday:
+       friendly_name: Next Jewish Holiday
+       value_template: >
+         {{ strptime(states.calendar.jewish_holidays.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A, %B %d") }}:
+         {{ states.calendar.jewish_holidays.attributes.message }}
+       icon_template: >-
+         {% if is_state('calendar.jewish_holidays', 'on') %}
+           mdi:briefcase-check
+         {% else %}
+           mdi:domain
+         {% endif %}

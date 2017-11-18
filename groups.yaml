@@ -2,11 +2,9 @@ den:
   name: Den
   control: hidden
   entities:
-  - light.den_lamp
+  - light.corner_lamp
   - light.den_lights
   - remote.harmony_hub_den
-  - media_player.kodi_den
-  - media_player.sony_bravia_tv
   - light.tv_lights
   - switch.den_fan
   - switch.fireplace
@@ -31,10 +29,10 @@ bedroom:
   - light.bedroom_closet
   - light.bedroom_lights
   - light.biased_lights
-  - light.dannys_nightstand
+  - light.dannys
   - remote.harmony_hub_bed
   - media_player.kodi_bedroom
-  - light.toshs_nightstand
+  - light.toshs
   - group.bedroom_sensors
   view: false
 
@@ -66,21 +64,22 @@ living_room_sensors:
   - binary_sensor.living_room_left_bay_window
   - binary_sensor.living_room_right_bay_window
   - binary_sensor.living_room_side_window
+  - binary_sensor.mailbox
   - sensor.front_door
   - sensor.living_room_left_bay_window
   - sensor.living_room_right_bay_window
   - sensor.living_room_side_window
-  - sensor.mailbox
 
 kitchen:
   name: Kitchen
   control: hidden
   entities:
-  - light.bar_lights
-  - light.island_cabinet_lights
-  - light.kitchen_counter_lights
+  - light.bar_flex
+  - light.cabinet_lights
+  - light.counter_lights
   - light.kitchen_lights
   - switch.kitchen_island_lights
+  - switch.kitchen_tv
   - group.kitchen_sensors
 
 kitchen_sensors:
@@ -151,9 +150,9 @@ hallway:
   name: Hallway & Office
   control: hidden
   entities:
-  - light.hallyway_light
+  - light.hallway_light
   - light.office_closet
-  - switch.office_lights
+  - light.office_lights
   - group.hallway_sensors
 
 hallway_sensors:
@@ -198,11 +197,9 @@ default_view:
   entities:
   - climate.thermostat
   - group.den
-  - group.bedroom
   - group.kitchen
   - group.living_room
-  - group.hallway
-  - group.outside
+  - alarm_control_panel.shm
   - sun.sun
   - sensor.yr_symbol
   - binary_sensor.dannys_pixel_2
@@ -255,10 +252,12 @@ services:
   view: yes
   icon: mdi:home-circle
   entities:
+   - group.pihole_status
    - group.sab
    - group.ring
    - group.sprinklers
    - group.weather
+   - group.forecast
 
 media_players:
   name: Media Players
@@ -277,3 +276,58 @@ media_players:
   - media_player.outdoor_speakers
   - media_player.roku_yj007e334976
   - media_player.sony_bravia_tv
+  - media_player.bedroom_speaker
+
+forecast:
+ name: Forecast
+ entities:
+  - sensor.pws_weather
+  - sensor.pws_alerts
+  - sensor.pws_feelslike_f
+  - sensor.pws_weather_1d
+  - sensor.pws_weather_1n
+  - sensor.pws_weather_2d
+  - sensor.pws_weather_2n
+  - sensor.pws_weather_3d
+  - sensor.pws_weather_3n
+
+calendar_sensors:
+  name: Calendar
+  icon: mdi:calendar
+  entities:
+  - sensor.danny_next_event
+  - sensor.tosh_next_event
+  - sensor.danny_next_meeting
+  - sensor.next_us_holiday
+  - sensor.next_jewish_holiday
+
+calendar:
+  name: Calendar
+  icon: mdi:calendar
+  view: yes
+  entities:
+  - group.calendar_sensors
+
+pihole_status:
+  name: "Pi-Hole"
+  entities:
+   - sensor.pihole_ads_blocked_today
+   - sensor.pihole_dns_queries_today
+   - sensor.pihole_ads_percentage_blocked_today
+   - sensor.pihole_domains_blocked
+
+rooms:
+  name: Room
+  icon: mdi:home-modern
+  view: yes
+  entities:
+  - group.bedroom
+  - group.hallway
+  - group.outside
+
+house_settings:
+  name: House Settings
+  control: hidden
+  entities:
+  - alarm_control_panel.shm
+  - input_boolean.vacation_mode

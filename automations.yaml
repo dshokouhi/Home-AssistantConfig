@@ -3,6 +3,15 @@
   - event: sunset
     platform: sun
     offset: '-00:30:00'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.bay_window_curtains
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.bedroom_curtains
+      state: 'on'
   action:
   - service: script.turn_on
     entity_id: script.close_bay_window_curtains
@@ -11,10 +20,17 @@
 
 - alias: Dryer Notification
   trigger:
-  - below: '5'
-    entity_id: sensor.dryer
-    platform: numeric_state
+    platform: state
+    entity_id: sensor.dryer_running
+    to: 'False'
+    for:
+      minutes: 3
+  condition:
+    condition: state
+    entity_id: input_boolean.dryer_status
+    state: 'on'
   action:
+  - service: notify.den
     data:
       data:
         color: red
@@ -22,7 +38,12 @@
         position: center
       message: The dryer is done!
       title: Shokabow Zoo
-    service: notify.den
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.washer_status
+  - service: tts.google_say
+    entity_id: media_player.den_home
+    data:
+      message: 'Time to get your clothes!'
 
 - alias: Washer Notification
   trigger:
@@ -53,10 +74,17 @@
 
 - alias: Dishwasher Notification
   trigger:
-  - below: '5'
-    entity_id: sensor.dishwasher
-    platform: numeric_state
+    platform: state
+    entity_id: sensor.dishwasher_running
+    to: 'False'
+    for:
+      minutes: 3
+  condition:
+    condition: state
+    entity_id: input_boolean.dishwasher_status
+    state: 'on'
   action:
+  - service: notify.den
     data:
       data:
         color: red
@@ -64,7 +92,12 @@
         position: center
       message: The dishes are done!
       title: Shokabow Zoo
-    service: notify.den
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.dishwasher_status
+  - service: tts.google_say
+    entity_id: media_player.den_home
+    data:
+      message: 'Dishes are done!'
 
 - alias: Ding Dong
   trigger:
@@ -84,7 +117,7 @@
   - alias: phone_pic_dingdong
     data:
       data:
-        image: ' /api/camera_proxy/camera.front_door?token=0cf3063e3ab36414b43624761c2db8cd9788d9678af88d015a213666160b34f1'
+        image: ' /api/camera_proxy/camera.front_door?token=d0019f905c4dd2406b6619f361dcd3d439b73a6eb3229801d58c1a6c14c4bd30'
       message: Someone is at the front door!
       target: danny_pixel2xl
       title: Shokabow Zoo
@@ -113,7 +146,7 @@
     service: input_boolean.turn_on
     entity_id: input_boolean.den_fan
 
-- alias: Set Den Booleans Off
+- alias: Set Den Harmony Off
   trigger:
     platform: state
     entity_id: remote.harmony_hub_den
@@ -121,10 +154,12 @@
     condition: template
     value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
   action:
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.den_fan
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.fireplace
+  - service: switch.turn_off
+    entity_id: switch.den_fan
+  - service: switch.turn_off
+    entity_id: switch.fireplace
+  - service: switch.turn_off
+    entity_id: switch.kitchen_tv_off
 
 - alias: Set Fireplace on
   trigger:
@@ -145,8 +180,8 @@
     condition: template
     value_template: '{{ trigger.to_state.attributes.current_activity == "Bedroom fan" }}'
   action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.bedroom_fan
+  - service: switch.turn_on
+    entity_id: switch.bedroom_fan
 
 - alias: Set Bedroom Booleans Off
   trigger:
@@ -156,8 +191,23 @@
     condition: template
     value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
   action:
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.bedroom_fan
+  - service: switch.turn_off
+    entity_id: switch.bedroom_fan
+
+- alias: Fireplace TV Between Sunset and Sunrise
+  trigger:
+  - platform: state
+    entity_id: media_player.sony_bravia_tv
+    to: 'on'
+  condition:
+    condition: sun
+    after: sunset
+    after_offset: "-00:30:00"
+    before: sunrise
+    before_offset: "00:30:00"
+  action:
+  - service: switch.turn_on
+    entity_id: switch.fireplace
 
 - alias: Turn on Fireplace Night
   trigger:
@@ -168,10 +218,8 @@
     condition: template
     value_template: "{{ is_state('media_player.sony_bravia_tv', 'on')}}"
   action:
-  - service: script.turn_on
-    entity_id: script.on_fireplace
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.fireplace
+  - service: switch.turn_on
+    entity_id: switch.fireplace
 
 - alias: Washer Start
   trigger:
@@ -198,7 +246,7 @@
     to: 'on'
   action:
   - service: tts.google_say
-    entity_id: media_player.kitchen_home
+    entity_id: media_player.living_room_home
     data:
       message: 'The front door is open'
 
@@ -209,6 +257,229 @@
     to: 'off'
   action:
   - service: tts.google_say
-    entity_id: media_player.kitchen_home
+    entity_id: media_player.living_room_home
     data:
       message: 'The front door is closed'
+
+- alias: Front Door Alarm Pic
+  trigger:
+    platform: state
+    entity_id: alarm_control_panel.shm
+    to: armed_away
+    for:
+      minutes: 3
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.front_door
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.den_sliding_door
+      state: 'on'
+  action:
+  - service: notify.chrome
+    data:
+      data:
+        image: ' /api/camera_proxy/camera.living_room_camera?token=7f99f9d138c8e54f59553a8b6d1511a96a5fb7176323b8d8c9145bb7b72e840a'
+      message: "Alarm Tripped!!"
+      target: danny_pixel2xl
+      title: Shokabow Zoo
+
+- alias: Alarm Tripped
+  trigger:
+    platform: state
+    entity_id: alarm_control_panel.shm
+    to: 'armed_away'
+    for:
+      minutes: 3
+  condition:
+    condition: state
+    entity_id: binary_sensor.windows
+    state: 'on'
+  action:
+  - service: notify.chrome
+    data:
+      data:
+        image: ' /api/camera_proxy/camera.living_room_camera?token=7f99f9d138c8e54f59553a8b6d1511a96a5fb7176323b8d8c9145bb7b72e840a'
+      message: "Alarm Tripped!!"
+      target: danny_pixel2xl
+      title: Shokabow Zoo
+
+- alias: Goodbye on Alarm
+  trigger:
+    platform: state
+    entity_id: alarm_control_panel.shm
+    to: 'armed_away'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.goodbye
+
+- alias: Office Lights On
+  trigger:
+    platform: state
+    entity_id: light.office_lights
+    to: 'on'
+  action:
+  - service: light.turn_on
+    entity_id: light.o1
+  - service: light.turn_on
+    entity_id: light.o2
+  - service: light.turn_on
+    entity_id: light.o3
+  - service: light.turn_on
+    entity_id: light.o4
+  - service: light.turn_on
+    entity_id: light.office_lights
+    data:
+      brightness_pct: 100
+
+- alias: Office Lights Off
+  trigger:
+    platform: state
+    entity_id: light.office_lights
+    to: 'off'
+  action:
+  - service: light.turn_off
+    entity_id: light.o1
+  - service: light.turn_off
+    entity_id: light.o2
+  - service: light.turn_off
+    entity_id: light.o3
+  - service: light.turn_off
+    entity_id: light.o4
+
+- alias: Dog Lights
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: "-00:30:00"
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.shm
+    state: 'armed_away'
+  action:
+  - service: light.turn_on
+    entity_id: light.corner_lamp
+    data:
+      kelvin: 2703
+      brightness_pct: 100
+
+- alias: Boogie Morning Rule On
+  trigger:
+  - platform: time
+    at: "07:30:00"
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+    - condition: state
+      entity_id: alarm_control_panel.shm
+      state: 'disarmed'
+  action:
+  - service: light.turn_on
+    entity_id: light.office_lights
+  - condition: time
+    after: "08:15:00"
+  - service: light.turn_off
+    entity_id: light.office_lights
+
+- alias: Notify Alarm On
+  trigger:
+    platform: state
+    entity_id: alarm_control_panel.shm
+    to: armed_away
+    for:
+      minutes: 3
+  action:
+  - service: notify.chrome
+    data:
+      message: "The alarm has been activated"
+      target: danny_pixel2xl
+      title: Shokabow Zoo
+
+- alias: Notify Alarm Off
+  trigger:
+    platform: state
+    entity_id: alarm_control_panel.shm
+    to: disarmed
+  action:
+  - service: notify.chrome
+    data:
+      data:
+        image: ' /api/camera_proxy/camera.living_room_camera?token=7f99f9d138c8e54f59553a8b6d1511a96a5fb7176323b8d8c9145bb7b72e840a'
+      message: "The alarm has been deactivated"
+      target: danny_pixel2xl
+      title: Shokabow Zoo
+
+- alias: Set Bay Window Boolean Open
+  trigger:
+    platform: state
+    entity_id: remote.harmony_hub_den
+  condition:
+    condition: template
+    value_template: '{{ trigger.to_state.attributes.current_activity == "Open Bay window curtains" }}'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.bay_window_curtains
+
+- alias: Set Bay Window Boolean Close
+  trigger:
+    platform: state
+    entity_id: remote.harmony_hub_den
+  condition:
+    condition: template
+    value_template: '{{ trigger.to_state.attributes.current_activity == "Close Bay window curtains" }}'
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.bay_window_curtains
+
+- alias: Set Den Curtain Boolean Open
+  trigger:
+    platform: state
+    entity_id: remote.harmony_hub_den
+  condition:
+    condition: template
+    value_template: '{{ trigger.to_state.attributes.current_activity == "Open den curtains" }}'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.den_curtains
+
+- alias: Set Den Curtain Boolean Close
+  trigger:
+    platform: state
+    entity_id: remote.harmony_hub_den
+  condition:
+    condition: template
+    value_template: '{{ trigger.to_state.attributes.current_activity == "Close den curtains" }}'
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.den_curtains
+
+- alias: Set Bay Window Boolean Open
+  trigger:
+    platform: state
+    entity_id: remote.harmony_hub_bed
+  condition:
+    condition: template
+    value_template: '{{ trigger.to_state.attributes.current_activity == "Open bedroom curtains" }}'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.bedroom_curtains
+
+- alias: Set Bay Window Boolean Close
+  trigger:
+    platform: state
+    entity_id: remote.harmony_hub_bed
+  condition:
+    condition: template
+    value_template: '{{ trigger.to_state.attributes.current_activity == "Close bedroom curtains" }}'
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.bedroom_curtains
