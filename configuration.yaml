@@ -1,3 +1,4 @@
+
 homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
@@ -13,7 +14,7 @@ homeassistant:
   customize: !include customize.yaml
   customize_glob: !include custom-ui.yaml
 
-# Custom UI from https://github.com/andrey-git/home-assistant-custom-ui
+# Custom UI tfrom https://github.com/andrey-git/home-assistant-custom-ui
 customizer:
   custom_ui: local
 
@@ -106,6 +107,8 @@ frontend:
 # Enables configuration UI
 config:
 
+cloud:
+
 automation: !include automations.yaml
 
 #secrets: !include secrets.yaml
@@ -126,12 +129,12 @@ http:
 # For more information, please see:
 # https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
 updater:
+  include_used_components: true
 
 # Discover some devices automatically
 discovery:
   ignore:
   - netgear_router
-  - harmony
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -142,8 +145,18 @@ history:
 # View all events in a logbook
 logbook:
 
+logger:
+  default: warn
+  logs:
+    homeassistant.components.zha: debug
+    homeassistant.components.websocket_api: info
+    bellows.uart: info
+
 # Record events
 recorder:
+  purge_interval: 2
+  purge_keep_days: 5
+  #db_url: mysql://hass:boogie1226@localhost/homeassistant
 
 # Track the sun
 sun:
@@ -171,38 +184,49 @@ device_tracker:
     host: 192.168.1.1
     username: !secret router_user
     password: !secret router_pwd
+    consider_home: 180
+    
+  - platform: bluetooth_tracker
+    consider_home: 180
 
 climate:
    platform: honeywell
    username: !secret honeywell_user
    password: !secret honeywell_pwd
-   scan_interval: 600
+   scan_interval: 1200
    region: us
 
-remote:
-  - platform: harmony
-    name: Harmony Hub den
-    host: 192.168.1.9
+# remote:
+ # - platform: harmony
+   # name: Harmony Hub den
+   # host: 192.168.1.9
 
-remote 1:
- - platform: harmony
-   name: Harmony Hub bed
-   host: 192.168.1.21
+# remote 1:
+ # - platform: harmony
+   # name: Harmony Hub bed
+   # host: 192.168.1.21
 
 mqtt:
-  broker: localhost
+  broker: 192.168.1.43
   #discovery: true
   #discovery_prefix: smartthings
   port: 1883
 
 alarm_control_panel:
-  platform: mqtt
-  state_topic: "smartthings/alarm system status/alarmSystemStatus"
-  command_topic: "smartthings/alarm system status/alarmSystemStatus"
+  platform: manual
   name: "SHM"
-  payload_disarm: "disarmed"
-  payload_arm_home: "armed_home"
-  payload_arm_away: "armed_away"
+  pending_time: 60
+  delay_time: 60
+  #state_topic: "smartthings/alarm system status/alarmSystemStatus"
+  #command_topic: "smartthings/alarm system status/alarmSystemStatus"
+  #name: "SHM"
+  #payload_disarm: "disarmed"
+  #payload_arm_home: "armed_home"
+  #payload_arm_away: "armed_away"
+
+timer:
+  door_lock:
+    duration: "00:03:00"
 
 light: !include light.yaml
 
@@ -214,18 +238,14 @@ binary_sensor: !include binary_sensors.yaml
 
 sensor: !include sensors.yaml
 
-lock:
-   platform: mqtt
-   name: "Front Door Lock"
-   state_topic: "smartthings/Front Door Lock/lock"
-   command_topic: "smartthings/Front Door Lock/lock"
-   payload_lock: "locked"
-   payload_unlock: "unlocked"
-   retain: true
-
-media_player:
- - platform: onkyo
-   host: 192.168.1.25
+# lock:
+   # platform: mqtt
+   # name: "Front Door Lock"
+   # state_topic: "smartthings/Front Door Lock/lock"
+   # command_topic: "smartthings/Front Door Lock/lock"
+   # payload_lock: "locked"
+   # payload_unlock: "unlocked"
+   # retain: true
 
 media_player 1:
  - platform: kodi
@@ -240,12 +260,9 @@ media_player 2:
    host: 192.168.1.29
 
 media_player 3:
- - platform: cast
-
-media_player 4:
  - platform: plex
 
-media_player 5:
+media_player 4:
  - platform: kodi
    host: 192.168.1.23
    port: 6363
@@ -253,33 +270,65 @@ media_player 5:
    password: !secret kodi
    name: "Kodi Bedroom"
 
-amcrest:
- #- host: 192.168.1.42
- #  port: 1025
- #  username: admin
- #  password: !secret boogie
- #  name: "Den Camera"
+media_player 5:
+ - platform: kodi
+   host: 192.168.1.52
+   port: 8181
+   username: kodi
+   password: !secret kodi
+   name: "Kodi Kitchen"
 
- - host: 192.168.1.41
-   port: 1026
-   username: admin
-   password: !secret boogie
-   name: "Living Room Camera"
+media_player 6:
+ - platform: cast
 
- - host: 192.168.1.36
-   port: 1027
-   username: admin
-   password: !secret boogie1
-   name: "Outdoor Camera"
+#amcrest:
+ # - host: 192.168.1.42
+   # port: 1025
+   # username: !secret amcrest_user
+   # password: !secret amcrest_pass
+   # name: "Den Camera"
+   # resolution: high
+   # stream_source: rtsp
+
+ # - host: 192.168.1.41
+   # port: 1026
+   # username: !secret amcrest_user
+   # password: !secret amcrest_pass
+   # name: "Living Room Camera"
+   # resolution: high
+   # stream_source: rtsp
+
+ # - host: 192.168.1.36
+   # port: 1027
+   # username: !secret amcrest_user
+   # password: !secret boogie1
+   # name: "Outdoor Camera"
 
 camera:
  - platform: mjpeg
-   mjpeg_url: http://192.168.1.46/img/video.mjpeg
+   mjpeg_url: !secret kitchen_camera
    name: "Kitchen Camera"
 
- - platform: amcrest
+ - platform: mjpeg
+   mjpeg_url: !secret den_camera_videofeed
+   name: "Den Camera Video Feed"
+
+ - platform: generic
+   still_image_url: !secret den_camera_snapshot
+   name: "Den Camera Still Image"
+
+ - platform: mjpeg
+   mjpeg_url: !secret living_room_camera_videofeed
+   name: "Living Room Camera Video Feed"
+
+ - platform: generic
+   still_image_url: !secret living_room_camera_snapshot
+   name: "Living Room Camera Still Image"
+
+ #- platform: amcrest
 
  - platform: ring
+ 
 
 notify:
  - platform: nfandroidtv
@@ -299,6 +348,24 @@ notify:
    gcm_api_key: !secret gcm_api_key
    gcm_sender_id: !secret gcm_sender_id
 
+ - platform: group
+   name: chrome_alerts
+   services:
+   - service: chrome
+     data:
+       target: ["danny_pixel", "tosh_phone"]
+       title: Shokabow Zoo
+
+alert:
+  front_door_unlocked:
+    name: Front Door is unlocked
+    entity_id: lock.front_door_lock_locked
+    state: 'unlocked'
+    repeat: 5
+    skip_first: true
+    notifiers:
+    - chrome_alerts
+
 ring:
    username: !secret ringuser
    password: !secret ringpass
@@ -311,13 +378,212 @@ google_assistant:
   project_id: hass-ga-908cf
   client_id: !secret ga_client_id
   access_token: !secret ga_access_token
+  api_key: !secret ga_api_key
   exposed_domains:
   - switch
   - light
   - script
   - scene
+  entity_config:
+    script.on_bedroom_fan:
+      expose: false
+    script.off_bedroom_fan:
+      expose: false
+    script.on_den_fan:
+      expose: false
+    script.den_fan_off:
+      expose: false
+    script.on_fireplace:
+      expose: false
+    script.off_fireplace:
+      expose: false
+    script.zone_2_cc:
+      expose: false
+    script.open_den_curtains:
+      expose: false
+    script.close_den_curtains:
+      expose: false
+    script.open_bedroom_curtains:
+      expose: false
+    script.close_bedroom_curtains:
+      expose: false
+    script.open_bay_window_curtains:
+      expose: false
+    script.close_bay_window_curtains:
+      expose: false
+    script.stop_den_curtains:
+      expose: false      
+    script.kitchen_tv_on:
+      expose: false
+    script.kitchen_tv_off:
+      expose: false
+    script.fire_tv:
+      expose: false
+    light.living_room:
+      expose: false
+    switch.zone_1_patio:
+      expose: false
+    switch.zone_2_pool:
+      expose: false
+    switch.zone_3_garage:
+      expose: false
+    switch.zone_4_firepit:
+      expose: false
+    switch.zone_5_front_lawn_boogie_car:
+      expose: false
+    switch.zone_6_front_lawn_walkway:
+      expose: false
+    switch.zone_7_front_lawn_street:
+      expose: false
+    light.o1:
+      expose: false
+    light.o2:
+      expose: false
+    light.o3:
+      expose: false
+    light.o4:
+      expose: false      
+    switch.shm:
+      expose: false
+    light.cree_connected_a19_60w_equivalent_fe010d00_10:
+      expose: false
+    light.cree_connected_a19_60w_equivalent_fe010d32_10:
+      expose: false      
+    light.bedroom_closet:
+      expose: false
+    light.centralite_3210l_0b0383b4_1:
+      expose: false
+    light.centralite_3210l_0a932dbf_1:
+      expose: false
+    light.cree_connected_a19_60w_equivalent_fe013293_10:
+      expose: false      
+    light.office_closet:
+      expose: false
+    switch.living_room_camera_plug_switch:
+      expose: false
+    light.sengled_z01cia19nae26_03003148_1:
+      expose: false
+    light.centralite_3210l_0b2d4417_1:
+      expose: false
+    switch.dryer_switch:
+      expose: false
+    switch.washer_switch:
+      expose: false
+    switch.mr_neato_schedule:
+      expose: false
+    light.patio_bbq:
+      expose: false      
+    light.patio_table_left:
+      expose: false      
+    light.patio_table_right:
+      expose: false      
+    light.patio_pool_light:
+      expose: false
 
 namecheapdns:
   host: plex
   domain: !secret namecheap_site
   password: !secret namecheap_pw
+  
+zwave:
+  usb_path: /dev/ttyACM0
+  network_key: !secret zwave_network_key
+  autoheal: false
+  device_config:
+    light.den_lights_level:
+      refresh_value: true
+      delay: 3
+      #polling_intensity: 1
+    light.kitchen_lights_level:
+      refresh_value: true
+      delay: 3
+      #polling_intensity: 1
+    light.living_room_lights_level:
+      refresh_value: true
+      delay: 3
+      #polling_intensity: 1
+    light.bedroom_lights_level:
+      refresh_value: true
+      delay: 3
+      #polling_intensity: 1
+    # sensor.dryer_power_2:
+      # polling_intensity: 1
+    # sensor.washer_power_2:
+      # polling_intensity: 1
+
+zha:
+  usb_path: /dev/zigbee
+  database_path: zigbee.db
+
+emulated_hue:
+  exposed_domains:
+  - switch
+  - light
+
+input_select:
+  radio_station:
+    name: Radio Station
+    options:
+    - KROQ
+    - Jack FM
+    - Nova 100
+    - SmoothFM
+    - SBS Chill
+    - "None"
+    initial: "None"
+    icon: mdi:radio
+
+  streaming_audio:
+    name: Casting Group
+    options:
+    - Whole House
+    - Outside
+    - Office
+    - Living Room
+    - Kitchen
+    - Den
+    - Bathroom
+    - Bedroom
+    - "None"
+    initial: "None"
+    icon: mdi:cast
+
+# neato:
+  # username: !secret neato_user
+  # password: !secret neato_pass
+
+cover:
+  - platform: template
+    covers:
+      den_curtains:
+        friendly_name: Den Curtains
+        value_template: "{{ is_state('input_boolean.den_curtains', 'on' ) }}"
+        open_cover:
+          - service: script.turn_on
+            entity_id: script.open_den_curtains
+        close_cover:
+          - service: script.turn_on
+            entity_id: script.close_den_curtains
+        stop_cover:
+          - service: script.turn_on
+            entity_id: script.stop_den_curtains
+
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+  - key: !secret xiaomi_gateway_key
+    host: 192.168.1.58
+
+hue:
+  bridges:
+  - host: 192.168.1.53
+    allow_unreachable: true
+    
+#zoneminder:
+ # host: 192.168.1.54:8080
+ # username: !secret zoneminder_user
+ # password: !secret zoneminder_pass
+ 
+weather:
+  - platform: darksky
+    api_key: !secret darksky_api

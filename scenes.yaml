@@ -1,28 +1,53 @@
 - name: Goodnight
   entities:
-    group.all_lights: off
     switch.bedroom_fan: on
-    switch.kitchen_island_lights: off
-    switch.backyard_lights: off
+    switch.house_fan: on
+    switch.island_lights_switch: off
+    switch.backyard_lights_switch: off
+    light.hallway_light: off
+    light.den_lights_level: off
+    light.kitchen_lights_level: off
+    light.living_room_lights_level: off
+    light.bedroom_lights_level: off
+    light.corner_lamp: off
+    light.bar_flex: off
+    light.dannys: off
+    light.toshs: off
+    light.cabinet_lights: off
+    light.counter_lights: off
+    light.patio: off
+    light.office_lights: off
+    light.garden_lights: off
+    #switch.little_christmas_trees_switch: off
+    #switch.christmas_tree_switch: off
+    light.den_bookshelf_left: off
+    light.nook_lamp: off
+    input_boolean.night_mode: on
+    light.front_door_lamp: off
 
 - name: Colorful
   entities:
     light.bar_flex: on
     light.counter_lights: on
     light.cabinet_lights: on
-    light.hallway_light: on
+    light.hallway_light:
+      state: on
+      brightness_pct: 40
+      color_name: 'green'
     light.corner_lamp:
       state: on
       brightness_pct: 20
       color_name: 'blue'
+    #switch.little_christmas_trees_switch: on
+    #switch.christmas_tree_switch: on
 
 - name: Goodbye
   entities:
-    light.den_lights: off
-    light.kitchen_lights: off
-    switch.kitchen_island_lights: off
-    light.living_room_lights: off
-    switch.backyard_lights: off
+    light.den_lights_level: off
+    light.kitchen_lights_level: off
+    switch.island_lights_switch: off
+    light.living_room_lights_level: off
+    switch.backyard_lights_switch: off
     light.bar_flex: off
     light.cabinet_lights: off
     light.counter_lights: off
@@ -32,5 +57,11 @@
     light.hallway_light: off
     light.living_room_lamp: off
     light.office_lights: off
-    light.patio_lights: off
+    light.patio: off
     light.toshs: off
+    light.bedroom_lights_level: off
+    light.garden_lights: off
+    #switch.little_christmas_trees_switch: off
+    #switch.christmas_tree_switch: off
+    light.den_bookshelf_left: off
+    light.nook_lamp: off

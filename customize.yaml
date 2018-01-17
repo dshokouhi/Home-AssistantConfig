@@ -31,55 +31,97 @@ sensor.yr_symbol:
   friendly_name: Weather
 
 script.on_bedroom_fan:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.off_bedroom_fan:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.on_den_fan:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.den_fan_off:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.on_fireplace:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.off_fireplace:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.zone_2_cc:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.open_den_curtains:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.close_den_curtains:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.open_bedroom_curtains:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.close_bedroom_curtains:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.open_bay_window_curtains:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.close_bay_window_curtains:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
+script.stop_den_curtains:
+  #google_assistant: false
+  emulated_hue_hidden: true
+  
 script.kitchen_tv_on:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.kitchen_tv_off:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 script.fire_tv:
   friendly_name: Fire TV
+  emulated_hue_hidden: true
+  #google_assistant: false
+
+switch.fire_tv:
+  friendly_name: Fire TV
+  emulated_hue_hidden: true
+
+script.roku:
+  friendly_name: Roku
+  emulated_hue_hidden: true
+
+script.netflix:
+  friendly_name: Netflix
+  emulated_hue_hidden: true
+
+script.pc:
+  friendly_name: PC
+  emulated_hue_hidden: true
+
+script.xbox:
+  friendly_name: XBox
+  emulated_hue_hidden: true
 
 light.bar_flex:
   friendly_name: Bar Lights
+  icon: mdi:martini
 
 light.cabinet_lights:
   friendly_name: Cabinet Lights
@@ -87,44 +129,51 @@ light.cabinet_lights:
 light.counter_lights:
   friendly_name: Counter Lights
 
-switch.kitchen_island_lights:
+switch.island_lights_switch:
   friendly_name: Island Lights
+  icon: mdi:ceiling-light
 
-light.bedroom_closet:
-  google_assistant: false
+light.patio:
+  friendly_name: Patio Lights
 
-light.office_closet:
-  google_assistant: false
+light.living_room:
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 switch.zone_1_patio:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 switch.zone_2_pool:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 switch.zone_3_garage:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 switch.zone_4_firepit:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 switch.zone_5_front_lawn_boogie_car:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 switch.zone_6_front_lawn_walkway:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 switch.zone_7_front_lawn_street:
-  google_assistant: false
-
-light.living_room_lamp:
-  friendly_name: Nook Lamp
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 light.corner_lamp:
   friendly_name: Corner Lamp
+  icon: mdi:lamp
 
 switch.house_fan:
-  google_assistant: false
+  icon: mdi:fan
 
 light.firepit_lights:
   friendly_name: Firepit Lights
@@ -142,16 +191,241 @@ light.toshs:
   friendly_name: Toshs Nightstand
 
 light.o1:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 light.o2:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 light.o3:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 light.o4:
-  google_assistant: false
+  #google_assistant: false
+  emulated_hue_hidden: true
 
 light.office_lights:
   friendly_name: Office Lights
+  
+switch.shm:
+  #google_assistant: false
+  emulated_hue_hidden: true
+
+light.cree_connected_a19_60w_equivalent_fe010d00_10:
+  #google_assistant: false
+  emulated_hue_hidden: true
+
+light.cree_connected_a19_60w_equivalent_fe010d32_10:
+  #google_assistant: false
+  emulated_hue_hidden: true
+  
+light.bedroom_closet:
+  #google_assistant: false
+  emulated_hue_hidden: true
+
+light.centralite_3210l_0b0383b4_1:
+  friendly_name: Bedroom Plug
+  #google_assistant: false
+
+binary_sensor.centralite_3320l_0b666bfc_1:
+  friendly_name: Bedroom Closet Door
+  device_class: door
+
+sensor.centralite_3320l_0b666bfc_1:
+  friendly_name: Bedroom Closet Door
+
+binary_sensor.centralite_3320l_0b63b331_1:
+  friendly_name: Bathroom Window
+  device_class: window
+  
+sensor.centralite_3320l_0b63b331_1:
+  friendly_name: Bathroom Window
+  
+binary_sensor.centralite_3320l_0b629e9b_1:
+  friendly_name: Office Window
+  device_class: window
+  
+sensor.centralite_3320l_0b629e9b_1:
+  friendly_name: Office Window
+  
+binary_sensor.centralite_3320l_0b636d0d_1:
+  friendly_name: Bedroom Window
+  device_class: window
+  
+sensor.centralite_3320l_0b636d0d_1:
+  friendly_name: Bedroom Window
+  
+binary_sensor.centralite_3320l_057b833c_1:
+  friendly_name: Front Door
+  device_class: door
+  
+sensor.centralite_3320l_057b833c_1:
+  friendly_name: Front Door
+  
+binary_sensor.centralite_3320l_0b636eab_1:
+  friendly_name: Kitchen Window
+  device_class: window
+  
+sensor.centralite_3320l_0b636eab_1:
+  friendly_name: Kitchen Window
+  
+binary_sensor.centralite_3320l_0b6289f7_1:
+  friendly_name: Living Room Side Window
+  device_class: window
+  
+sensor.centralite_3320l_0b6289f7_1:
+  friendly_name: Living Room  Side Window
+  
+binary_sensor.centralite_3320l_05989606_1:
+  friendly_name: Living Room Right Bay Window
+  device_class: 'window'
+  
+sensor.centralite_3320l_05989606_1:
+  friendly_name: Living Room Right Bay Window
+  
+binary_sensor.centralite_3320l_0b665f4e_1:
+  friendly_name: Living Room Left Bay Window
+  device_class: window
+  
+sensor.centralite_3320l_0b665f4e_1:
+  friendly_name: Living Room Left Bay Window
+  
+binary_sensor.centralite_3320l_057ce46f_1:
+  friendly_name: Den Window
+  device_class: window
+  
+sensor.centralite_3320l_057ce46f_1:
+  friendly_name: Den Window
+  
+binary_sensor.centralite_3320l_057b7c44_1:
+  friendly_name: Den Sliding Door
+  device_class: door
+  
+sensor.centralite_3320l_057b7c44_1:
+  friendly_name: Den Sliding Door
+  
+light.centralite_3210l_0a932dbf_1:
+  friendly_name: Office Plug
+  #google_assistant: false
+
+light.cree_connected_a19_60w_equivalent_fe013293_10:
+  #google_assistant: false
+  emulated_hue_hidden: true
+  
+light.office_closet:
+  #google_assistant: false
+  emulated_hue_hidden: true
+
+binary_sensor.centralite_3320l_0b666ed0_1:
+  friendly_name: Office Closet Door
+  device_class: door
+
+sensor.centralite_3320l_0b666ed0_1:
+  friendly_name: Office Closet Door
+
+light.den_lights_level:
+  friendly_name: Den Lights
+
+switch.backyard_lights_switch:
+  friendly_name: Backyard Lights
+  icon: mdi:lightbulb
+
+switch.little_christmas_trees_switch:
+  friendly_name: Little Christmas Trees
+  icon: mdi:pine-tree
+
+sensor.den_motion_sensor_temperature:
+  friendly_name: Den Motion Sensor
+
+switch.christmas_tree_switch:
+  friendly_name: Christmas Tree
+  icon: mdi:pine-tree
+
+switch.living_room_camera_plug_switch:
+  friendly_name: Living Room Camera Plug
+  #google_assistant: false
+  emulated_hue_hidden: true
+  icon: mdi:camera
+
+light.osram_lightify_flex_rgbw_00026309_3:
+  friendly_name: TV Lights
+  icon: mdi:television
+
+light.kitchen_lights_level:
+  friendly_name: Kitchen Lights
+
+light.living_room_lights_level:
+  friendly_name: Living Room Lights
+
+light.bedroom_lights_level:
+  friendly_name: Bedroom Lights
+
+sensor.den_motion_battery:
+  friendly_name: Den Motion Sensor Battery
+
+switch.garage_lights_switch:
+  friendly_name: Garage Lights
+  icon: mdi:lightbulb
+
+lock.front_door_lock_locked:
+  friendly_name: Front Door Lock
+
+switch.siren_switch:
+  friendly_name: Siren
+  icon: mdi:alarm
+
+sensor.front_door_lock_battery:
+  friendly_name: Front Door Lock Battery
+
+light.sengled_z01cia19nae26_03003148_1:
+  #google_assistant: false
+  emulated_hue_hidden: true
+
+light.centralite_3210l_0b2d4417_1:
+  friendly_name: Pool Plug
+  #google_assistant: false
+  emulated_hue_hidden: true
+
+switch.dryer_switch:
+  friendly_name: Dryer
+  #google_assistant: false
+  emulated_hue_hidden: true
+
+switch.washer_switch:
+  friendly_name: Washer
+  #google_assistant: false
+  emulated_hue_hidden: true
+
+switch.mr_neato_schedule:
+  #google_assistant: false
+  emulated_hue_hidden: true
+
+switch.vacuum:
+  friendly_name: Vacuum
+
+light.patio_bbq:
+  #google_assistant: false
+  emulated_hue_hidden: true
+  
+light.patio_table_left:
+  #google_assistant: false
+  emulated_hue_hidden: true
+  
+light.patio_table_right:
+  #google_assistant: false
+  emulated_hue_hidden: true
+  
+light.patio_pool_light:
+  #google_assistant: false
+  emulated_hue_hidden: true
+
+light.gateway_light_34ce0091f546:
+  friendly_name: Xiaomi Gateway Light
+  
+light.front_door_lamp:
+  icon: mdi:lamp
+  
+light.nook_lamp:
+  icon: mdi:lamp

@@ -22,7 +22,7 @@ kitchen_tv:
   name: Kitchen TV
   icon: mdi:television
 
-dishwaser_status:
+dishwasher_status:
   name: Dishwasher
 
 vacation_mode:
@@ -41,3 +41,15 @@ bay_window_curtains:
 
 bedroom_curtains:
   name: Bedroom Curtains
+
+mailbox:
+  name: Mailbox
+  icon: mdi:mailbox
+
+night_mode:
+  name: Night Mode
+  icon: mdi:weather-night
+
+movie_mode:
+  name: Movie Mode
+  icon: mdi:movie

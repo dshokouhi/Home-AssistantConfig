@@ -58,6 +58,14 @@ open_bedroom_curtains:
   - service: input_boolean.turn_on
     entity_id: input_boolean.bedroom_curtains
 
+stop_den_curtains:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Stop
+      device: 44914489
+      entity_id: remote.harmony_hub_den
+      
 on_bedroom_fan:
   sequence:
   - service: remote.send_command
@@ -159,3 +167,10 @@ fire_tv:
     entity_id: remote.harmony_hub_bed
     data:
       activity: 19492437
+
+roku:
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub_den
+    data:
+      activity: 27030102

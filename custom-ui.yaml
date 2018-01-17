@@ -44,3 +44,6 @@ group.sab_sensors:
 group.ring_sensor:
   custom_ui_state_card: state-card-custom-ui
   state_card_mode: badges
+
+"sensor.epson_ink_level_*":
+  icon: mdi:cup-water

@@ -1,74 +1,74 @@
- - platform: mqtt
-   name: "Den Sliding Door"
-   state_topic: "smartthings/Den Sliding Door/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Den Sliding Door"
+   # state_topic: "smartthings/Den Sliding Door/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Den Window"
-   state_topic: "smartthings/Den Window/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Den Window"
+   # state_topic: "smartthings/Den Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Kitchen Window"
-   state_topic: "smartthings/Kitchen Window/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Kitchen Window"
+   # state_topic: "smartthings/Kitchen Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Living Room Side Window"
-   state_topic: "smartthings/Living Room Side Window/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Living Room Side Window"
+   # state_topic: "smartthings/Living Room Side Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Living Room Left Bay Window"
-   state_topic: "smartthings/Living Room Left Bay Window/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Living Room Left Bay Window"
+   # state_topic: "smartthings/Living Room Left Bay Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Living Room Right Bay Window"
-   state_topic: "smartthings/Living Room Right Bay Window/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Living Room Right Bay Window"
+   # state_topic: "smartthings/Living Room Right Bay Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Bedroom Window"
-   state_topic: "smartthings/Bedroom Window/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Bedroom Window"
+   # state_topic: "smartthings/Bedroom Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Office Window"
-   state_topic: "smartthings/Office Window/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Office Window"
+   # state_topic: "smartthings/Office Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Bathroom Window"
-   state_topic: "smartthings/Bathroom Window/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Bathroom Window"
+   # state_topic: "smartthings/Bathroom Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Office Closet Door"
-   state_topic: "smartthings/Office Closet Door/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Office Closet Door"
+   # state_topic: "smartthings/Office Closet Door/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Bedroom Closet Door"
-   state_topic: "smartthings/Bedroom Closet Door/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Bedroom Closet Door"
+   # state_topic: "smartthings/Bedroom Closet Door/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
- - platform: mqtt
-   name: "Front Door"
-   state_topic: "smartthings/Front Door/temperature"
-   unit_of_measurement: "F"
-   qos: 0
+ # - platform: mqtt
+   # name: "Front Door"
+   # state_topic: "smartthings/Front Door/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
 
  - platform: sabnzbd
    host: 192.168.1.24
@@ -82,17 +82,17 @@
      - 'disk_size'
      - 'disk_free'
 
- - platform: mqtt
-   name: "Washer"
-   state_topic: "smartthings/Washer/power"
-   unit_of_measurement: "Watts"
-   qos: 0
+ # - platform: mqtt
+   # name: "Washer"
+   # state_topic: "smartthings/Washer/power"
+   # unit_of_measurement: "Watts"
+   # qos: 0
 
- - platform: mqtt
-   name: "Dryer"
-   state_topic: "smartthings/Dryer/power"
-   unit_of_measurement: "Watts"
-   qos: 0
+ # - platform: mqtt
+   # name: "Dryer"
+   # state_topic: "smartthings/Dryer/power"
+   # unit_of_measurement: "Watts"
+   # qos: 0
 
  - platform: mqtt
    name: "Dishwasher"
@@ -104,9 +104,11 @@
    name: Crime Reports
    radius: 1000
 
- - platform: amcrest
+# - platform: amcrest
 
  - platform: ring
+   monitored_conditions:
+   - 'battery'
 
  - platform: ups
    username: !secret upsuser
@@ -125,22 +127,43 @@
 
  - platform: yr
 
+ - platform: season
+
  - platform: template
    sensors:
      washer_running:
-       value_template: "{{ states('sensor.washer') | int > 5 }}"
+       value_template: "{{ states('sensor.washer_power_2') | int > 5 }}"
 
  - platform: template
    sensors:
      dryer_running:
-       value_template: "{{ states('sensor.dryer') | int > 5}}"
+       value_template: "{{ states('sensor.dryer_power_2') | int > 5}}"
 
  - platform: template
    sensors:
      dishwasher_running:
        value_template: "{{ states('sensor.dishwasher') | int > 5}}"
 
+ - platform: template
+   sensors:
+     den_motion_battery:
+       value_template: "{{ states.zwave.den_motion_sensor.attributes.battery_level }}"
+       unit_of_measurement: '%'
+
+ - platform: template
+   sensors:
+     front_door_lock_battery:
+       value_template: "{{ states.zwave.front_door_lock.attributes.battery_level }}"
+       unit_of_measurement: '%'
+
+ - platform: template
+   sensors:
+     den_smoke_battery:
+       value_template: "{{ states.zwave.den_smoke.attributes.battery_level }}"
+       unit_of_measurement: '%'
+
  - platform: pi_hole
+   host: 192.168.1.54
 
  - platform: radarr
    api_key: !secret radarr
@@ -159,8 +182,6 @@
    port: 443
    monitored_conditions:
    - upcoming
-   - wanted
-   - queue
 
  - platform: wunderground
    api_key: !secret wunderground
@@ -259,3 +280,155 @@
          {% else %}
            mdi:domain
          {% endif %}
+
+ - platform: template
+   sensors:
+     den_smoke_status:
+       value_template: '{%- if is_state("sensor.den_smoke_alarm_type", "0") %}
+                         Idle
+                         {%else%}
+                           {%- if is_state("sensor.den_smoke_alarm_type", "1") %}
+                           Fire
+                           {%- elif is_state("sensor.den_smoke_alarm_type", "2") %}
+                           CO2
+                           {%- elif is_state("sensor.den_smoke_alarm_type", "12") %}
+                           Testing
+                           {%- elif is_state("sensor.den_smoke_alarm_type", "13") %}
+                           Idle
+                           {% else %}
+                           Unknown
+                           {%- endif %}
+                         {%endif%}'
+       friendly_name: 'Den Smoke'
+
+ - platform: template
+   sensors:
+     bedroom_smoke_status:
+       value_template: '{%- if is_state("sensor.bedroom_smoke_alarm_type", "0") %}
+                         Idle
+                         {%else%}
+                           {%- if is_state("sensor.bedroom_smoke_alarm_type", "1") %}
+                           Fire
+                           {%- elif is_state("sensor.bedroom_smoke_alarm_type", "2") %}
+                           CO2
+                           {%- elif is_state("sensor.bedroom_smoke_alarm_type", "12") %}
+                           Testing
+                           {%- elif is_state("sensor.bedroom_smoke_alarm_type", "13") %}
+                           Idle
+                           {% else %}
+                           Unknown
+                           {%- endif %}
+                         {%endif%}'
+       friendly_name: 'Bedroom Smoke'
+
+ - platform: template
+   sensors:
+     office_smoke_status:
+       value_template: '{%- if is_state("sensor.office_smoke_alarm_type", "0") %}
+                         Idle
+                         {%else%}
+                           {%- if is_state("sensor.office_smoke_alarm_type", "1") %}
+                           Fire
+                           {%- elif is_state("sensor.office_smoke_alarm_type", "2") %}
+                           CO2
+                           {%- elif is_state("sensor.office_smoke_alarm_type", "12") %}
+                           Testing
+                           {%- elif is_state("sensor.office_smoke_alarm_type", "13") %}
+                           Idle
+                           {% else %}
+                           Unknown
+                           {%- endif %}
+                         {%endif%}'
+       friendly_name: 'Office Smoke'
+
+ - platform: command_line
+   name: Epson Ink Level Black
+   command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_K.PNG/ && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100; exit }'
+   unit_of_measurement: '%'
+   scan_interval: 14400
+
+ - platform: command_line
+   name: Epson Ink Level Magenta
+   command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_M.PNG/ && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100 }'
+   unit_of_measurement: '%'
+   scan_interval: 14400
+
+ - platform: command_line
+   name: Epson Ink Level Yellow
+   command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_Y.PNG/ && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100 }'
+   unit_of_measurement: '%'
+   scan_interval: 14400
+
+ - platform: command_line
+   name: Epson Ink Level Cyan
+   command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_C.PNG/ && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100 }'
+   unit_of_measurement: '%'
+   scan_interval: 14400
+
+ - platform: command_line
+   name: Epson Ink Level Photo Black
+   command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_K.PNG/ {i++}i==2 && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100; exit }'
+   unit_of_measurement: '%'
+   scan_interval: 14400
+
+ # - platform: mqtt_room
+   # device_id: '10f1f2efbebd'
+   # name: Danny Room Presence
+   # state_topic: 'room_presence'
+
+ - platform: template
+   sensors:
+     front_door_action:
+       friendly_name: 'Front Door Action'
+       value_template: >
+         {% if is_state('sensor.front_door_lock_alarm_type', '22') %}
+           Manual Unlock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '21') %}
+           Manual Lock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '19') %}
+           Keypad Unlock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '18') %}
+           Keypad Lock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '25') %}
+           Wireless Unlock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '24') %}
+           Wireless Lock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '9') %}
+           Lock Jammed
+         {% elif is_state('sensor.front_door_lock_alarm_type', '161') %}
+           Tamper Alarm
+         {% else %}
+           Other
+         {% endif %}
+
+ - platform: template
+   sensors:
+     front_door_code:
+       friendly_name: 'Front Door Code'
+       value_template: >
+         {% if is_state('sensor.front_door_lock_alarm_type', '19') or is_state('sensor.front_door_lock_alarm_type', '18') %}
+          {% if is_state('sensor.front_door_lock_alarm_level', '1') %}
+            Us
+          {% elif is_state('sensor.front_door_lock_alarm_level', '2') %}
+            Dad
+          {% elif is_state('sensor.front_door_lock_alarm_level', '3') %}
+            Zoo Keeper
+          {% elif is_state('sensor.front_door_lock_alarm_level', '4') %}
+            Courtney
+          {% elif is_state('sensor.front_door_lock_alarm_level', '5') %}
+            Izzy
+          {% else %}
+            Unknown
+          {% endif %}
+         {% else %}
+          n/a
+         {% endif %}
+
+ # - platform: rest
+   # name: Danny Fitbit
+   # resource: http://192.168.1.47:5000/api/search/c6:17:76:1b:30:c2
+   
+ - platform: xbox_live
+   api_key: !secret xbox_live_api
+   xuid:
+   - !secret xbox_gamer_tag

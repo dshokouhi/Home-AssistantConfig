@@ -1,0 +1,24 @@
+sensor.dryer_power_2:
+  ignored: false
+  polling_intensity: 0
+sensor.washer_power_2:
+  ignored: false
+  polling_intensity: 0
+light.kitchen_lights_level:
+  ignored: false
+  polling_intensity: 0
+light.den_lights_level:
+  ignored: false
+  polling_intensity: 0
+light.living_room_lights_level:
+  ignored: false
+  polling_intensity: 0
+light.bedroom_lights_level:
+  ignored: false
+  polling_intensity: 0
+sensor.washer_power:
+  ignored: false
+  polling_intensity: 0
+sensor.dryer_power:
+  ignored: false
+  polling_intensity: 0
