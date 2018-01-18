@@ -163,3 +163,10 @@
 - Cool down house if thermostat is off and above 80
 - Set thermostat cooling if left on and we are away
 - Set thermostat heating if left on and we are away
+
+### Movie Mode
+- Movie mode turned on turns on the TV lights, turns off all other lights but the Den, turns on fireplace if it is not already on
+- Close curtains if movie mode is on and the sun is above the horizon
+- When Kodi is playing turn off the den lights
+- When Kodi is paused for 30 seconds or idle for 1 minute turn on den and kitchen lights
+- Open curtains if they were closed
