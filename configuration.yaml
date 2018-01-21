@@ -281,6 +281,9 @@ media_player 5:
 media_player 6:
  - platform: cast
 
+media_player 7:
+ - platform: onkyo
+ 
 #amcrest:
  # - host: 192.168.1.42
    # port: 1025
@@ -548,6 +551,26 @@ input_select:
     initial: "None"
     icon: mdi:cast
 
+  harmony_den:
+    name: Harmony Den Activities
+    options:
+    - Select Input
+    - Netflix
+    - Watch PC
+    - Watch Roku
+    - Watch Smart TV
+    - Xbox
+    - Power Off
+    
+  harmony_bed:
+    name: Harmony Bedroom Activities
+    options:
+    - Select Input
+    - Bedroom Bluray
+    - Bedroom Chromecast
+    - Watch Fire TV
+    - Power Off
+    
 # neato:
   # username: !secret neato_user
   # password: !secret neato_pass

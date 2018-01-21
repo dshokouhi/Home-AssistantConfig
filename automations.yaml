@@ -266,6 +266,82 @@
   - service: input_boolean.turn_on
     entity_id: input_boolean.den_curtains
 
+- alias: Harmony Den activity start
+  trigger:
+    platform: state
+    entity_id: input_select.harmony_den
+    from: 'Select Input'
+  action:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub_den
+    data_template:
+      activity: >
+        {% if is_state("input_select.harmony_den", "Netflix") %}
+          19168891
+        {% elif is_state("input_select.harmony_den", "Watch Roku") %}
+          27030102
+        {% elif is_state("input_select.harmony_den", "Watch PC") %}
+          25516536
+        {% elif is_state("input_select.harmony_den", "Watch Smart TV") %}
+          19688407
+        {% elif is_state("input_select.harmony_den", "Xbox") %}
+          22642672
+        {% else %}
+        {% endif %}
+  - service: input_select.select_option
+    entity_id: input_select.harmony_den
+    data_template:
+      option: "Select Input"
+      
+- alias: Harmony Bed activity start
+  trigger:
+    platform: state
+    entity_id: input_select.harmony_bed
+    from: 'Select Input'
+  action:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub_bed
+    data_template:
+      activity: >
+        {% if is_state("input_select.harmony_den", "Bedroom Bluray") %}
+          23738920
+        {% elif is_state("input_select.harmony_den", "Bedroom Chromecast") %}
+          23739184
+        {% elif is_state("input_select.harmony_den", "Watch Fire TV") %}
+          19492437
+        {% else %}
+        {% endif %}
+  - service: input_select.select_option
+    entity_id: input_select.harmony_bed
+    data_template:
+      option: "Select Input"
+      
+- alias: Harmony Den power off
+  trigger:
+    platform: state
+    entity_id: input_select.harmony_den
+    to: 'Power Off'
+  action:
+  - service: remote.turn_off
+    entity_id: remote.harmony_hub_den
+  - service: input_select.select_option
+    entity_id: input_select.harmony_den
+    data_template:
+      option: "Select Input"
+      
+- alias: Harmony Bed power off
+  trigger:
+    platform: state
+    entity_id: input_select.harmony_bed
+    to: 'Power Off'
+  action:
+  - service: remote.turn_off
+    entity_id: remote.harmony_hub_bed
+  - service: input_select.select_option
+    entity_id: input_select.harmony_bed
+    data_template:
+      option: "Select Input"
+      
 ################################################
 #
 #      Laundry notifications
@@ -531,17 +607,15 @@
     entity_id: alarm_control_panel.shm
     state: 'armed_away'
   action:
-  - service: switch.turn_on
-    entity_id: switch.siren
   - service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.shm
-  - service: notify.chrome
-    data:
-      data:
-        url: !secret living_room_camera_snapshot
-      message: "Alarm Tripped, open to see picture!! {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # data:
+        # url: !secret living_room_camera_snapshot
+      # message: "Alarm Tripped, open to see picture!! {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
 
 - alias: Goodbye on Alarm
   trigger:
@@ -782,6 +856,8 @@
       message: "Alarm Triggered, open to see picture!! {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+  - service: switch.turn_on
+    entity_id: switch.siren_switch
       
 #- alias: Ding Dong
 #  trigger:
@@ -957,7 +1033,7 @@
     entity_id: script.open_bedroom_curtains
   - service: switch.turn_off
     entity_id: switch.bedroom_fan
-  - wait_template: "{{ states.device_tracker.pixel_xl.state == 'not_home' }}"
+  - wait_template: "{{ states.binary_sensor.natachas_bayesian_presence.state == 'off' }}"
   - service: light.turn_off
     entity_id: light.office_lights
   - service: light.turn_off
@@ -1680,6 +1756,30 @@
       message: "you are not home"
       target: danny_pixel
       title: Shokabow Zoo
+      
+- alias: Notify bayesian on tosh
+  trigger:
+    platform: state
+    entity_id: binary_sensor.natachas_bayesian_presence
+    to: 'on'
+  action:
+  - service: notify.chrome
+    data:
+      message: "tosh is home"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
+
+- alias: Notify bayesian off tosh
+  trigger:
+    platform: state
+    entity_id: binary_sensor.natachas_bayesian_presence
+    to: 'off'
+  action:
+  - service: notify.chrome
+    data:
+      message: "tosh is not home"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
 
 ################################################
 #
@@ -1823,3 +1923,55 @@
   action:
   - service: script.turn_on
     entity_id: script.open_den_curtains
+    
+################################################
+#
+#      Water Heater Notification
+#
+################################################
+
+- alias: Water heater notification
+  trigger:
+    platform: state
+    entity_id: binary_sensor.water_leak_sensor_158d0001bc24f5
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: binary_sensor.shokabow_weather_rain
+    state: 'off'
+  action:
+  - service: notify.chrome
+    data:
+      message: "The water heater is leaking"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
+  - condition: state
+    entity_id: group.tracked_users
+    state: 'home'
+  - service: tts.google_say
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data:
+      message: 'The water heater is leaking'
+      
+- alias: Water heater and rain notification
+  trigger:
+    platform: state
+    entity_id: binary_sensor.water_leak_sensor_158d0001bc24f5
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: binary_sensor.shokabow_weather_rain
+    state: 'on'
+  action:
+  - service: notify.chrome
+    data:
+      message: "There is rain getting into the water heater"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
+  - condition: state
+    entity_id: group.tracked_users
+    state: 'home'
+  - service: tts.google_say
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data:
+      message: 'There is rain getting into the water heater'

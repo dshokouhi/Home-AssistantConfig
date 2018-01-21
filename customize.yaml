@@ -429,3 +429,12 @@ light.front_door_lamp:
   
 light.nook_lamp:
   icon: mdi:lamp
+  
+binary_sensor.water_leak_sensor_158d0001bc24f5:
+  friendly_name: Water Heater Leak Sensor
+  
+binary_sensor.natachas_bayesian_presence:
+  device_class: presence
+  
+binary_sensor.dannys_bayesian_presence:
+  device_class: presence

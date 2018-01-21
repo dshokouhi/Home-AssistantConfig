@@ -432,3 +432,15 @@
    api_key: !secret xbox_live_api
    xuid:
    - !secret xbox_gamer_tag
+   
+ - platform: template
+   sensors:
+     harmony_den_activity:
+       value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity }}"
+       friendly_name: Harmony Den Input
+       
+ - platform: template
+   sensors:
+     harmony_bed_activity:
+       value_template: "{{ states.remote.harmony_hub_bed.attributes.current_activity }}"
+       friendly_name: Harmony Bed Input

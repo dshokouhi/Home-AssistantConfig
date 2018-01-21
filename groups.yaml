@@ -120,6 +120,7 @@ outside_sensors:
   entities:
   - binary_sensor.garage_door_backyard
   - binary_sensor.garage_frontyard
+  - binary_sensor.water_leak_sensor_158d0001bc24f5
   - sensor.dryer_power_2
   - sensor.washer_power_2
 
@@ -218,6 +219,8 @@ default_view:
   - device_tracker.androidc4ba94519e6666f2
   - device_tracker.pixel_2_xl
   - device_tracker.pixel_xl
+  - binary_sensor.dannys_bayesian_presence
+  - binary_sensor.natachas_bayesian_presence
 
 rooms:
   name: Room
@@ -249,7 +252,7 @@ tracked_users:
   - device_tracker.androidc4ba94519e6666f2
   - device_tracker.pixel_2_xl
   - device_tracker.pixel_xl
-
+  
 auto:
   name: Automations
   icon: mdi:home-automation
@@ -286,6 +289,7 @@ services:
    - group.weather
    - group.forecast
    - group.epson_printer
+   - weather.dark_sky
 
 media_players:
   name: Media Players
