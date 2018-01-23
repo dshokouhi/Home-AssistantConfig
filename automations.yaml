@@ -858,30 +858,7 @@
       title: Shokabow Zoo
   - service: switch.turn_on
     entity_id: switch.siren_switch
-      
-#- alias: Ding Dong
-#  trigger:
-#  - entity_id: binary_sensor.ring_front_door_ding
-#    platform: state
-#    to: 'on'
-#  action:
-#  - alias: dingdong
-#    data:
-#      data:
-#        color: black
-#        duration: 10
-#        position: bottom-right
-#      message: Someone is at the front door!
-#      title: Shokabow Zoo
-#    service: notify.den
-#  - alias: phone_pic_dingdong
-#    data:
-#      data:
-#        image: ' /api/camera_proxy/camera.front_door?api_password=D$hok8641'
-#      message: Someone is at the front door!
-#      target: danny_pixel2xl
-#      title: Shokabow Zoo
-#    service: notify.chrome
+
 
 ################################################
 #
