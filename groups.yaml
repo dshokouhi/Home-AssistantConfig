@@ -209,16 +209,17 @@ default_view:
   - alarm_control_panel.shm
   - sun.sun
   - sensor.yr_symbol
-  - binary_sensor.dannys_pixel_2
-  - binary_sensor.natachas_pixel
+  #- binary_sensor.dannys_pixel_2
+  #- binary_sensor.natachas_pixel
   - sensor.crime_reports
   - sensor.fedex
   - sensor.ups
+  - sensor.waqi_reseda_los_angeles
   - binary_sensor.windows
-  - device_tracker.10f1f2822f12
-  - device_tracker.androidc4ba94519e6666f2
-  - device_tracker.pixel_2_xl
-  - device_tracker.pixel_xl
+  #- device_tracker.10f1f2822f12
+  #- device_tracker.androidc4ba94519e6666f2
+  #- device_tracker.pixel_2_xl
+  #- device_tracker.pixel_xl
   - binary_sensor.dannys_bayesian_presence
   - binary_sensor.natachas_bayesian_presence
 

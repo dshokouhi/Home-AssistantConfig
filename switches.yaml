@@ -38,13 +38,13 @@
    payload_off: "off"
    retain: true
 
- - platform: mqtt
-   name: "shm"
-   state_topic: "smartthings/shm/switch"
-   command_topic: "smartthings/shm/switch"
-   payload_on: "on"
-   payload_off: "off"
-   retain: true
+ # - platform: mqtt
+   # name: "shm"
+   # state_topic: "smartthings/shm/switch"
+   # command_topic: "smartthings/shm/switch"
+   # payload_on: "on"
+   # payload_off: "off"
+   # retain: true
 
  - platform: rachio
    access_token: !secret rachiokey

@@ -1727,6 +1727,7 @@
       message: "front door lock zwave died"
       target: danny_pixel
       title: Shokabow Zoo
+      
 ################################################
 #
 #      Bayesian Automations
@@ -1741,10 +1742,26 @@
   action:
   - service: notify.chrome
     data:
-      message: "you are home"
+      message: "Welcome home, do you need help?"
       target: danny_pixel
       title: Shokabow Zoo
+      data:
+        actions:
+        - action: "help"
+          title: "Yes"
 
+- alias: Notify help needed at cars
+  trigger:
+    platform: event
+    event_type: html5_notification.clicked
+    event_data:
+      action: help
+  action:
+  - service: tts.google_say
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data:
+      message: 'Boogie, I need help outside'
+      
 - alias: Notify bayesian off
   trigger:
     platform: state
@@ -1753,7 +1770,7 @@
   action:
   - service: notify.chrome
     data:
-      message: "you are not home"
+      message: "You are not home, did you forget anything?"
       target: danny_pixel
       title: Shokabow Zoo
       
@@ -1765,9 +1782,13 @@
   action:
   - service: notify.chrome
     data:
-      message: "tosh is home"
+      message: "Welcome home, do you need help?"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+      data:
+        actions:
+        - action: "help"
+          title: "Yes"
 
 - alias: Notify bayesian off tosh
   trigger:
@@ -1777,7 +1798,7 @@
   action:
   - service: notify.chrome
     data:
-      message: "tosh is not home"
+      message: "Tosh has left the zoo.  Did you forget anything?"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
 
@@ -1854,7 +1875,9 @@
       brightness_pct: 100
       kelvin: 6500
   - service: light.turn_off
-    entity_id: light.kitchen_lights_level, light.corner_lamp, switch.island_lights_switch, light.patio
+    entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio
+  - service: switch.turn_off
+    entity_id: switch.island_lights_switch
   - condition: state
     entity_id: switch.fireplace
     state: 'off'
@@ -1885,7 +1908,9 @@
     state: 'on'
   action:
   - service: light.turn_off
-    entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.patio
+    entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.patio, light.corner_lamp
+  - service: switch.turn_off
+    entity_id: switch.island_lights_switch
     
 - alias: Turn on lights when movie paused
   trigger:

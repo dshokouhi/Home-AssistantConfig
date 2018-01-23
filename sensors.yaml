@@ -144,11 +144,11 @@
      dishwasher_running:
        value_template: "{{ states('sensor.dishwasher') | int > 5}}"
 
- - platform: template
-   sensors:
-     den_motion_battery:
-       value_template: "{{ states.zwave.den_motion_sensor.attributes.battery_level }}"
-       unit_of_measurement: '%'
+ # - platform: template
+   # sensors:
+     # den_motion_battery:
+       # value_template: "{{ states.zwave.den_motion_sensor.attributes.battery_level }}"
+       # unit_of_measurement: '%'
 
  - platform: template
    sensors:
@@ -444,3 +444,12 @@
      harmony_bed_activity:
        value_template: "{{ states.remote.harmony_hub_bed.attributes.current_activity }}"
        friendly_name: Harmony Bed Input
+       
+ - platform: uptime
+ 
+ - platform: waqi
+   token: !secret aqi_key
+   locations:
+   - losangeles
+   stations:
+   - "Reseda, Los Angeles"

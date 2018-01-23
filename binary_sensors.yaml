@@ -98,19 +98,19 @@
 
  - platform: ring
 
- - platform: mqtt
-   name: "Dannys Pixel 2"
-   state_topic: "smartthings/Dannys Pixel 2/presence"
-   payload_on: "present"
-   payload_off: "not present"
-   device_class: occupancy
+ # - platform: mqtt
+   # name: "Dannys Pixel 2"
+   # state_topic: "smartthings/Dannys Pixel 2/presence"
+   # payload_on: "present"
+   # payload_off: "not present"
+   # device_class: occupancy
 
- - platform: mqtt
-   name: "Natachas Pixel"
-   state_topic: "smartthings/Natachas Pixel/presence"
-   payload_on: "present"
-   payload_off: "not present"
-   device_class: occupancy
+ # - platform: mqtt
+   # name: "Natachas Pixel"
+   # state_topic: "smartthings/Natachas Pixel/presence"
+   # payload_on: "present"
+   # payload_off: "not present"
+   # device_class: occupancy
 
  - platform: template
    sensors:

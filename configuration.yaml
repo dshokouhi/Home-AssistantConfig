@@ -109,6 +109,8 @@ config:
 
 cloud:
 
+map:
+
 automation: !include automations.yaml
 
 #secrets: !include secrets.yaml
@@ -156,7 +158,7 @@ logger:
 recorder:
   purge_interval: 2
   purge_keep_days: 5
-  #db_url: mysql://hass:boogie1226@localhost/homeassistant
+  #db_url: !secret db_url
 
 # Track the sun
 sun:
@@ -284,28 +286,28 @@ media_player 6:
 media_player 7:
  - platform: onkyo
  
-#amcrest:
- # - host: 192.168.1.42
-   # port: 1025
-   # username: !secret amcrest_user
-   # password: !secret amcrest_pass
-   # name: "Den Camera"
-   # resolution: high
-   # stream_source: rtsp
+amcrest:
+ - host: 192.168.1.42
+   port: 1025
+   username: !secret amcrest_user
+   password: !secret amcrest_pass
+   name: "Den Camera"
+   resolution: high
+   stream_source: rtsp
 
- # - host: 192.168.1.41
-   # port: 1026
-   # username: !secret amcrest_user
-   # password: !secret amcrest_pass
-   # name: "Living Room Camera"
-   # resolution: high
-   # stream_source: rtsp
+ - host: 192.168.1.41
+   port: 1026
+   username: !secret amcrest_user
+   password: !secret amcrest_pass
+   name: "Living Room Camera"
+   resolution: high
+   stream_source: rtsp
 
- # - host: 192.168.1.36
-   # port: 1027
-   # username: !secret amcrest_user
-   # password: !secret boogie1
-   # name: "Outdoor Camera"
+ - host: 192.168.1.36
+   port: 1027
+   username: !secret amcrest_user
+   password: !secret boogie1
+   name: "Outdoor Camera"
 
 camera:
  - platform: mjpeg

@@ -438,3 +438,6 @@ binary_sensor.natachas_bayesian_presence:
   
 binary_sensor.dannys_bayesian_presence:
   device_class: presence
+  
+sensor.waqi_reseda_los_angeles:
+  friendly_name: Air Quality - Reseda, Los Angeles
