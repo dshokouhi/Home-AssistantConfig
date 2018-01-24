@@ -170,3 +170,12 @@
 - When Kodi is playing turn off the den lights
 - When Kodi is paused for 30 seconds or idle for 1 minute turn on den and kitchen lights
 - Open curtains if they were closed
+
+## Screenshots
+![home2](https://user-images.githubusercontent.com/1634145/35309377-0f99e134-0061-11e8-8567-35f34da1ace3.JPG)
+![home3](https://user-images.githubusercontent.com/1634145/35309378-0fb19d60-0061-11e8-9336-efc86757ff46.JPG)
+![home4](https://user-images.githubusercontent.com/1634145/35309379-0fcf4766-0061-11e8-8d96-d86205e61e24.JPG)
+![home5](https://user-images.githubusercontent.com/1634145/35309380-0fe4f4e4-0061-11e8-8d8f-8f84e9e2c4a7.JPG)
+![home6](https://user-images.githubusercontent.com/1634145/35309381-0ffe3e90-0061-11e8-8ee5-f96ba553957c.JPG)
+![home7](https://user-images.githubusercontent.com/1634145/35309382-101375a8-0061-11e8-9053-14c6605a8edf.JPG)
+![home1](https://user-images.githubusercontent.com/1634145/35309383-102d3826-0061-11e8-9392-eaf853efe7ea.JPG)
