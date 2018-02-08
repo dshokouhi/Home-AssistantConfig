@@ -1,0 +1,184 @@
+close_bay_window_curtains:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Close
+      device: 44931881
+      entity_id: remote.harmony_hub_den
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.bay_window_curtains
+
+open_bay_window_curtains:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Open
+      device: 44931881
+      entity_id: remote.harmony_hub_den
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.bay_window_curtains
+
+close_den_curtains:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Close
+      device: 44914489
+      entity_id: remote.harmony_hub_den
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.den_curtains
+
+open_den_curtains:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Open
+      device: 44914489
+      entity_id: remote.harmony_hub_den
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.den_curtains
+
+close_bedroom_curtains:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Close
+      device: 44919307
+      entity_id: remote.harmony_hub_bed
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.bedroom_curtains
+
+open_bedroom_curtains:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Open
+      device: 44919307
+      entity_id: remote.harmony_hub_bed
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.bedroom_curtains
+
+stop_den_curtains:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Stop
+      device: 44914489
+      entity_id: remote.harmony_hub_den
+      
+on_bedroom_fan:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Low
+      device: 37826190
+      entity_id: remote.harmony_hub_bed
+
+off_bedroom_fan:
+  sequence:
+  - service: remote.send_command
+    data:
+      command: 'Off'
+      device: '37826190'
+      entity_id: remote.harmony_hub_bed
+
+on_den_fan:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Low
+      device: 36480637
+      entity_id: remote.harmony_hub_den
+
+den_fan_off:
+  sequence:
+  - service: remote.send_command
+    data:
+      command: 'No'
+      device: '36480637'
+      entity_id: remote.harmony_hub_den
+
+off_fireplace:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: PowerToggle
+      device: 36475001
+      entity_id: remote.harmony_hub_den
+
+on_fireplace:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: PowerToggle
+      device: 36475001
+      entity_id: remote.harmony_hub_den
+
+zone_2_cc:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command:
+        - 'PowerOn'
+        - 'InputCd'
+      device: 48931361
+      entity_id: remote.harmony_hub_den
+
+kitchen_tv_on:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: 'PowerOn'
+      device: '34582686'
+      entity_id: remote.harmony_hub_den
+
+kitchen_tv_off:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: 'PowerOff'
+      device: '34582686'
+      entity_id: remote.harmony_hub_den
+
+pc:
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub_den
+    data:
+      activity: 25516536
+
+xbox:
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub_den
+    data:
+      activity: 22642672
+
+netflix:
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub_den
+    data:
+      activity: 19168891
+
+fire_tv:
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub_bed
+    data:
+      activity: 19492437
+
+roku:
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub_den
+    data:
+      activity: 27030102
+      
+pseudo_tv:
+  sequence:
+  - service: media_player.kodi_call_method
+    data:
+      entity_id: media_player.kodi_den
+      method: Addons.ExecuteAddon
+      addonid: script.pseudotv.live

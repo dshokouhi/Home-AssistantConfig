@@ -1,0 +1,2 @@
+username: !secret uspsuser
+password: !secret uspspass

@@ -1,0 +1,450 @@
+ # - platform: mqtt
+   # name: "Den Sliding Door"
+   # state_topic: "smartthings/Den Sliding Door/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Den Window"
+   # state_topic: "smartthings/Den Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Kitchen Window"
+   # state_topic: "smartthings/Kitchen Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Living Room Side Window"
+   # state_topic: "smartthings/Living Room Side Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Living Room Left Bay Window"
+   # state_topic: "smartthings/Living Room Left Bay Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Living Room Right Bay Window"
+   # state_topic: "smartthings/Living Room Right Bay Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Bedroom Window"
+   # state_topic: "smartthings/Bedroom Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Office Window"
+   # state_topic: "smartthings/Office Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Bathroom Window"
+   # state_topic: "smartthings/Bathroom Window/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Office Closet Door"
+   # state_topic: "smartthings/Office Closet Door/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Bedroom Closet Door"
+   # state_topic: "smartthings/Bedroom Closet Door/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Front Door"
+   # state_topic: "smartthings/Front Door/temperature"
+   # unit_of_measurement: "F"
+   # qos: 0
+
+ - platform: sabnzbd
+   host: 192.168.1.24
+   port: 6030
+   api_key: !secret sab
+   monitored_variables:
+     - 'current_status'
+     - 'speed'
+     - 'queue_size'
+     - 'queue_remaining'
+     - 'disk_size'
+     - 'disk_free'
+
+ # - platform: mqtt
+   # name: "Washer"
+   # state_topic: "smartthings/Washer/power"
+   # unit_of_measurement: "Watts"
+   # qos: 0
+
+ # - platform: mqtt
+   # name: "Dryer"
+   # state_topic: "smartthings/Dryer/power"
+   # unit_of_measurement: "Watts"
+   # qos: 0
+
+ - platform: mqtt
+   name: "Dishwasher"
+   state_topic: "smartthings/Dishwasher/power"
+   unit_of_measurement: "Watts"
+   qos: 0
+
+ - platform: crimereports
+   name: Crime Reports
+   radius: 1000
+
+ - platform: ring
+   monitored_conditions:
+   - 'battery'
+
+ - platform: ups
+   username: !secret upsuser
+   password: !secret upspass
+
+ - platform: fedex
+   username: !secret fedexuser
+   password: !secret fedexpass
+
+ - platform: fitbit
+   clock_format: 12H
+   monitored_resources:
+    - "sleep/startTime"
+
+ - platform: moon
+
+ - platform: yr
+
+ - platform: season
+
+ - platform: template
+   sensors:
+     washer_running:
+       value_template: "{{ states('sensor.washer_power_2') | int > 5 }}"
+
+ - platform: template
+   sensors:
+     dryer_running:
+       value_template: "{{ states('sensor.dryer_power_2') | int > 5}}"
+
+ - platform: template
+   sensors:
+     dishwasher_running:
+       value_template: "{{ states('sensor.dishwasher') | int > 5}}"
+
+ # - platform: template
+   # sensors:
+     # den_motion_battery:
+       # value_template: "{{ states.zwave.den_motion_sensor.attributes.battery_level }}"
+       # unit_of_measurement: '%'
+
+ - platform: template
+   sensors:
+     front_door_lock_battery:
+       value_template: "{{ states.zwave.front_door_lock.attributes.battery_level }}"
+       unit_of_measurement: '%'
+
+ - platform: template
+   sensors:
+     den_smoke_battery:
+       value_template: "{{ states.zwave.den_smoke.attributes.battery_level }}"
+       unit_of_measurement: '%'
+
+ - platform: pi_hole
+   host: 192.168.1.54
+
+ - platform: radarr
+   api_key: !secret radarr
+   host: !secret househost
+   urlbase: /radarr
+   ssl: true
+   port: 443
+   monitored_conditions:
+   - upcoming
+
+ - platform: sonarr
+   api_key: !secret sonarr
+   host: !secret househost
+   urlbase: /sonarr
+   ssl: true
+   port: 443
+   monitored_conditions:
+   - upcoming
+
+ - platform: wunderground
+   api_key: !secret wunderground
+   monitored_conditions:
+   - alerts
+   - feelslike_f
+   - heat_index_f
+   - relative_humidity
+   - station_id
+   - temperature_string
+   - temp_f
+   - UV
+   - weather
+   - wind_gust_mph
+   - wind_mph
+   - wind_string
+   - weather_1d
+   - weather_1n
+   - weather_2d
+   - weather_2n
+   - weather_3d
+   - weather_3n
+
+ - platform: template
+   sensors:
+     danny_next_event:
+       friendly_name: Dannys Next Event
+       value_template: >
+         {{ strptime(states.calendar.dshokouhi.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A %B %d at %H:%M") }}:
+         {{ states.calendar.dshokouhi.attributes.message }}
+         {%- if states.calendar.dshokouhi.attributes.location %} at {{ states.calendar.dshokouhi.attributes.location -}}
+         {% endif %}
+       icon_template: >-
+         {% if is_state('calendar.dshokouhi', 'on') %}
+           mdi:message-alert
+         {% else %}
+           mdi:message
+         {% endif %}
+
+ - platform: template
+   sensors:
+     danny_next_meeting:
+       friendly_name: Dannys Next Meeting
+       value_template: >
+         {{ strptime(states.calendar.danny_work.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A %B %d at %H:%M") }}:
+         {{ states.calendar.danny_work.attributes.message }}
+         {%- if states.calendar.danny_work.attributes.location %} at {{ states.calendar.danny_work.attributes.location -}}
+         {% endif %}
+       icon_template: >-
+         {% if is_state('calendar.danny_work', 'on') %}
+           mdi:message-alert
+         {% else %}
+           mdi:message
+         {% endif %}
+
+ - platform: template
+   sensors:
+     tosh_next_event:
+       friendly_name: Toshs Next Event
+       value_template: >
+         {{ strptime(states.calendar.shorteh7.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A %B %d at %H:%M") }}:
+         {{ states.calendar.shorteh7.attributes.message }}
+         {%- if states.calendar.shorteh7.attributes.location %} at {{ states.calendar.shorteh7.attributes.location -}}
+         {% endif %}
+       icon_template: >-
+         {% if is_state('calendar.shorteh7', 'on') %}
+           mdi:message-alert
+         {% else %}
+           mdi:message
+         {% endif %}
+
+ - platform: template
+   sensors:
+     next_us_holiday:
+       friendly_name: Next US Holiday
+       value_template: >
+         {{ strptime(states.calendar.holidays_in_united_states.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A, %B %d") }}:
+         {{ states.calendar.holidays_in_united_states.attributes.message }}
+       icon_template: >-
+         {% if is_state('calendar.holidays_in_united_states', 'on') %}
+           mdi:briefcase-check
+         {% else %}
+           mdi:domain
+         {% endif %}
+
+ - platform: template
+   sensors:
+     next_jewish_holiday:
+       friendly_name: Next Jewish Holiday
+       value_template: >
+         {{ strptime(states.calendar.jewish_holidays.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A, %B %d") }}:
+         {{ states.calendar.jewish_holidays.attributes.message }}
+       icon_template: >-
+         {% if is_state('calendar.jewish_holidays', 'on') %}
+           mdi:briefcase-check
+         {% else %}
+           mdi:domain
+         {% endif %}
+
+ - platform: template
+   sensors:
+     den_smoke_status:
+       value_template: '{%- if is_state("sensor.den_smoke_alarm_type", "0") %}
+                         Idle
+                         {%else%}
+                           {%- if is_state("sensor.den_smoke_alarm_type", "1") %}
+                           Fire
+                           {%- elif is_state("sensor.den_smoke_alarm_type", "2") %}
+                           CO2
+                           {%- elif is_state("sensor.den_smoke_alarm_type", "12") %}
+                           Testing
+                           {%- elif is_state("sensor.den_smoke_alarm_type", "13") %}
+                           Idle
+                           {% else %}
+                           Unknown
+                           {%- endif %}
+                         {%endif%}'
+       friendly_name: 'Den Smoke'
+
+ - platform: template
+   sensors:
+     bedroom_smoke_status:
+       value_template: '{%- if is_state("sensor.bedroom_smoke_alarm_type", "0") %}
+                         Idle
+                         {%else%}
+                           {%- if is_state("sensor.bedroom_smoke_alarm_type", "1") %}
+                           Fire
+                           {%- elif is_state("sensor.bedroom_smoke_alarm_type", "2") %}
+                           CO2
+                           {%- elif is_state("sensor.bedroom_smoke_alarm_type", "12") %}
+                           Testing
+                           {%- elif is_state("sensor.bedroom_smoke_alarm_type", "13") %}
+                           Idle
+                           {% else %}
+                           Unknown
+                           {%- endif %}
+                         {%endif%}'
+       friendly_name: 'Bedroom Smoke'
+
+ - platform: template
+   sensors:
+     office_smoke_status:
+       value_template: '{%- if is_state("sensor.office_smoke_alarm_type", "0") %}
+                         Idle
+                         {%else%}
+                           {%- if is_state("sensor.office_smoke_alarm_type", "1") %}
+                           Fire
+                           {%- elif is_state("sensor.office_smoke_alarm_type", "2") %}
+                           CO2
+                           {%- elif is_state("sensor.office_smoke_alarm_type", "12") %}
+                           Testing
+                           {%- elif is_state("sensor.office_smoke_alarm_type", "13") %}
+                           Idle
+                           {% else %}
+                           Unknown
+                           {%- endif %}
+                         {%endif%}'
+       friendly_name: 'Office Smoke'
+
+ - platform: command_line
+   name: Epson Ink Level Black
+   command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_K.PNG/ && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100; exit }'
+   unit_of_measurement: '%'
+   scan_interval: 14400
+
+ - platform: command_line
+   name: Epson Ink Level Magenta
+   command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_M.PNG/ && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100 }'
+   unit_of_measurement: '%'
+   scan_interval: 14400
+
+ - platform: command_line
+   name: Epson Ink Level Yellow
+   command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_Y.PNG/ && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100 }'
+   unit_of_measurement: '%'
+   scan_interval: 14400
+
+ - platform: command_line
+   name: Epson Ink Level Cyan
+   command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_C.PNG/ && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100 }'
+   unit_of_measurement: '%'
+   scan_interval: 14400
+
+ - platform: command_line
+   name: Epson Ink Level Photo Black
+   command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_K.PNG/ {i++}i==2 && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100; exit }'
+   unit_of_measurement: '%'
+   scan_interval: 14400
+
+ - platform: template
+   sensors:
+     front_door_action:
+       friendly_name: 'Front Door Action'
+       value_template: >
+         {% if is_state('sensor.front_door_lock_alarm_type', '22') %}
+           Manual Unlock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '21') %}
+           Manual Lock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '19') %}
+           Keypad Unlock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '18') %}
+           Keypad Lock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '25') %}
+           Wireless Unlock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '24') %}
+           Wireless Lock
+         {% elif is_state('sensor.front_door_lock_alarm_type', '9') %}
+           Lock Jammed
+         {% elif is_state('sensor.front_door_lock_alarm_type', '161') %}
+           Tamper Alarm
+         {% else %}
+           Other
+         {% endif %}
+
+ - platform: template
+   sensors:
+     front_door_code:
+       friendly_name: 'Front Door Code'
+       value_template: >
+         {% if is_state('sensor.front_door_lock_alarm_type', '19') or is_state('sensor.front_door_lock_alarm_type', '18') %}
+          {% if is_state('sensor.front_door_lock_alarm_level', '1') %}
+            Us
+          {% elif is_state('sensor.front_door_lock_alarm_level', '2') %}
+            Dad
+          {% elif is_state('sensor.front_door_lock_alarm_level', '3') %}
+            Zoo Keeper
+          {% elif is_state('sensor.front_door_lock_alarm_level', '4') %}
+            Courtney
+          {% elif is_state('sensor.front_door_lock_alarm_level', '5') %}
+            Izzy
+          {% else %}
+            Unknown
+          {% endif %}
+         {% else %}
+          n/a
+         {% endif %}
+   
+ - platform: xbox_live
+   api_key: !secret xbox_live_api
+   xuid:
+   - !secret xbox_gamer_tag
+   
+ - platform: template
+   sensors:
+     harmony_den_activity:
+       value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity }}"
+       friendly_name: Harmony Den Input
+       
+ - platform: template
+   sensors:
+     harmony_bed_activity:
+       value_template: "{{ states.remote.harmony_hub_bed.attributes.current_activity }}"
+       friendly_name: Harmony Bed Input
+       
+ - platform: uptime
+ 
+ - platform: waqi
+   token: !secret aqi_key
+   locations:
+   - losangeles
+   stations:
+   - "Reseda, Los Angeles"
+   
+ - platform: systemmonitor
+   resources:
+   - type: disk_use_percent
+     arg: "/home"
+   - type: memory_use_percent

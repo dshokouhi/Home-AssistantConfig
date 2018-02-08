@@ -1,0 +1,395 @@
+den:
+  name: Den
+  control: hidden
+  entities:
+  - light.bookshelf_left
+  - light.corner_lamp
+  - switch.den_fan
+  - light.den_lights_level
+  - switch.fireplace
+  - remote.harmony_hub_den
+  - light.tv_lights
+  - group.den_sensors
+  view: false
+
+den_sensors:
+  name: Den Sensors
+  control: hidden
+  entities:
+  - binary_sensor.centralite_3320l_057b7c44_1
+  - binary_sensor.centralite_3320l_057ce46f_1
+  - sensor.den_motion_sensor_temperature
+  - sensor.den_motion_battery
+  - sensor.centralite_3320l_057b7c44_1
+  - sensor.den_smoke_status
+  - sensor.centralite_3320l_057ce46f_1
+  view: false
+
+bedroom:
+  name: Bedroom
+  control: hidden
+  entities:
+  - light.bedroom_closet
+  - switch.bedroom_fan
+  - light.bedroom_lights_level
+  - light.centralite_3210l_0b0383b4_1
+  - light.biased_lights
+  - light.dannys
+  - remote.harmony_hub_bed
+  - light.toshs
+  - group.bedroom_sensors
+  view: false
+
+bedroom_sensors:
+  name: Bedroom Sensors
+  control: hidden
+  entities:
+  - binary_sensor.centralite_3320l_0b666bfc_1
+  - binary_sensor.centralite_3320l_0b636d0d_1
+  - sensor.centralite_3320l_0b666bfc_1
+  - sensor.bedroom_smoke_status
+  - sensor.centralite_3320l_0b636d0d_1
+  view: false
+
+living_room:
+  name: Living Room
+  control: hidden
+  entities:
+  - switch.christmas_tree_switch
+  - light.front_door_lamp
+  - lock.front_door_lock_locked
+  - switch.living_room_camera_plug_switch
+  - light.living_room_lights_level
+  - light.nook_lamp
+  - switch.siren_switch
+  - sensor.front_door_action
+  - sensor.front_door_code
+  - group.living_room_sensors
+
+living_room_sensors:
+  name: Living Room Sensor
+  control: hidden
+  entities:
+  - binary_sensor.centralite_3320l_057b833c_1
+  - binary_sensor.centralite_3320l_0b665f4e_1
+  - binary_sensor.centralite_3320l_05989606_1
+  - binary_sensor.centralite_3320l_0b6289f7_1
+  - binary_sensor.mailbox
+  - sensor.front_door_lock_battery
+  - sensor.centralite_3320l_057b833c_1
+  - sensor.centralite_3320l_0b665f4e_1
+  - sensor.centralite_3320l_05989606_1
+  - sensor.centralite_3320l_0b6289f7_1
+
+kitchen:
+  name: Kitchen
+  control: hidden
+  entities:
+  - light.bar_flex
+  - light.cabinet_lights
+  - light.counter_lights
+  - switch.island_lights_switch
+  - light.kitchen_lights_level
+  - switch.kitchen_tv
+  - switch.little_christmas_trees_switch
+  - group.kitchen_sensors
+
+kitchen_sensors:
+  name: Kitchen Sensors
+  control: hidden
+  entities:
+  - binary_sensor.centralite_3320l_0b636eab_1
+  - sensor.dishwasher
+  - sensor.centralite_3320l_0b636eab_1
+
+outside:
+  name: Backyard & Garage
+  control: hidden
+  entities:
+  - switch.backyard_lights_switch
+  - light.fig_tree_lights
+  - light.firepit_lights
+  - switch.garage_lights_switch
+  - light.garden_lights
+  - light.patio
+  - group.outside_sensors
+
+outside_sensors:
+  name: Outside Sensors
+  control: hidden
+  entities:
+  - binary_sensor.garage_door_backyard
+  - binary_sensor.garage_frontyard
+  - binary_sensor.water_leak_sensor_158d0001bc24f5
+  - sensor.dryer_power_2
+  - sensor.washer_power_2
+
+weather_sensors:
+  name: Weather Station Sensors
+  control: hidden
+  entities:
+  - binary_sensor.shokabow_weather_night
+  - binary_sensor.shokabow_weather_rain
+  - sensor.shokabow_weather_humidity
+  - sensor.shokabow_weather_luminance
+  - sensor.shokabow_weather_pressure
+  - sensor.shokabow_weather_temperature
+  - sensor.shokabow_weather_uvindex
+  - sensor.shokabow_weather_voltage
+
+weather:
+  name: Weather Station
+  control: hidden
+  entities:
+  - group.weather_sensors
+
+sab_sensors:
+  name: SABnzbd Sensors
+  control: hidden
+  entities:
+  - sensor.sabnzbd_disk
+  - sensor.sabnzbd_disk_free
+  - sensor.sabnzbd_left
+  - sensor.sabnzbd_queue
+  - sensor.sabnzbd_speed
+  - sensor.sabnzbd_status
+
+sab:
+  name: SABnzbd
+  control: hidden
+  entities:
+  - group.sab_sensors
+
+hallway:
+  name: Hallway & Office
+  control: hidden
+  entities:
+  - light.hallway_light
+  - switch.house_fan
+  - light.office_closet
+  - light.office_lights
+  - light.centralite_3210l_0a932dbf_1
+  - light.gateway_light_34ce0091f546
+  - group.hallway_sensors
+
+hallway_sensors:
+  name: Hallway Sensors
+  control: hidden
+  entities:
+  - binary_sensor.centralite_3320l_0b63b331_1
+  - binary_sensor.centralite_3320l_0b666ed0_1
+  - binary_sensor.centralite_3320l_0b629e9b_1
+  - sensor.centralite_3320l_0b63b331_1
+  - sensor.centralite_3320l_0b666ed0_1
+  - sensor.office_smoke_status
+  - sensor.centralite_3320l_0b629e9b_1
+  - sensor.illumination_34ce0091f546
+
+sprinklers:
+  name: Sprinklers
+  control: hidden
+  entities:
+  - switch.zone_1_patio
+  - switch.zone_2_pool
+  - switch.zone_3_garage
+  - switch.zone_4_firepit
+  - switch.zone_5_front_lawn_boogie_car
+  - switch.zone_6_front_lawn_walkway
+  - switch.zone_7_front_lawn_street
+
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+  - climate.thermostat
+  - group.den
+  - group.kitchen
+  - group.living_room
+  - group.neato
+  - alarm_control_panel.shm
+  - sun.sun
+  - sensor.yr_symbol
+  #- binary_sensor.dannys_pixel_2
+  #- binary_sensor.natachas_pixel
+  - sensor.crime_reports
+  - sensor.fedex
+  - sensor.ups
+  - sensor.waqi_reseda_los_angeles
+  - binary_sensor.windows
+  #- device_tracker.10f1f2822f12
+  #- device_tracker.androidc4ba94519e6666f2
+  #- device_tracker.pixel_2_xl
+  #- device_tracker.pixel_xl
+  - binary_sensor.dannys_bayesian_presence
+  - binary_sensor.natachas_bayesian_presence
+
+rooms:
+  name: Room
+  icon: mdi:home-modern
+  view: yes
+  entities:
+  - group.bedroom
+  - group.hallway
+  - group.outside
+  - group.house_settings
+
+cameras:
+  name: Cameras
+  view: yes
+  icon: mdi:camera
+  entities:
+  - camera.den_camera
+  - camera.living_room_camera
+  - camera.kitchen_camera
+  - camera.shokabow_weather
+  - camera.outdoor_camera
+  - camera.front_door
+  - camera.side_gate
+
+tracked_users:
+  name: Tracked Users
+  entities:
+  - device_tracker.10f1f2822f12
+  - device_tracker.androidc4ba94519e6666f2
+  - device_tracker.pixel_2_xl
+  - device_tracker.pixel_xl
+  
+auto:
+  name: Automations
+  icon: mdi:home-automation
+  view: yes
+  entities:
+  - group.all_automations
+
+ring_sensor:
+  name: Ring Sensors
+  control: hidden
+  entities:
+  - binary_sensor.ring_front_door_ding
+  - binary_sensor.ring_front_door_motion
+  - binary_sensor.ring_side_gate_motion
+  - sensor.ring_front_door_battery
+  - sensor.ring_front_door_last_activity
+  - sensor.ring_side_gate_last_activity
+
+ring:
+  name: Ring
+  control: hidden
+  entities:
+  - group.ring_sensor
+
+services:
+  name: Services
+  view: yes
+  icon: mdi:home-circle
+  entities:
+   - sensor.uptime
+   - sensor.disk_used_home
+   - sensor.ram_used
+   - sensor.sleep_start_time
+   - group.pihole_status
+   - group.sab
+   - group.ring
+   - group.sprinklers
+   - group.weather
+   - group.forecast
+   - group.epson_printer
+   - weather.dark_sky
+
+media_players:
+  name: Media Players
+  view: yes
+  icon: mdi:cast
+  entities:
+  - media_player.bedroom_speaker
+  - media_player.bathroom_speaker
+  - media_player.den_home
+  - media_player.den_tv
+  - media_player.home_notification
+  - media_player.house
+  - media_player.kitchen_home
+  - media_player.kodi_bedroom
+  - media_player.kodi_den
+  - media_player.kodi_kitchen
+  - media_player.living_room_home
+  - media_player.living_room_speaker
+  - media_player.office_speaker
+  - media_player.outdoor_speakers
+  - media_player.roku_yj007e334976
+  - media_player.sony_bravia_tv
+  - media_player.spotify
+
+forecast:
+ name: Forecast
+ entities:
+  - sensor.pws_weather
+  - sensor.pws_alerts
+  - sensor.pws_feelslike_f
+  - sensor.pws_weather_1d
+  - sensor.pws_weather_1n
+  - sensor.pws_weather_2d
+  - sensor.pws_weather_2n
+  - sensor.pws_weather_3d
+  - sensor.pws_weather_3n
+
+calendar_sensors:
+  name: Calendar Sensors
+  icon: mdi:calendar
+  entities:
+  - sensor.danny_next_event
+  - sensor.tosh_next_event
+  - sensor.danny_next_meeting
+  - sensor.next_us_holiday
+  - sensor.next_jewish_holiday
+
+calendar:
+  name: Calendar
+  icon: mdi:calendar
+  view: yes
+  entities:
+  - group.calendar_sensors
+
+pihole_status:
+  name: "Pi-Hole"
+  entities:
+   - sensor.pihole_ads_blocked_today
+   - sensor.pihole_dns_queries_today
+   - sensor.pihole_ads_percentage_blocked_today
+   - sensor.pihole_domains_blocked
+
+house_settings:
+  name: House Settings
+  control: hidden
+  entities:
+  - alarm_control_panel.shm
+  - input_boolean.vacation_mode
+  - input_boolean.night_mode
+  - input_boolean.guest_mode
+  - input_boolean.movie_mode
+
+colorful:
+  name: Colorful
+  entities:
+  - light.corner_lamp
+  - light.bar_flex
+  - light.counter_lights
+  - light.cabinet_lights
+  - light.hallway_light
+
+neato:
+  name: 'Mr. Neato'
+  control: hidden
+  entities:
+  - camera.mr_neato_cleaning_map
+  - switch.mr_neato_schedule
+  - vacuum.mr_neato
+
+epson_printer:
+  name: Epson Printer Info
+  control: hidden
+  entities:
+  - sensor.epson_ink_level_black
+  - sensor.epson_ink_level_cyan
+  - sensor.epson_ink_level_magenta
+  - sensor.epson_ink_level_yellow
+  - sensor.epson_ink_level_photo_black

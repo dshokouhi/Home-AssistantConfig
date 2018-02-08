@@ -1,0 +1,641 @@
+
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret home_lat
+  longitude: !secret home_long
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 739
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Los_Angeles
+  customize: !include customize.yaml
+  customize_glob: !include custom-ui.yaml
+  whitelist_external_dirs:
+  - /home/homeassistant/.homeassistant/snapshot
+
+# Custom UI tfrom https://github.com/andrey-git/home-assistant-custom-ui
+customizer:
+  custom_ui: local
+
+# Enables the frontend
+frontend:
+ themes:
+  material_dark_green:
+   light_green: "#08a8a5"
+   dark_green: "#017775"
+   dark_grey: "#232326"
+   light_grey: "#344249"
+
+   red: "#d10404"
+   yellow: "#fffa0c"
+   white: "#f7f7f7"
+   pink: "#ff0090"
+
+#Top bar, activate text on script, selected icon on home assistant menu, top panel of media players, text in config page, text on developer tools states page, mqtt publish text, logbook text
+   primary-color: "var(--light_green)"
+# divider on dev tools info page
+   light-primary-color: "var(--red)"
+# some hyperlinked text
+   dark-primary-color: "var(--red)"
+# not sure where used
+   text-primary-color: "var(--pink)"
+# main background, top of side panel
+   primary-background-color: "var(--dark_grey)"
+# not sure where used 
+   sidebar-text_-_background: "var(--pink)"
+# card background colour, part of media player background
+   paper-card-background-color: "var(--light_grey)"
+# mqtt pubish header and thats it 
+   paper-card-header-color: "var(--white)"
+# main background colour of states page
+   secondary-background-color: "var(--dark_grey)"
+# most of the text used
+   primary-text-color: "var(--white)"
+#secondary pieces of text 
+   secondary-text-color: "var(--white)"
+#main background of side panel 
+   paper-listbox-background-color: "var(--light_grey)"
+#not sure where used
+   paper-toggle-button-checked-ink-color: "var(--pink)"
+#switch colour when on
+   paper-toggle-button-checked-button-color: "var(--yellow)"
+#Backgroud of switch/toggle when on
+   paper-toggle-button-checked-bar-color: "var(--yellow)"
+#slide knob on brightness/volumes when not 0
+   paper-slider-knob-color: "var(--yellow)"
+#slide knob on brightness/volumes when 0
+   paper-slider-knob-start-color: "var(--red)"
+#don't know where used
+   paper-slider-pin-color: "var(--pink)"
+#colour of brightness/volume slider line in used portion 
+   paper-slider-active-color: "var(--yellow)"
+#not sure where used
+   paper-slider-secondary-color: "var(--pink)"
+# background of brightness/volume slider line not used portion 
+   paper-slider-container-color: "var(--red)"
+#not sure where used
+   paper-progress-secondary-color: "var(--pink)"
+#background of theme selection toggle tiny use 
+   paper-item-selected_-_background-color: "var(--light_green)"
+#text, not sure which one "var(--white)"
+   paper-item-icon_-_color: "var(--pink)"
+# icon on state page when off
+   paper-item-icon-color: "var(--dark_green)"
+#states icon when active 
+   paper-item-icon-active-color: "var(--yellow)"
+#colour of switch toggle when off, icon on selected page of menu 
+   paper-grey-50: "var(--light_green)"
+#background of selected screen on menu "var(--light_green)"
+   paper-grey-200: "var(--dark_green)"
+#Backgound of label icon
+   label-badge-background-color: "var(--light_grey)"
+#colour of text in label icon 
+   label-badge-text-color: "var(--white)"
+#colour of edge of sensor labels
+   label-badge-red: "var(--red)"
+#not sure where used
+   label-badge-blue: "var(--pink)"
+   label-badge-green: "var(--pink)"
+   label-badge-yellow: "var(--pink)"
+   label-badge-grey: "var(--pink)"
+# Row 1 on entities page
+   table-row-background-color: "var(--light_grey)"
+# row 2 on entities page
+   table-row-alternative-background-color: "var(--dark_grey)"
+
+# Enables configuration UI
+config:
+
+cloud:
+
+map:
+
+automation: !include automations.yaml
+
+#secrets: !include secrets.yaml
+
+scene: !include scenes.yaml
+
+http:
+  # Uncomment this to add a password (recommended!)
+   api_password: !secret http_password
+  # Uncomment this if you are using SSL or running in Docker etc
+   base_url: !secret baseurl
+   ssl_certificate: !secret sslcert
+   ssl_key: !secret sslkey
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  include_used_components: true
+
+# Discover some devices automatically
+discovery:
+  ignore:
+  - netgear_router
+  - logitech_mediaserver
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+logger:
+  default: warn
+  logs:
+    homeassistant.components.zha: debug
+    homeassistant.components.websocket_api: info
+    bellows.uart: info
+
+# Record events
+recorder:
+  purge_interval: 1
+  purge_keep_days: 5
+  #db_url: !secret db_url
+
+# Track the sun
+sun:
+
+ffmpeg:
+
+script: !include scripts.yaml
+
+# Text to speech
+tts:
+  platform: google
+
+group: !include groups.yaml
+
+#usps: !include usps.yaml
+
+ifttt:
+   key: !secret ifttt
+
+bloomsky:
+   api_key: !secret bloomsky
+
+device_tracker:
+  - platform: netgear
+    host: 192.168.1.1
+    username: !secret router_user
+    password: !secret router_pwd
+    consider_home: 180
+    
+  - platform: bluetooth_tracker
+    consider_home: 180
+
+climate:
+   platform: honeywell
+   username: !secret honeywell_user
+   password: !secret honeywell_pwd
+   scan_interval: 1200
+   region: us
+
+# remote:
+ # - platform: harmony
+   # name: Harmony Hub den
+   # host: 192.168.1.9
+
+# remote 1:
+ # - platform: harmony
+   # name: Harmony Hub bed
+   # host: 192.168.1.21
+
+mqtt:
+  broker: 192.168.1.43
+  #discovery: true
+  #discovery_prefix: smartthings
+  port: 1883
+
+alarm_control_panel:
+  platform: manual
+  name: "SHM"
+  pending_time: 60
+  delay_time: 60
+  #state_topic: "smartthings/alarm system status/alarmSystemStatus"
+  #command_topic: "smartthings/alarm system status/alarmSystemStatus"
+  #name: "SHM"
+  #payload_disarm: "disarmed"
+  #payload_arm_home: "armed_home"
+  #payload_arm_away: "armed_away"
+
+timer:
+  door_lock:
+    duration: "00:03:00"
+
+light: !include light.yaml
+
+switch: !include switches.yaml
+
+input_boolean: !include input_booleans.yaml
+
+binary_sensor: !include binary_sensors.yaml
+
+sensor: !include sensors.yaml
+
+# lock:
+   # platform: mqtt
+   # name: "Front Door Lock"
+   # state_topic: "smartthings/Front Door Lock/lock"
+   # command_topic: "smartthings/Front Door Lock/lock"
+   # payload_lock: "locked"
+   # payload_unlock: "unlocked"
+   # retain: true
+
+media_player 1:
+ - platform: kodi
+   host: 192.168.1.60
+   port: 8383
+   username: kodi
+   password: !secret kodi
+   name: "Kodi Den"
+
+media_player 2:
+ - platform: braviatv
+   host: 192.168.1.29
+
+media_player 3:
+ - platform: plex
+
+media_player 4:
+ - platform: kodi
+   host: 192.168.1.23
+   port: 6363
+   username: kodi
+   password: !secret kodi
+   name: "Kodi Bedroom"
+
+media_player 5:
+ - platform: kodi
+   host: 192.168.1.52
+   port: 8181
+   username: kodi
+   password: !secret kodi
+   name: "Kodi Kitchen"
+
+media_player 6:
+ - platform: cast
+
+media_player 7:
+ - platform: onkyo
+ 
+media_player 8:
+ - platform: kodi
+   host: 192.168.1.44
+   port: 8080
+   username: kodi
+   password: !secret kodi
+   name: "Kodi Outdoor"
+   
+media_player 9:
+ - platform: spotify
+   client_id: !secret spotify_client_id
+   client_secret: !secret spotify_client_secret
+ 
+amcrest:
+ - host: 192.168.1.42
+   port: 1025
+   username: !secret amcrest_user
+   password: !secret amcrest_pass
+   name: "Den Camera"
+   resolution: high
+   stream_source: rtsp
+
+ - host: 192.168.1.41
+   port: 1026
+   username: !secret amcrest_user
+   password: !secret amcrest_pass
+   name: "Living Room Camera"
+   resolution: high
+   stream_source: rtsp
+
+ - host: 192.168.1.36
+   port: 1027
+   username: !secret amcrest_user
+   password: !secret boogie1
+   name: "Outdoor Camera"
+
+camera:
+ - platform: mjpeg
+   mjpeg_url: !secret kitchen_camera
+   name: "Kitchen Camera"
+
+ - platform: mjpeg
+   mjpeg_url: !secret den_camera_videofeed
+   name: "Den Camera Video Feed"
+
+ - platform: generic
+   still_image_url: !secret den_camera_snapshot
+   name: "Den Camera Still Image"
+
+ - platform: mjpeg
+   mjpeg_url: !secret living_room_camera_videofeed
+   name: "Living Room Camera Video Feed"
+
+ - platform: generic
+   still_image_url: !secret living_room_camera_snapshot
+   name: "Living Room Camera Still Image"
+
+ #- platform: amcrest
+
+ - platform: ring
+ 
+
+notify:
+ - platform: nfandroidtv
+   name: Den
+   host: 192.168.1.29
+
+ - platform: nfandroidtv
+   name: Kitchen
+   host: 192.168.1.52
+
+ - platform: nfandroidtv
+   name: Bedroom
+   host: 192.168.1.23
+   
+ - platform: nfandroidtv
+   name: Outdoor
+   host: 192.168.1.44
+
+ - platform: html5
+   name: chrome
+   gcm_api_key: !secret gcm_api_key
+   gcm_sender_id: !secret gcm_sender_id
+
+ - platform: slack
+   name: slack
+   api_key: !secret slack_api
+   default_channel: '#hass'
+   
+ - platform: group
+   name: chrome_alerts
+   services:
+   - service: chrome
+     data:
+       target: ["danny_pixel", "tosh_phone"]
+       title: Shokabow Zoo
+
+alert:
+  front_door_unlocked:
+    name: Front Door is unlocked
+    entity_id: lock.front_door_lock_locked
+    state: 'unlocked'
+    repeat: 5
+    skip_first: true
+    notifiers:
+    - chrome_alerts
+
+ring:
+   username: !secret ringuser
+   password: !secret ringpass
+
+google:
+   client_id: !secret google_client_id
+   client_secret: !secret google_secret_key
+
+google_assistant:
+  project_id: hass-ga-908cf
+  client_id: !secret ga_client_id
+  access_token: !secret ga_access_token
+  api_key: !secret ga_api_key
+  exposed_domains:
+  - switch
+  - light
+  - script
+  - scene
+  entity_config:
+    script.on_bedroom_fan:
+      expose: false
+    script.off_bedroom_fan:
+      expose: false
+    script.on_den_fan:
+      expose: false
+    script.den_fan_off:
+      expose: false
+    script.on_fireplace:
+      expose: false
+    script.off_fireplace:
+      expose: false
+    script.zone_2_cc:
+      expose: false
+    script.open_den_curtains:
+      expose: false
+    script.close_den_curtains:
+      expose: false
+    script.open_bedroom_curtains:
+      expose: false
+    script.close_bedroom_curtains:
+      expose: false
+    script.open_bay_window_curtains:
+      expose: false
+    script.close_bay_window_curtains:
+      expose: false
+    script.stop_den_curtains:
+      expose: false      
+    script.kitchen_tv_on:
+      expose: false
+    script.kitchen_tv_off:
+      expose: false
+    script.fire_tv:
+      expose: false
+    light.living_room:
+      expose: false
+    switch.zone_1_patio:
+      expose: false
+    switch.zone_2_pool:
+      expose: false
+    switch.zone_3_garage:
+      expose: false
+    switch.zone_4_firepit:
+      expose: false
+    switch.zone_5_front_lawn_boogie_car:
+      expose: false
+    switch.zone_6_front_lawn_walkway:
+      expose: false
+    switch.zone_7_front_lawn_street:
+      expose: false
+    light.o1:
+      expose: false
+    light.o2:
+      expose: false
+    light.o3:
+      expose: false
+    light.o4:
+      expose: false      
+    switch.shm:
+      expose: false
+    light.cree_connected_a19_60w_equivalent_fe010d00_10:
+      expose: false
+    light.cree_connected_a19_60w_equivalent_fe010d32_10:
+      expose: false      
+    light.bedroom_closet:
+      expose: false
+    light.centralite_3210l_0b0383b4_1:
+      expose: false
+    light.centralite_3210l_0a932dbf_1:
+      expose: false
+    light.cree_connected_a19_60w_equivalent_fe013293_10:
+      expose: false      
+    light.office_closet:
+      expose: false
+    switch.living_room_camera_plug_switch:
+      expose: false
+    light.sengled_z01cia19nae26_03003148_1:
+      expose: false
+    light.centralite_3210l_0b2d4417_1:
+      expose: false
+    switch.dryer_switch:
+      expose: false
+    switch.washer_switch:
+      expose: false
+    switch.mr_neato_schedule:
+      expose: false
+    light.patio_bbq:
+      expose: false      
+    light.patio_table_left:
+      expose: false      
+    light.patio_table_right:
+      expose: false      
+    light.patio_pool_light:
+      expose: false
+    light.osram_lightify_flex_rgbw_00026309_3:
+      expose: false
+
+namecheapdns:
+  host: plex
+  domain: !secret namecheap_site
+  password: !secret namecheap_pw
+  
+zwave:
+  usb_path: /dev/ttyACM0
+  network_key: !secret zwave_network_key
+  autoheal: false
+  device_config:
+    light.den_lights_level:
+      refresh_value: true
+      delay: 3
+      #polling_intensity: 1
+    light.kitchen_lights_level:
+      refresh_value: true
+      delay: 3
+      #polling_intensity: 1
+    light.living_room_lights_level:
+      refresh_value: true
+      delay: 3
+      #polling_intensity: 1
+    light.bedroom_lights_level:
+      refresh_value: true
+      delay: 3
+      #polling_intensity: 1
+    # sensor.dryer_power_2:
+      # polling_intensity: 1
+    # sensor.washer_power_2:
+      # polling_intensity: 1
+
+zha:
+  usb_path: /dev/zigbee
+  database_path: zigbee.db
+
+emulated_hue:
+  exposed_domains:
+  - switch
+  - light
+
+input_select:
+  radio_station:
+    name: Radio Station
+    options:
+    - KROQ
+    - Jack FM
+    - Nova 100
+    - SmoothFM
+    - SBS Chill
+    - "None"
+    initial: "None"
+    icon: mdi:radio
+
+  streaming_audio:
+    name: Casting Group
+    options:
+    - Whole House
+    - Outside
+    - Office
+    - Living Room
+    - Kitchen
+    - Den
+    - Bathroom
+    - Bedroom
+    - "None"
+    initial: "None"
+    icon: mdi:cast
+
+  harmony_den:
+    name: Harmony Den Activities
+    options:
+    - Select Input
+    - Netflix
+    - Watch PC
+    - Watch Roku
+    - Watch Smart TV
+    - Xbox
+    - Power Off
+    
+  harmony_bed:
+    name: Harmony Bedroom Activities
+    options:
+    - Select Input
+    - Bedroom Bluray
+    - Bedroom Chromecast
+    - Watch Fire TV
+    - Power Off
+    
+# neato:
+  # username: !secret neato_user
+  # password: !secret neato_pass
+
+cover:
+  - platform: template
+    covers:
+      den_curtains:
+        friendly_name: Den Curtains
+        value_template: "{{ is_state('input_boolean.den_curtains', 'on' ) }}"
+        open_cover:
+          - service: script.turn_on
+            entity_id: script.open_den_curtains
+        close_cover:
+          - service: script.turn_on
+            entity_id: script.close_den_curtains
+        stop_cover:
+          - service: script.turn_on
+            entity_id: script.stop_den_curtains
+
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+  - key: !secret xiaomi_gateway_key
+    host: 192.168.1.58
+
+hue:
+  bridges:
+  - host: 192.168.1.53
+    allow_unreachable: true
+    
+#zoneminder:
+ # host: 192.168.1.54:8080
+ # username: !secret zoneminder_user
+ # password: !secret zoneminder_pass
+ 
+weather:
+  - platform: darksky
+    api_key: !secret darksky_api

@@ -1,0 +1,7 @@
+*
+!*.yaml
+!scenes
+!.gitignore
+secrets.yaml
+known_devices.yaml
+google_calendars.yaml

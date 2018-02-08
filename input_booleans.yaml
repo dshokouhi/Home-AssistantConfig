@@ -1,0 +1,55 @@
+den_fan:
+  name: Den Fan
+  icon: mdi:fan
+
+fireplace:
+  name: Fireplace
+  icon: mdi:fire
+
+bedroom_fan:
+  name: Bedroom Fan
+  icon: mdi:fan
+
+washer_status:
+  name: Washer
+  icon: mdi:washing-machine
+
+dryer_status:
+  name: Dryer
+  icon: mdi:washing-machine
+
+kitchen_tv:
+  name: Kitchen TV
+  icon: mdi:television
+
+dishwasher_status:
+  name: Dishwasher
+
+vacation_mode:
+  name: Vacation Mode
+  icon: mdi:airplane
+
+guest_mode:
+  name: Guest Mode
+  icon: mdi:account-multiple
+
+den_curtains:
+  name: Den Curtains
+
+bay_window_curtains:
+  name: Bay Window Curtains
+
+bedroom_curtains:
+  name: Bedroom Curtains
+
+mailbox:
+  name: Mailbox
+  icon: mdi:mailbox
+
+night_mode:
+  name: Night Mode
+  icon: mdi:weather-night
+
+movie_mode:
+  name: Movie Mode
+  icon: mdi:movie

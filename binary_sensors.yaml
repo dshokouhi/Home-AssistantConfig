@@ -1,0 +1,194 @@
+ # - platform: mqtt
+   # name: "Den Sliding Door"
+   # state_topic: "smartthings/Den Sliding Door/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Front Door"
+   # state_topic: "smartthings/Front Door/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Den Window"
+   # state_topic: "smartthings/Den Window/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Kitchen Window"
+   # state_topic: "smartthings/Kitchen Window/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Bathroom Window"
+   # state_topic: "smartthings/Bathroom Window/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Office Window"
+   # state_topic: "smartthings/Office Window/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Bedroom Window"
+   # state_topic: "smartthings/Bedroom Window/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Living Room Side Window"
+   # state_topic: "smartthings/Living Room Side Window/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Living Room Right Bay Window"
+   # state_topic: "smartthings/Living Room Right Bay Window/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Living Room Left Bay Window"
+   # state_topic: "smartthings/Living Room Left Bay Window/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ - platform: mqtt
+   name: "Garage Door Backyard"
+   state_topic: "smartthings/Garage Door Backyard/contact"
+   payload_on: "open"
+   payload_off: "closed"
+   device_class: door
+
+ # - platform: mqtt
+   # name: "Garage Door Frontyard"
+   # state_topic: "smartthings/Garage Door Frontyard/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Bedroom Closet Door"
+   # state_topic: "smartthings/Bedroom Closet Door/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ # - platform: mqtt
+   # name: "Office Closet Door"
+   # state_topic: "smartthings/Office Closet Door/contact"
+   # payload_on: "open"
+   # payload_off: "closed"
+   # device_class: opening
+
+ - platform: ring
+
+ # - platform: mqtt
+   # name: "Dannys Pixel 2"
+   # state_topic: "smartthings/Dannys Pixel 2/presence"
+   # payload_on: "present"
+   # payload_off: "not present"
+   # device_class: occupancy
+
+ # - platform: mqtt
+   # name: "Natachas Pixel"
+   # state_topic: "smartthings/Natachas Pixel/presence"
+   # payload_on: "present"
+   # payload_off: "not present"
+   # device_class: occupancy
+
+ - platform: template
+   sensors:
+     garage_frontyard:
+       friendly_name: "Garage Door Frontyard"
+       device_class: garage_door
+       value_template: "{{ is_state('sensor.garage_door_frontyard_alarm_level', '255') }}"
+
+ - platform: template
+   sensors:
+     windows:
+       friendly_name: "Windows"
+       device_class: window
+       #entity_id:
+        #- binary_sensor.bathroom_window
+        #- binary_sensor.centralite_3320l_0b63b331_1
+        #- binary_sensor.bedroom_window
+        #- binary_sensor.centralite_3320l_0b636d0d_1
+        #- binary_sensor.den_window
+        #- binary_sensor.centralite_3320l_057ce46f_1
+        #- binary_sensor.kitchen_window
+        #- binary_sensor.centralite_3320l_0b636eab_1
+        #- binary_sensor.living_room_left_bay_window
+        #- binary_sensor.centralite_3320l_0b665f4e_1
+        #- binary_sensor.living_room_right_bay_window
+        #- binary_sensor.centralite_3320l_05989606_1
+        #- binary_sensor.living_room_side_window
+        #- binary_sensor.centralite_3320l_0b6289f7_1
+        #- binary_sensor.office_window
+        #- binary_sensor.centralite_3320l_0b629e9b_1
+       value_template: >-
+         {{ is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on')
+            or is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on')
+            or is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on')
+            or is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on')
+            or is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on')
+            or is_state('binary_sensor.centralite_3320l_05989606_1', 'on')
+            or is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on')
+            or is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') }}
+
+ - platform: mqtt
+   name: "Mailbox"
+   state_topic: "smartthings/Mailbox/contact"
+   payload_on: "open"
+   payload_off: "closed"
+   device_class: opening
+
+ - platform: bayesian
+   prior: 0.6
+   name: "Dannys Bayesian Presence"
+   probability_threshold: 0.82
+   observations:
+   - entity_id: 'device_tracker.10f1f2822f12'
+     prob_given_true: 0.9
+     prob_given_false: 0.2
+     platform: 'state'
+     to_state: 'home'
+   - entity_id: 'device_tracker.pixel_2_xl'
+     prob_given_true: 0.9
+     prob_given_false: 0.2
+     platform: 'state'
+     to_state: 'home'
+     
+ - platform: bayesian
+   prior: 0.6
+   name: "Natachas Bayesian Presence"
+   probability_threshold: 0.82
+   observations:
+   - entity_id: 'device_tracker.androidc4ba94519e6666f2'
+     prob_given_true: 0.9
+     prob_given_false: 0.2
+     platform: 'state'
+     to_state: 'home'
+   - entity_id: 'device_tracker.pixel_xl'
+     prob_given_true: 0.9
+     prob_given_false: 0.2
+     platform: 'state'
+     to_state: 'home'
+   
+ - platform: workday
+   country: US
