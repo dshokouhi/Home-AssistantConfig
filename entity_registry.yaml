@@ -1,0 +1,213 @@
+light.front_door_lamp:
+  platform: hue
+  unique_id: 00:17:88:01:10:57:95:68-0b
+light.office_closet:
+  platform: hue
+  unique_id: 00:17:88:01:02:83:8d:e7-0b
+light.bedroom_closet:
+  platform: hue
+  unique_id: 00:17:88:01:10:57:e3:bc-0b
+light.patio_bbq:
+  platform: hue
+  unique_id: 7c:e5:24:00:00:01:44:24-01
+light.nook_lamp:
+  platform: hue
+  unique_id: 00:17:88:01:02:80:b6:cf-0b
+light.patio_table_left:
+  platform: hue
+  unique_id: 7c:e5:24:00:00:0a:f7:cf-01
+light.bookshelf_left:
+  platform: hue
+  unique_id: 00:17:88:01:10:50:2a:a7-0b
+light.patio_pool_light:
+  platform: hue
+  unique_id: 7c:e5:24:00:00:03:90:ae-01
+light.patio_table_right:
+  platform: hue
+  unique_id: 7c:e5:24:00:00:0c:34:80-01
+switch.zone_5_front_lawn_boogie_car:
+  platform: rachio
+  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-f6faaddf-1a49-4577-8cd3-5922cbb7a211
+switch.zone_1_patio:
+  platform: rachio
+  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-39c978b9-4d94-4a33-b1c5-872956d8aa35
+switch.zone_2_pool:
+  platform: rachio
+  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-9dde28a2-511e-439a-987a-ca4fa38a08f2
+switch.zone_6_front_lawn_walkway:
+  platform: rachio
+  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-70bb5773-c58f-44df-8683-3f5db00370bf
+switch.zone_7_front_lawn_street:
+  platform: rachio
+  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-8aba3ca5-5111-4a04-84b9-d5d3b339478b
+switch.zone_3_garage:
+  platform: rachio
+  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-5d3fbccd-9618-43d6-88be-3b4f36fd6a23
+switch.zone_4_firepit:
+  platform: rachio
+  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-6c8cba8b-34a0-4f31-93d0-33b7583114f7
+light.bedroom_lights_level:
+  platform: zwave
+  unique_id: 2-72057594076299265
+light.living_room_lights_level:
+  platform: zwave
+  unique_id: 4-72057594109853697
+switch.island_lights_switch:
+  platform: zwave
+  unique_id: 5-72057594126614528
+light.kitchen_lights_level:
+  platform: zwave
+  unique_id: 6-72057594143408129
+light.den_lights_level:
+  platform: zwave
+  unique_id: 7-72057594160185345
+switch.garage_lights_switch:
+  platform: zwave
+  unique_id: 9-72057594193723392
+switch.washer_switch:
+  platform: zwave
+  unique_id: 10-72057594210500608
+sensor.washer_power:
+  platform: zwave
+  unique_id: 10-72057594210697282
+sensor.washer_energy:
+  platform: zwave
+  unique_id: 10-72057594210713602
+sensor.washer_previous_reading:
+  platform: zwave
+  unique_id: 10-72057594210713618
+sensor.washer_interval:
+  platform: zwave
+  unique_id: 10-72057594210713635
+sensor.washer_power_2:
+  platform: zwave
+  unique_id: 10-72057594210713730
+sensor.washer_previous_reading_2:
+  platform: zwave
+  unique_id: 10-72057594210713746
+sensor.washer_interval_2:
+  platform: zwave
+  unique_id: 10-72057594210713763
+sensor.washer_exporting:
+  platform: zwave
+  unique_id: 10-72057594210714112
+switch.dryer_switch:
+  platform: zwave
+  unique_id: 11-72057594227277824
+sensor.dryer_power:
+  platform: zwave
+  unique_id: 11-72057594227474498
+sensor.dryer_energy:
+  platform: zwave
+  unique_id: 11-72057594227490818
+sensor.dryer_previous_reading:
+  platform: zwave
+  unique_id: 11-72057594227490834
+sensor.dryer_interval:
+  platform: zwave
+  unique_id: 11-72057594227490851
+sensor.dryer_power_2:
+  platform: zwave
+  unique_id: 11-72057594227490946
+sensor.dryer_previous_reading_2:
+  platform: zwave
+  unique_id: 11-72057594227490962
+sensor.dryer_interval_2:
+  platform: zwave
+  unique_id: 11-72057594227490979
+sensor.dryer_exporting:
+  platform: zwave
+  unique_id: 11-72057594227491328
+switch.backyard_lights_switch:
+  platform: zwave
+  unique_id: 12-72057594244055040
+switch.little_christmas_trees_switch:
+  platform: zwave
+  unique_id: 13-72057594260832256
+switch.christmas_tree_switch:
+  platform: zwave
+  unique_id: 14-72057594277609472
+switch.living_room_camera_plug_switch:
+  platform: zwave
+  unique_id: 15-72057594294386688
+switch.siren_switch:
+  platform: zwave
+  unique_id: 17-72057594327941120
+sensor.office_smoke_alarm_type:
+  platform: zwave
+  unique_id: 18-72057594345963521
+sensor.office_smoke_alarm_level:
+  platform: zwave
+  unique_id: 18-72057594345963537
+sensor.bedroom_smoke_alarm_type:
+  platform: zwave
+  unique_id: 19-72057594362740737
+sensor.bedroom_smoke_alarm_level:
+  platform: zwave
+  unique_id: 19-72057594362740753
+sensor.den_smoke_alarm_type:
+  platform: zwave
+  unique_id: 20-72057594379517953
+sensor.den_smoke_alarm_level:
+  platform: zwave
+  unique_id: 20-72057594379517969
+binary_sensor.garage_door_frontyard_sensor:
+  platform: zwave
+  unique_id: 21-72057594395230208
+sensor.garage_door_frontyard_alarm_type:
+  platform: zwave
+  unique_id: 21-72057594396295169
+sensor.garage_door_frontyard_alarm_level:
+  platform: zwave
+  unique_id: 21-72057594396295185
+sensor.garage_door_frontyard_sourcenodeid:
+  platform: zwave
+  unique_id: 21-72057594396295201
+sensor.garage_door_frontyard_burglar:
+  platform: zwave
+  unique_id: 21-72057594396295329
+binary_sensor.bay_window_shock_sensor:
+  platform: zwave
+  unique_id: 22-72057594412007424
+sensor.bay_window_shock_alarm_type:
+  platform: zwave
+  unique_id: 22-72057594413072385
+sensor.bay_window_shock_alarm_level:
+  platform: zwave
+  unique_id: 22-72057594413072401
+sensor.bay_window_shock_sourcenodeid:
+  platform: zwave
+  unique_id: 22-72057594413072417
+sensor.bay_window_shock_burglar:
+  platform: zwave
+  unique_id: 22-72057594413072545
+sensor.bay_window_shock_power_management:
+  platform: zwave
+  unique_id: 22-72057594413072561
+sensor.bay_window_shock_clock:
+  platform: zwave
+  unique_id: 22-72057594413072609
+lock.front_door_lock_locked:
+  platform: zwave
+  unique_id: 23-72057594429603840
+sensor.front_door_lock_alarm_type:
+  platform: zwave
+  unique_id: 23-72057594429849601
+sensor.front_door_lock_alarm_level:
+  platform: zwave
+  unique_id: 23-72057594429849617
+sensor.front_door_lock_sourcenodeid:
+  platform: zwave
+  unique_id: 23-72057594429849633
+sensor.front_door_lock_access_control:
+  platform: zwave
+  unique_id: 23-72057594429849745
+sensor.front_door_lock_burglar:
+  platform: zwave
+  unique_id: 23-72057594429849761
+sensor.front_door_lock_power_management:
+  platform: zwave
+  unique_id: 23-72057594429849777
+sensor.front_door_lock_system:
+  platform: zwave
+  unique_id: 23-72057594429849793

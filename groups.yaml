@@ -18,8 +18,8 @@ den_sensors:
   entities:
   - binary_sensor.centralite_3320l_057b7c44_1
   - binary_sensor.centralite_3320l_057ce46f_1
-  - sensor.den_motion_sensor_temperature
-  - sensor.den_motion_battery
+  #- sensor.den_motion_sensor_temperature
+  #- sensor.den_motion_battery
   - sensor.centralite_3320l_057b7c44_1
   - sensor.den_smoke_status
   - sensor.centralite_3320l_057ce46f_1
@@ -269,8 +269,8 @@ ring_sensor:
   - binary_sensor.ring_front_door_motion
   - binary_sensor.ring_side_gate_motion
   - sensor.ring_front_door_battery
-  - sensor.ring_front_door_last_activity
-  - sensor.ring_side_gate_last_activity
+  #- sensor.ring_front_door_last_activity
+  #- sensor.ring_side_gate_last_activity
 
 ring:
   name: Ring
@@ -284,8 +284,8 @@ services:
   icon: mdi:home-circle
   entities:
    - sensor.uptime
-   - sensor.disk_used_home
-   - sensor.ram_used
+   - sensor.disk_use_percent_home
+   - sensor.memory_use_percent
    - sensor.sleep_start_time
    - group.pihole_status
    - group.sab

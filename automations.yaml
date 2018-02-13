@@ -1418,13 +1418,7 @@
     entity_id: binary_sensor.shokabow_weather_rain
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057b7c44_1
-    to: 'on'
-  - platform: state
     entity_id: binary_sensor.centralite_3320l_057ce46f_1
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.centralite_3320l_057b833c_1
     to: 'on'
   - platform: state
     entity_id: binary_sensor.centralite_3320l_05989606_1
@@ -1479,13 +1473,7 @@
 - alias: Thermostat on and window open
   trigger:
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057b7c44_1
-    to: 'on'
-  - platform: state
     entity_id: binary_sensor.centralite_3320l_057ce46f_1
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.centralite_3320l_057b833c_1
     to: 'on'
   - platform: state
     entity_id: binary_sensor.centralite_3320l_05989606_1
@@ -2109,7 +2097,7 @@
 #
 ################################################
 
-- alias: battery_alert
+- alias: Battery Alert
   trigger:
     - platform: time
       at: '10:00:00'
@@ -2169,7 +2157,7 @@
           {% endmacro %}
           {{ battery_level()}}
 
-- alias: battery_alert_clear
+- alias: Battery Alert Clear
   trigger:
     - platform: time
       minutes: '/30'
@@ -2194,3 +2182,37 @@
     - service: persistent_notification.dismiss
       data:
         notification_id: low-battery-alert
+        
+################################################
+#
+#      Xiaomi Price Notification
+#
+################################################
+
+- alias: Xiaomi Air Purifier Price
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.xiaomi_air_purifier_2
+    below: 125
+  action:
+  - service: notify.chrome
+    data:
+      message: "Price dropped below $125 for air purifier"
+      target: danny_pixel
+      title: Shokabow Zoo
+      data:
+        url: 'https://www.gearbest.com/home-smart-improvements/pp_268522.html'
+        
+- alias: Xiaomi Leak Sensor Price
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.xiaomi_leak_sensor
+    below: 10
+  action:
+  - service: notify.chrome
+    data:
+      message: "Price dropped below $10 for leak sensor"
+      target: danny_pixel
+      title: Shokabow Zoo
+      data:
+        url: 'https://www.gearbest.com/home-smart-improvements/pp_668897.html'

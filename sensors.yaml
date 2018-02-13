@@ -448,3 +448,13 @@
    - type: disk_use_percent
      arg: "/home"
    - type: memory_use_percent
+   
+ - platform: gearbest
+   currency: USD
+   items:
+   - url: https://www.gearbest.com/home-smart-improvements/pp_268522.html
+     name: Xiaomi Air Purifier 2
+   - url: https://www.gearbest.com/home-smart-improvements/pp_668897.html
+     name: Xiaomi Leak Sensor
+   - url: https://www.gearbest.com/access-control/pp_626703.html
+     name: Xiaomi Contact Sensor
