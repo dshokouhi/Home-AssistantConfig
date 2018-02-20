@@ -179,3 +179,5 @@
 ![home6](https://user-images.githubusercontent.com/1634145/35309381-0ffe3e90-0061-11e8-8ee5-f96ba553957c.JPG)
 ![home7](https://user-images.githubusercontent.com/1634145/35309382-101375a8-0061-11e8-9053-14c6605a8edf.JPG)
 ![home1](https://user-images.githubusercontent.com/1634145/35309383-102d3826-0061-11e8-9392-eaf853efe7ea.JPG)
+
+Special shout out to all of the various GitHub Repo's I had used in here.  Lots of people to list here but many members of the Home Assistant community contributed.
