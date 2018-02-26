@@ -182,3 +182,59 @@ pseudo_tv:
       entity_id: media_player.kodi_den
       method: Addons.ExecuteAddon
       addonid: script.pseudotv.live
+
+den_camera_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.den_camera
+      filename: '/home/homeassistant/.homeassistant/snapshot/den_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Den camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+
+living_room_camera_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.living_room_camera
+      filename: '/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Living room camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+
+kitchen_camera_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.kitchen_camera
+      filename: '/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Kitchen camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+          
+outdoor_camera_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.outdoor_camera
+      filename: '/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Outdoor camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"

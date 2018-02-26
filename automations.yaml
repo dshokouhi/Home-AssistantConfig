@@ -345,7 +345,7 @@
 ################################################
 #
 #      Laundry notifications
-#   The washer is done {% if is_state("input_boolean.dryer_status", "on") -%} but the dryer is still running {% else %} time to switch laundry {% endif %}
+#   The washer is done {% if is_state('input_boolean.dryer_status', 'on') %} but the dryer is still running {% else %} time to switch laundry {% endif %}
 ################################################
 
 - alias: Dryer Notification
@@ -375,13 +375,13 @@
       title: Shokabow Zoo
   - service: tts.google_say
     entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
-      message: 'Time to get your clothes!'
+    data_template:
+      message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes{% endif %}"
   - service: input_boolean.turn_off
     entity_id: input_boolean.dryer_status
   - service: notify.chrome
     data:
-      message: "The dryer is done"
+      message: "The dryer is done{% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
 
@@ -412,13 +412,13 @@
       title: Shokabow Zoo
   - service: tts.google_say
     entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
-      message: 'Time to switch laundry!'
+    data_template:
+      message: "The washer is done. {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
   - service: input_boolean.turn_off
     entity_id: input_boolean.washer_status
   - service: notify.chrome
     data:
-      message: "The washer is done"
+      message: "The washer is done {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
 
@@ -428,7 +428,7 @@
     entity_id: sensor.dishwasher_running
     to: 'False'
     for:
-      minutes: 3
+      minutes: 5
   condition:
     condition: and
     conditions:
@@ -458,6 +458,8 @@
       message: "The dishes are done"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+  #- service: input_boolean.turn_on
+   # entity_id: input_boolean.dishes_clean
 
 - alias: Washer Start
   trigger:
@@ -487,8 +489,10 @@
     entity_id: sensor.dishwasher_running
     to: 'True'
   action:
-    service: input_boolean.turn_on
+  - service: input_boolean.turn_on
     entity_id: input_boolean.dishwasher_status
+  #- service: input_boolean.turn_off
+   # entity_id: input_boolean.dishes_clean  
 
 ################################################
 #
@@ -528,7 +532,12 @@
     entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'The front door lock is jammed'
-
+  - service: notify.chrome
+    data:
+      message: "The front door lock is jammed"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
+      
 - alias: Speak close den sliding door
   trigger:
     platform: state
@@ -545,7 +554,23 @@
     entity_id: media_player.den_home
     data:
       message: 'Please close the den sliding door'
+  - service: notify.chrome
+    data:
+      message: "Please close the den sliding door"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
 
+# - alias: Check dishwasher
+  # trigger:
+    # platform: state
+    # entity_id: input_boolean.dishes_clean
+    # to: 'off'
+  # action:
+  # - service: tts.google_say
+    # entity_id: media_player.kitchen_home
+    # data:
+      # message: 'Dont forget to check the dishwasher in case the cleaner got off track'
+      
 ################################################
 #
 #      Alarm notifications
@@ -574,14 +599,18 @@
   - service: camera.snapshot
     data:
       entity_id: camera.living_room_camera
-      filename: '/home/homeassistant/.homeassistant/snapshot/living_room_camera__{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg'
+      filename: '/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg'
   - service: notify.chrome
     data:
-      data:
-        url: !secret living_room_camera_snapshot
-      message: "Alarm Tripped!! Click to see picture"
+      message: "Alarm Tripped!! Check Slack for living room snapshot"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+  - service: notify.slack
+    data:
+      message: "Living room camera snapshot"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
 
 - alias: Den Alarm Pic
   trigger:
@@ -599,14 +628,18 @@
   - service: camera.snapshot
     data:
       entity_id: camera.den_camera
-      filename: '/home/homeassistant/.homeassistant/snapshot/den_camera__{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg'
+      filename: '/home/homeassistant/.homeassistant/snapshot/den_camera.jpg'
   - service: notify.chrome
     data:
-      data:
-        url: !secret den_camera_snapshot
-      message: "Alarm Tripped!! Click to see picture"
+      message: "Alarm Tripped!! Check Slack for den snapshot"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+  - service: notify.slack
+    data:
+      message: "Den camera snapshot"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
 
 - alias: Alarm Tripped
   trigger:
@@ -686,12 +719,18 @@
       message: "The alarm has been activated"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+      data:
+        tag: "alarm"
 
 - alias: Notify Alarm Off
   trigger:
     platform: state
     entity_id: alarm_control_panel.shm
     to: disarmed
+  condition:
+    condition: state
+    entity_id: group.tracked_users
+    state: not_home
   action:
   - service: light.turn_off
     entity_id: light.corner_lamp
@@ -699,11 +738,11 @@
     entity_id: light.front_door_lamp
   - service: notify.chrome
     data:
-      data:
-        url: !secret living_room_camera_snapshot
       message: "The alarm has been deactivated"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+      data:
+        tag: "alarm"
 
 - alias: Arm Alarm When Nobody Home
   trigger:
@@ -730,6 +769,8 @@
       message: "The alarm has been activated since nobody is home"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+      data:
+        tag: "alarm"
 
 - alias: Disarm alarm when someone comes home
   trigger:
@@ -749,6 +790,8 @@
       message: "The alarm has been deactivated since a tracked user is home"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+      data:
+        tag: "alarm"
       
 # - alias: SHM Alarm On
   # trigger:
@@ -896,15 +939,29 @@
     entity_id: alarm_control_panel.shm
     to: 'triggered'
   action:
+  - service: light.turn_on
+    entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.bedroom_lights_level, light.office_lights
   - service: notify.chrome
     data:
       image: !secret living_room_camera_snapshot
-      message: "Alarm Triggered, open to see picture!! {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      message: "The alarm has been triggered since it was not disarmed for 60 seconds, check Slack for snapshots!! Following windows/doors triggered the alarm {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - service: switch.turn_on
     entity_id: switch.siren_switch
-
+  - service: script.turn_on
+    entity_id: script.den_camera_snapshot
+  - service: script.turn_on
+    entity_id: script.living_room_camera_snapshot
+  - service: script.turn_on
+    entity_id: script.kitchen_camera_snapshot
+  - service: script.turn_on
+    entity_id: script.outdoor_camera_snapshot
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - service: light.turn_on
+    entity_id: light.patio
 
 ################################################
 #
@@ -1148,7 +1205,7 @@
 - alias: Heat up house in morning on work days
   trigger:
   - platform: time
-    at: "07:30:00"
+    at: "07:15:00"
   condition:
     condition: and
     conditions:
@@ -1398,6 +1455,11 @@
     to: 'on'
     for:
       minutes: 15
+  - platform: state
+    entity_id: switch.garage_lights_switch
+    to: 'on'
+    for:
+      minutes: 15
   condition:
     condition: state
     entity_id: binary_sensor.garage_frontyard
@@ -1615,13 +1677,16 @@
         color: red
         duration: 10
         position: center
-      message: 'Smoke Detected!'
+      message: 'Smoke Detected! {{ trigger.to_state.attributes.friendly_name }}'
       title: Shokabow Zoo
   - service: notify.chrome
     data:
       message: "Smoke Detected"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+  - service: notify.slack
+    data:
+      message: "Smoke detected at home"
 
 - alias: CO2 Detected
   trigger:
@@ -1648,6 +1713,9 @@
       message: "CO2 Detected"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+  - service: notify.slack
+    data:
+      message: "CO2 detected at home"
 
 ################################################
 #
@@ -1792,6 +1860,15 @@
       message: "front door lock zwave died"
       target: danny_pixel
       title: Shokabow Zoo
+      
+# - alias: Notify zwave network ready
+  # trigger:
+    # platform: event
+    # event_type: zwave.network_ready
+  # action:
+  # - service: notify.slack
+    # data:
+      # message: "The Z-Wave network is now ready"
       
 ################################################
 #
@@ -2039,6 +2116,23 @@
     service: input_boolean.turn_off
     entity_id: input_boolean.movie_mode
     
+- alias: Turn off den lights if movie is already playing when movie mode turned on
+  trigger:
+    platform: state
+    entity_id: input_boolean.movie_mode
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: media_player.kodi_den
+      state: playing
+    - condition: template
+      value_template: '{{ states.remote.harmony_hub_den.attributes.current_activity != "Watch PC" }}'
+  action:
+    service: light.turn_off
+    entity_id: light.den_lights_level
+    
 ################################################
 #
 #      Water Heater Notification
@@ -2197,7 +2291,7 @@
   action:
   - service: notify.chrome
     data:
-      message: "Price dropped below $125 for air purifier"
+      message: "Price dropped below $125 for air purifier. Click to buy!"
       target: danny_pixel
       title: Shokabow Zoo
       data:
@@ -2211,8 +2305,26 @@
   action:
   - service: notify.chrome
     data:
-      message: "Price dropped below $10 for leak sensor"
+      message: "Price dropped below $10 for leak sensor. Click to buy!"
       target: danny_pixel
       title: Shokabow Zoo
       data:
         url: 'https://www.gearbest.com/home-smart-improvements/pp_668897.html'
+        
+- alias: Create notifications for "timer" errors
+  trigger:
+    platform: event
+    event_type: system_log_event
+  condition:
+    condition: template
+    value_template: '{{ "timer" in trigger.event.data.message }}'
+  action:
+  - service: persistent_notification.create
+    data_template:
+      title: Something bad happened
+      message: '{{ trigger.event.data.message }}'
+  - service: notify.chrome
+    data:
+      message: "Timer out of sync"
+      target: danny_pixel
+      title: Shokabow Zoo

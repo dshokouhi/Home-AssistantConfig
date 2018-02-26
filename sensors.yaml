@@ -458,3 +458,14 @@
      name: Xiaomi Leak Sensor
    - url: https://www.gearbest.com/access-control/pp_626703.html
      name: Xiaomi Contact Sensor
+     
+ - platform: plex
+   host: 192.168.1.60
+   token: !secret plex_token
+   
+ - platform: speedtest
+   monitored_conditions:
+   - ping
+   - download
+   - upload
+   manual: true

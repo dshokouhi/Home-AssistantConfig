@@ -53,3 +53,6 @@ night_mode:
 movie_mode:
   name: Movie Mode
   icon: mdi:movie
+  
+dishes_clean:
+  name: Dishes clean

@@ -287,6 +287,7 @@ services:
    - sensor.disk_use_percent_home
    - sensor.memory_use_percent
    - sensor.sleep_start_time
+   - sensor.plex
    - group.pihole_status
    - group.sab
    - group.ring
@@ -294,8 +295,16 @@ services:
    - group.weather
    - group.forecast
    - group.epson_printer
+   - group.speedtest
    - weather.dark_sky
 
+speedtest:
+  name: Speed Test
+  entities:
+  - sensor.speedtest_ping
+  - sensor.speedtest_download
+  - sensor.speedtest_upload
+  
 media_players:
   name: Media Players
   view: yes

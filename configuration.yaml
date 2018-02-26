@@ -212,7 +212,7 @@ climate:
    # host: 192.168.1.21
 
 mqtt:
-  broker: 192.168.1.43
+  broker: 192.168.1.47
   #discovery: true
   #discovery_prefix: smartthings
   port: 1883
@@ -639,3 +639,6 @@ hue:
 weather:
   - platform: darksky
     api_key: !secret darksky_api
+    
+influxdb:
+  max_retries: 5

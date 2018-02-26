@@ -211,3 +211,21 @@ sensor.front_door_lock_power_management:
 sensor.front_door_lock_system:
   platform: zwave
   unique_id: 23-72057594429849793
+media_player.pixel_2_xl:
+  platform: plex
+  unique_id: 95595efb566831cf-com-plexapp-android
+media_player.plex_web_chrome:
+  platform: plex
+  unique_id: ldz381hpo3ir1dmhg6lzif03
+media_player.bravia_4k_2015:
+  platform: plex
+  unique_id: 87004aae453a970d-com-plexapp-android
+media_player.aftt:
+  platform: plex
+  unique_id: ee85b54e3b55368b-com-plexapp-android
+media_player.fire_tv:
+  platform: plex
+  unique_id: 6a89d29643119ce5-com-plexapp-android
+media_player.plex_web_chrome_2:
+  platform: plex
+  unique_id: myitfpxiqx89jyyihk63smp0
