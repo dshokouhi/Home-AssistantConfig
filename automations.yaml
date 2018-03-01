@@ -104,12 +104,11 @@
     entity_id: switch.bedroom_fan
   - service: light.turn_off
     entity_id: light.biased_lights
-
+     
 - alias: Fireplace and TV Lights Between Sunset and Sunrise
   trigger:
   - platform: state
-    entity_id: media_player.sony_bravia_tv
-    to: 'on'
+    entity_id: remote.harmony_hub_den
   - platform: sun
     event: sunset
   condition:
@@ -119,7 +118,7 @@
       entity_id: sun.sun
       state: 'below_horizon'
     - condition: template
-      value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity != PowerOff }}"
+      value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
   action:
   - service: light.turn_on
     entity_id: light.tv_lights
@@ -345,7 +344,7 @@
 ################################################
 #
 #      Laundry notifications
-#   The washer is done {% if is_state('input_boolean.dryer_status', 'on') %} but the dryer is still running {% else %} time to switch laundry {% endif %}
+#   
 ################################################
 
 - alias: Dryer Notification
@@ -458,8 +457,8 @@
       message: "The dishes are done"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
-  #- service: input_boolean.turn_on
-   # entity_id: input_boolean.dishes_clean
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.dishes_clean
 
 - alias: Washer Start
   trigger:
@@ -491,8 +490,8 @@
   action:
   - service: input_boolean.turn_on
     entity_id: input_boolean.dishwasher_status
-  #- service: input_boolean.turn_off
-   # entity_id: input_boolean.dishes_clean  
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.dishes_clean  
 
 ################################################
 #
@@ -560,20 +559,20 @@
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
 
-# - alias: Check dishwasher
-  # trigger:
-    # platform: state
-    # entity_id: input_boolean.dishes_clean
-    # to: 'off'
-  # action:
-  # - service: tts.google_say
-    # entity_id: media_player.kitchen_home
-    # data:
-      # message: 'Dont forget to check the dishwasher in case the cleaner got off track'
-      
+- alias: Check dishwasher
+  trigger:
+    platform: state
+    entity_id: input_boolean.dishes_clean
+    to: 'off'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.kitchen_home
+    data:
+      message: 'Dont forget to check the dishwasher in case the cleaner got off track'
+
 ################################################
 #
-#      Alarm notifications
+#      Alarm automations and notifications
 #
 ################################################
 
@@ -885,7 +884,7 @@
   - service: tts.google_say
     entity_id: media_player.kitchen_home, media_player.den_home, media_player.office_speaker
     data:
-      message: 'Hello just a friendly reminder to make sure the water bowls in the den and living room and also the ferret cage are refilled.  Dont forget to feed the ferrets and cats.  Please clean up the ferret and cat litter. Thank you so much have a great day.'
+      message: 'Hello just a friendly reminder to make sure the water bowls in the den, living room and also the ferret cage are refilled.  Dont forget to feed the ferrets and cats.  Please clean up the ferret and cat litter. Thank you so much have a great day.'
 
 - alias: Zookeeper Unlock
   trigger:
@@ -1106,7 +1105,7 @@
   - service: light.turn_on
     entity_id: light.office_lights
   - service: light.turn_on
-    entity_id: light.kitchen_lights_level
+    entity_id: light.kitchen_lights_level, light.living_room_lights_level
   - service: light.turn_on
     entity_id: light.bedroom_lights_level
   - service: script.turn_on
@@ -1230,6 +1229,39 @@
       entity_id: climate.thermostat
       operation_mode: heat
 
+- alias: Den lights on between 4 and 8am
+  trigger:
+    platform: state
+    entity_id: light.den_lights_level
+    to: 'on'
+  condition:
+    condition: time
+    after: "04:00:00"
+    before: "08:00:00"
+  action:
+    service: light.turn_on
+    entity_id: light.den_lights_level
+    data:
+      brightness_pct: 5
+      
+- alias: Raise den lights at 9am if below 30
+  trigger:
+    platform: time
+    at: "09:00:00"
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: light.den_lights_level
+      state: 'on'
+    - condition: template
+      value_template: "{{ states.light.den_lights_level.attributes.brightness < 30 }}"
+  action:
+    service: light.turn_on
+    entity_id: light.den_lights_level
+    data:
+      brightness_pct: 30
+      
 ################################################
 #
 #      Lock Automations
@@ -1324,6 +1356,12 @@
     entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'You got mail'
+  - service: notify.den
+    data:
+      data:
+        color: teal
+      message: You got mail!
+      title: Shokabow Zoo
 
 - alias: Mailbox boolean hass restart
   trigger:
@@ -1338,7 +1376,7 @@
 
 ################################################
 #
-#      Closet Light Automations
+#      Basic Light Automations
 #
 ################################################
 
@@ -1529,8 +1567,8 @@
     state: 'home'
   - service: tts.google_say
     entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
-      message: 'its raining and a window is open'
+    data_template:
+      message: "Its raining and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
 
 - alias: Thermostat on and window open
   trigger:
@@ -1582,8 +1620,8 @@
     state: 'home'
   - service: tts.google_say
     entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
-      message: 'the thermostat is on and a window is open'
+    data_template:
+      message: "The thermostat is on and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
 
 ################################################
 #
@@ -2017,7 +2055,7 @@
       brightness_pct: 100
       kelvin: 6500
   - service: light.turn_off
-    entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio, light.living_room_lights_level
+    entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio, light.living_room_lights_level, light.office_lights, light.bedroom_lights_level
   - service: switch.turn_off
     entity_id: switch.island_lights_switch
   - condition: state
@@ -2200,7 +2238,7 @@
   condition:
     - condition: template
       value_template: >
-          {%- set threshold = 40 -%}
+          {%- set threshold = 10 -%}
           {% macro battery_level() %}
           {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
           {% for domain in domains -%}
@@ -2219,7 +2257,7 @@
         title: "Low Battery levels"
         notification_id: low-battery-alert
         message: >
-          {%- set threshold = 40 -%}
+          {%- set threshold = 10 -%}
           {% macro battery_level(domain) %}
           {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
           {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
@@ -2238,7 +2276,7 @@
         target: ["danny_pixel", "tosh_phone"]
         message: >
           {% macro battery_level() %}
-          {%- set threshold = 40 -%}
+          {%- set threshold = 10 -%}
           {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
           {% for domain in domains -%}
           {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
@@ -2259,7 +2297,7 @@
   condition:
     - condition: template
       value_template: >
-        {%- set threshold = 40 -%}
+        {%- set threshold = 10 -%}
         {% macro battery_level() %}
         {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
         {% for domain in domains -%}
@@ -2311,6 +2349,12 @@
       data:
         url: 'https://www.gearbest.com/home-smart-improvements/pp_668897.html'
         
+################################################
+#
+#      Log Notification
+#
+################################################
+
 - alias: Create notifications for "timer" errors
   trigger:
     platform: event
@@ -2328,3 +2372,29 @@
       message: "Timer out of sync"
       target: danny_pixel
       title: Shokabow Zoo
+  
+################################################
+#
+#      Speed Test Automations
+#
+################################################
+
+- alias: Speed test
+  trigger:
+  - platform: time
+    at: "01:00:00"
+  - platform: time
+    at: "05:00:00"
+  - platform: time
+    at: "13:00:00"
+  - platform: time
+    at: "17:00:00"
+  condition:
+    condition: and
+    conditions:
+    - condition: template
+      value_template: "{{ states.sensor.plex.state == 0 }}"
+    - condition: template
+      value_template: "{{ states.sensor.sabnzbd_speed.state | int == 0 }}"
+  action:
+    service: sensor.update_speedtest

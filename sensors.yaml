@@ -469,3 +469,14 @@
    - download
    - upload
    manual: true
+   server_id: 7456
+   
+ - platform: pollen
+   zip_code: !secret zip_code
+   monitored_conditions:
+   - allergy_average_forecasted
+   - allergy_average_historical
+   - allergy_index_today
+   - allergy_index_tomorrow
+   - allergy_index_yesterday
+   - disease_average_forecasted

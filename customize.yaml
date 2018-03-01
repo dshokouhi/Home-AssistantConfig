@@ -6,6 +6,10 @@ group.all_automations:
   friendly_name: All Automations
   assumed_state: true
 
+group.all_scritps:
+  hidden: false
+  friendly_name: All Scripts
+  
 group.auto:
   assumed_state: true
 
@@ -442,3 +446,6 @@ binary_sensor.dannys_bayesian_presence:
   
 sensor.waqi_reseda_los_angeles:
   friendly_name: Air Quality - Reseda, Los Angeles
+  
+sensor.plex:
+  friendly_name: Total Active Plex Streams

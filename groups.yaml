@@ -371,10 +371,10 @@ house_settings:
   control: hidden
   entities:
   - alarm_control_panel.shm
-  - input_boolean.vacation_mode
-  - input_boolean.night_mode
   - input_boolean.guest_mode
   - input_boolean.movie_mode
+  - input_boolean.night_mode
+  - input_boolean.vacation_mode
 
 colorful:
   name: Colorful
