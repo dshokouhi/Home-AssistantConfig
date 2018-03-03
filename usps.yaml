@@ -1,2 +1,3 @@
 username: !secret uspsuser
 password: !secret uspspass
+driver: chrome

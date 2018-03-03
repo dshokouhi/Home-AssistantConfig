@@ -212,8 +212,11 @@ default_view:
   #- binary_sensor.dannys_pixel_2
   #- binary_sensor.natachas_pixel
   - sensor.crime_reports
+  - sensor.spot_crime
   - sensor.fedex
   - sensor.ups
+  - sensor.usps_mail
+  - sensor.usps_packages
   - sensor.waqi_reseda_los_angeles
   - binary_sensor.windows
   #- device_tracker.10f1f2822f12
@@ -245,6 +248,7 @@ cameras:
   - camera.outdoor_camera
   - camera.front_door
   - camera.side_gate
+  - camera.usps_mail
 
 tracked_users:
   name: Tracked Users
@@ -287,6 +291,7 @@ services:
    - sensor.uptime
    - sensor.disk_use_percent_home
    - sensor.memory_use_percent
+   - sensor.homeassistant_v2db
    - sensor.sleep_start_time
    - sensor.plex
    - sensor.ssl_certificate_expiry

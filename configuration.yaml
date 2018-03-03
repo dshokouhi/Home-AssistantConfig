@@ -15,6 +15,7 @@ homeassistant:
   customize_glob: !include custom-ui.yaml
   whitelist_external_dirs:
   - /home/homeassistant/.homeassistant/snapshot
+  - /home/homeassistant/.homeassistant
 
 # Custom UI tfrom https://github.com/andrey-git/home-assistant-custom-ui
 customizer:
@@ -176,7 +177,7 @@ tts:
 
 group: !include groups.yaml
 
-#usps: !include usps.yaml
+usps: !include usps.yaml
 
 ifttt:
    key: !secret ifttt

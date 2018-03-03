@@ -31,6 +31,12 @@ sensor.fedex:
 sensor.ups:
   friendly_name: UPS
 
+sensor.usps_mail:
+  friendly_name: USPS Daily Mail Count
+  
+sensor.usps_packages:
+  friendly_name: USPS Packages
+  
 sensor.yr_symbol:
   friendly_name: Weather
 
@@ -125,7 +131,7 @@ script.xbox:
 
 light.bar_flex:
   friendly_name: Bar Lights
-  icon: mdi:martini
+  icon: mdi:glass-cocktail
 
 light.cabinet_lights:
   friendly_name: Cabinet Lights

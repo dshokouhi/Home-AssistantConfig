@@ -232,3 +232,156 @@ media_player.plex_web_chrome_2:
 media_player.acerdesktop:
   platform: plex
   unique_id: v5u1pq1xwvto8lr2ebwlba9k
+sensor.allergy_index_tomorrow:
+  platform: pollen
+  unique_id: 91335_allergy_index_tomorrow
+sensor.allergy_index_today:
+  platform: pollen
+  unique_id: 91335_allergy_index_today
+sensor.allergy_index_forecasted_average:
+  platform: pollen
+  unique_id: 91335_allergy_index_forecasted_average
+sensor.allergy_index_historical_average:
+  platform: pollen
+  unique_id: 91335_allergy_index_historical_average
+sensor.allergy_index_yesterday:
+  platform: pollen
+  unique_id: 91335_allergy_index_yesterday
+sensor.cold__flu_forecasted_average:
+  platform: pollen
+  unique_id: 91335_cold__flu_forecasted_average
+binary_sensor.water_leak_sensor_158d0001bc24f5:
+  platform: xiaomi_aqara
+  unique_id: status158d0001bc24f5
+media_player.den_home:
+  platform: cast
+  unique_id: 2f574570-6944-ddf8-afbb-9f09d63fa439
+media_player.office_speaker:
+  platform: cast
+  unique_id: bd9c0392-22f7-bd2a-d800-3c5b11296787
+media_player.living_room_home:
+  platform: cast
+  unique_id: 5b30fffc-822c-060d-3643-e32f010332ee
+media_player.den_tv:
+  platform: cast
+  unique_id: a77e8b82-dbfb-1354-a620-0199e0c5f9a7
+media_player.kitchen_home:
+  platform: cast
+  unique_id: c24b6d75-ac65-08aa-8221-d373ed04e8e6
+media_player.home_notification:
+  platform: cast
+  unique_id: ed48b7b4-72b7-4aae-a34b-9321d63c4b91
+media_player.outdoor_speakers:
+  platform: cast
+  unique_id: d21dfa02-e7ac-291b-5617-88b54186a174
+media_player.house:
+  platform: cast
+  unique_id: f6dd91a4-97ea-41af-a716-2bb70272c811
+light.gateway_light_34ce0091f546:
+  platform: xiaomi_aqara
+  unique_id: rgb34ce0091f546
+media_player.bathroom_speaker:
+  platform: cast
+  unique_id: b915cf0c-6744-ed34-e12f-d620c9d4b7c5
+light.centralite_3210l_0a932dbf_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0a:93:2d:bf-1
+media_player.bedroom_speaker:
+  platform: cast
+  unique_id: 142c8dc2-983c-cc61-cf98-8263c01c4dd2
+light.centralite_3210l_0b2d4417_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:2d:44:17-1
+light.centralite_3210l_0b0383b4_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:03:83:b4-1
+sensor.centralite_3320l_0b666bfc_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:6b:fc-1-1026
+binary_sensor.centralite_3320l_0b666bfc_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:6b:fc-1-1280
+sensor.centralite_3320l_0b666ed0_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:6e:d0-1-1026
+binary_sensor.centralite_3320l_0b666ed0_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:6e:d0-1-1280
+sensor.centralite_3320l_0b63b331_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:b3:31-1-1026
+binary_sensor.centralite_3320l_0b63b331_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:b3:31-1-1280
+sensor.centralite_3320l_0b629e9b_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:9e:9b-1-1026
+binary_sensor.centralite_3320l_0b629e9b_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:9e:9b-1-1280
+sensor.centralite_3320l_0b636d0d_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:6d:0d-1-1026
+binary_sensor.centralite_3320l_0b636d0d_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:6d:0d-1-1280
+sensor.centralite_3320l_057b833c_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7b:83:3c-1-1026
+binary_sensor.centralite_3320l_057b833c_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7b:83:3c-1-1280
+sensor.centralite_3320l_0b636eab_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:6e:ab-1-1026
+binary_sensor.centralite_3320l_0b636eab_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:6e:ab-1-1280
+sensor.centralite_3320l_0b6289f7_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:89:f7-1-1026
+binary_sensor.centralite_3320l_0b6289f7_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:89:f7-1-1280
+sensor.centralite_3320l_057ce46f_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7c:e4:6f-1-1026
+binary_sensor.centralite_3320l_057ce46f_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7c:e4:6f-1-1280
+sensor.centralite_3320l_057b7c44_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7b:7c:44-1-1026
+binary_sensor.centralite_3320l_057b7c44_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7b:7c:44-1-1280
+sensor.centralite_3320l_05989606_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:98:96:06-1-1026
+binary_sensor.centralite_3320l_05989606_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:98:96:06-1-1280
+sensor.centralite_3320l_0b665f4e_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:5f:4e-1-1026
+binary_sensor.centralite_3320l_0b665f4e_1:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:5f:4e-1-1280
+sensor.illumination_34ce0091f546:
+  platform: xiaomi_aqara
+  unique_id: illumination34ce0091f546
+light.cree_connected_a19_60w_equivalent_fe010d00_10:
+  platform: zha
+  unique_id: e2:0d:b9:ff:fe:01:0d:00-10
+light.cree_connected_a19_60w_equivalent_fe010d32_10:
+  platform: zha
+  unique_id: e2:0d:b9:ff:fe:01:0d:32-10
+light.cree_connected_a19_60w_equivalent_fe013293_10:
+  platform: zha
+  unique_id: e2:0d:b9:ff:fe:01:32:93-10
+light.sengled_z01cia19nae26_03003148_1:
+  platform: zha
+  unique_id: b0:ce:18:14:03:00:31:48-1
+light.osram_lightify_flex_rgbw_00026309_3:
+  platform: zha
+  unique_id: 84:18:26:00:00:02:63:09-3
