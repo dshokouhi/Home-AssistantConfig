@@ -1105,7 +1105,7 @@
   - service: light.turn_on
     entity_id: light.office_lights
   - service: light.turn_on
-    entity_id: light.kitchen_lights_level, light.living_room_lights_level
+    entity_id: light.kitchen_lights_level, light.living_room_lights_level, light.den_lights_level
   - service: light.turn_on
     entity_id: light.bedroom_lights_level
   - service: script.turn_on
@@ -2398,3 +2398,21 @@
       value_template: "{{ states.sensor.sabnzbd_speed.state | int == 0 }}"
   action:
     service: sensor.update_speedtest
+    
+################################################
+#
+#      Cert expiring
+#
+################################################
+
+- alias: Certificate Expiring
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ssl_certificate_expiry
+    below: 5
+  action:
+  - service: notify.chrome
+    data:
+      message: "Certificate expiring in 5 days!"
+      target: danny_pixel
+      title: Shokabow Zoo

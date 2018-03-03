@@ -161,7 +161,7 @@
        unit_of_measurement: '%'
 
  - platform: pi_hole
-   host: 192.168.1.54
+   host: 192.168.1.47
 
  - platform: radarr
    api_key: !secret radarr
@@ -469,8 +469,9 @@
    - download
    - upload
    manual: true
-   server_id: 7456
-   
+   #server_id: 7456
+   server_id: 2953
+      
  - platform: pollen
    zip_code: !secret zip_code
    monitored_conditions:
@@ -480,3 +481,6 @@
    - allergy_index_tomorrow
    - allergy_index_yesterday
    - disease_average_forecasted
+   
+ - platform: cert_expiry
+   host: !secret cert_expiry_host

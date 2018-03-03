@@ -260,7 +260,8 @@ auto:
   view: yes
   entities:
   - group.all_automations
-
+  - group.all_scripts
+  
 ring_sensor:
   name: Ring Sensors
   control: hidden
@@ -288,6 +289,7 @@ services:
    - sensor.memory_use_percent
    - sensor.sleep_start_time
    - sensor.plex
+   - sensor.ssl_certificate_expiry
    - group.pihole_status
    - group.sab
    - group.ring

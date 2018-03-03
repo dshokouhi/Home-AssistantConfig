@@ -229,3 +229,6 @@ media_player.fire_tv:
 media_player.plex_web_chrome_2:
   platform: plex
   unique_id: myitfpxiqx89jyyihk63smp0
+media_player.acerdesktop:
+  platform: plex
+  unique_id: v5u1pq1xwvto8lr2ebwlba9k
