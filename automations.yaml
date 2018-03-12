@@ -109,16 +109,13 @@
   trigger:
   - platform: state
     entity_id: remote.harmony_hub_den
+    to: 'on'
   - platform: sun
     event: sunset
   condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: sun.sun
-      state: 'below_horizon'
-    - condition: template
-      value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
   action:
   - service: light.turn_on
     entity_id: light.tv_lights
@@ -364,20 +361,20 @@
       entity_id: input_boolean.night_mode
       state: 'off'
   action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.dryer_status
   - service: notify.den
-    data:
+    data_template:
       data:
         color: red
         duration: 10
         position: center
-      message: The dryer is done!
+      message: "The dryer is done {% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes {% endif %}"
       title: Shokabow Zoo
   - service: tts.google_say
     entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
-      message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes{% endif %}"
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.dryer_status
+      message: "The dryer is done {% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes{% endif %}"
   - service: notify.chrome
     data:
       message: "The dryer is done{% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes{% endif %}"
@@ -401,20 +398,20 @@
       entity_id: input_boolean.night_mode
       state: 'off'
   action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.washer_status
   - service: notify.den
-    data:
+    data_template:
       data:
         color: red
         duration: 10
         position: center
-      message: The washer is done!
+      message: "The washer is done {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
       title: Shokabow Zoo
   - service: tts.google_say
     entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "The washer is done. {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.washer_status
   - service: notify.chrome
     data:
       message: "The washer is done {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
@@ -1160,7 +1157,7 @@
   - service: script.turn_on
     entity_id: script.open_bay_window_curtains
   - service: switch.turn_off
-    entity_id: switch.house_fan
+    entity_id: switch.house_fan, switch.tasker_sleep_danny
   - service: input_boolean.turn_off
     entity_id: input_boolean.night_mode
 
@@ -1219,15 +1216,15 @@
       - thu
       - fri
     - condition: template
-      value_template: "{{ states.climate.thermostat.attributes.current_temperature <= 65 }}"
+      value_template: "{{ states.climate.thermostat_heating_1.attributes.current_temperature <= 65 }}"
     - condition: state
       entity_id: input_boolean.vacation_mode
       state: 'off'
   action:
   - service: climate.set_operation_mode
     data:
-      entity_id: climate.thermostat
-      operation_mode: heat
+      entity_id: climate.thermostat_heating_1
+      operation_mode: Heat
 
 - alias: Den lights on between 4 and 8am
   trigger:
@@ -1558,7 +1555,7 @@
       state: 'off'
   action:
   - service: notify.chrome
-    data:
+    data_template:
       message: "It's raining and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
       target: danny_pixel
       title: Shokabow Zoo
@@ -1597,7 +1594,7 @@
     entity_id: binary_sensor.centralite_3320l_0b63b331_1
     to: 'on'
   - platform: template
-    value_template: "{{ states.climate.thermostat.attributes.operation_mode != 'off' }}"
+    value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode != 'Off' }}"
   condition:
     condition: and
     conditions:
@@ -1605,13 +1602,13 @@
       entity_id: binary_sensor.windows
       state: 'on'
     - condition: template
-      value_template: "{{ states.climate.thermostat.attributes.operation_mode != 'off' }}"
+      value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode != 'Off' }}"
     - condition: state
       entity_id: input_boolean.night_mode
       state: 'off'
   action:
   - service: notify.chrome
-    data:
+    data_template:
       message: "The thermostat is on and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
       target: danny_pixel
       title: Shokabow Zoo
@@ -1658,7 +1655,7 @@
 - alias: Turn off fan if house is cold
   trigger:
   - platform: template
-    value_template: "{{ states.climate.thermostat.attributes.current_temperature <=65 }}"
+    value_template: "{{ states.climate.thermostat_heating_1.attributes.current_temperature <= 65 }}"
   condition:
     condition: state
     entity_id: switch.bedroom_fan
@@ -1672,6 +1669,15 @@
   - service: switch.turn_off
     entity_id: switch.house_fan
 
+- alias: Turn on sleep tracking dannys phone
+  trigger:
+    platform: state
+    entity_id: input_boolean.night_mode
+    to: 'on'
+  action:
+    service: switch.turn_on
+    entity_id: switch.tasker_sleep_danny
+    
 ##################################################
 #
 #      Lights Alarm Off
@@ -1710,7 +1716,7 @@
     to: 'Fire'
   action:
   - service: notify.den
-    data:
+    data_template:
       data:
         color: red
         duration: 10
@@ -1718,13 +1724,13 @@
       message: 'Smoke Detected! {{ trigger.to_state.attributes.friendly_name }}'
       title: Shokabow Zoo
   - service: notify.chrome
-    data:
-      message: "Smoke Detected"
+    data_template:
+      message: "Smoke Detected {{ trigger.to_state.attributes.friendly_name }}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - service: notify.slack
-    data:
-      message: "Smoke detected at home"
+    data_template:
+      message: "Smoke detected at home  {{ trigger.to_state.attributes.friendly_name }}"
 
 - alias: CO2 Detected
   trigger:
@@ -1739,21 +1745,21 @@
     to: 'CO2'
   action:
   - service: notify.den
-    data:
+    data_template:
       data:
         color: red
         duration: 10
         position: center
-      message: 'CO2 Detected!'
+      message: 'CO2 Detected! {{ trigger.to_state.attributes.friendly_name }}'
       title: Shokabow Zoo
   - service: notify.chrome
-    data:
-      message: "CO2 Detected"
+    data_template:
+      message: "CO2 Detected  {{ trigger.to_state.attributes.friendly_name }}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - service: notify.slack
-    data:
-      message: "CO2 detected at home"
+    data_template:
+      message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }}"
 
 ################################################
 #
@@ -1991,14 +1997,14 @@
 - alias: Cool down house if thermostat gets above 80
   trigger:
   - platform: numeric_state
-    entity_id: climate.thermostat
-    value_template: "{{ states.climate.thermostat.attributes.current_temperature }}"
+    entity_id: climate.thermostat_cooling_1
+    value_template: "{{ states.climate.thermostat_cooling_1.attributes.current_temperature }}"
     above: 80
   action:
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat
-      operation_mode: cool
+      entity_id: climate.thermostat_cooling_1
+      operation_mode: Cool
       temperature: 78
 
 - alias: Set thermostat cooling if on and house is armed
@@ -2010,13 +2016,13 @@
     condition: and
     conditions:
     - condition: template
-      value_template: "{{ states.climate.thermostat.attributes.operation_mode == 'cool' }}"
+      value_template: "{{ states.climate.thermostat_cooling_1.attributes.operation_mode == 'Cool' }}"
     - condition: template
-      value_template: "{{ states.climate.thermostat.attributes.temperature < 78 }}"
+      value_template: "{{ states.climate.thermostat_cooling_1.attributes.temperature < 78 }}"
   action:
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat
+      entity_id: climate.thermostat_cooling_1
       temperature: 78
 
 - alias: Set thermostat heating if on and house is armed
@@ -2028,13 +2034,13 @@
     condition: and
     conditions:
     - condition: template
-      value_template: "{{ states.climate.thermostat.attributes.operation_mode == 'heat' }}"
+      value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode == 'Heat' }}"
     - condition: template
-      value_template: "{{ states.climate.thermostat.attributes.temperature > 70 }}"
+      value_template: "{{ states.climate.thermostat_heating_1.attributes.temperature > 70 }}"
   action:
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat
+      entity_id: climate.thermostat_heating_1
       temperature: 70
       
 ################################################
@@ -2393,9 +2399,9 @@
     condition: and
     conditions:
     - condition: template
-      value_template: "{{ states.sensor.plex.state == 0 }}"
+      value_template: "{{ states('sensor.plex') == 0 }}"
     - condition: template
-      value_template: "{{ states.sensor.sabnzbd_speed.state | int == 0 }}"
+      value_template: "{{ (states('sensor.sabnzbd_speed') | int) == 0 }}"
   action:
     service: sensor.update_speedtest
     

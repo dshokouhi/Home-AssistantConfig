@@ -201,7 +201,8 @@ default_view:
   view: yes
   icon: mdi:home
   entities:
-  - climate.thermostat
+  - climate.thermostat_heating_1
+  - climate.thermostat_cooling_1
   - group.den
   - group.kitchen
   - group.living_room

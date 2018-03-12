@@ -184,6 +184,7 @@ light.corner_lamp:
 
 switch.house_fan:
   icon: mdi:fan
+  friendly_name: House Fan
 
 light.firepit_lights:
   friendly_name: Firepit Lights
@@ -455,3 +456,9 @@ sensor.waqi_reseda_los_angeles:
   
 sensor.plex:
   friendly_name: Total Active Plex Streams
+  
+climate.thermostat_heating_1:
+  friendly_name: Thermostat Heating
+  
+climate.thermostat_cooling_1:
+  friendly_name: Thermostat Cooling

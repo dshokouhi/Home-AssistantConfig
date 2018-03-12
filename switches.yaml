@@ -30,13 +30,13 @@
    # payload_off: "off"
    # retain: true
 
- - platform: mqtt
-   name: "House Fan"
-   state_topic: "smartthings/House Fan/switch"
-   command_topic: "smartthings/House Fan/switch"
-   payload_on: "on"
-   payload_off: "off"
-   retain: true
+ # - platform: mqtt
+   # name: "House Fan"
+   # state_topic: "smartthings/House Fan/switch"
+   # command_topic: "smartthings/House Fan/switch"
+   # payload_on: "on"
+   # payload_off: "off"
+   # retain: true
 
  # - platform: mqtt
    # name: "shm"
@@ -121,14 +121,14 @@
           data:
             entity_id: input_boolean.kitchen_tv
 
- - platform: template
-   switches:
-     vacuum:
-       value_template: "{{ is_state('vacuum.mr_neato', 'on') }}"
-       turn_on:
-         service: vacuum.turn_on
-       turn_off:
-         service: vacuum.return_to_base
+ # - platform: template
+   # switches:
+     # vacuum:
+       # value_template: "{{ is_state('vacuum.mr_neato', 'on') }}"
+       # turn_on:
+         # service: vacuum.turn_on
+       # turn_off:
+         # service: vacuum.return_to_base
 
  - platform: template
    switches:
@@ -156,3 +156,24 @@
         - service: input_boolean.turn_off
           data:
             entity_id: input_boolean.movie_mode
+            
+ - platform: template
+   switches:
+     house_fan:
+       value_template: "{{ states.climate.thermostat_heating_1.attributes.fan_mode == 'On Low' }}"
+       turn_on:
+       - service: climate.set_fan_mode
+         data:
+           entity_id: climate.thermostat_heating_1
+           fan_mode: 'On Low'
+       turn_off:
+       - service: climate.set_fan_mode
+         data:
+           entity_id: climate.thermostat_heating_1
+           fan_mode: 'Auto Low'
+
+ - platform: command_line
+   switches:
+     tasker_sleep_danny:
+       command_on: python3 "/home/homeassistant/.homeassistant/danny_sleep.py"
+       #command_off: "ll"

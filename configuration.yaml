@@ -114,6 +114,8 @@ cloud:
 
 map:
 
+browser:
+
 automation: !include automations.yaml
 
 #secrets: !include secrets.yaml
@@ -195,12 +197,12 @@ device_tracker:
   - platform: bluetooth_tracker
     consider_home: 180
 
-climate:
-   platform: honeywell
-   username: !secret honeywell_user
-   password: !secret honeywell_pwd
-   scan_interval: 1200
-   region: us
+# climate:
+   # platform: honeywell
+   # username: !secret honeywell_user
+   # password: !secret honeywell_pwd
+   # scan_interval: 1200
+   # region: us
 
 # remote:
  # - platform: harmony
@@ -415,6 +417,7 @@ google_assistant:
   - light
   - script
   - scene
+  - climate
   entity_config:
     script.on_bedroom_fan:
       expose: false
@@ -511,6 +514,34 @@ google_assistant:
     light.patio_pool_light:
       expose: false
     light.osram_lightify_flex_rgbw_00026309_3:
+      expose: false
+    climate.thermostat_dry_air:
+      expose: false
+    climate.thermostat_furnace:
+      expose: false
+    climate.thermostat_heating_1:
+      name: Thermostat Heating
+      aliases:
+      - Heat
+      - Heater
+    climate.thermostat_cooling_1:
+      name: Thermostat Cooling
+      aliases:
+      - Cool
+      - Cooler
+    script.pseudo_tv:
+      name: Pseudo TV
+    script.den_camera_snapshot:
+      expose: false
+    script.kitchen_camera_snapshot:
+      expose: false
+    script.light_at_night:
+      expose: false
+    script.living_room_camera_snapshot:
+      expose: false
+    script.outdoor_camera_snapshot:
+      expose: false
+    switch.tasker_sleep_danny:
       expose: false
 
 namecheapdns:
@@ -637,9 +668,9 @@ hue:
  # username: !secret zoneminder_user
  # password: !secret zoneminder_pass
  
-weather:
-  - platform: darksky
-    api_key: !secret darksky_api
+# weather:
+  # - platform: darksky
+    # api_key: !secret darksky_api
     
 influxdb:
-  max_retries: 5
+  max_retries: 10

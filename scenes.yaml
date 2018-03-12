@@ -65,3 +65,18 @@
     #switch.christmas_tree_switch: off
     light.den_bookshelf_left: off
     light.nook_lamp: off
+    
+- name: Cleaning Mode
+  entities:
+    light.living_room_lights_level: on
+    light.kitchen_lights_level: on
+    light.hallway_light:
+      state: on
+      brightness_pct: 100
+      kelvin: 6500
+    light.office_lights: on
+    switch.kitchen_tv: on
+    light.den_lights_level:
+      state: on
+      brightness_pct: 100
+    light.bedroom_lights_level: on
