@@ -46,8 +46,8 @@
    # payload_off: "off"
    # retain: true
 
- - platform: rachio
-   access_token: !secret rachiokey
+ # - platform: rachio
+   # access_token: !secret rachiokey
 
  - platform: template
    switches:
@@ -143,19 +143,19 @@
          service: remote.turn_off
          entity_id: remote.harmony_hub_bed
          
- - platform: template
-   switches:
-     movie_mode:
-       friendly_name: Movie Mode
-       value_template: "{% if is_state('input_boolean.movie_mode', 'on') %}on{% else %}off{% endif %}"
-       turn_on:
-        - service: input_boolean.turn_on
-          data:
-            entity_id: input_boolean.movie_mode
-       turn_off:
-        - service: input_boolean.turn_off
-          data:
-            entity_id: input_boolean.movie_mode
+ # - platform: template
+   # switches:
+     # movie_mode:
+       # friendly_name: Movie Mode
+       # value_template: "{% if is_state('input_boolean.movie_mode', 'on') %}on{% else %}off{% endif %}"
+       # turn_on:
+        # - service: input_boolean.turn_on
+          # data:
+            # entity_id: input_boolean.movie_mode
+       # turn_off:
+        # - service: input_boolean.turn_off
+          # data:
+            # entity_id: input_boolean.movie_mode
             
  - platform: template
    switches:
@@ -176,4 +176,8 @@
    switches:
      tasker_sleep_danny:
        command_on: python3 "/home/homeassistant/.homeassistant/danny_sleep.py"
-       #command_off: "ll"
+
+ - platform: command_line
+   switches:
+     tasker_sleep_tosh:
+       command_on: python3 "/home/homeassistant/.homeassistant/tosh_sleep.py"

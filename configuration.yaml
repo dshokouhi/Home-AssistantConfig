@@ -42,7 +42,7 @@ frontend:
 # some hyperlinked text
    dark-primary-color: "var(--red)"
 # not sure where used
-   text-primary-color: "var(--pink)"
+   text-primary-color: "var(--white)"
 # main background, top of side panel
    primary-background-color: "var(--dark_grey)"
 # not sure where used 
@@ -143,6 +143,7 @@ discovery:
   ignore:
   - netgear_router
   - logitech_mediaserver
+  - songpal
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -543,6 +544,16 @@ google_assistant:
       expose: false
     switch.tasker_sleep_danny:
       expose: false
+    switch.tasker_sleep_tosh:
+      expose: false
+    input_boolean.night_mode:
+      expose: true
+    input_boolean.movie_mode:
+      expose: true
+    input_boolean.guest_mode:
+      expose: true
+    input_boolean.vacation_mode:
+      expose: true
 
 namecheapdns:
   host: plex

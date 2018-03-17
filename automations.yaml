@@ -338,6 +338,64 @@
     data_template:
       option: "Select Input"
       
+- alias: Turn off biased lights and fireplace at sunrise
+  trigger:
+    platform: sun
+    event: sunrise
+  action:
+  - service: light.turn_off
+    entity_id: light.tv_lights
+  - service: light.turn_off
+    entity_id: light.biased_lights
+  - condition: state
+    entity_id: input_boolean.fireplace
+    state: 'on'
+  - service: switch.turn_off
+    entity_id: switch.fireplace
+    
+- alias: Turn off bedroom tv in night mode if movie is done and you fell asleep
+  trigger:
+  - platform: state
+    entity_id: media_player.kodi_bedroom
+    from: playing
+    to: idle
+    for:
+      minutes: 30
+  condition:
+    condition: state
+    entity_id: input_boolean.night_mode
+    state: 'on'
+  action:
+  - service: remote.turn_off
+    entity_id: remote.harmony_hub_bed
+  - delay: "00:00:15"
+  - service: switch.turn_on
+    entity_id: switch.bedroom_fan
+    
+- alias: Turn off bedroom tv in night mode when channels have been playing for 3 hours
+  trigger:
+  - platform: state
+    entity_id: media_player.kodi_bedroom
+    to: playing
+    for:
+      hours: 3
+  condition:
+    condition: and
+    conditions:
+    - condition: template
+      value_template: "{{ states.media_player.kodi_bedroom.attributes.media_content_type == 'channel' }}"
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'on'
+  action:
+  - service: media_player.media_stop
+    entity_id: media_player.kodi_bedroom
+  - service: remote.turn_off
+    entity_id: remote.harmony_hub_bed
+  - delay: "00:00:15"
+  - service: switch.turn_on
+    entity_id: switch.bedroom_fan
+    
 ################################################
 #
 #      Laundry notifications
@@ -1157,7 +1215,7 @@
   - service: script.turn_on
     entity_id: script.open_bay_window_curtains
   - service: switch.turn_off
-    entity_id: switch.house_fan, switch.tasker_sleep_danny
+    entity_id: switch.house_fan, switch.tasker_sleep_danny, switch.tasker_sleep_tosh
   - service: input_boolean.turn_off
     entity_id: input_boolean.night_mode
 
@@ -1252,7 +1310,7 @@
       entity_id: light.den_lights_level
       state: 'on'
     - condition: template
-      value_template: "{{ states.light.den_lights_level.attributes.brightness < 30 }}"
+      value_template: "{{ states.light.den_lights_level.attributes.brightness < 75 }}"
   action:
     service: light.turn_on
     entity_id: light.den_lights_level
@@ -1676,7 +1734,7 @@
     to: 'on'
   action:
     service: switch.turn_on
-    entity_id: switch.tasker_sleep_danny
+    entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
     
 ##################################################
 #
@@ -2387,23 +2445,21 @@
 
 - alias: Speed test
   trigger:
-  - platform: time
-    at: "01:00:00"
-  - platform: time
-    at: "05:00:00"
-  - platform: time
-    at: "13:00:00"
-  - platform: time
-    at: "17:00:00"
+    - platform: time
+      at: "01:00:00"
+    - platform: time
+      at: "05:00:00"
+    - platform: time
+      at: "13:00:00"
+    - platform: time
+      at: "17:00:00"
   condition:
-    condition: and
-    conditions:
     - condition: template
-      value_template: "{{ states('sensor.plex') == 0 }}"
+      value_template: "{{ states('sensor.plex')|int == 0 }}"
     - condition: template
-      value_template: "{{ (states('sensor.sabnzbd_speed') | int) == 0 }}"
+      value_template: "{{ states('sensor.sabnzbd_speed')|int == 0 }}"
   action:
-    service: sensor.update_speedtest
+    - service: sensor.update_speedtest
     
 ################################################
 #

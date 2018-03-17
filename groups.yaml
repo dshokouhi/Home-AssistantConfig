@@ -296,6 +296,7 @@ services:
    - sensor.sleep_start_time
    - sensor.plex
    - sensor.ssl_certificate_expiry
+   - sensor.zestimate
    - group.pihole_status
    - group.sab
    - group.ring
@@ -328,6 +329,7 @@ media_players:
   - media_player.kodi_bedroom
   - media_player.kodi_den
   - media_player.kodi_kitchen
+  - media_player.kodi_outdoor
   - media_player.living_room_home
   - media_player.living_room_speaker
   - media_player.office_speaker
@@ -393,13 +395,13 @@ colorful:
   - light.cabinet_lights
   - light.hallway_light
 
-neato:
-  name: 'Mr. Neato'
-  control: hidden
-  entities:
-  - camera.mr_neato_cleaning_map
-  - switch.mr_neato_schedule
-  - vacuum.mr_neato
+# neato:
+  # name: 'Mr. Neato'
+  # control: hidden
+  # entities:
+  # - camera.mr_neato_cleaning_map
+  # - switch.mr_neato_schedule
+  # - vacuum.mr_neato
 
 epson_printer:
   name: Epson Printer Info

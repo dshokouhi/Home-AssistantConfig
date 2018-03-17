@@ -509,3 +509,8 @@
    - wind_speed
    - pressure
    - wind_bearing
+   
+ - platform: zestimate
+   api_key: !secret zillow_api
+   zpid:
+   - !secret zillow_zpid
