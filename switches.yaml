@@ -181,3 +181,7 @@
    switches:
      tasker_sleep_tosh:
        command_on: python3 "/home/homeassistant/.homeassistant/tosh_sleep.py"
+       
+ - platform: zoneminder
+   command_on: Record
+   command_off: None

@@ -410,14 +410,9 @@
     for:
       minutes: 3
   condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: input_boolean.dryer_status
-      state: 'on'
-    - condition: state
-      entity_id: input_boolean.night_mode
-      state: 'off'
+    condition: state
+    entity_id: input_boolean.dryer_status
+    state: 'on'
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.dryer_status
@@ -429,15 +424,18 @@
         position: center
       message: "The dryer is done {% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes {% endif %}"
       title: Shokabow Zoo
-  - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data_template:
-      message: "The dryer is done {% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes{% endif %}"
   - service: notify.chrome
     data:
       message: "The dryer is done{% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+  - condition: state
+    entity_id: input_boolean.night_mode
+    state: 'off'
+  - service: tts.google_say
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data_template:
+      message: "The dryer is done {% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes{% endif %}"
 
 - alias: Washer Notification
   trigger:
@@ -447,14 +445,9 @@
     for:
       minutes: 3
   condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: input_boolean.washer_status
-      state: 'on'
-    - condition: state
-      entity_id: input_boolean.night_mode
-      state: 'off'
+    condition: state
+    entity_id: input_boolean.washer_status
+    state: 'on'
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.washer_status
@@ -466,15 +459,18 @@
         position: center
       message: "The washer is done {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
       title: Shokabow Zoo
-  - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data_template:
-      message: "The washer is done. {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
   - service: notify.chrome
     data:
       message: "The washer is done {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
+  - condition: state
+    entity_id: input_boolean.night_mode
+    state: 'off'
+  - service: tts.google_say
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data_template:
+      message: "The washer is done. {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
 
 - alias: Dishwasher Notification
   trigger:
@@ -484,14 +480,9 @@
     for:
       minutes: 5
   condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: input_boolean.dishwasher_status
-      state: 'on'
-    - condition: state
-      entity_id: input_boolean.night_mode
-      state: 'off'
+    condition: state
+    entity_id: input_boolean.dishwasher_status
+    state: 'on'
   action:
   - service: notify.den
     data:
@@ -503,10 +494,6 @@
       title: Shokabow Zoo
   - service: input_boolean.turn_off
     entity_id: input_boolean.dishwasher_status
-  - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
-      message: 'Dishes are done!'
   - service: notify.chrome
     data:
       message: "The dishes are done"
@@ -514,6 +501,13 @@
       title: Shokabow Zoo
   - service: input_boolean.turn_on
     entity_id: input_boolean.dishes_clean
+  - condition: state
+    entity_id: input_boolean.night_mode
+    state: 'off'
+  - service: tts.google_say
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data:
+      message: 'Dishes are done!'
 
 - alias: Washer Start
   trigger:
@@ -650,6 +644,8 @@
     entity_id: alarm_control_panel.shm
     state: 'armed_away'
   action:
+  - service: switch.turn_on
+    entity_id: switch.lr_alarm
   - service: camera.snapshot
     data:
       entity_id: camera.living_room_camera
@@ -665,6 +661,9 @@
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+  - delay: "00:00:30"
+  - service: switch.turn_on
+    entity_id: switch.lr_alarm
 
 - alias: Den Alarm Pic
   trigger:
@@ -679,6 +678,8 @@
     entity_id: alarm_control_panel.shm
     state: 'armed_away'
   action:
+  - service: switch.turn_on
+    entity_id: switch.den_alarm
   - service: camera.snapshot
     data:
       entity_id: camera.den_camera
@@ -694,7 +695,41 @@
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+  - delay: "00:00:30"
+  - service: switch.turn_off
+    entity_id: switch.den_alarm
 
+- alias: Kitchen Alarm Pic
+  trigger:
+    platform: state
+    entity_id: binary_sensor.centralite_3320l_0b636eab_1
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.shm
+    state: 'armed_away'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.kitchen_alarm
+  - service: camera.snapshot
+    data:
+      entity_id: camera.kitchen_camera
+      filename: '/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg'
+  - service: notify.chrome
+    data:
+      message: "Alarm Tripped!! Check Slack for kitchen snapshot"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
+  - service: notify.slack
+    data:
+      message: "Kitchen camera snapshot"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+  - delay: "00:00:30"
+  - service: switch.turn_off
+    entity_id: switch.kitchen_alarm
+    
 - alias: Alarm Tripped
   trigger:
   - platform: state
@@ -773,8 +808,6 @@
       message: "The alarm has been activated"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
-      data:
-        tag: "alarm"
 
 - alias: Notify Alarm Off
   trigger:
@@ -795,8 +828,6 @@
       message: "The alarm has been deactivated"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
-      data:
-        tag: "alarm"
 
 - alias: Arm Alarm When Nobody Home
   trigger:
@@ -823,8 +854,6 @@
       message: "The alarm has been activated since nobody is home"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
-      data:
-        tag: "alarm"
 
 - alias: Disarm alarm when someone comes home
   trigger:
@@ -844,8 +873,6 @@
       message: "The alarm has been deactivated since a tracked user is home"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
-      data:
-        tag: "alarm"
       
 # - alias: SHM Alarm On
   # trigger:
@@ -1011,6 +1038,8 @@
     entity_id: script.kitchen_camera_snapshot
   - service: script.turn_on
     entity_id: script.outdoor_camera_snapshot
+  - service: script.turn_on
+    entity_id: script.den_alarm, script.lr_alarm, script.kitchen_alarm
   - condition: state
     entity_id: sun.sun
     state: below_horizon
@@ -1279,10 +1308,11 @@
       entity_id: input_boolean.vacation_mode
       state: 'off'
   action:
-  - service: climate.set_operation_mode
+  - service: climate.set_temperature
     data:
       entity_id: climate.thermostat_heating_1
       operation_mode: Heat
+      temperature: 70
 
 - alias: Den lights on between 4 and 8am
   trigger:
@@ -1599,9 +1629,9 @@
   condition:
     condition: and
     conditions:
-    - condition: state
-      entity_id: group.sprinklers
-      state: 'off'
+    # - condition: state
+      # entity_id: group.sprinklers
+      # state: 'off'
     - condition: state
       entity_id: binary_sensor.windows
       state: 'on'
@@ -1727,13 +1757,13 @@
   - service: switch.turn_off
     entity_id: switch.house_fan
 
-- alias: Turn on sleep tracking dannys phone
+- alias: Turn on sleep tracking on our phones
   trigger:
     platform: state
     entity_id: input_boolean.night_mode
     to: 'on'
   action:
-    service: switch.turn_on
+  - service: switch.turn_on
     entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
     
 ##################################################
@@ -2045,7 +2075,7 @@
       message: "Tosh has left the zoo.  Did you forget anything?"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
-
+      
 ################################################
 #
 #      Thermostat Automations
@@ -2463,7 +2493,7 @@
     
 ################################################
 #
-#      Cert expiring
+#      Numeric automations
 #
 ################################################
 
@@ -2478,3 +2508,101 @@
       message: "Certificate expiring in 5 days!"
       target: danny_pixel
       title: Shokabow Zoo
+      
+- alias: Disk Getting Full
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.disk_use_percent_home
+    above: 50
+  action:
+  - service: notify.chrome
+    data:
+      message: "Home assistant drive getting full, over 50%!"
+      target: danny_pixel
+      title: Shokabow Zoo
+      
+################################################
+#
+#      Shower Automations
+#
+################################################
+
+- alias: Shower Mode Turned On
+  trigger:
+    platform: state
+    entity_id: input_boolean.shower_mode
+    to: 'on'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.house_fan
+  - delay: "00:00:10"
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.bathroom_speaker
+      media_content_id: "http://15363.live.streamtheworld.com:80/KROQFMDIALUP_SC"
+      media_content_type: "audio/mp4"
+      
+- alias: Shower Mode Turned Off
+  trigger:
+    platform: state
+    entity_id: input_boolean.shower_mode
+    to: 'off'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.house_fan
+  - service: media_player.media_stop
+    entity_id: media_player.bathroom_speaker
+    
+- alias: Shower Mode On and bathroom window still open
+  trigger:
+    platform: state
+    entity_id: input_boolean.shower_mode
+    to: 'on'
+    for:
+      minutes: 2
+  condition:
+    condition: state
+    entity_id: binary_sensor.centralite_3320l_0b63b331_1
+    state: 'off'
+  action:
+  - service: media_player.media_play_pause
+    entity_id: media_player.bathroom_speaker
+  - delay: "00:00:02"
+  - service: tts.google_say
+    entity_id: media_player.bathroom_speaker
+    data:
+      message: "Please open the bathroom window"
+  - delay: "00:00:05"
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.bathroom_speaker
+      media_content_id: "http://15363.live.streamtheworld.com:80/KROQFMDIALUP_SC"
+      media_content_type: "audio/mp4"
+    
+- alias: Shower mode off if bathroom speaker not playing
+  trigger:
+  - platform: state
+    entity_id: media_player.bathroom_speaker
+    to: 'paused'
+    for:
+      minutes: 30
+  - platform: state
+    entity_id: media_player.bathroom_speaker
+    to: 'idle'
+    for:
+      minutes: 30
+  - platform: state
+    entity_id: alarm_control_panel.shm
+    to: 'armed_away'
+  - platform: state
+    entity_id: media_player.bathroom_speaker
+    to: 'off'
+    for:
+      minutes: 5
+  condition:
+    condition: state
+    entity_id: input_boolean.shower_mode
+    state: 'on'
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.shower_mode

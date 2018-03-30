@@ -4,6 +4,7 @@ den:
   entities:
   - light.bookshelf_left
   - light.corner_lamp
+  - fan.den_air_purifier
   - switch.den_fan
   - light.den_lights_level
   - switch.fireplace
@@ -20,6 +21,9 @@ den_sensors:
   - binary_sensor.centralite_3320l_057ce46f_1
   #- sensor.den_motion_sensor_temperature
   #- sensor.den_motion_battery
+  - sensor.den_air_purifier_aqi
+  - sensor.den_air_purifier_humidity
+  - sensor.den_air_purifier_temp
   - sensor.centralite_3320l_057b7c44_1
   - sensor.den_smoke_status
   - sensor.centralite_3320l_057ce46f_1
@@ -305,8 +309,18 @@ services:
    - group.forecast
    - group.epson_printer
    - group.speedtest
+   - group.zoneminder
    - weather.dark_sky
 
+zoneminder:
+  name: ZoneMinder
+  icon: mdi:record-rec
+  entities:
+  - switch.den_state
+  - switch.garage_state
+  - switch.kitchen_state
+  - switch.living_room_state
+  
 speedtest:
   name: Speed Test
   entities:
@@ -384,6 +398,7 @@ house_settings:
   - input_boolean.guest_mode
   - input_boolean.movie_mode
   - input_boolean.night_mode
+  - input_boolean.shower_mode
   - input_boolean.vacation_mode
 
 colorful:

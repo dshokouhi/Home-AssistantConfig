@@ -566,3 +566,7 @@ sensor.alarm_level_2:
   name:
   platform: zwave
   unique_id: 26-72057594480181265
+media_player.chrome:
+  name:
+  platform: plex
+  unique_id: s1d3h5vdiwic77q5tsycbqn2

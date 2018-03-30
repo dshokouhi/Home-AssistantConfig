@@ -242,10 +242,37 @@ outdoor_camera_snapshot:
 light_at_night:
   sequence:
   - service: light.turn_on
+    entity_id: light.hallway_light
+  - delay: "00:00:02"
+  - service: light.turn_on
+    entity_id: light.hallway_light
     data:
       brightness_pct: 5
       kelvin: 6500
-      entity_id: light.hallway_light
   - delay: "00:02:00"
   - service: light.turn_off
     entity_id: light.hallway_light
+    
+den_alarm:
+  sequence:
+  - service: switch.turn_on
+    entity_id: switch.den_state
+  - delay: "00:05:00"
+  - service: switch.turn_off
+    entity_id: switch.den_state
+ 
+lr_alarm:
+  sequence:
+  - service: switch.turn_on
+    entity_id: switch.living_room_state
+  - delay: "00:05:00"
+  - service: switch.turn_off
+    entity_id: switch.living_room_state
+    
+kitchen_alarm:
+  sequence:
+  - service: switch.turn_on
+    entity_id: switch.kitchen_state
+  - delay: "00:05:00"
+  - service: switch.turn_off
+    entity_id: switch.kitchen_state

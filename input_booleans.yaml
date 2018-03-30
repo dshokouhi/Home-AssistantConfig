@@ -56,3 +56,7 @@ movie_mode:
   
 dishes_clean:
   name: Dishes clean
+  
+shower_mode:
+  name: Shower Mode
+  icon: mdi:water

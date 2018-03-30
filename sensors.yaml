@@ -339,6 +339,27 @@
                          {%endif%}'
        friendly_name: 'Office Smoke'
 
+ - platform: template
+   sensors:
+     den_air_purifier_temp:
+       value_template: "{{ (states.fan.den_air_purifier.attributes.temperature * 9)/5 + 32 }}"
+       friendly_name: Den Air Purifier Temperature
+       unit_of_measurement: "F"
+       
+ - platform: template
+   sensors:
+     den_air_purifier_humidity:
+       value_template: "{{ states.fan.den_air_purifier.attributes.humidity }}"
+       friendly_name: Den Air Purifier Humidity
+       unit_of_measurement: "%"
+       
+ - platform: template
+   sensors:
+     den_air_purifier_aqi:
+       value_template: "{{ states.fan.den_air_purifier.attributes.aqi }}"
+       friendly_name: Den Air Purifier AQI
+       unit_of_measurement: AQI
+       
  - platform: command_line
    name: Epson Ink Level Black
    command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_K.PNG/ && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100; exit }'
@@ -470,8 +491,11 @@
    - download
    - upload
    manual: true
-   #server_id: 7456
-   #server_id: 2953
+   #server_id: 7456 #quadranet
+   #server_id: 2953 #atlantic metro
+   #server_id: 5861 #webnx
+   server_id: 5827 #twc
+   #server_id: 10564 #speedtest
       
  # - platform: pollen
    # zip_code: !secret zip_code

@@ -1,4 +1,3 @@
-
 homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
@@ -323,11 +322,11 @@ amcrest:
    resolution: high
    stream_source: rtsp
 
- - host: 192.168.1.36
-   port: 1027
-   username: !secret amcrest_user
-   password: !secret boogie1
-   name: "Outdoor Camera"
+ # - host: 192.168.1.36
+   # port: 1027
+   # username: !secret amcrest_user
+   # password: !secret boogie1
+   # name: "Outdoor Camera"
 
 camera:
  - platform: mjpeg
@@ -554,6 +553,8 @@ google_assistant:
       expose: true
     input_boolean.vacation_mode:
       expose: true
+    input_boolean.shower_mode:
+      expose: true
 
 namecheapdns:
   host: plex
@@ -674,14 +675,16 @@ hue:
   - host: 192.168.1.53
     allow_unreachable: true
     
-#zoneminder:
- # host: 192.168.1.54:8080
- # username: !secret zoneminder_user
- # password: !secret zoneminder_pass
+zoneminder:
+  host: 192.168.1.54:81
+  username: !secret zoneminder_user
+  password: !secret zoneminder_pass
  
-# weather:
-  # - platform: darksky
-    # api_key: !secret darksky_api
-    
 influxdb:
   max_retries: 10
+  
+fan:
+  platform: xiaomi_miio
+  name: Den Air Purifier
+  host: 192.168.1.64
+  token: !secret den_purifier_token
