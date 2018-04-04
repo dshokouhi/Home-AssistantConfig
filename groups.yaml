@@ -49,8 +49,10 @@ bedroom_sensors:
   control: hidden
   entities:
   - binary_sensor.centralite_3320l_0b666bfc_1
+  - binary_sensor.bedroom_motion_sensor
   - binary_sensor.centralite_3320l_0b636d0d_1
   - sensor.centralite_3320l_0b666bfc_1
+  - sensor.bedroom_illumination_sensor
   - sensor.bedroom_smoke_status
   - sensor.centralite_3320l_0b636d0d_1
   view: false
@@ -122,7 +124,7 @@ outside_sensors:
   name: Outside Sensors
   control: hidden
   entities:
-  - binary_sensor.garage_door_backyard
+  - binary_sensor.garage_backyard_door
   - binary_sensor.garage_frontyard
   - binary_sensor.water_leak_sensor_158d0001bc24f5
   - sensor.dryer_power_2
@@ -183,6 +185,9 @@ hallway_sensors:
   - binary_sensor.centralite_3320l_0b63b331_1
   - binary_sensor.centralite_3320l_0b666ed0_1
   - binary_sensor.centralite_3320l_0b629e9b_1
+  - sensor.bathroom_humidity
+  - sensor.bathroom_pressure
+  - sensor.bathroom_temperature
   - sensor.centralite_3320l_0b63b331_1
   - sensor.centralite_3320l_0b666ed0_1
   - sensor.office_smoke_status
@@ -296,6 +301,7 @@ services:
    - sensor.uptime
    - sensor.disk_use_percent_home
    - sensor.memory_use_percent
+   - sensor.processor_use
    - sensor.homeassistant_v2db
    - sensor.sleep_start_time
    - sensor.plex

@@ -197,9 +197,11 @@ light.hallway_light:
 
 light.dannys:
   friendly_name: Dannys Nightstand
+  icon: mdi:lamp
 
 light.toshs:
   friendly_name: Toshs Nightstand
+  icon: mdi:lamp
 
 light.o1:
   #google_assistant: false
@@ -462,3 +464,12 @@ climate.thermostat_heating_1:
   
 climate.thermostat_cooling_1:
   friendly_name: Thermostat Cooling
+  
+light.tv_lights:
+  icon: mdi:television
+  
+light.biased_lights:
+  icon: mdi:television
+  
+binary_sensor.garage_backyard_door:
+  device_class: door

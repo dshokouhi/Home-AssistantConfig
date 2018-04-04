@@ -194,14 +194,6 @@ sensor.bedroom_smoke_alarm_level:
   name:
   platform: zwave
   unique_id: 19-72057594362740753
-sensor.den_smoke_alarm_type:
-  name:
-  platform: zwave
-  unique_id: 20-72057594379517953
-sensor.den_smoke_alarm_level:
-  name:
-  platform: zwave
-  unique_id: 20-72057594379517969
 binary_sensor.garage_door_frontyard_sensor:
   name:
   platform: zwave
@@ -550,23 +542,43 @@ sensor.thermostat_temperature:
   name:
   platform: zwave
   unique_id: 24-72057594445578258
-sensor.alarm_type:
-  name:
-  platform: zwave
-  unique_id: 25-72057594463404033
-sensor.alarm_level:
-  name:
-  platform: zwave
-  unique_id: 25-72057594463404049
-sensor.alarm_type_2:
-  name:
-  platform: zwave
-  unique_id: 26-72057594480181249
-sensor.alarm_level_2:
-  name:
-  platform: zwave
-  unique_id: 26-72057594480181265
 media_player.chrome:
   name:
   platform: plex
   unique_id: s1d3h5vdiwic77q5tsycbqn2
+binary_sensor.garage_backyard_door:
+  name: Garage Door Backyard
+  platform: xiaomi_aqara
+  unique_id: status158d0001bf876a
+binary_sensor.bedroom_motion_sensor:
+  name: Bedroom Motion Sensor
+  platform: xiaomi_aqara
+  unique_id: status158d000224f40d
+sensor.bedroom_illumination_sensor:
+  name: Bedroom Illumination Sensor
+  platform: xiaomi_aqara
+  unique_id: lux158d000224f40d
+sensor.bathroom_temperature:
+  name: Bathroom Temperature
+  platform: xiaomi_aqara
+  unique_id: temperature158d0001fa8943
+sensor.bathroom_humidity:
+  name: Bathroom Humidity
+  platform: xiaomi_aqara
+  unique_id: humidity158d0001fa8943
+sensor.bathroom_pressure:
+  name: Bathroom Pressure
+  platform: xiaomi_aqara
+  unique_id: pressure158d0001fa8943
+binary_sensor.mailbox:
+  name: Mailbox
+  platform: xiaomi_aqara
+  unique_id: status158d0001c035b8
+sensor.den_smoke_alarm_type:
+  name:
+  platform: zwave
+  unique_id: 27-72057594496958465
+sensor.den_smoke_alarm_level:
+  name:
+  platform: zwave
+  unique_id: 27-72057594496958481

@@ -300,10 +300,10 @@ media_player 8:
    password: !secret kodi
    name: "Kodi Outdoor"
    
-media_player 9:
- - platform: spotify
-   client_id: !secret spotify_client_id
-   client_secret: !secret spotify_client_secret
+# media_player 9:
+ # - platform: spotify
+   # client_id: !secret spotify_client_id
+   # client_secret: !secret spotify_client_secret
  
 amcrest:
  - host: 192.168.1.42
@@ -418,6 +418,7 @@ google_assistant:
   - script
   - scene
   - climate
+  - fan
   entity_config:
     script.on_bedroom_fan:
       expose: false
@@ -555,6 +556,18 @@ google_assistant:
       expose: true
     input_boolean.shower_mode:
       expose: true
+    script.den_alarm:
+      expose: false
+    script.kitchen_alarm:
+      expose: false
+    script.lr_alarm:
+      expose: false
+    switch.den_state:
+      expose: false
+    switch.kitchen_state:
+      expose: false
+    switch.lr_state:
+      expose: false
 
 namecheapdns:
   host: plex

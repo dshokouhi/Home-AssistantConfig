@@ -510,9 +510,9 @@
  - platform: cert_expiry
    host: !secret cert_expiry_host
    
- - platform: spotcrime
-   name: Spot Crime
-   radius: 1000
+ # - platform: spotcrime
+   # name: Spot Crime
+   # radius: 1000
    
  - platform: filesize
    file_paths:

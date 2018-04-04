@@ -112,10 +112,15 @@
     to: 'on'
   - platform: sun
     event: sunset
+    offset: "00:01:00"
   condition:
-  - condition: state
-    entity_id: sun.sun
-    state: 'below_horizon'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: template
+      value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity != PowerOff }}"
   action:
   - service: light.turn_on
     entity_id: light.tv_lights
@@ -422,20 +427,21 @@
         color: red
         duration: 10
         position: center
-      message: "The dryer is done {% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes {% endif %}"
+      message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes {% endif %}"
       title: Shokabow Zoo
   - service: notify.chrome
     data:
-      message: "The dryer is done{% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes{% endif %}"
+      message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
   - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
-      message: "The dryer is done {% if is_state('input_boolean.washer_status', 'on') %} however the washer is still running {% else %} time to get your clothes{% endif %}"
+      message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes{% endif %}"
 
 - alias: Washer Notification
   trigger:
@@ -457,20 +463,21 @@
         color: red
         duration: 10
         position: center
-      message: "The washer is done {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
+      message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry {% endif %}"
       title: Shokabow Zoo
   - service: notify.chrome
     data:
-      message: "The washer is done {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
+      message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry {% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
   - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
-      message: "The washer is done. {% if is_state('input_boolean.dryer_status', 'on') %} however the dryer is still running {% else %} time to switch laundry {% endif %}"
+      message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry {% endif %}"
 
 - alias: Dishwasher Notification
   trigger:
@@ -505,7 +512,8 @@
     entity_id: input_boolean.night_mode
     state: 'off'
   - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'Dishes are done!'
 
@@ -577,7 +585,8 @@
     to: '9'
   action:
   - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'The front door lock is jammed'
   - service: notify.chrome
@@ -1438,7 +1447,8 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'You got mail'
   - service: notify.den
@@ -1552,7 +1562,7 @@
 - alias: Turn on garage lights from backyard
   trigger:
   - platform: state
-    entity_id: binary_sensor.garage_door_backyard
+    entity_id: binary_sensor.garage_backyard_door
     to: 'on'
   action:
   - service: switch.turn_on
@@ -1561,7 +1571,7 @@
 - alias: Turn off garage lights from backyard
   trigger:
   - platform: state
-    entity_id: binary_sensor.garage_door_backyard
+    entity_id: binary_sensor.garage_backyard_door
     to: 'off'
   condition:
     condition: state
@@ -1574,7 +1584,7 @@
 - alias: Turn off garage lights if backyard left open for 15 minutes
   trigger:
   - platform: state
-    entity_id: binary_sensor.garage_door_backyard
+    entity_id: binary_sensor.garage_backyard_door
     to: 'on'
     for:
       minutes: 15
@@ -1651,7 +1661,8 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "Its raining and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
 
@@ -1704,7 +1715,8 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "The thermostat is on and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
 
@@ -2032,7 +2044,8 @@
       action: help
   action:
   - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'Boogie, I need help outside'
       
@@ -2290,7 +2303,8 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'The water heater is leaking'
       
@@ -2313,7 +2327,8 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'There is rain getting into the water heater'
       
@@ -2419,29 +2434,29 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.xiaomi_air_purifier_2
-    below: 125
+    below: 130
   action:
   - service: notify.chrome
     data:
-      message: "Price dropped below $125 for air purifier. Click to buy!"
+      message: "Price dropped below $130 for air purifier. Click to buy!"
       target: danny_pixel
       title: Shokabow Zoo
       data:
         url: 'https://www.gearbest.com/home-smart-improvements/pp_268522.html'
         
-- alias: Xiaomi Leak Sensor Price
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.xiaomi_leak_sensor
-    below: 10
-  action:
-  - service: notify.chrome
-    data:
-      message: "Price dropped below $10 for leak sensor. Click to buy!"
-      target: danny_pixel
-      title: Shokabow Zoo
-      data:
-        url: 'https://www.gearbest.com/home-smart-improvements/pp_668897.html'
+# - alias: Xiaomi Leak Sensor Price
+  # trigger:
+  # - platform: numeric_state
+    # entity_id: sensor.xiaomi_leak_sensor
+    # below: 10
+  # action:
+  # - service: notify.chrome
+    # data:
+      # message: "Price dropped below $10 for leak sensor. Click to buy!"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+      # data:
+        # url: 'https://www.gearbest.com/home-smart-improvements/pp_668897.html'
         
 ################################################
 #
