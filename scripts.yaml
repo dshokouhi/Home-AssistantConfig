@@ -238,7 +238,21 @@ outdoor_camera_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"
-          
+
+office_camera_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.office_camera
+      filename: '/home/homeassistant/.homeassistant/snapshot/office_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Office camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
+
 light_at_night:
   sequence:
   - service: light.turn_on

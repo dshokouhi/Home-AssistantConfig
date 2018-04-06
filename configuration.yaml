@@ -143,6 +143,7 @@ discovery:
   - netgear_router
   - logitech_mediaserver
   - songpal
+  - roku
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -353,6 +354,11 @@ camera:
 
  - platform: ring
  
+ - platform: yi
+   host: '192.168.1.33'
+   name: Office Camera
+   password: !secret office_camera
+   ffmpeg_arguments: '-vf scale=800:450'
 
 notify:
  - platform: nfandroidtv
@@ -689,7 +695,7 @@ hue:
     allow_unreachable: true
     
 zoneminder:
-  host: 192.168.1.54:81
+  host: 192.168.1.48:81
   username: !secret zoneminder_user
   password: !secret zoneminder_pass
  

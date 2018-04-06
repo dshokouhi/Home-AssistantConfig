@@ -739,6 +739,32 @@
   - service: switch.turn_off
     entity_id: switch.kitchen_alarm
     
+- alias: Office Alarm Pic
+  trigger:
+    platform: state
+    entity_id: binary_sensor.centralite_3320l_0b629e9b_1
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.shm
+    state: 'armed_away'
+  action:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.office_camera
+      filename: '/home/homeassistant/.homeassistant/snapshot/office_camera.jpg'
+  - service: notify.chrome
+    data:
+      message: "Alarm Tripped!! Check Slack for Office snapshot"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
+  - service: notify.slack
+    data:
+      message: "Office camera snapshot"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
+    
 - alias: Alarm Tripped
   trigger:
   - platform: state

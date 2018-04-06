@@ -254,6 +254,7 @@ cameras:
   - camera.den_camera
   - camera.living_room_camera
   - camera.kitchen_camera
+  - camera.office_camera
   - camera.shokabow_weather
   - camera.outdoor_camera
   - camera.front_door
