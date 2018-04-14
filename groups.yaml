@@ -33,6 +33,7 @@ bedroom:
   name: Bedroom
   control: hidden
   entities:
+  - fan.bedroom_air_purifier
   - light.bedroom_closet
   - switch.bedroom_fan
   - light.bedroom_lights_level
@@ -51,6 +52,9 @@ bedroom_sensors:
   - binary_sensor.centralite_3320l_0b666bfc_1
   - binary_sensor.bedroom_motion_sensor
   - binary_sensor.centralite_3320l_0b636d0d_1
+  - sensor.bedroom_air_purifier_aqi
+  - sensor.bedroom_air_purifier_humidity
+  - sensor.bedroom_air_purifier_temp
   - sensor.centralite_3320l_0b666bfc_1
   - sensor.bedroom_illumination_sensor
   - sensor.bedroom_smoke_status
@@ -64,12 +68,12 @@ living_room:
   - switch.christmas_tree_switch
   - light.front_door_lamp
   - lock.front_door_lock_locked
+  - fan.living_room_air_purifier
   - switch.living_room_camera_plug_switch
   - light.living_room_lights_level
   - light.nook_lamp
   - switch.siren_switch
   - sensor.front_door_action
-  - sensor.front_door_code
   - group.living_room_sensors
 
 living_room_sensors:
@@ -83,6 +87,9 @@ living_room_sensors:
   - binary_sensor.mailbox
   - sensor.front_door_lock_battery
   - sensor.centralite_3320l_057b833c_1
+  - sensor.living_room_air_purifier_aqi
+  - sensor.living_room_air_purifier_humidity
+  - sensor.living_room_air_purifier_temp
   - sensor.centralite_3320l_0b665f4e_1
   - sensor.centralite_3320l_05989606_1
   - sensor.centralite_3320l_0b6289f7_1

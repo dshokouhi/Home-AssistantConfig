@@ -438,8 +438,8 @@
     entity_id: input_boolean.night_mode
     state: 'off'
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes{% endif %}"
 
@@ -474,8 +474,8 @@
     entity_id: input_boolean.night_mode
     state: 'off'
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry {% endif %}"
 
@@ -512,8 +512,8 @@
     entity_id: input_boolean.night_mode
     state: 'off'
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'Dishes are done!'
 
@@ -585,8 +585,8 @@
     to: '9'
   action:
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'The front door lock is jammed'
   - service: notify.chrome
@@ -848,6 +848,7 @@
   trigger:
     platform: state
     entity_id: alarm_control_panel.shm
+    from: armed_away
     to: disarmed
   condition:
     condition: state
@@ -1081,6 +1082,33 @@
   - service: light.turn_on
     entity_id: light.patio
 
+- alias: Turn off armed night when we wake up
+  trigger:
+  - platform: state
+    entity_id: switch.tasker_sleep_tosh
+    from: 'on'
+    to: 'off'
+  - platform: state
+    entity_id: switch.tasker_sleep_danny
+    from: 'on'
+    to: 'off'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.shm
+    state: 'armed_night'
+  action:
+    service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.shm
+
+- alias: Turn on alarm night in night mode
+  trigger:
+    platform: state
+    entity_id: input_boolean.night_mode
+    to: 'on'
+  action:
+    service: alarm_control_panel.alarm_arm_night
+    entity_id: alarm_control_panel.shm
+    
 ################################################
 #
 #      Office automation
@@ -1095,12 +1123,20 @@
   action:
   - service: light.turn_on
     entity_id: light.o1
+    data:
+      brightness_pct: 100
   - service: light.turn_on
     entity_id: light.o2
+    data:
+      brightness_pct: 100
   - service: light.turn_on
     entity_id: light.o3
+    data:
+      brightness_pct: 100
   - service: light.turn_on
     entity_id: light.o4
+    data:
+      brightness_pct: 100
   - service: light.turn_on
     entity_id: light.office_lights
     data:
@@ -1121,35 +1157,35 @@
   - service: light.turn_off
     entity_id: light.o4
 
-- alias: Turn off office light that turns on randomly
-  trigger:
-  - platform: state
-    entity_id: light.o1
-    to: 'on'
-  - platform: state
-    entity_id: light.o2
-    to: 'on'
-  - platform: state
-    entity_id: light.o3
-    to: 'on'
-  - platform: state
-    entity_id: light.o4
-    to: 'on'
-  condition:
-    condition: state
-    entity_id: light.office_lights
-    state: 'off'
-  action:
-  - service: light.turn_off
-    entity_id: light.o1
-  - service: light.turn_off
-    entity_id: light.o2
-  - service: light.turn_off
-    entity_id: light.o3
-  - service: light.turn_off
-    entity_id: light.o4
-  - service: light.turn_off
-    entity_id: light.office_lights
+# - alias: Turn off office light that turns on randomly
+  # trigger:
+  # - platform: state
+    # entity_id: light.o1
+    # to: 'on'
+  # - platform: state
+    # entity_id: light.o2
+    # to: 'on'
+  # - platform: state
+    # entity_id: light.o3
+    # to: 'on'
+  # - platform: state
+    # entity_id: light.o4
+    # to: 'on'
+  # condition:
+    # condition: state
+    # entity_id: light.office_lights
+    # state: 'off'
+  # action:
+  # - service: light.turn_off
+    # entity_id: light.o1
+  # - service: light.turn_off
+    # entity_id: light.o2
+  # - service: light.turn_off
+    # entity_id: light.o3
+  # - service: light.turn_off
+    # entity_id: light.o4
+  # - service: light.turn_off
+    # entity_id: light.office_lights
 
 ################################################
 #
@@ -1189,6 +1225,7 @@
     event: sunrise
   - platform: state
     entity_id: alarm_control_panel.shm
+    from: 'armed_away'
     to: 'disarmed'
   action:
   - service: light.turn_off
@@ -1215,11 +1252,16 @@
       - thu
       - fri
     - condition: state
-      entity_id: alarm_control_panel.shm
-      state: 'disarmed'
-    - condition: state
       entity_id: input_boolean.vacation_mode
       state: 'off'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: alarm_control_panel.shm
+        state: 'disarmed'
+      - condition: state
+        entity_id: alarm_control_panel.shm
+        state: 'armed_night'
   action:
   - service: light.turn_on
     entity_id: light.office_lights
@@ -1256,11 +1298,16 @@
       - thu
       - fri
     - condition: state
-      entity_id: alarm_control_panel.shm
-      state: 'disarmed'
-    - condition: state
       entity_id: input_boolean.vacation_mode
       state: 'off'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: alarm_control_panel.shm
+        state: 'disarmed'
+      - condition: state
+        entity_id: alarm_control_panel.shm
+        state: 'armed_night'
   action:
   - service: tts.google_say
     entity_id: media_player.kitchen_home
@@ -1272,14 +1319,19 @@
   - platform: sun
     event: sunrise
   condition:
-    condition: state
-    entity_id: alarm_control_panel.shm
-    state: 'disarmed'
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.shm
+      state: 'disarmed'
+    - condition: state
+      entity_id: alarm_control_panel.shm
+      state: 'armed_night'
   action:
   - service: script.turn_on
     entity_id: script.open_bay_window_curtains
   - service: switch.turn_off
-    entity_id: switch.house_fan, switch.tasker_sleep_danny, switch.tasker_sleep_tosh
+    entity_id: switch.house_fan
   - service: input_boolean.turn_off
     entity_id: input_boolean.night_mode
 
@@ -1309,13 +1361,18 @@
     - condition: state
       entity_id: input_boolean.bedroom_curtains
       state: 'off'
-    - condition: state
-      entity_id: alarm_control_panel.shm
-      state: 'disarmed'
     - condition: time
       weekday:
       - sat
       - sun
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: alarm_control_panel.shm
+        state: 'disarmed'
+      - condition: state
+        entity_id: alarm_control_panel.shm
+        state: 'armed_night'
   action:
   - service: script.turn_on
     entity_id: script.open_bedroom_curtains
@@ -1327,9 +1384,6 @@
   condition:
     condition: and
     conditions:
-    - condition: state
-      entity_id: alarm_control_panel.shm
-      state: 'disarmed'
     - condition: time
       weekday:
       - mon
@@ -1342,6 +1396,14 @@
     - condition: state
       entity_id: input_boolean.vacation_mode
       state: 'off'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: alarm_control_panel.shm
+        state: 'disarmed'
+      - condition: state
+        entity_id: alarm_control_panel.shm
+        state: 'armed_night'
   action:
   - service: climate.set_temperature
     data:
@@ -1382,6 +1444,16 @@
     data:
       brightness_pct: 30
       
+- alias: Danny awake
+  trigger:
+    platform: state
+    entity_id: switch.tasker_sleep_danny
+    from: 'on'
+    to: 'off'
+  action:
+  - service: light.turn_on
+    entity_id: light.den_lights_level
+    
 ################################################
 #
 #      Lock Automations
@@ -1473,8 +1545,8 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'You got mail'
   - service: notify.den
@@ -1665,9 +1737,9 @@
   condition:
     condition: and
     conditions:
-    # - condition: state
-      # entity_id: group.sprinklers
-      # state: 'off'
+    - condition: state
+      entity_id: input_boolean.rachio
+      state: 'off'
     - condition: state
       entity_id: binary_sensor.windows
       state: 'on'
@@ -1687,8 +1759,8 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "Its raining and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
 
@@ -1731,6 +1803,9 @@
     - condition: state
       entity_id: input_boolean.night_mode
       state: 'off'
+    - condition: state
+      entity_id: input_boolean.shower_mode
+      state: 'off'
   action:
   - service: notify.chrome
     data_template:
@@ -1741,8 +1816,8 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "The thermostat is on and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
 
@@ -1814,6 +1889,7 @@
   trigger:
   - platform: state
     entity_id: alarm_control_panel.shm
+    from: 'armed_away'
     to: 'disarmed'
   action:
   - service: light.turn_on
@@ -2070,8 +2146,8 @@
       action: help
   action:
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'Boogie, I need help outside'
       
@@ -2329,8 +2405,8 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data:
       message: 'The water heater is leaking'
       
@@ -2456,19 +2532,19 @@
 #
 ################################################
 
-- alias: Xiaomi Air Purifier Price
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.xiaomi_air_purifier_2
-    below: 130
-  action:
-  - service: notify.chrome
-    data:
-      message: "Price dropped below $130 for air purifier. Click to buy!"
-      target: danny_pixel
-      title: Shokabow Zoo
-      data:
-        url: 'https://www.gearbest.com/home-smart-improvements/pp_268522.html'
+# - alias: Xiaomi Air Purifier Price
+  # trigger:
+  # - platform: numeric_state
+    # entity_id: sensor.xiaomi_air_purifier_2
+    # below: 130
+  # action:
+  # - service: notify.chrome
+    # data:
+      # message: "Price dropped below $130 for air purifier. Click to buy!"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+      # data:
+        # url: 'https://www.gearbest.com/home-smart-improvements/pp_268522.html'
         
 # - alias: Xiaomi Leak Sensor Price
   # trigger:
@@ -2540,13 +2616,22 @@
 
 - alias: Certificate Expiring
   trigger:
-    platform: numeric_state
+  - platform: numeric_state
     entity_id: sensor.ssl_certificate_expiry
     below: 5
+  - platform: numeric_state
+    entity_id: sensor.ssl_certificate_expiry
+    below: 4
+  - platform: numeric_state
+    entity_id: sensor.ssl_certificate_expiry
+    below: 3
+  - platform: numeric_state
+    entity_id: sensor.ssl_certificate_expiry
+    below: 2
   action:
   - service: notify.chrome
     data:
-      message: "Certificate expiring in 5 days!"
+      message: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days!"
       target: danny_pixel
       title: Shokabow Zoo
       
@@ -2558,7 +2643,7 @@
   action:
   - service: notify.chrome
     data:
-      message: "Home assistant drive getting full, over 50%!"
+      message: "Home assistant drive getting full, over 50%! Check journal and zoneminder."
       target: danny_pixel
       title: Shokabow Zoo
       
@@ -2631,7 +2716,7 @@
     entity_id: media_player.bathroom_speaker
     to: 'idle'
     for:
-      minutes: 30
+      minutes: 5
   - platform: state
     entity_id: alarm_control_panel.shm
     to: 'armed_away'
@@ -2647,3 +2732,101 @@
   action:
     service: input_boolean.turn_off
     entity_id: input_boolean.shower_mode
+    
+- alias: Shower mode on when humidity above 75 for 2 minutes
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.bathroom_humidity
+    above: 75
+    for:
+      minutes: 1
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.shm
+      state: disarmed
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'off'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.shower_mode
+    
+################################################
+#
+#      Motion Light Automations
+#
+################################################
+
+- alias: Bedroom Motion Light
+  trigger:
+    platform: state
+    entity_id: binary_sensor.bedroom_motion_sensor
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'off'
+    - condition: state
+      entity_id: alarm_control_panel.shm
+      state: disarmed
+  action:
+  - service: light.turn_on
+    entity_id: light.bedroom_lights_level
+  - delay: "00:03:00"
+  - wait_template: "{{ states.binary_sensor.bedroom_motion_sensor.state == 'off' }}"
+  - service: light.turn_off
+    entity_id: light.bedroom_lights_level
+
+################################################
+#
+#      Ring Automations
+#
+################################################
+
+- alias: Motion at front door
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ring_front_door_motion
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.shm
+      state: disarmed
+    - condition: state
+      entity_id: lock.front_door_lock
+      state: locked
+  action:
+  - service: notify.den
+    data:
+      data:
+        color: teal
+      message: There is motion at the front door
+      title: Shokabow Zoo
+  
+- alias: Ding Dong at front door
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ring_front_door_ding
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.shm
+    state: disarmed
+  action:
+  - service: notify.den
+    data:
+      data:
+       color: red
+       duration: 10
+       position: center
+      message: Someone is at the front door
+      title: Shokabow Zoo

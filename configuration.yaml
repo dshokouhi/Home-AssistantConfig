@@ -40,7 +40,7 @@ frontend:
    light-primary-color: "var(--red)"
 # some hyperlinked text
    dark-primary-color: "var(--red)"
-# not sure where used
+# color of heading text when item selected from home screen ex: light
    text-primary-color: "var(--white)"
 # main background, top of side panel
    primary-background-color: "var(--dark_grey)"
@@ -144,6 +144,7 @@ discovery:
   - logitech_mediaserver
   - songpal
   - roku
+  - google_cast
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -289,6 +290,7 @@ media_player 5:
 
 media_player 6:
  - platform: cast
+   scan_interval: 1234567890
 
 media_player 7:
  - platform: onkyo
@@ -462,20 +464,20 @@ google_assistant:
       expose: false
     light.living_room:
       expose: false
-    switch.zone_1_patio:
-      expose: false
-    switch.zone_2_pool:
-      expose: false
-    switch.zone_3_garage:
-      expose: false
-    switch.zone_4_firepit:
-      expose: false
-    switch.zone_5_front_lawn_boogie_car:
-      expose: false
-    switch.zone_6_front_lawn_walkway:
-      expose: false
-    switch.zone_7_front_lawn_street:
-      expose: false
+    # switch.zone_1_patio:
+      # expose: false
+    # switch.zone_2_pool:
+      # expose: false
+    # switch.zone_3_garage:
+      # expose: false
+    # switch.zone_4_firepit:
+      # expose: false
+    # switch.zone_5_front_lawn_boogie_car:
+      # expose: false
+    # switch.zone_6_front_lawn_walkway:
+      # expose: false
+    # switch.zone_7_front_lawn_street:
+      # expose: false
     light.o1:
       expose: false
     light.o2:
@@ -484,8 +486,6 @@ google_assistant:
       expose: false
     light.o4:
       expose: false      
-    switch.shm:
-      expose: false
     light.cree_connected_a19_60w_equivalent_fe010d00_10:
       expose: false
     light.cree_connected_a19_60w_equivalent_fe010d32_10:
@@ -510,8 +510,8 @@ google_assistant:
       expose: false
     switch.washer_switch:
       expose: false
-    switch.mr_neato_schedule:
-      expose: false
+    # switch.mr_neato_schedule:
+      # expose: false
     light.patio_bbq:
       expose: false      
     light.patio_table_left:
@@ -548,6 +548,8 @@ google_assistant:
       expose: false
     script.outdoor_camera_snapshot:
       expose: false
+    script.office_camera_snapshot:
+      expose: false
     switch.tasker_sleep_danny:
       expose: false
     switch.tasker_sleep_tosh:
@@ -572,7 +574,11 @@ google_assistant:
       expose: false
     switch.kitchen_state:
       expose: false
-    switch.lr_state:
+    switch.living_room_state:
+      expose: false
+    switch.office_state:
+      expose: false
+    switch.garage_state:
       expose: false
 
 namecheapdns:
@@ -703,7 +709,17 @@ influxdb:
   max_retries: 10
   
 fan:
-  platform: xiaomi_miio
-  name: Den Air Purifier
-  host: 192.168.1.64
-  token: !secret den_purifier_token
+  - platform: xiaomi_miio
+    name: Den Air Purifier
+    host: 192.168.1.64
+    token: !secret den_purifier_token
+    
+  - platform: xiaomi_miio
+    name: Bedroom Air Purifier
+    host: 192.168.1.62
+    token: !secret bedroom_purifier_token
+    
+  - platform: xiaomi_miio
+    name: Living Room Air Purifier
+    host: 192.168.1.63
+    token: !secret lr_purifier_token

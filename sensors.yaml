@@ -360,6 +360,48 @@
        friendly_name: Den Air Purifier AQI
        unit_of_measurement: AQI
        
+ - platform: template
+   sensors:
+     bedroom_air_purifier_temp:
+       value_template: "{{ (states.fan.bedroom_air_purifier.attributes.temperature * 9)/5 + 32 }}"
+       friendly_name: Bedroom Air Purifier Temperature
+       unit_of_measurement: "F"
+       
+ - platform: template
+   sensors:
+     bedroom_air_purifier_humidity:
+       value_template: "{{ states.fan.bedroom_air_purifier.attributes.humidity }}"
+       friendly_name: Bedroom Air Purifier Humidity
+       unit_of_measurement: "%"
+       
+ - platform: template
+   sensors:
+     bedroom_air_purifier_aqi:
+       value_template: "{{ states.fan.bedroom_air_purifier.attributes.aqi }}"
+       friendly_name: Bedroom Air Purifier AQI
+       unit_of_measurement: AQI
+       
+ - platform: template
+   sensors:
+     living_room_air_purifier_temp:
+       value_template: "{{ (states.fan.living_room_air_purifier.attributes.temperature * 9)/5 + 32 }}"
+       friendly_name: Living Room Air Purifier Temperature
+       unit_of_measurement: "F"
+       
+ - platform: template
+   sensors:
+     living_room_air_purifier_humidity:
+       value_template: "{{ states.fan.living_room_air_purifier.attributes.humidity }}"
+       friendly_name: Living Room Air Purifier Humidity
+       unit_of_measurement: "%"
+       
+ - platform: template
+   sensors:
+     living_room_air_purifier_aqi:
+       value_template: "{{ states.fan.living_room_air_purifier.attributes.aqi }}"
+       friendly_name: Living Room Air Purifier AQI
+       unit_of_measurement: AQI
+       
  - platform: command_line
    name: Epson Ink Level Black
    command: /usr/bin/curl -X GET http://192.168.1.57/PRESENTATION/HTML/TOP/PRTINFO.HTML  | awk -F"'" '/Ink_K.PNG/ && $6+0 == $6 { printf "%.0f\n", $6 / 50 * 100; exit }'
@@ -471,15 +513,15 @@
    - type: memory_use_percent
    - type: processor_use
    
- - platform: gearbest
-   currency: USD
-   items:
-   - url: https://www.gearbest.com/home-smart-improvements/pp_268522.html
-     name: Xiaomi Air Purifier 2
-   - url: https://www.gearbest.com/home-smart-improvements/pp_668897.html
-     name: Xiaomi Leak Sensor
-   - url: https://www.gearbest.com/access-control/pp_626703.html
-     name: Xiaomi Contact Sensor
+ # - platform: gearbest
+   # currency: USD
+   # items:
+   # - url: https://www.gearbest.com/home-smart-improvements/pp_268522.html
+     # name: Xiaomi Air Purifier 2
+   # - url: https://www.gearbest.com/home-smart-improvements/pp_668897.html
+     # name: Xiaomi Leak Sensor
+   # - url: https://www.gearbest.com/access-control/pp_626703.html
+     # name: Xiaomi Contact Sensor
      
  - platform: plex
    host: 192.168.1.60
