@@ -12,6 +12,10 @@
   - Installed in a venv
 - Pi-Hole
 - Zoneminder
+- Influxdb/Grafana
+- Node-red
+- HADashboard
+- AppDaemon
 
 ## Devices
 ### Lightify
@@ -39,6 +43,7 @@
 - 2 Aeon smart switch energy meters
 - 1 Aeon Siren
 - 3 First Alert Combo Detectors (Smoke and CO2)
+- 1 Honeywell z-wave thermostat
 
 ### ZHA/ZigBee 
 - Controller: Go Control HUSBZB-1
@@ -48,16 +53,16 @@
 
 ### SmartThings (devices waiting to be ported over)
 - Dishwasher power
-- Mailbox sensor
-- Garage Door backyard sensor
-- House fan (need to figure out how to get house fan from thermostat to work)
 
 ### Xiaomi gateway
-- 1 Leak sensor
-- 1 contact sensor
+- 4 Leak sensor
+- 4 Contact sensor
+- 1 Motion sensor
+- 1 Temperature sensor
+- 3 Air Purifiers
+
 ### Other Devices
 - Rachio 8 zone (1st gen)
-- Honeywell Wifi Thermostat
 - Bloomsky weather station
 - Neato Botvac D7
 - 3 Google Homes
@@ -72,8 +77,9 @@
 - 1 Sercomm RC8021
 - 1 Honeywell Lyric C2
 - 1 Amcrest 720p Outdoor
-- 1 Ring video doorbell (1st gen)
+- 1 Ring video doorbell (2nd gen)
 - 1 Ring floodlight camera
+- 1 Yi Dome 1080p
 
 ## Automations
 
@@ -91,6 +97,8 @@
 - Turn on the lights when the alarm turns off
 - Turn on lights when door unlocked and alarm off
 - Notify the keypad locked for too many attempts
+- Arm the alarm when we go to bed
+- Disarm when the first person wakes up
 
 ### Harmony
 - Close curtains facing street 30 minutes before sunset
@@ -111,7 +119,6 @@
 ### Office Automations
 - Turn on all office lights when the main switch is on
 - Turn off all office lights when main switch is off
-- Turn off office light if one comes on randomly when the main is off
 
 ### Dog Lights
 - Turn on corner and front door lamp when we leave the house and the sunsets
@@ -119,7 +126,7 @@
 
 ### Morning Automations
 - Turn on lights at 730am if vacation mode is off, alarm is deactivated during the week
-  - Bedroom lights, office lights and kitchen lights turn on
+  - Bedroom lights, office lights, living room lights, den lights and kitchen lights turn on
   - Bedroom curtains open
   - Once Tosh leaves all the lights turn off including the bedroom fan
 - Remind boogie to take her meds
@@ -127,6 +134,9 @@
 - Set hallway light to daylight white if it turns on and the sun is above the horizon
 - Open bedroom curtains at 10:30am on weekends if the alarm is off
 - Heat up house in the morning on workdays if house is below 65 at 730am
+- Turn on den lights when Danny wakes up for a call
+- If den lights turn on between 4-8am set them to lowest setting
+- Turn up den lights to 30% at 9am if not already
 
 ### Lock Automations
 - Start a 3 minute timer if the door is unlocked and closed
@@ -144,6 +154,7 @@
 - Turn on/off Garage lights when the backyard door is open/closed
 - Turn on/off Garage lights when the frontyard is open/closed
 - Turn off Bedroom/Office closet or Garage lights when left on for 15 minutes
+- Turn on bedroom lights when door opens or motion is detected, turn off lights when door is closed and no motion detected
 
 ### Windows Open
 - Notify if a window is open and it is raining outside
@@ -154,6 +165,7 @@
 - Turn on colorful lights at sunset when we get home
 - Turn on colorful lights if alarm is disarmed when the sun is below the horizon
 - Turn off the fans if the house gets too cold while we are sleeping
+- Turn on sleep tracking on our phones when in night mode
 
 ### Smoke Detector Notifications
 - Den, Bedroom, Office smoke detection
@@ -170,6 +182,37 @@
 - When Kodi is playing turn off the den lights
 - When Kodi is paused for 30 seconds or idle for 1 minute turn on den and kitchen lights
 - Open curtains if they were closed
+
+### Water heater
+- Notify me if rain is getting into the water heater
+- Notify me if the water heater is leaking
+
+### Battery alerts
+- Check for low battery levels at 10 am and 6pm
+- Clear battery alerts once fixed
+
+### Log notifications
+- Notify me if "timer out of sync" occurs
+
+### Speed test automation
+- Run a speed test if nothing is downloading or streaming at set intervals
+
+### Numeric automations
+- Notify me if SSL cert is expiring in 5 days
+- Notify me if hass HDD is filing up
+
+### Shower automations
+- Turn on shower mode if humidity is above 75% for 1 minute
+- Turn on KROQ radio in the bathroom when shower mode is enabled
+- Turn on house fan when shower mode comes on
+- Send TTS to bathroom speaker asking them to open bathroom window if not already open
+- End shower mode once speaker stops or other conditions are met
+
+### Ring automations
+- Notify me on the TV when motion or doorbell is detected
+
+### Sink leaking automations
+- Notify me if any of the sinks are leaking
 
 ## Screenshots
 ![home2](https://user-images.githubusercontent.com/1634145/35309377-0f99e134-0061-11e8-8567-35f34da1ace3.JPG)
