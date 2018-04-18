@@ -473,3 +473,6 @@ light.biased_lights:
   
 binary_sensor.garage_backyard_door:
   device_class: door
+  
+binary_sensor.bedroom_door:
+  device_class: door

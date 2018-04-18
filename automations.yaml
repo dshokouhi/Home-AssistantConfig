@@ -881,6 +881,9 @@
     - condition: state
       entity_id: input_boolean.vacation_mode
       state: 'off'
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: 'off'
   action:
   - service: alarm_control_panel.alarm_arm_away
     data:
@@ -1097,8 +1100,10 @@
     entity_id: alarm_control_panel.shm
     state: 'armed_night'
   action:
-    service: alarm_control_panel.alarm_disarm
+  - service: alarm_control_panel.alarm_disarm
     entity_id: alarm_control_panel.shm
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.night_mode
 
 - alias: Turn on alarm night in night mode
   trigger:
@@ -1106,7 +1111,7 @@
     entity_id: input_boolean.night_mode
     to: 'on'
   action:
-    service: alarm_control_panel.alarm_arm_night
+  - service: alarm_control_panel.alarm_arm_night
     entity_id: alarm_control_panel.shm
     
 ################################################
@@ -1282,6 +1287,26 @@
     entity_id: light.living_room_lights_level
   - service: light.turn_off
     entity_id: light.bedroom_lights_level
+  - condition: state
+    entity_id: binary_sensor.bedroom_door
+    state: 'on'
+  - service: notify.den
+    data_template:
+      data:
+        color: red
+        duration: 10
+        position: center
+      message: 'Bedroom door left open and boogie has left for work, go close it!'
+      title: Shokabow Zoo
+  - service: notify.chrome
+    data_template:
+      message: "Bedroom door left open and boogie has left for work, go close it!"
+      target: danny_pixel
+      title: Shokabow Zoo
+  - service: tts.google_say
+    entity_id: media_player.den_home
+    data:
+      message: "Bedroom door left open and boogie has left for work, go close it!"
 
 - alias: Boogie Take Your Meds
   trigger:
@@ -1332,8 +1357,6 @@
     entity_id: script.open_bay_window_curtains
   - service: switch.turn_off
     entity_id: switch.house_fan
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.night_mode
 
 - alias: Hallway light above horizon
   trigger:
@@ -1535,6 +1558,10 @@
   - platform: state
     entity_id: input_boolean.mailbox
     to: 'off'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.shm
+    state: 'disarmed'
   action:
   - service: notify.chrome
     data:
@@ -1844,6 +1871,7 @@
   trigger:
   - platform: state
     entity_id: alarm_control_panel.shm
+    from: 'armed_away'
     to: 'disarmed'
   condition:
     condition: state
@@ -2761,8 +2789,11 @@
 
 - alias: Bedroom Motion Light
   trigger:
-    platform: state
+  - platform: state
     entity_id: binary_sensor.bedroom_motion_sensor
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.bedroom_door
     to: 'on'
   condition:
     condition: and
@@ -2776,11 +2807,20 @@
     - condition: state
       entity_id: alarm_control_panel.shm
       state: disarmed
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'off'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'off'
   action:
   - service: light.turn_on
     entity_id: light.bedroom_lights_level
   - delay: "00:03:00"
   - wait_template: "{{ states.binary_sensor.bedroom_motion_sensor.state == 'off' }}"
+  - condition: state
+    entity_id: binary_sensor.bedroom_door
+    state: 'off'
   - service: light.turn_off
     entity_id: light.bedroom_lights_level
 
@@ -2830,3 +2870,38 @@
        position: center
       message: Someone is at the front door
       title: Shokabow Zoo
+      
+################################################
+#
+#      Sink Leaking Automations
+#
+################################################
+
+- alias: Sink is leaking
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.kitchen_sink_leak_sensor
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.bar_sink_leak_sensor
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.bathroom_sink_leak_sensor
+    to: 'on'
+  action:
+  - service: notify.den
+    data_template:
+      data:
+        color: red
+        duration: 10
+        position: center
+      message: 'Leak Detected! {{ trigger.to_state.attributes.friendly_name }}'
+      title: Shokabow Zoo
+  - service: notify.chrome
+    data_template:
+      message: "Leak Detected {{ trigger.to_state.attributes.friendly_name }}"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
+  - service: notify.slack
+    data_template:
+      message: "Leak detected at home {{ trigger.to_state.attributes.friendly_name }}"

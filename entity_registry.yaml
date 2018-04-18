@@ -582,3 +582,19 @@ sensor.den_smoke_alarm_level:
   name:
   platform: zwave
   unique_id: 27-72057594496958481
+binary_sensor.kitchen_sink_leak_sensor:
+  name: Kitchen Sink Leak Sensor
+  platform: xiaomi_aqara
+  unique_id: status158d0001bb91cc
+binary_sensor.bar_sink_leak_sensor:
+  name: Bar Sink Leak Sensor
+  platform: xiaomi_aqara
+  unique_id: status158d0001bb8cb2
+binary_sensor.bathroom_sink_leak_sensor:
+  name: Bathroom Sink Leak Sensor
+  platform: xiaomi_aqara
+  unique_id: status158d0001bc1aa1
+binary_sensor.bedroom_door:
+  name: Bedroom Door
+  platform: xiaomi_aqara
+  unique_id: status158d0001c312ee
