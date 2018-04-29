@@ -598,3 +598,15 @@ binary_sensor.bedroom_door:
   name: Bedroom Door
   platform: xiaomi_aqara
   unique_id: status158d0001c312ee
+fan.living_room_air_purifier:
+  name:
+  platform: xiaomi_miio
+  unique_id: zhimi.airpurifier.m2-78:11:DC:2D:E8:9F
+fan.den_air_purifier:
+  name:
+  platform: xiaomi_miio
+  unique_id: zhimi.airpurifier.m2-34:CE:00:BF:74:76
+fan.bedroom_air_purifier:
+  name:
+  platform: xiaomi_miio
+  unique_id: zhimi.airpurifier.m1-34:CE:00:A0:85:09

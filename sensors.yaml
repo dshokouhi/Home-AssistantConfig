@@ -480,10 +480,10 @@
           n/a
          {% endif %}
    
- - platform: xbox_live
-   api_key: !secret xbox_live_api
-   xuid:
-   - !secret xbox_gamer_tag
+ # - platform: xbox_live
+   # api_key: !secret xbox_live_api
+   # xuid:
+   # - !secret xbox_gamer_tag
    
  - platform: template
    sensors:

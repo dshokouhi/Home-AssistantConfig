@@ -100,8 +100,6 @@
     condition: template
     value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
   action:
-  - service: switch.turn_off
-    entity_id: switch.bedroom_fan
   - service: light.turn_off
     entity_id: light.biased_lights
      
@@ -120,7 +118,7 @@
       entity_id: sun.sun
       state: 'below_horizon'
     - condition: template
-      value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity != PowerOff }}"
+      value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity != 'PowerOff' }}"
   action:
   - service: light.turn_on
     entity_id: light.tv_lights
@@ -140,7 +138,7 @@
     offset: '-00:30:00'
   condition:
     condition: template
-    value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity != PowerOff }}"
+    value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity != 'PowerOff' }}"
   action:
   - service: light.turn_on
     entity_id: light.tv_lights
@@ -1114,6 +1112,56 @@
   - service: alarm_control_panel.alarm_arm_night
     entity_id: alarm_control_panel.shm
     
+- alias: Alarm Tripped in armed night
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.centralite_3320l_057ce46f_1
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.centralite_3320l_05989606_1
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.centralite_3320l_0b6289f7_1
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.centralite_3320l_0b665f4e_1
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.centralite_3320l_0b636eab_1
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.centralite_3320l_0b629e9b_1
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.centralite_3320l_0b636d0d_1
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.centralite_3320l_0b63b331_1
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.garage_frontyard
+    to: 'on'
+  - platform: state
+    entity_id: sensor.bay_window_shock_alarm_level
+    to: '255'
+  - platform: state
+    entity_id: sensor.bay_window_shock_burglar
+    to: '2'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.shm
+    state: 'armed_night'
+  action:
+  - service: notify.chrome
+    data:
+      message: "Alarm is in armed night and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
+  - service: tts.google_say
+    entity_id: media_player.bedroom_speaker
+    data_template:
+      message: "Alarm is in armed night and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+
 ################################################
 #
 #      Office automation
@@ -2155,6 +2203,10 @@
     platform: state
     entity_id: binary_sensor.dannys_bayesian_presence
     to: 'on'
+  condition:
+    condition: state
+    entity_id: switch.tasker_sleep_danny
+    state: 'off'
   action:
   - service: notify.chrome
     data:
@@ -2184,6 +2236,10 @@
     platform: state
     entity_id: binary_sensor.dannys_bayesian_presence
     to: 'off'
+  condition:
+    condition: state
+    entity_id: switch.tasker_sleep_danny
+    state: 'off'
   action:
   - service: notify.chrome
     data:
@@ -2196,6 +2252,10 @@
     platform: state
     entity_id: binary_sensor.natachas_bayesian_presence
     to: 'on'
+  condition:
+    condition: state
+    entity_id: switch.tasker_sleep_tosh
+    state: 'off'
   action:
   - service: notify.chrome
     data:
@@ -2212,6 +2272,10 @@
     platform: state
     entity_id: binary_sensor.natachas_bayesian_presence
     to: 'off'
+  condition:
+    condition: state
+    entity_id: switch.tasker_sleep_tosh
+    state: 'off'
   action:
   - service: notify.chrome
     data:
@@ -2842,7 +2906,7 @@
       entity_id: alarm_control_panel.shm
       state: disarmed
     - condition: state
-      entity_id: lock.front_door_lock
+      entity_id: lock.front_door_lock_locked
       state: locked
   action:
   - service: notify.den

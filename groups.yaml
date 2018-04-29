@@ -279,6 +279,8 @@ tracked_users:
   - device_tracker.androidc4ba94519e6666f2
   - device_tracker.pixel_2_xl
   - device_tracker.pixel_xl
+  - device_tracker.google_maps_104359830266586918986
+  - device_tracker.google_maps_100707363427265474344
   
 auto:
   name: Automations

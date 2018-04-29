@@ -150,33 +150,26 @@ light.living_room:
   #google_assistant: false
   emulated_hue_hidden: true
 
-switch.zone_1_patio:
-  #google_assistant: false
-  emulated_hue_hidden: true
+# switch.zone_1_patio:
+  # emulated_hue_hidden: true
 
-switch.zone_2_pool:
-  #google_assistant: false
-  emulated_hue_hidden: true
+# switch.zone_2_pool:
+  # emulated_hue_hidden: true
 
-switch.zone_3_garage:
-  #google_assistant: false
-  emulated_hue_hidden: true
+# switch.zone_3_garage:
+  # emulated_hue_hidden: true
 
-switch.zone_4_firepit:
-  #google_assistant: false
-  emulated_hue_hidden: true
+# switch.zone_4_firepit:
+  # emulated_hue_hidden: true
 
-switch.zone_5_front_lawn_boogie_car:
-  #google_assistant: false
-  emulated_hue_hidden: true
+# switch.zone_5_front_lawn_boogie_car:
+  # emulated_hue_hidden: true
 
-switch.zone_6_front_lawn_walkway:
-  #google_assistant: false
-  emulated_hue_hidden: true
+# switch.zone_6_front_lawn_walkway:
+  # emulated_hue_hidden: true
 
-switch.zone_7_front_lawn_street:
-  #google_assistant: false
-  emulated_hue_hidden: true
+# switch.zone_7_front_lawn_street:
+  # emulated_hue_hidden: true
 
 light.corner_lamp:
   friendly_name: Corner Lamp
@@ -189,8 +182,8 @@ switch.house_fan:
 light.firepit_lights:
   friendly_name: Firepit Lights
 
-light.fig_tree_lights:
-  friendly_name: Fig Tree Lights
+# light.fig_tree_lights:
+  # friendly_name: Fig Tree Lights
 
 light.hallway_light:
   friendly_name: Hallway Light
@@ -221,18 +214,6 @@ light.o4:
 
 light.office_lights:
   friendly_name: Office Lights
-  
-switch.shm:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-light.cree_connected_a19_60w_equivalent_fe010d00_10:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-light.cree_connected_a19_60w_equivalent_fe010d32_10:
-  #google_assistant: false
-  emulated_hue_hidden: true
   
 light.bedroom_closet:
   #google_assistant: false
@@ -322,10 +303,6 @@ sensor.centralite_3320l_057b7c44_1:
 light.centralite_3210l_0a932dbf_1:
   friendly_name: Office Plug
   #google_assistant: false
-
-light.cree_connected_a19_60w_equivalent_fe013293_10:
-  #google_assistant: false
-  emulated_hue_hidden: true
   
 light.office_closet:
   #google_assistant: false
@@ -362,11 +339,6 @@ switch.living_room_camera_plug_switch:
   emulated_hue_hidden: true
   icon: mdi:camera
 
-light.osram_lightify_flex_rgbw_00026309_3:
-  #friendly_name: TV Lights
-  emulated_hue_hidden: true
-  icon: mdi:television
-
 light.kitchen_lights_level:
   friendly_name: Kitchen Lights
 
@@ -393,10 +365,6 @@ switch.siren_switch:
 sensor.front_door_lock_battery:
   friendly_name: Front Door Lock Battery
 
-light.sengled_z01cia19nae26_03003148_1:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
 light.centralite_3210l_0b2d4417_1:
   friendly_name: Pool Plug
   #google_assistant: false
@@ -412,9 +380,9 @@ switch.washer_switch:
   #google_assistant: false
   emulated_hue_hidden: true
 
-switch.mr_neato_schedule:
-  #google_assistant: false
-  emulated_hue_hidden: true
+# switch.mr_neato_schedule:
+  # google_assistant: false
+  # emulated_hue_hidden: true
 
 switch.vacuum:
   friendly_name: Vacuum
@@ -449,15 +417,19 @@ binary_sensor.water_leak_sensor_158d0001bc24f5:
   
 binary_sensor.natachas_bayesian_presence:
   device_class: presence
+  entity_picture: https://lh4.googleusercontent.com/-aFZYEJLP6DI/AAAAAAAAAAI/AAAAAAAAhtw/8LhgmQhR_c4/photo.jpg
+  friendly_name: Tosh
   
 binary_sensor.dannys_bayesian_presence:
   device_class: presence
+  entity_picture: https://lh4.googleusercontent.com/-xsPOpixJMDs/AAAAAAAAAAI/AAAAAAAAujo/TE-84F5csr4/photo.jpg
+  friendly_name: Danny
   
 sensor.waqi_reseda_los_angeles:
-  friendly_name: Air Quality - Reseda, Los Angeles
+  friendly_name: AQI Reseda
   
 sensor.plex:
-  friendly_name: Total Active Plex Streams
+  friendly_name: Active Plex Streams
   
 climate.thermostat_heating_1:
   friendly_name: Thermostat Heating

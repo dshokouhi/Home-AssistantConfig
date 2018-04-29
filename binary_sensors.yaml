@@ -161,32 +161,42 @@
  - platform: bayesian
    prior: 0.6
    name: "Dannys Bayesian Presence"
-   probability_threshold: 0.82
+   probability_threshold: 0.85
    observations:
    - entity_id: 'device_tracker.10f1f2822f12'
      prob_given_true: 0.9
-     prob_given_false: 0.2
+     prob_given_false: 0.3
      platform: 'state'
      to_state: 'home'
    - entity_id: 'device_tracker.pixel_2_xl'
      prob_given_true: 0.9
-     prob_given_false: 0.2
+     prob_given_false: 0.4
+     platform: 'state'
+     to_state: 'home'
+   - entity_id: 'device_tracker.google_maps_100707363427265474344'
+     prob_given_true: 0.8
+     prob_given_false: 0.4
      platform: 'state'
      to_state: 'home'
      
  - platform: bayesian
    prior: 0.6
    name: "Natachas Bayesian Presence"
-   probability_threshold: 0.82
+   probability_threshold: 0.85
    observations:
    - entity_id: 'device_tracker.androidc4ba94519e6666f2'
      prob_given_true: 0.9
-     prob_given_false: 0.2
+     prob_given_false: 0.3
      platform: 'state'
      to_state: 'home'
    - entity_id: 'device_tracker.pixel_xl'
      prob_given_true: 0.9
-     prob_given_false: 0.2
+     prob_given_false: 0.4
+     platform: 'state'
+     to_state: 'home'
+   - entity_id: 'device_tracker.google_maps_104359830266586918986'
+     prob_given_true: 0.8
+     prob_given_false: 0.4
      platform: 'state'
      to_state: 'home'
    

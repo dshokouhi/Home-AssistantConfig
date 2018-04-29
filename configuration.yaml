@@ -181,7 +181,7 @@ tts:
 
 group: !include groups.yaml
 
-usps: !include usps.yaml
+#usps: !include usps.yaml
 
 ifttt:
    key: !secret ifttt
@@ -194,10 +194,15 @@ device_tracker:
     host: 192.168.1.1
     username: !secret router_user
     password: !secret router_pwd
-    consider_home: 180
+    consider_home: 60
     
   - platform: bluetooth_tracker
-    consider_home: 180
+    request_rssi: true
+    #consider_home: 180
+    
+  - platform: google_maps
+    username: !secret gmap_user
+    password: !secret gmap_pass
 
 # climate:
    # platform: honeywell
@@ -486,24 +491,24 @@ google_assistant:
       expose: false
     light.o4:
       expose: false      
-    light.cree_connected_a19_60w_equivalent_fe010d00_10:
-      expose: false
-    light.cree_connected_a19_60w_equivalent_fe010d32_10:
-      expose: false      
+    # light.cree_connected_a19_60w_equivalent_fe010d00_10:
+      # expose: false
+    # light.cree_connected_a19_60w_equivalent_fe010d32_10:
+      # expose: false      
     light.bedroom_closet:
       expose: false
     light.centralite_3210l_0b0383b4_1:
       expose: false
     light.centralite_3210l_0a932dbf_1:
       expose: false
-    light.cree_connected_a19_60w_equivalent_fe013293_10:
-      expose: false      
+    # light.cree_connected_a19_60w_equivalent_fe013293_10:
+      # expose: false      
     light.office_closet:
       expose: false
     switch.living_room_camera_plug_switch:
       expose: false
-    light.sengled_z01cia19nae26_03003148_1:
-      expose: false
+    # light.sengled_z01cia19nae26_03003148_1:
+      # expose: false
     light.centralite_3210l_0b2d4417_1:
       expose: false
     switch.dryer_switch:
@@ -520,8 +525,8 @@ google_assistant:
       expose: false      
     light.patio_pool_light:
       expose: false
-    light.osram_lightify_flex_rgbw_00026309_3:
-      expose: false
+    # light.osram_lightify_flex_rgbw_00026309_3:
+      # expose: false
     climate.thermostat_dry_air:
       expose: false
     climate.thermostat_furnace:
