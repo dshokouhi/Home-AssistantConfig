@@ -94,11 +94,11 @@
    # unit_of_measurement: "Watts"
    # qos: 0
 
- - platform: mqtt
-   name: "Dishwasher"
-   state_topic: "smartthings/Dishwasher/power"
-   unit_of_measurement: "Watts"
-   qos: 0
+ # - platform: mqtt
+   # name: "Dishwasher"
+   # state_topic: "smartthings/Dishwasher/power"
+   # unit_of_measurement: "Watts"
+   # qos: 0
 
  - platform: crimereports
    name: Crime Reports
@@ -207,7 +207,7 @@
    sensors:
      danny_next_event:
        friendly_name: Dannys Next Event
-       value_template: >
+       value_template: >-
          {{ strptime(states.calendar.dshokouhi.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A %B %d at %H:%M") }}:
          {{ states.calendar.dshokouhi.attributes.message }}
          {%- if states.calendar.dshokouhi.attributes.location %} at {{ states.calendar.dshokouhi.attributes.location -}}
@@ -223,7 +223,7 @@
    sensors:
      danny_next_meeting:
        friendly_name: Dannys Next Meeting
-       value_template: >
+       value_template: >-
          {{ strptime(states.calendar.danny_work.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A %B %d at %H:%M") }}:
          {{ states.calendar.danny_work.attributes.message }}
          {%- if states.calendar.danny_work.attributes.location %} at {{ states.calendar.danny_work.attributes.location -}}
@@ -239,7 +239,7 @@
    sensors:
      tosh_next_event:
        friendly_name: Toshs Next Event
-       value_template: >
+       value_template: >-
          {{ strptime(states.calendar.shorteh7.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A %B %d at %H:%M") }}:
          {{ states.calendar.shorteh7.attributes.message }}
          {%- if states.calendar.shorteh7.attributes.location %} at {{ states.calendar.shorteh7.attributes.location -}}
@@ -255,7 +255,7 @@
    sensors:
      next_us_holiday:
        friendly_name: Next US Holiday
-       value_template: >
+       value_template: >-
          {{ strptime(states.calendar.holidays_in_united_states.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A, %B %d") }}:
          {{ states.calendar.holidays_in_united_states.attributes.message }}
        icon_template: >-
@@ -269,7 +269,7 @@
    sensors:
      next_jewish_holiday:
        friendly_name: Next Jewish Holiday
-       value_template: >
+       value_template: >-
          {{ strptime(states.calendar.jewish_holidays.attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A, %B %d") }}:
          {{ states.calendar.jewish_holidays.attributes.message }}
        icon_template: >-
@@ -536,7 +536,7 @@
    #server_id: 7456 #quadranet
    #server_id: 2953 #atlantic metro
    #server_id: 5861 #webnx
-   server_id: 5827 #twc
+   #server_id: 5827 #twc
    #server_id: 10564 #speedtest
       
  # - platform: pollen
@@ -580,3 +580,97 @@
    api_key: !secret zillow_api
    zpid:
    - !secret zillow_zpid
+   
+ - platform: rest
+   resource: !secret plantlink_arti
+   scan_interval: 600
+   method: GET
+   authentication: basic
+   headers:
+     Authorization: !secret plantlink_key
+   verify_ssl: false
+   name: Artichoke Status
+   value_template: >-
+                {% if value_json.status == '0' %}
+                  Needs Water
+                {% elif value_json.status == '1' %}
+                  Dry
+                {% elif value_json.status == '2' %}
+                  Good
+                {% elif value_json.status == '3' %}
+                  Good
+                {% elif value_json.status == '4' %}
+                  Too Wet
+                {% else %}
+                  value_json.status
+                {% endif %}
+
+ - platform: rest
+   resource: !secret plantlink_arti
+   scan_interval: 600
+   method: GET
+   authentication: basic
+   headers:
+     Authorization: !secret plantlink_key
+   verify_ssl: false
+   name: Artichoke Moisture
+   sensor_class: moisture
+   unit_of_measurement: '%'
+   value_template: '{{ (value_json.last_measurements[0]["moisture"]) | round(3) * 100 }}'
+   
+ - platform: rest
+   resource: !secret plantlink_arti
+   scan_interval: 600
+   method: GET
+   authentication: basic
+   headers:
+     Authorization: !secret plantlink_key
+   verify_ssl: false
+   name: Artichoke Fuel
+   value_template: '{{ value_json.last_measurements[0]["plant_fuel_level"] | round(3) }}'
+   
+ - platform: rest
+   resource: !secret plantlink_arti
+   scan_interval: 600
+   method: GET
+   authentication: basic
+   headers:
+     Authorization: !secret plantlink_key
+   verify_ssl: false
+   name: Artichoke Signal
+   unit_of_measurement: '%'
+   value_template: '{{ float(value_json.last_measurements[0]["signal"]) * 100 | round(3) }}'
+   
+ - platform: rest
+   resource: !secret plantlink_arti
+   scan_interval: 600
+   method: GET
+   authentication: basic
+   headers:
+     Authorization: !secret plantlink_key
+   verify_ssl: false
+   name: Artichoke Battery
+   unit_of_measurement: '%'
+   value_template: '{{ float(value_json.last_measurements[0]["battery"]) * 100 | round(3) }}'
+   
+ - platform: rest
+   resource: !secret plantlink_arti
+   scan_interval: 600
+   method: GET
+   authentication: basic
+   headers:
+     Authorization: !secret plantlink_key
+   verify_ssl: false
+   name: Artichoke Last Updated
+   value_template: '{{ value_json.last_measurements[0]["updated"] | timestamp_local }}'
+   
+ - platform: rest
+   resource: !secret plantlink_arti
+   scan_interval: 600
+   method: GET
+   authentication: basic
+   headers:
+     Authorization: !secret plantlink_key
+   verify_ssl: false
+   name: Artichoke Next Water
+   value_template: '{{ value_json.last_measurements[0]["predicted_water_needed"] | timestamp_local }}'

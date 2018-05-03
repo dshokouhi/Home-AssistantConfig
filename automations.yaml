@@ -986,12 +986,8 @@
 - alias: Dad Unlock
   trigger:
   - platform: state
-    entity_id: sensor.front_door_lock_alarm_type
-    to: '19'
-  condition:
-    condition: state
-    entity_id: sensor.front_door_lock_alarm_level
-    state: '2'
+    entity_id: sensor.front_door_code
+    to: 'Dad'
   action:
   - service: light.turn_on
     entity_id: light.office_lights
@@ -1008,12 +1004,8 @@
 - alias: Zookeeper Unlock
   trigger:
   - platform: state
-    entity_id: sensor.front_door_lock_alarm_type
-    to: '19'
-  condition:
-    condition: state
-    entity_id: sensor.front_door_lock_alarm_level
-    state: '3'
+    entity_id: sensor.front_door_code
+    to: 'Zoo Keeper'
   action:
   - service: light.turn_on
     entity_id: light.office_lights

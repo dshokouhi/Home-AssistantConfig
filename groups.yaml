@@ -37,7 +37,6 @@ bedroom:
   - light.bedroom_closet
   - switch.bedroom_fan
   - light.bedroom_lights_level
-  - light.centralite_3210l_0b0383b4_1
   - light.biased_lights
   - light.dannys
   - remote.harmony_hub_bed
@@ -138,6 +137,7 @@ outside_sensors:
   - binary_sensor.garage_frontyard
   - binary_sensor.water_leak_sensor_158d0001bc24f5
   - sensor.dryer_power_2
+  - sensor.centralite_3210l_0b2d4417_1_2820
   - sensor.washer_power_2
 
 weather_sensors:
@@ -184,7 +184,6 @@ hallway:
   - switch.house_fan
   - light.office_closet
   - light.office_lights
-  - light.centralite_3210l_0a932dbf_1
   - light.gateway_light_34ce0091f546
   - group.hallway_sensors
 

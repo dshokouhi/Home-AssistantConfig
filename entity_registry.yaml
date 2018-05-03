@@ -610,3 +610,115 @@ fan.bedroom_air_purifier:
   name:
   platform: xiaomi_miio
   unique_id: zhimi.airpurifier.m1-34:CE:00:A0:85:09
+sensor.centralite_3320l_0b63b331_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:b3:31-2-1
+sensor.centralite_3320l_0b629e9b_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:9e:9b-1-1
+sensor.centralite_3320l_0b629e9b_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:9e:9b-2-1
+sensor.centralite_3320l_0b636d0d_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:6d:0d-1-1
+sensor.centralite_3320l_0b636d0d_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:6d:0d-2-1
+sensor.centralite_3320l_057b833c_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7b:83:3c-1-1
+sensor.centralite_3320l_057b833c_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7b:83:3c-2-1
+sensor.centralite_3320l_0b636eab_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:6e:ab-1-1
+sensor.centralite_3320l_0b636eab_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:6e:ab-2-1
+sensor.centralite_3320l_0b6289f7_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:89:f7-1-1
+sensor.centralite_3320l_0b6289f7_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:89:f7-2-1
+sensor.centralite_3320l_057ce46f_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7c:e4:6f-1-1
+sensor.centralite_3320l_057ce46f_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7c:e4:6f-2-1
+sensor.centralite_3320l_057b7c44_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7b:7c:44-1-1
+sensor.centralite_3320l_057b7c44_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:7b:7c:44-2-1
+sensor.centralite_3320l_05989606_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:98:96:06-1-1
+sensor.centralite_3320l_05989606_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:05:98:96:06-2-1
+sensor.centralite_3320l_0b665f4e_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:5f:4e-1-1
+sensor.centralite_3320l_0b665f4e_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:5f:4e-2-1
+sensor.centralite_3210l_0b0383b4_1_2820:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:03:83:b4-1-2820
+sensor.dishwasher:
+  name: Dishwasher
+  platform: zha
+  unique_id: 00:0d:6f:00:0a:93:2d:bf-1-2820
+sensor.pool_pump_power:
+  name: Pool Pump Power
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:2d:44:17-1-2820
+sensor.centralite_3320l_0b666ed0_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:6e:d0-2-1
+sensor.centralite_3320l_0b666ed0_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:6e:d0-1-1
+sensor.centralite_3320l_0b666bfc_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:6b:fc-2-1
+sensor.centralite_3320l_0b666bfc_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:66:6b:fc-1-1
+sensor.centralite_3320l_0b63b331_1_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:63:b3:31-1-1
+media_player.xboxone:
+  name:
+  platform: plex
+  unique_id: jrd8mteijza1feyyr9l42kcc
