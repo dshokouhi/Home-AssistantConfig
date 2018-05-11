@@ -722,3 +722,11 @@ media_player.xboxone:
   name:
   platform: plex
   unique_id: jrd8mteijza1feyyr9l42kcc
+binary_sensor.hallway_office_switch:
+  name:
+  platform: xiaomi_aqara
+  unique_id: status158d0001f4b0a4
+media_player.chrome_2:
+  name:
+  platform: plex
+  unique_id: 6vecnw3i7sf3ppspjiqxxsyw

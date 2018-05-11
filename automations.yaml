@@ -151,7 +151,7 @@
   - service: switch.turn_on
     entity_id: switch.fireplace
 
-- alias: Turn on biased lighting bedroom at night
+- alias: Turn on bias lighting bedroom at night
   trigger:
   - platform: state
     entity_id: remote.harmony_hub_bed
@@ -341,7 +341,7 @@
     data_template:
       option: "Select Input"
       
-- alias: Turn off biased lights and fireplace at sunrise
+- alias: Turn off bias lights and fireplace at sunrise
   trigger:
     platform: sun
     event: sunrise
@@ -669,7 +669,7 @@
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
   - delay: "00:00:30"
-  - service: switch.turn_on
+  - service: switch.turn_off
     entity_id: switch.lr_alarm
 
 - alias: Den Alarm Pic
@@ -1471,8 +1471,12 @@
   - service: climate.set_temperature
     data:
       entity_id: climate.thermostat_heating_1
-      operation_mode: Heat
+      #operation_mode: Heat
       temperature: 70
+  - service: climate.set_operation_mode
+    data:
+      entity_id: climate.thermostat_heating_1
+      operation_mode: 'Heat'
 
 - alias: Den lights on between 4 and 8am
   trigger:
@@ -1966,6 +1970,8 @@
     entity_id: light.kitchen_lights_level
   - service: light.turn_on
     entity_id: light.living_room_lights_level
+  - service: switch.turn_off
+    entity_id: switch.siren_switch
 
 ################################################
 #
@@ -2286,13 +2292,17 @@
   - platform: numeric_state
     entity_id: climate.thermostat_cooling_1
     value_template: "{{ states.climate.thermostat_cooling_1.attributes.current_temperature }}"
-    above: 80
+    above: 79
   action:
   - service: climate.set_temperature
     data:
       entity_id: climate.thermostat_cooling_1
-      operation_mode: Cool
+      #operation_mode: 'Cool'
       temperature: 78
+  - service: climate.set_operation_mode
+    data:
+      entity_id: climate.thermostat_cooling_1
+      operation_mode: 'Cool'
 
 - alias: Set thermostat cooling if on and house is armed
   trigger:
@@ -2703,15 +2713,6 @@
   - platform: numeric_state
     entity_id: sensor.ssl_certificate_expiry
     below: 5
-  - platform: numeric_state
-    entity_id: sensor.ssl_certificate_expiry
-    below: 4
-  - platform: numeric_state
-    entity_id: sensor.ssl_certificate_expiry
-    below: 3
-  - platform: numeric_state
-    entity_id: sensor.ssl_certificate_expiry
-    below: 2
   action:
   - service: notify.chrome
     data:
@@ -2961,3 +2962,45 @@
   - service: notify.slack
     data_template:
       message: "Leak detected at home {{ trigger.to_state.attributes.friendly_name }}"
+      
+################################################
+#
+#      Hallway Switch Automations
+#
+################################################
+
+- alias: Turn On Hallway Light Bright White
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.hallway_office_switch
+      click_type: long_click_press
+  action:
+  - service: light.turn_on
+    entity_id: light.hallway_light
+    data:
+      kelvin: 6500
+      brightness_pct: 100
+      
+- alias: Turn On Office Lights From Switch
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.hallway_office_switch
+      click_type: single
+  action:
+  - service: light.turn_on
+    entity_id: light.office_lights
+    
+- alias: Turn Off Office Lights and Hallway From Switch
+  trigger:
+    platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.hallway_office_switch
+      click_type: double
+  action:
+  - service: light.turn_off
+    entity_id: light.hallway_light, light.office_lights

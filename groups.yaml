@@ -137,7 +137,7 @@ outside_sensors:
   - binary_sensor.garage_frontyard
   - binary_sensor.water_leak_sensor_158d0001bc24f5
   - sensor.dryer_power_2
-  - sensor.centralite_3210l_0b2d4417_1_2820
+  - sensor.pool_pump_power
   - sensor.washer_power_2
 
 weather_sensors:
@@ -204,17 +204,17 @@ hallway_sensors:
   - sensor.centralite_3320l_0b629e9b_1
   - sensor.illumination_34ce0091f546
 
-sprinklers:
-  name: Sprinklers
-  control: hidden
-  entities:
-  - switch.zone_1_patio
-  - switch.zone_2_pool
-  - switch.zone_3_garage
-  - switch.zone_4_firepit
-  - switch.zone_5_front_lawn_boogie_car
-  - switch.zone_6_front_lawn_walkway
-  - switch.zone_7_front_lawn_street
+# sprinklers:
+  # name: Sprinklers
+  # control: hidden
+  # entities:
+  # - switch.zone_1_patio
+  # - switch.zone_2_pool
+  # - switch.zone_3_garage
+  # - switch.zone_4_firepit
+  # - switch.zone_5_front_lawn_boogie_car
+  # - switch.zone_6_front_lawn_walkway
+  # - switch.zone_7_front_lawn_street
 
 default_view:
   view: yes
@@ -278,8 +278,8 @@ tracked_users:
   - device_tracker.androidc4ba94519e6666f2
   - device_tracker.pixel_2_xl
   - device_tracker.pixel_xl
-  - device_tracker.google_maps_104359830266586918986
-  - device_tracker.google_maps_100707363427265474344
+  #- device_tracker.google_maps_104359830266586918986
+  #- device_tracker.google_maps_100707363427265474344
   
 auto:
   name: Automations
@@ -323,13 +323,13 @@ services:
    - group.pihole_status
    - group.sab
    - group.ring
-   - group.sprinklers
+   #- group.sprinklers
    - group.weather
    - group.forecast
    - group.epson_printer
    - group.speedtest
    - group.zoneminder
-   - weather.dark_sky
+   - group.artichoke
 
 zoneminder:
   name: ZoneMinder
@@ -446,3 +446,14 @@ epson_printer:
   - sensor.epson_ink_level_magenta
   - sensor.epson_ink_level_yellow
   - sensor.epson_ink_level_photo_black
+  
+artichoke:
+  name: PlantLink Artichoke
+  entities:
+  - sensor.artichoke_status
+  - sensor.artichoke_last_updated
+  - sensor.artichoke_next_water
+  - sensor.artichoke_fuel
+  - sensor.artichoke_moisture
+  - sensor.artichoke_signal
+  - sensor.artichoke_battery

@@ -223,8 +223,8 @@ device_tracker:
 
 mqtt:
   broker: 192.168.1.47
-  #discovery: true
-  #discovery_prefix: smartthings
+  discovery: true
+  discovery_prefix: homeassistant
   port: 1883
 
 alarm_control_panel:
@@ -232,6 +232,8 @@ alarm_control_panel:
   name: "SHM"
   pending_time: 60
   delay_time: 60
+  disarmed:
+    trigger_time: 0
   #state_topic: "smartthings/alarm system status/alarmSystemStatus"
   #command_topic: "smartthings/alarm system status/alarmSystemStatus"
   #name: "SHM"
