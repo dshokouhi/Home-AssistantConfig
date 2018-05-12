@@ -126,30 +126,30 @@
        device_class: window
        #entity_id:
         #- binary_sensor.bathroom_window
-        #- binary_sensor.centralite_3320l_0b63b331_1
+        #- binary_sensor.bathroom_window
         #- binary_sensor.bedroom_window
-        #- binary_sensor.centralite_3320l_0b636d0d_1
+        #- binary_sensor.bedroom_window
         #- binary_sensor.den_window
-        #- binary_sensor.centralite_3320l_057ce46f_1
+        #- binary_sensor.den_window
         #- binary_sensor.kitchen_window
-        #- binary_sensor.centralite_3320l_0b636eab_1
+        #- binary_sensor.kitchen_window
         #- binary_sensor.living_room_left_bay_window
-        #- binary_sensor.centralite_3320l_0b665f4e_1
+        #- binary_sensor.living_room_left_bay_window
         #- binary_sensor.living_room_right_bay_window
-        #- binary_sensor.centralite_3320l_05989606_1
+        #- binary_sensor.living_room_right_bay_window
         #- binary_sensor.living_room_side_window
-        #- binary_sensor.centralite_3320l_0b6289f7_1
+        #- binary_sensor.living_room_side_window
         #- binary_sensor.office_window
-        #- binary_sensor.centralite_3320l_0b629e9b_1
+        #- binary_sensor.office_window
        value_template: >-
-         {{ is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on')
-            or is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on')
-            or is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on')
-            or is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on')
-            or is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on')
-            or is_state('binary_sensor.centralite_3320l_05989606_1', 'on')
-            or is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on')
-            or is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') }}
+         {{ is_state('binary_sensor.bathroom_window', 'on')
+            or is_state('binary_sensor.bedroom_window', 'on')
+            or is_state('binary_sensor.den_window', 'on')
+            or is_state('binary_sensor.kitchen_window', 'on')
+            or is_state('binary_sensor.living_room_left_bay_window', 'on')
+            or is_state('binary_sensor.living_room_right_bay_window', 'on')
+            or is_state('binary_sensor.living_room_side_window', 'on')
+            or is_state('binary_sensor.office_window', 'on') }}
 
  # - platform: mqtt
    # name: "Mailbox"

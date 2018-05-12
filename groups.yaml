@@ -17,16 +17,16 @@ den_sensors:
   name: Den Sensors
   control: hidden
   entities:
-  - binary_sensor.centralite_3320l_057b7c44_1
-  - binary_sensor.centralite_3320l_057ce46f_1
+  - binary_sensor.den_sliding_door
+  - binary_sensor.den_window
   #- sensor.den_motion_sensor_temperature
   #- sensor.den_motion_battery
   - sensor.den_air_purifier_aqi
   - sensor.den_air_purifier_humidity
   - sensor.den_air_purifier_temp
-  - sensor.centralite_3320l_057b7c44_1
+  - sensor.den_sliding_door
   - sensor.den_smoke_status
-  - sensor.centralite_3320l_057ce46f_1
+  - sensor.den_window
   view: false
 
 bedroom:
@@ -48,17 +48,17 @@ bedroom_sensors:
   name: Bedroom Sensors
   control: hidden
   entities:
-  - binary_sensor.centralite_3320l_0b666bfc_1
+  - binary_sensor.bedroom_closet_door
   - binary_sensor.bedroom_door
   - binary_sensor.bedroom_motion_sensor
-  - binary_sensor.centralite_3320l_0b636d0d_1
+  - binary_sensor.bedroom_window
   - sensor.bedroom_air_purifier_aqi
   - sensor.bedroom_air_purifier_humidity
   - sensor.bedroom_air_purifier_temp
-  - sensor.centralite_3320l_0b666bfc_1
+  - sensor.bedroom_closet_door
   - sensor.bedroom_illumination_sensor
   - sensor.bedroom_smoke_status
-  - sensor.centralite_3320l_0b636d0d_1
+  - sensor.bedroom_window
   view: false
 
 living_room:
@@ -80,19 +80,19 @@ living_room_sensors:
   name: Living Room Sensor
   control: hidden
   entities:
-  - binary_sensor.centralite_3320l_057b833c_1
-  - binary_sensor.centralite_3320l_0b665f4e_1
-  - binary_sensor.centralite_3320l_05989606_1
-  - binary_sensor.centralite_3320l_0b6289f7_1
+  - binary_sensor.front_door
+  - binary_sensor.living_room_left_bay_window
+  - binary_sensor.living_room_right_bay_window
+  - binary_sensor.living_room_side_window
   - binary_sensor.mailbox
   - sensor.front_door_lock_battery
-  - sensor.centralite_3320l_057b833c_1
+  - sensor.front_door
   - sensor.living_room_air_purifier_aqi
   - sensor.living_room_air_purifier_humidity
   - sensor.living_room_air_purifier_temp
-  - sensor.centralite_3320l_0b665f4e_1
-  - sensor.centralite_3320l_05989606_1
-  - sensor.centralite_3320l_0b6289f7_1
+  - sensor.living_room_left_bay_window
+  - sensor.living_room_right_bay_window
+  - sensor.living_room_side_window
 
 kitchen:
   name: Kitchen
@@ -113,9 +113,9 @@ kitchen_sensors:
   entities:
   - binary_sensor.bar_sink_leak_sensor
   - binary_sensor.kitchen_sink_leak_sensor
-  - binary_sensor.centralite_3320l_0b636eab_1
+  - binary_sensor.kitchen_window
   - sensor.dishwasher
-  - sensor.centralite_3320l_0b636eab_1
+  - sensor.kitchen_window
 
 outside:
   name: Backyard & Garage
@@ -192,16 +192,16 @@ hallway_sensors:
   control: hidden
   entities:
   - binary_sensor.bathroom_sink_leak_sensor
-  - binary_sensor.centralite_3320l_0b63b331_1
-  - binary_sensor.centralite_3320l_0b666ed0_1
-  - binary_sensor.centralite_3320l_0b629e9b_1
+  - binary_sensor.bathroom_window
+  - binary_sensor.office_closet_door
+  - binary_sensor.office_window
   - sensor.bathroom_humidity
   - sensor.bathroom_pressure
   - sensor.bathroom_temperature
-  - sensor.centralite_3320l_0b63b331_1
-  - sensor.centralite_3320l_0b666ed0_1
+  - sensor.bathroom_window
+  - sensor.office_closet_door
   - sensor.office_smoke_status
-  - sensor.centralite_3320l_0b629e9b_1
+  - sensor.office_window
   - sensor.illumination_34ce0091f546
 
 # sprinklers:

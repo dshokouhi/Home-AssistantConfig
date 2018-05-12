@@ -386,99 +386,99 @@ light.centralite_3210l_0b0383b4_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:03:83:b4-1
-sensor.centralite_3320l_0b666bfc_1:
+sensor.bedroom_closet_door:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6b:fc-1-1026
-binary_sensor.centralite_3320l_0b666bfc_1:
+binary_sensor.bedroom_closet_door:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6b:fc-1-1280
-sensor.centralite_3320l_0b666ed0_1:
+sensor.office_closet_door:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6e:d0-1-1026
-binary_sensor.centralite_3320l_0b666ed0_1:
+binary_sensor.office_closet_door:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6e:d0-1-1280
-sensor.centralite_3320l_0b63b331_1:
+sensor.bathroom_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:b3:31-1-1026
-binary_sensor.centralite_3320l_0b63b331_1:
+binary_sensor.bathroom_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:b3:31-1-1280
-sensor.centralite_3320l_0b629e9b_1:
+sensor.office_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:9e:9b-1-1026
-binary_sensor.centralite_3320l_0b629e9b_1:
+binary_sensor.office_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:9e:9b-1-1280
-sensor.centralite_3320l_0b636d0d_1:
+sensor.bedroom_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6d:0d-1-1026
-binary_sensor.centralite_3320l_0b636d0d_1:
+binary_sensor.bedroom_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6d:0d-1-1280
-sensor.centralite_3320l_057b833c_1:
+sensor.front_door:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:83:3c-1-1026
-binary_sensor.centralite_3320l_057b833c_1:
+binary_sensor.front_door:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:83:3c-1-1280
-sensor.centralite_3320l_0b636eab_1:
+sensor.kitchen_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6e:ab-1-1026
-binary_sensor.centralite_3320l_0b636eab_1:
+binary_sensor.kitchen_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6e:ab-1-1280
-sensor.centralite_3320l_0b6289f7_1:
+sensor.living_room_side_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:89:f7-1-1026
-binary_sensor.centralite_3320l_0b6289f7_1:
+binary_sensor.living_room_side_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:89:f7-1-1280
-sensor.centralite_3320l_057ce46f_1:
+sensor.den_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7c:e4:6f-1-1026
-binary_sensor.centralite_3320l_057ce46f_1:
+binary_sensor.den_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7c:e4:6f-1-1280
-sensor.centralite_3320l_057b7c44_1:
+sensor.den_sliding_door:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:7c:44-1-1026
-binary_sensor.centralite_3320l_057b7c44_1:
+binary_sensor.den_sliding_door:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:7c:44-1-1280
-sensor.centralite_3320l_05989606_1:
+sensor.living_room_right_bay_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:98:96:06-1-1026
-binary_sensor.centralite_3320l_05989606_1:
+binary_sensor.living_room_right_bay_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:98:96:06-1-1280
-sensor.centralite_3320l_0b665f4e_1:
+sensor.living_room_left_bay_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:5f:4e-1-1026
-binary_sensor.centralite_3320l_0b665f4e_1:
+binary_sensor.living_room_left_bay_window:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:5f:4e-1-1280
@@ -614,7 +614,7 @@ sensor.centralite_3320l_0b63b331_2_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:b3:31-2-1
-sensor.centralite_3320l_0b629e9b_1_1:
+sensor.office_window_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:9e:9b-1-1
@@ -622,7 +622,7 @@ sensor.centralite_3320l_0b629e9b_2_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:9e:9b-2-1
-sensor.centralite_3320l_0b636d0d_1_1:
+sensor.bedroom_window_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6d:0d-1-1
@@ -630,7 +630,7 @@ sensor.centralite_3320l_0b636d0d_2_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6d:0d-2-1
-sensor.centralite_3320l_057b833c_1_1:
+sensor.front_door_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:83:3c-1-1
@@ -638,7 +638,7 @@ sensor.centralite_3320l_057b833c_2_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:83:3c-2-1
-sensor.centralite_3320l_0b636eab_1_1:
+sensor.kitchen_window_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6e:ab-1-1
@@ -646,7 +646,7 @@ sensor.centralite_3320l_0b636eab_2_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6e:ab-2-1
-sensor.centralite_3320l_0b6289f7_1_1:
+sensor.living_room_side_window_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:89:f7-1-1
@@ -654,23 +654,23 @@ sensor.centralite_3320l_0b6289f7_2_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:89:f7-2-1
-sensor.centralite_3320l_057ce46f_1_1:
+sensor.den_window_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7c:e4:6f-1-1
-sensor.centralite_3320l_057ce46f_2_1:
+sensor.den_window_battery1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7c:e4:6f-2-1
-sensor.centralite_3320l_057b7c44_1_1:
+sensor.den_sliding_door_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:7c:44-1-1
-sensor.centralite_3320l_057b7c44_2_1:
+sensor.den_sliding_door_battery1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:7c:44-2-1
-sensor.centralite_3320l_05989606_1_1:
+sensor.living_room_right_bay_window_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:98:96:06-1-1
@@ -678,7 +678,7 @@ sensor.centralite_3320l_05989606_2_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:98:96:06-2-1
-sensor.centralite_3320l_0b665f4e_1_1:
+sensor.living_room_left_bay_window_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:5f:4e-1-1
@@ -702,7 +702,7 @@ sensor.centralite_3320l_0b666ed0_2_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6e:d0-2-1
-sensor.centralite_3320l_0b666ed0_1_1:
+sensor.office_closet_door_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6e:d0-1-1
@@ -710,11 +710,11 @@ sensor.centralite_3320l_0b666bfc_2_1:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6b:fc-2-1
-sensor.centralite_3320l_0b666bfc_1_1:
+sensor.bedroom_closet_door_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6b:fc-1-1
-sensor.centralite_3320l_0b63b331_1_1:
+sensor.bathroom_window_battery:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:b3:31-1-1
@@ -730,3 +730,159 @@ media_player.chrome_2:
   name:
   platform: plex
   unique_id: 6vecnw3i7sf3ppspjiqxxsyw
+sensor.pws_temp_f:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,temp_f'
+sensor.pws_weather_1n:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,weather_1n'
+sensor.pws_weather_2n:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,weather_2n'
+sensor.pws_relative_humidity:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,relative_humidity'
+sensor.pws_wind_string:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,wind_string'
+sensor.pws_weather_2d:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,weather_2d'
+sensor.pws_station_id:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,station_id'
+sensor.pws_weather_3n:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,weather_3n'
+sensor.pws_uv:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,UV'
+sensor.pws_feelslike_f:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,feelslike_f'
+sensor.pws_weather_1d:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,weather_1d'
+sensor.pws_weather:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,weather'
+sensor.pws_heat_index_f:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,heat_index_f'
+sensor.pws_wind_gust_mph:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,wind_gust_mph'
+sensor.pws_wind_mph:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,wind_mph'
+sensor.pws_weather_3d:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,weather_3d'
+sensor.pws_temperature_string:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,temperature_string'
+sensor.pws_alerts:
+  name:
+  platform: wunderground
+  unique_id: '@-118.522752,34.198819,alerts'
+zwave.aeotec_zw090_zstick_gen5_us:
+  name:
+  platform: zwave
+  unique_id: node-1
+zwave.bedroom_lights:
+  name:
+  platform: zwave
+  unique_id: node-2
+zwave.living_room_lights:
+  name:
+  platform: zwave
+  unique_id: node-4
+zwave.island_lights:
+  name:
+  platform: zwave
+  unique_id: node-5
+zwave.kitchen_lights:
+  name:
+  platform: zwave
+  unique_id: node-6
+zwave.den_lights:
+  name:
+  platform: zwave
+  unique_id: node-7
+zwave.garage_lights:
+  name:
+  platform: zwave
+  unique_id: node-9
+zwave.washer:
+  name:
+  platform: zwave
+  unique_id: node-10
+zwave.dryer:
+  name:
+  platform: zwave
+  unique_id: node-11
+zwave.backyard_lights:
+  name:
+  platform: zwave
+  unique_id: node-12
+zwave.little_christmas_trees:
+  name:
+  platform: zwave
+  unique_id: node-13
+zwave.christmas_tree:
+  name:
+  platform: zwave
+  unique_id: node-14
+zwave.living_room_camera_plug:
+  name:
+  platform: zwave
+  unique_id: node-15
+zwave.siren:
+  name:
+  platform: zwave
+  unique_id: node-17
+zwave.office_smoke:
+  name:
+  platform: zwave
+  unique_id: node-18
+zwave.bedroom_smoke:
+  name:
+  platform: zwave
+  unique_id: node-19
+zwave.garage_door_frontyard:
+  name:
+  platform: zwave
+  unique_id: node-21
+zwave.bay_window_shock:
+  name:
+  platform: zwave
+  unique_id: node-22
+zwave.front_door_lock:
+  name:
+  platform: zwave
+  unique_id: node-23
+zwave.thermostat:
+  name:
+  platform: zwave
+  unique_id: node-24
+zwave.den_smoke:
+  name:
+  platform: zwave
+  unique_id: node-27

@@ -557,7 +557,7 @@
 - alias: Front Door Open
   trigger:
     platform: state
-    entity_id: binary_sensor.centralite_3320l_057b833c_1
+    entity_id: binary_sensor.front_door
     to: 'on'
   action:
   - service: tts.google_say
@@ -568,7 +568,7 @@
 - alias: Front Door Close
   trigger:
     platform: state
-    entity_id: binary_sensor.centralite_3320l_057b833c_1
+    entity_id: binary_sensor.front_door
     to: 'off'
   action:
   - service: tts.google_say
@@ -596,13 +596,13 @@
 - alias: Speak close den sliding door
   trigger:
     platform: state
-    entity_id: binary_sensor.centralite_3320l_057b7c44_1
+    entity_id: binary_sensor.den_sliding_door
     to: 'on'
     for:
       minutes: 5
   condition:
     condition: state
-    entity_id: binary_sensor.centralite_3320l_057ce46f_1
+    entity_id: binary_sensor.den_window
     state: 'off'
   action:
   - service: tts.google_say
@@ -635,16 +635,16 @@
 - alias: Front Door And Living Room Alarm Pic
   trigger:
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057b833c_1
+    entity_id: binary_sensor.front_door
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_05989606_1
+    entity_id: binary_sensor.living_room_right_bay_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b6289f7_1
+    entity_id: binary_sensor.living_room_side_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b665f4e_1
+    entity_id: binary_sensor.living_room_left_bay_window
     to: 'on'
   condition:
     condition: state
@@ -675,10 +675,10 @@
 - alias: Den Alarm Pic
   trigger:
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057b7c44_1
+    entity_id: binary_sensor.den_sliding_door
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057ce46f_1
+    entity_id: binary_sensor.den_window
     to: 'on'
   condition:
     condition: state
@@ -709,7 +709,7 @@
 - alias: Kitchen Alarm Pic
   trigger:
     platform: state
-    entity_id: binary_sensor.centralite_3320l_0b636eab_1
+    entity_id: binary_sensor.kitchen_window
     to: 'on'
   condition:
     condition: state
@@ -740,7 +740,7 @@
 - alias: Office Alarm Pic
   trigger:
     platform: state
-    entity_id: binary_sensor.centralite_3320l_0b629e9b_1
+    entity_id: binary_sensor.office_window
     to: 'on'
   condition:
     condition: state
@@ -766,34 +766,34 @@
 - alias: Alarm Tripped
   trigger:
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057b7c44_1
+    entity_id: binary_sensor.den_sliding_door
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057ce46f_1
+    entity_id: binary_sensor.den_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057b833c_1
+    entity_id: binary_sensor.front_door
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_05989606_1
+    entity_id: binary_sensor.living_room_right_bay_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b6289f7_1
+    entity_id: binary_sensor.living_room_side_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b665f4e_1
+    entity_id: binary_sensor.living_room_left_bay_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b636eab_1
+    entity_id: binary_sensor.kitchen_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b629e9b_1
+    entity_id: binary_sensor.office_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b636d0d_1
+    entity_id: binary_sensor.bedroom_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b63b331_1
+    entity_id: binary_sensor.bathroom_window
     to: 'on'
   - platform: state
     entity_id: binary_sensor.garage_frontyard
@@ -815,7 +815,7 @@
     # data:
       # data:
         # url: !secret living_room_camera_snapshot
-      # message: "Alarm Tripped, open to see picture!! {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      # message: "Alarm Tripped, open to see picture!! {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
       # target: ["danny_pixel", "tosh_phone"]
       # title: Shokabow Zoo
 
@@ -999,7 +999,7 @@
   - service: tts.google_say
     entity_id: media_player.kitchen_home, media_player.den_home, media_player.office_speaker
     data:
-      message: 'Hello just a friendly reminder to make sure the water bowls in the den, living room and also the ferret cage are refilled.  Dont forget to feed the ferrets and cats.  Please clean up the ferret and cat litter. Thank you so much have a great day.'
+      message: 'Hello just a friendly reminder to make sure the water bowls in the den, living room and also the ferret cage are refilled.  Dont forget to feed the ferrets and cats.  Please clean up the ferrets and cat litter. Thank you so much have a great day.'
 
 - alias: Zookeeper Unlock
   trigger:
@@ -1027,7 +1027,7 @@
   action:
   - service: notify.chrome
     data:
-      message: "The following window(s) is/are open but the alarm is turned on {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      message: "The following window(s) is/are open but the alarm is turned on {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
       
@@ -1054,7 +1054,7 @@
   - service: notify.chrome
     data:
       image: !secret living_room_camera_snapshot
-      message: "The alarm has been triggered since it was not disarmed for 60 seconds, check Slack for snapshots!! Following windows/doors triggered the alarm {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      message: "The alarm has been triggered since it was not disarmed for 60 seconds, check Slack for snapshots!! Following windows/doors triggered the alarm {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - service: switch.turn_on
@@ -1107,28 +1107,28 @@
 - alias: Alarm Tripped in armed night
   trigger:
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057ce46f_1
+    entity_id: binary_sensor.den_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_05989606_1
+    entity_id: binary_sensor.living_room_right_bay_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b6289f7_1
+    entity_id: binary_sensor.living_room_side_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b665f4e_1
+    entity_id: binary_sensor.living_room_left_bay_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b636eab_1
+    entity_id: binary_sensor.kitchen_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b629e9b_1
+    entity_id: binary_sensor.office_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b636d0d_1
+    entity_id: binary_sensor.bedroom_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b63b331_1
+    entity_id: binary_sensor.bathroom_window
     to: 'on'
   - platform: state
     entity_id: binary_sensor.garage_frontyard
@@ -1146,13 +1146,13 @@
   action:
   - service: notify.chrome
     data:
-      message: "Alarm is in armed night and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      message: "Alarm is in armed night and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - service: tts.google_say
     entity_id: media_player.bedroom_speaker
     data_template:
-      message: "Alarm is in armed night and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b7c44_1', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_057b833c_1', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      message: "Alarm is in armed night and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
 
 ################################################
 #
@@ -1533,13 +1533,13 @@
     entity_id: lock.front_door_lock_locked
     to: 'unlocked'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057b833c_1
+    entity_id: binary_sensor.front_door
     to: 'off'
   condition:
     condition: and
     conditions:
     - condition: state
-      entity_id: binary_sensor.centralite_3320l_057b833c_1
+      entity_id: binary_sensor.front_door
       state: 'off'
     - condition: state
       entity_id: lock.front_door_lock_locked
@@ -1554,7 +1554,7 @@
     entity_id: lock.front_door_lock_locked
     to: 'locked'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057b833c_1
+    entity_id: binary_sensor.front_door
     to: 'on'
   action:
   - service: timer.cancel
@@ -1568,7 +1568,7 @@
       entity_id: timer.door_lock
   condition:
     condition: state
-    entity_id: binary_sensor.centralite_3320l_057b833c_1
+    entity_id: binary_sensor.front_door
     state: 'off'
   action:
   - service: lock.lock
@@ -1647,7 +1647,7 @@
 - alias: Turn on bedroom closet
   trigger:
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b666bfc_1
+    entity_id: binary_sensor.bedroom_closet_door
     to: 'on'
   action:
   - service: light.turn_on
@@ -1656,7 +1656,7 @@
 - alias: Turn off bedroom closet
   trigger:
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b666bfc_1
+    entity_id: binary_sensor.bedroom_closet_door
     to: 'off'
   action:
   - service: light.turn_off
@@ -1671,7 +1671,7 @@
       minutes: 15
   condition:
     condition: state
-    entity_id: binary_sensor.centralite_3320l_0b666bfc_1
+    entity_id: binary_sensor.bedroom_closet_door
     state: 'off'
   action:
     service: light.turn_off
@@ -1686,7 +1686,7 @@
       minutes: 15
   condition:
     condition: state
-    entity_id: binary_sensor.centralite_3320l_0b666ed0_1
+    entity_id: binary_sensor.office_closet_door
     state: 'off'
   action:
     service: light.turn_off
@@ -1695,7 +1695,7 @@
 - alias: Turn on office closet
   trigger:
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b666ed0_1
+    entity_id: binary_sensor.office_closet_door
     to: 'on'
   action:
   - service: light.turn_on
@@ -1704,7 +1704,7 @@
 - alias: Turn off office closet
   trigger:
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b666ed0_1
+    entity_id: binary_sensor.office_closet_door
     to: 'off'
   action:
   - service: light.turn_off
@@ -1782,28 +1782,28 @@
     entity_id: binary_sensor.shokabow_weather_rain
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057ce46f_1
+    entity_id: binary_sensor.den_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_05989606_1
+    entity_id: binary_sensor.living_room_right_bay_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b6289f7_1
+    entity_id: binary_sensor.living_room_side_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b665f4e_1
+    entity_id: binary_sensor.living_room_left_bay_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b636eab_1
+    entity_id: binary_sensor.kitchen_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b629e9b_1
+    entity_id: binary_sensor.office_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b636d0d_1
+    entity_id: binary_sensor.bedroom_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b63b331_1
+    entity_id: binary_sensor.bathroom_window
     to: 'on'
   condition:
     condition: and
@@ -1823,7 +1823,7 @@
   action:
   - service: notify.chrome
     data_template:
-      message: "It's raining and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
+      message: "It's raining and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
       target: danny_pixel
       title: Shokabow Zoo
   - condition: state
@@ -1833,33 +1833,33 @@
     #entity_id: media_player.home_notification
     entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
-      message: "Its raining and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
+      message: "Its raining and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
 
 - alias: Thermostat on and window open
   trigger:
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_057ce46f_1
+    entity_id: binary_sensor.den_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_05989606_1
+    entity_id: binary_sensor.living_room_right_bay_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b6289f7_1
+    entity_id: binary_sensor.living_room_side_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b665f4e_1
+    entity_id: binary_sensor.living_room_left_bay_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b636eab_1
+    entity_id: binary_sensor.kitchen_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b629e9b_1
+    entity_id: binary_sensor.office_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b636d0d_1
+    entity_id: binary_sensor.bedroom_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.centralite_3320l_0b63b331_1
+    entity_id: binary_sensor.bathroom_window
     to: 'on'
   - platform: template
     value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode != 'Off' }}"
@@ -1880,7 +1880,7 @@
   action:
   - service: notify.chrome
     data_template:
-      message: "The thermostat is on and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
+      message: "The thermostat is on and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
       target: danny_pixel
       title: Shokabow Zoo
   - condition: state
@@ -1890,7 +1890,7 @@
     #entity_id: media_player.home_notification
     entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
-      message: "The thermostat is on and {% if is_state('binary_sensor.centralite_3320l_057ce46f_1', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636eab_1', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b6289f7_1', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_05989606_1', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b665f4e_1', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b636d0d_1', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b629e9b_1', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.centralite_3320l_0b63b331_1', 'on') %}Bathroom Window Open{% endif %}"
+      message: "The thermostat is on and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
 
 ################################################
 #
@@ -2773,7 +2773,7 @@
       minutes: 2
   condition:
     condition: state
-    entity_id: binary_sensor.centralite_3320l_0b63b331_1
+    entity_id: binary_sensor.bathroom_window
     state: 'off'
   action:
   - service: media_player.media_play_pause

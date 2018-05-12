@@ -223,81 +223,81 @@ light.centralite_3210l_0b0383b4_1:
   friendly_name: Bedroom Plug
   #google_assistant: false
 
-binary_sensor.centralite_3320l_0b666bfc_1:
+binary_sensor.bedroom_closet_door:
   friendly_name: Bedroom Closet Door
   device_class: door
 
-sensor.centralite_3320l_0b666bfc_1:
+sensor.bedroom_closet_door:
   friendly_name: Bedroom Closet Door
 
-binary_sensor.centralite_3320l_0b63b331_1:
+binary_sensor.bathroom_window:
   friendly_name: Bathroom Window
   device_class: window
   
-sensor.centralite_3320l_0b63b331_1:
+sensor.bathroom_window:
   friendly_name: Bathroom Window
   
-binary_sensor.centralite_3320l_0b629e9b_1:
+binary_sensor.office_window:
   friendly_name: Office Window
   device_class: window
   
-sensor.centralite_3320l_0b629e9b_1:
+sensor.office_window:
   friendly_name: Office Window
   
-binary_sensor.centralite_3320l_0b636d0d_1:
+binary_sensor.bedroom_window:
   friendly_name: Bedroom Window
   device_class: window
   
-sensor.centralite_3320l_0b636d0d_1:
+sensor.bedroom_window:
   friendly_name: Bedroom Window
   
-binary_sensor.centralite_3320l_057b833c_1:
+binary_sensor.front_door:
   friendly_name: Front Door
   device_class: door
   
-sensor.centralite_3320l_057b833c_1:
+sensor.front_door:
   friendly_name: Front Door
   
-binary_sensor.centralite_3320l_0b636eab_1:
+binary_sensor.kitchen_window:
   friendly_name: Kitchen Window
   device_class: window
   
-sensor.centralite_3320l_0b636eab_1:
+sensor.kitchen_window:
   friendly_name: Kitchen Window
   
-binary_sensor.centralite_3320l_0b6289f7_1:
+binary_sensor.living_room_side_window:
   friendly_name: Living Room Side Window
   device_class: window
   
-sensor.centralite_3320l_0b6289f7_1:
+sensor.living_room_side_window:
   friendly_name: Living Room  Side Window
   
-binary_sensor.centralite_3320l_05989606_1:
+binary_sensor.living_room_right_bay_window:
   friendly_name: Living Room Right Bay Window
   device_class: 'window'
   
-sensor.centralite_3320l_05989606_1:
+sensor.living_room_right_bay_window:
   friendly_name: Living Room Right Bay Window
   
-binary_sensor.centralite_3320l_0b665f4e_1:
+binary_sensor.living_room_left_bay_window:
   friendly_name: Living Room Left Bay Window
   device_class: window
   
-sensor.centralite_3320l_0b665f4e_1:
+sensor.living_room_left_bay_window:
   friendly_name: Living Room Left Bay Window
   
-binary_sensor.centralite_3320l_057ce46f_1:
+binary_sensor.den_window:
   friendly_name: Den Window
   device_class: window
   
-sensor.centralite_3320l_057ce46f_1:
+sensor.den_window:
   friendly_name: Den Window
   
-binary_sensor.centralite_3320l_057b7c44_1:
+binary_sensor.den_sliding_door:
   friendly_name: Den Sliding Door
   device_class: door
   
-sensor.centralite_3320l_057b7c44_1:
+sensor.den_sliding_door:
   friendly_name: Den Sliding Door
   
 light.centralite_3210l_0a932dbf_1:
@@ -308,11 +308,11 @@ light.office_closet:
   #google_assistant: false
   emulated_hue_hidden: true
 
-binary_sensor.centralite_3320l_0b666ed0_1:
+binary_sensor.office_closet_door:
   friendly_name: Office Closet Door
   device_class: door
 
-sensor.centralite_3320l_0b666ed0_1:
+sensor.office_closet_door:
   friendly_name: Office Closet Door
 
 light.den_lights_level:
