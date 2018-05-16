@@ -50,9 +50,7 @@
 - 12 Iris Contact Sensors
 - 3 Cree lights
 - 3 Iris smart plugs
-
-### SmartThings (devices waiting to be ported over)
-- Dishwasher power
+- 1 Iris motion sensor
 
 ### Xiaomi gateway
 - 4 Leak sensor
@@ -64,7 +62,7 @@
 ### Other Devices
 - Rachio 8 zone (1st gen)
 - Bloomsky weather station
-- Neato Botvac D7
+- Neato Botvac
 - 3 Google Homes
 - 3 Google Home Minis
 - 2 Harmony Hubs
@@ -80,6 +78,9 @@
 - 1 Ring video doorbell (2nd gen)
 - 1 Ring floodlight camera
 - 1 Yi Dome 1080p
+
+### DIY
+- 1 ESP8266 for MQTTCarPresence project
 
 ## Automations
 
