@@ -1064,7 +1064,7 @@
   - service: script.turn_on
     entity_id: script.living_room_camera_snapshot
   - service: script.turn_on
-    entity_id: script.kitchen_camera_snapshot
+    entity_id: script.kitchen_camera_snapshot, script.office_camera_snapshot
   - service: script.turn_on
     entity_id: script.outdoor_camera_snapshot
   - service: script.turn_on
@@ -3004,3 +3004,33 @@
   action:
   - service: light.turn_off
     entity_id: light.hallway_light, light.office_lights
+    
+################################################
+#
+#      Car Presence Automations
+#
+################################################
+
+- alias: Danny car turned on or arrived home
+  trigger:
+    platform: state
+    entity_id: binary_sensor.tsxpresence
+    to: 'on'
+  action:
+  - service: notify.chrome
+    data:
+      message: "TSX turned on or arrived home"
+      target: danny_pixel
+      title: Shokabow Zoo
+      
+- alias: Danny car turned off or left home
+  trigger:
+    platform: state
+    entity_id: binary_sensor.tsxpresence
+    to: 'off'
+  action:
+  - service: notify.chrome
+    data:
+      message: "TSX turned off or left home"
+      target: danny_pixel
+      title: Shokabow Zoo

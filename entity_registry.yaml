@@ -886,3 +886,19 @@ zwave.den_smoke:
   name:
   platform: zwave
   unique_id: node-27
+sensor.office_motion_sensor:
+  name: Office Motion Sensor
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:7f:8a-1-1026
+sensor.office_motion_sensor_battery:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:7f:8a-1-1
+sensor.centralite_3326l_0b627f8a_2_1:
+  name:
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:7f:8a-2-1
+binary_sensor.office_motion_sensor:
+  name: Office Motion Sensor
+  platform: zha
+  unique_id: 00:0d:6f:00:0b:62:7f:8a-1-1280

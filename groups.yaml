@@ -194,12 +194,14 @@ hallway_sensors:
   - binary_sensor.bathroom_sink_leak_sensor
   - binary_sensor.bathroom_window
   - binary_sensor.office_closet_door
+  - binary_sensor.office_motion_sensor
   - binary_sensor.office_window
   - sensor.bathroom_humidity
   - sensor.bathroom_pressure
   - sensor.bathroom_temperature
   - sensor.bathroom_window
   - sensor.office_closet_door
+  - sensor.office_motion_sensor
   - sensor.office_smoke_status
   - sensor.office_window
   - sensor.illumination_34ce0091f546

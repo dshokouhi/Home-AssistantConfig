@@ -109,6 +109,9 @@ frontend:
 # Enables configuration UI
 config:
 
+system_log:
+  fire_event: true
+
 cloud:
 
 map:
