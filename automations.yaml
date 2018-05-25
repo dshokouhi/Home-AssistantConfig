@@ -3034,3 +3034,90 @@
       message: "TSX turned off or left home"
       target: danny_pixel
       title: Shokabow Zoo
+      
+- alias: Tosh car turned on or arrived home
+  trigger:
+    platform: state
+    entity_id: binary_sensor.rdxpresence
+    to: 'on'
+  action:
+  - service: notify.chrome
+    data:
+      message: "RDX turned on or arrived home"
+      target: danny_pixel
+      title: Shokabow Zoo
+      
+- alias: Tosh car turned off or left home
+  trigger:
+    platform: state
+    entity_id: binary_sensor.rdxpresence
+    to: 'off'
+  action:
+  - service: notify.chrome
+    data:
+      message: "RDX turned off or left home"
+      target: danny_pixel
+      title: Shokabow Zoo
+      
+################################################
+#
+#      BBQ Automations
+#
+################################################
+
+- alias: BBQ notifications
+  trigger:
+    platform: state
+    entity_id: input_select.bbq_probe1
+    to: "Chicken"
+  condition:
+    condition: state
+    entity_id: binary_sensor.bbq1
+    state: 'on'
+  action:
+  - wait_template: "{{ states.sensor.bbq1temperature.state|int >= 150 }}"
+  - service: notify.chrome
+    data:
+      message: "Chicken is almost ready"
+      target: danny_pixel
+      title: Shokabow Zoo
+  - service: tts.google_say
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data:
+      message: 'Chicken is almost ready'
+  - wait_template: "{{ states.sensor.bbq1temperature.state|int >= 165 }}"
+  - service: notify.chrome
+    data:
+      message: "Chicken is ready"
+      target: danny_pixel
+      title: Shokabow Zoo
+  - service: tts.google_say
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data:
+      message: 'Chicken is ready'
+  - service: notify.den
+    data_template:
+      data:
+        color: red
+        duration: 30
+        position: center
+      message: "Chicken is ready"
+      title: Shokabow Zoo
+      
+- alias: BBQ notifications not on
+  trigger:
+    platform: state
+    entity_id: input_select.bbq_probe1
+    from: "Select Input"
+  condition:
+    condition: state
+    entity_id: binary_sensor.bbq1
+    state: 'off'
+  action:
+  - delay: "00:00:20"
+  - service: input_select.select_option
+    entity_id: input_select.bbq_probe1
+    data:
+      option: "Select Input"

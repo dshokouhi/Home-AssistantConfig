@@ -902,3 +902,7 @@ binary_sensor.office_motion_sensor:
   name: Office Motion Sensor
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:7f:8a-1-1280
+sensor.dryer_distance:
+  name:
+  platform: zwave
+  unique_id: 11-72057594227474754

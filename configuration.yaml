@@ -160,10 +160,10 @@ logbook:
 
 logger:
   default: warn
-  logs:
-    homeassistant.components.zha: debug
-    homeassistant.components.websocket_api: info
-    bellows.uart: info
+  # logs:
+    # homeassistant.components.zha: debug
+    # homeassistant.components.websocket_api: info
+    # bellows.uart: info
 
 # Record events
 recorder:
@@ -679,6 +679,24 @@ input_select:
     - Watch Fire TV
     - Power Off
     
+  bbq_probe1:
+    name: BBQ Probe 1
+    options:
+    - Select Input
+    - Beef Ribs
+    - Brisket
+    - Chicken
+    - Tritip
+    initial: "Select Input"
+    
+input_number:
+  bbq1_override:
+    name: BBQ Probe 1 Override
+    min: 0
+    max: 500
+    initial: 130
+    mode: box
+    unit_of_measurement: "F"
 # neato:
   # username: !secret neato_user
   # password: !secret neato_pass

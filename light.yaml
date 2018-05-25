@@ -264,3 +264,10 @@
 
  - platform: osramlightify
    host: 192.168.1.15
+   
+ - platform: limitlessled
+   bridges:
+   - host: 192.168.1.68
+     groups:
+     - number: 1
+       name: Spot

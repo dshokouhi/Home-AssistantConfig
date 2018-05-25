@@ -105,6 +105,7 @@ kitchen:
   - light.kitchen_lights_level
   - switch.kitchen_tv
   - switch.little_christmas_trees_switch
+  - light.spot
   - group.kitchen_sensors
 
 kitchen_sensors:
@@ -201,10 +202,11 @@ hallway_sensors:
   - sensor.bathroom_temperature
   - sensor.bathroom_window
   - sensor.office_closet_door
+  - sensor.illumination_34ce0091f546
   - sensor.office_motion_sensor
   - sensor.office_smoke_status
   - sensor.office_window
-  - sensor.illumination_34ce0091f546
+
 
 # sprinklers:
   # name: Sprinklers
@@ -247,6 +249,7 @@ default_view:
   #- device_tracker.pixel_xl
   - binary_sensor.dannys_bayesian_presence
   - binary_sensor.natachas_bayesian_presence
+  - group.bbq
 
 rooms:
   name: Room
@@ -459,3 +462,11 @@ artichoke:
   - sensor.artichoke_moisture
   - sensor.artichoke_signal
   - sensor.artichoke_battery
+  
+bbq:
+  name: BBQ
+  entities:
+  - input_select.bbq_probe1
+  - input_number.bbq1_override
+  - sensor.bbq1temperature
+  - binary_sensor.bbq1
