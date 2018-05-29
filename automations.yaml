@@ -3065,7 +3065,7 @@
 #
 ################################################
 
-- alias: BBQ notifications
+- alias: Chicken notifications
   trigger:
     platform: state
     entity_id: input_select.bbq_probe1
@@ -3106,6 +3106,47 @@
       message: "Chicken is ready"
       title: Shokabow Zoo
       
+- alias: Tritip notifications
+  trigger:
+    platform: state
+    entity_id: input_select.bbq_probe1
+    to: "Tritip"
+  condition:
+    condition: state
+    entity_id: binary_sensor.bbq1
+    state: 'on'
+  action:
+  - wait_template: "{{ states.sensor.bbq1temperature.state|int >= 120 }}"
+  - service: notify.chrome
+    data:
+      message: "Tritip is almost ready"
+      target: danny_pixel
+      title: Shokabow Zoo
+  - service: tts.google_say
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data:
+      message: 'Tritip is almost ready'
+  - wait_template: "{{ states.sensor.bbq1temperature.state|int >= 130 }}"
+  - service: notify.chrome
+    data:
+      message: "Tritip is ready"
+      target: danny_pixel
+      title: Shokabow Zoo
+  - service: tts.google_say
+    entity_id: media_player.home_notification
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data:
+      message: 'Tritip is ready'
+  - service: notify.den
+    data_template:
+      data:
+        color: red
+        duration: 30
+        position: center
+      message: "Tritip is ready"
+      title: Shokabow Zoo
+      
 - alias: BBQ notifications not on
   trigger:
     platform: state
@@ -3121,3 +3162,23 @@
     entity_id: input_select.bbq_probe1
     data:
       option: "Select Input"
+      
+################################################
+#
+#      Pool Pump Automations
+#
+################################################
+
+- alias: Notify pool pump offline
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.pool_pump_power
+    below: 3
+    for:
+      minutes: 10
+  action:
+  - service: notify.chrome
+    data:
+      message: "Pool pump is offline, go outside and hit reset"
+      target: danny_pixel
+      title: Shokabow Zoo

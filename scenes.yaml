@@ -24,12 +24,14 @@
     light.nook_lamp: off
     input_boolean.night_mode: on
     light.front_door_lamp: off
+    light.spot: off
 
 - name: Colorful
   entities:
     light.bar_flex: on
     light.counter_lights: on
     light.cabinet_lights: on
+    light.spot: on
     light.hallway_light:
       state: on
       brightness_pct: 40
@@ -65,6 +67,7 @@
     #switch.christmas_tree_switch: off
     light.den_bookshelf_left: off
     light.nook_lamp: off
+    light.spot: off
     
 - name: Cleaning Mode
   entities:

@@ -183,6 +183,7 @@ hallway:
   entities:
   - light.hallway_light
   - switch.house_fan
+  - fan.office_air_purifier
   - light.office_closet
   - light.office_lights
   - light.gateway_light_34ce0091f546
@@ -192,6 +193,7 @@ hallway_sensors:
   name: Hallway Sensors
   control: hidden
   entities:
+  - binary_sensor.bathroom_door
   - binary_sensor.bathroom_sink_leak_sensor
   - binary_sensor.bathroom_window
   - binary_sensor.office_closet_door
@@ -201,6 +203,9 @@ hallway_sensors:
   - sensor.bathroom_pressure
   - sensor.bathroom_temperature
   - sensor.bathroom_window
+  - sensor.office_air_purifier_aqi
+  - sensor.office_air_purifier_humidity
+  - sensor.office_air_purifier_temp
   - sensor.office_closet_door
   - sensor.illumination_34ce0091f546
   - sensor.office_motion_sensor

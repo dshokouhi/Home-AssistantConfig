@@ -906,3 +906,19 @@ sensor.dryer_distance:
   name:
   platform: zwave
   unique_id: 11-72057594227474754
+fan.office_air_purifier:
+  name:
+  platform: xiaomi_miio
+  unique_id: zhimi.airpurifier.m2-78:11:DC:47:D6:9F
+binary_sensor.bathroom_door:
+  name: Bathroom Door
+  platform: xiaomi_aqara
+  unique_id: status158d0001e7c2ba
+media_player.aftt_2:
+  name:
+  platform: plex
+  unique_id: 5cebdbc536db5e15-com-plexapp-android
+media_player.chrome_3:
+  name:
+  platform: plex
+  unique_id: 082jxptp4kysc6d3bftgzmed

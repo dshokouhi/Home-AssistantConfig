@@ -70,18 +70,6 @@
    # unit_of_measurement: "F"
    # qos: 0
 
- - platform: sabnzbd
-   host: 192.168.1.24
-   port: 6030
-   api_key: !secret sab
-   monitored_variables:
-     - 'current_status'
-     - 'speed'
-     - 'queue_size'
-     - 'queue_remaining'
-     - 'disk_size'
-     - 'disk_free'
-
  # - platform: mqtt
    # name: "Washer"
    # state_topic: "smartthings/Washer/power"
@@ -400,6 +388,27 @@
      living_room_air_purifier_aqi:
        value_template: "{{ states.fan.living_room_air_purifier.attributes.aqi }}"
        friendly_name: Living Room Air Purifier AQI
+       unit_of_measurement: AQI
+       
+ - platform: template
+   sensors:
+     office_air_purifier_temp:
+       value_template: "{{ (states.fan.office_air_purifier.attributes.temperature * 9)/5 + 32 }}"
+       friendly_name: Office Air Purifier Temperature
+       unit_of_measurement: "F"
+       
+ - platform: template
+   sensors:
+     office_air_purifier_humidity:
+       value_template: "{{ states.fan.office_air_purifier.attributes.humidity }}"
+       friendly_name: Office Air Purifier Humidity
+       unit_of_measurement: "%"
+       
+ - platform: template
+   sensors:
+     office_air_purifier_aqi:
+       value_template: "{{ states.fan.office_air_purifier.attributes.aqi }}"
+       friendly_name: Office Air Purifier AQI
        unit_of_measurement: AQI
        
  - platform: command_line

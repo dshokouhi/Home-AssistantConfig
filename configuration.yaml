@@ -751,3 +751,20 @@ fan:
     name: Living Room Air Purifier
     host: 192.168.1.63
     token: !secret lr_purifier_token
+    
+  - platform: xiaomi_miio
+    name: Office Air Purifier
+    host: 192.168.1.51
+    token: !secret office_purifier_token
+    
+sabnzbd:
+  host: 192.168.1.24
+  port: 6030
+  api_key: !secret sab
+  sensors:
+    - 'current_status'
+    - 'speed'
+    - 'queue_size'
+    - 'queue_remaining'
+    - 'disk_size'
+    - 'disk_free'
