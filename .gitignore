@@ -1,10 +1,13 @@
 *
 !*.yaml
 !arduino
-!arduino/*
+!arduino/mqtt-smoker-probe-template
+!arduino/mqtt-smoker-probe-template/*
 !custom_components
 !custom_components/sensor
+!custom_components/sensor/*
 !custom_components/alarm_control_panel
+!custom_components/alarm_control_panel/*
 !.gitignore
 secrets.yaml
 known_devices.yaml
