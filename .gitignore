@@ -2,6 +2,9 @@
 !*.yaml
 !arduino
 !arduino/*
+!custom_components
+!custom_components/sensor
+!custom_components/alarm_control_panel
 !.gitignore
 secrets.yaml
 known_devices.yaml
