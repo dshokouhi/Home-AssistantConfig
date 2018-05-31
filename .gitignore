@@ -1,6 +1,6 @@
 *
 !*.yaml
-!arduino
+!arduino/*
 !.gitignore
 secrets.yaml
 known_devices.yaml
