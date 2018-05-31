@@ -1,5 +1,6 @@
 *
 !*.yaml
+!arduino
 !arduino/*
 !.gitignore
 secrets.yaml

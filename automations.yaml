@@ -1951,6 +1951,31 @@
   - service: switch.turn_on
     entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
     
+- alias: Turn off thermostat if left on during night mode
+  trigger:
+  - platform: state
+    entity_id: input_boolean.night_mode
+    to: 'on'
+  - platform: state
+    entity_id: climate.thermostat_cooling_1
+    to: 'Cool'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'on'
+    - condition: state
+      entity_id: climate.thermostat_cooling_1
+      state: 'Cool'
+  action:
+  - delay: "00:01:00"
+  - wait_template: "{{ states.climate.thermostat_cooling_1.attributes.current_temperature == states.climate.thermostat_cooling_1.attributes.temperature }}"
+  - service: climate.set_operation_mode
+    data:
+      entity_id: climate.thermostat_cooling_1
+      operation_mode: 'Off'
+    
 ##################################################
 #
 #      Lights Alarm Off

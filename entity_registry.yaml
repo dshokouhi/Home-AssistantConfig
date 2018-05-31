@@ -922,3 +922,7 @@ media_player.chrome_3:
   name:
   platform: plex
   unique_id: 082jxptp4kysc6d3bftgzmed
+media_player.chrome_4:
+  name:
+  platform: plex
+  unique_id: vsrf5mdi5yqfkct2ujipkp08
