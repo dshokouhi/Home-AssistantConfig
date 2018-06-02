@@ -120,8 +120,6 @@ browser:
 
 automation: !include automations.yaml
 
-#secrets: !include secrets.yaml
-
 scene: !include scenes.yaml
 
 http:
@@ -160,16 +158,11 @@ logbook:
 
 logger:
   default: warn
-  # logs:
-    # homeassistant.components.zha: debug
-    # homeassistant.components.websocket_api: info
-    # bellows.uart: info
 
 # Record events
 recorder:
   purge_interval: 1
   purge_keep_days: 5
-  #db_url: !secret db_url
 
 # Track the sun
 sun:
@@ -201,18 +194,10 @@ device_tracker:
     
   - platform: bluetooth_tracker
     request_rssi: true
-    #consider_home: 180
     
   - platform: google_maps
     username: !secret gmap_user
     password: !secret gmap_pass
-
-# climate:
-   # platform: honeywell
-   # username: !secret honeywell_user
-   # password: !secret honeywell_pwd
-   # scan_interval: 1200
-   # region: us
 
 # remote:
  # - platform: harmony
@@ -495,25 +480,17 @@ google_assistant:
     light.o3:
       expose: false
     light.o4:
-      expose: false      
-    # light.cree_connected_a19_60w_equivalent_fe010d00_10:
-      # expose: false
-    # light.cree_connected_a19_60w_equivalent_fe010d32_10:
-      # expose: false      
+      expose: false           
     light.bedroom_closet:
       expose: false
     light.centralite_3210l_0b0383b4_1:
       expose: false
     light.centralite_3210l_0a932dbf_1:
-      expose: false
-    # light.cree_connected_a19_60w_equivalent_fe013293_10:
-      # expose: false      
+      expose: false      
     light.office_closet:
       expose: false
     switch.living_room_camera_plug_switch:
       expose: false
-    # light.sengled_z01cia19nae26_03003148_1:
-      # expose: false
     light.centralite_3210l_0b2d4417_1:
       expose: false
     switch.dryer_switch:
@@ -530,8 +507,6 @@ google_assistant:
       expose: false      
     light.patio_pool_light:
       expose: false
-    # light.osram_lightify_flex_rgbw_00026309_3:
-      # expose: false
     climate.thermostat_dry_air:
       expose: false
     climate.thermostat_furnace:
@@ -689,6 +664,13 @@ input_select:
     - Tritip
     initial: "Select Input"
     
+  alarm_status:
+    name: Alarm Status
+    options:
+    - Disarmed
+    - Armed Away
+    - Armed Night
+    
 input_number:
   bbq1_override:
     name: BBQ Probe 1 Override
@@ -697,6 +679,7 @@ input_number:
     initial: 130
     mode: box
     unit_of_measurement: "F"
+    
 # neato:
   # username: !secret neato_user
   # password: !secret neato_pass

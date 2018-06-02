@@ -1,116 +1,4 @@
- # - platform: mqtt
-   # name: "Den Sliding Door"
-   # state_topic: "smartthings/Den Sliding Door/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Front Door"
-   # state_topic: "smartthings/Front Door/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Den Window"
-   # state_topic: "smartthings/Den Window/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Kitchen Window"
-   # state_topic: "smartthings/Kitchen Window/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Bathroom Window"
-   # state_topic: "smartthings/Bathroom Window/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Office Window"
-   # state_topic: "smartthings/Office Window/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Bedroom Window"
-   # state_topic: "smartthings/Bedroom Window/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Living Room Side Window"
-   # state_topic: "smartthings/Living Room Side Window/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Living Room Right Bay Window"
-   # state_topic: "smartthings/Living Room Right Bay Window/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Living Room Left Bay Window"
-   # state_topic: "smartthings/Living Room Left Bay Window/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Garage Door Backyard"
-   # state_topic: "smartthings/Garage Door Backyard/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: door
-
- # - platform: mqtt
-   # name: "Garage Door Frontyard"
-   # state_topic: "smartthings/Garage Door Frontyard/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Bedroom Closet Door"
-   # state_topic: "smartthings/Bedroom Closet Door/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
- # - platform: mqtt
-   # name: "Office Closet Door"
-   # state_topic: "smartthings/Office Closet Door/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
-
  - platform: ring
-
- # - platform: mqtt
-   # name: "Dannys Pixel 2"
-   # state_topic: "smartthings/Dannys Pixel 2/presence"
-   # payload_on: "present"
-   # payload_off: "not present"
-   # device_class: occupancy
-
- # - platform: mqtt
-   # name: "Natachas Pixel"
-   # state_topic: "smartthings/Natachas Pixel/presence"
-   # payload_on: "present"
-   # payload_off: "not present"
-   # device_class: occupancy
 
  - platform: template
    sensors:
@@ -124,23 +12,6 @@
      windows:
        friendly_name: "Windows"
        device_class: window
-       #entity_id:
-        #- binary_sensor.bathroom_window
-        #- binary_sensor.bathroom_window
-        #- binary_sensor.bedroom_window
-        #- binary_sensor.bedroom_window
-        #- binary_sensor.den_window
-        #- binary_sensor.den_window
-        #- binary_sensor.kitchen_window
-        #- binary_sensor.kitchen_window
-        #- binary_sensor.living_room_left_bay_window
-        #- binary_sensor.living_room_left_bay_window
-        #- binary_sensor.living_room_right_bay_window
-        #- binary_sensor.living_room_right_bay_window
-        #- binary_sensor.living_room_side_window
-        #- binary_sensor.living_room_side_window
-        #- binary_sensor.office_window
-        #- binary_sensor.office_window
        value_template: >-
          {{ is_state('binary_sensor.bathroom_window', 'on')
             or is_state('binary_sensor.bedroom_window', 'on')
@@ -150,13 +21,6 @@
             or is_state('binary_sensor.living_room_right_bay_window', 'on')
             or is_state('binary_sensor.living_room_side_window', 'on')
             or is_state('binary_sensor.office_window', 'on') }}
-
- # - platform: mqtt
-   # name: "Mailbox"
-   # state_topic: "smartthings/Mailbox/contact"
-   # payload_on: "open"
-   # payload_off: "closed"
-   # device_class: opening
 
  - platform: bayesian
    prior: 0.6

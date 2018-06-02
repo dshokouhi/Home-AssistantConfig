@@ -234,12 +234,10 @@ default_view:
   - group.den
   - group.kitchen
   - group.living_room
-  - group.neato
+  #- group.neato
   - alarm_control_panel.shm
   - sun.sun
   - sensor.yr_symbol
-  #- binary_sensor.dannys_pixel_2
-  #- binary_sensor.natachas_pixel
   - sensor.crime_reports
   - sensor.spot_crime
   - sensor.fedex
@@ -248,10 +246,6 @@ default_view:
   - sensor.usps_packages
   - sensor.waqi_reseda_los_angeles
   - binary_sensor.windows
-  #- device_tracker.10f1f2822f12
-  #- device_tracker.androidc4ba94519e6666f2
-  #- device_tracker.pixel_2_xl
-  #- device_tracker.pixel_xl
   - binary_sensor.dannys_bayesian_presence
   - binary_sensor.natachas_bayesian_presence
   - group.bbq
@@ -288,8 +282,6 @@ tracked_users:
   - device_tracker.androidc4ba94519e6666f2
   - device_tracker.pixel_2_xl
   - device_tracker.pixel_xl
-  #- device_tracker.google_maps_104359830266586918986
-  #- device_tracker.google_maps_100707363427265474344
   
 auto:
   name: Automations
@@ -307,8 +299,6 @@ ring_sensor:
   - binary_sensor.ring_front_door_motion
   - binary_sensor.ring_side_gate_motion
   - sensor.ring_front_door_battery
-  #- sensor.ring_front_door_last_activity
-  #- sensor.ring_side_gate_last_activity
 
 ring:
   name: Ring
@@ -340,6 +330,7 @@ services:
    - group.speedtest
    - group.zoneminder
    - group.artichoke
+   - group.disaster
 
 zoneminder:
   name: ZoneMinder
@@ -475,3 +466,10 @@ bbq:
   - input_number.bbq1_override
   - sensor.bbq1temperature
   - binary_sensor.bbq1
+  
+disaster:
+  name: Earthquakes and Fires
+  entities:
+  - sensor.usgs_all_earthquakes_past_hour
+  - sensor.usgs_all_earthquakes_past_day
+  - sensor.nsw_fire_service_any

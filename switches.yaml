@@ -1,51 +1,3 @@
- # - platform: mqtt
-   # name: "Garage Lights"
-   # state_topic: "smartthings/Garage Lights/switch"
-   # command_topic: "smartthings/Garage Lights/switch"
-   # payload_on: "on"
-   # payload_off: "off"
-   # retain: true
-
- #- platform: mqtt
- #  name: "Office Lights"
- #  state_topic: "smartthings/Office Lights/switch"
- #  command_topic: "smartthings/Office Lights/switch"
- #  payload_on: "on"
- #  payload_off: "off"
- #  retain: true
-
- # - platform: mqtt
-   # name: "Kitchen Island Lights"
-   # state_topic: "smartthings/Kitchen Island Lights/switch"
-   # command_topic: "smartthings/Kitchen Island Lights/switch"
-   # payload_on: "on"
-   # payload_off: "off"
-   # retain: true
-
- # - platform: mqtt
-   # name: "Backyard Lights"
-   # state_topic: "smartthings/Backyard Lights/switch"
-   # command_topic: "smartthings/Backyard Lights/switch"
-   # payload_on: "on"
-   # payload_off: "off"
-   # retain: true
-
- # - platform: mqtt
-   # name: "House Fan"
-   # state_topic: "smartthings/House Fan/switch"
-   # command_topic: "smartthings/House Fan/switch"
-   # payload_on: "on"
-   # payload_off: "off"
-   # retain: true
-
- # - platform: mqtt
-   # name: "shm"
-   # state_topic: "smartthings/shm/switch"
-   # command_topic: "smartthings/shm/switch"
-   # payload_on: "on"
-   # payload_off: "off"
-   # retain: true
-
  # - platform: rachio
    # access_token: !secret rachiokey
 
@@ -142,20 +94,6 @@
        turn_off:
          service: remote.turn_off
          entity_id: remote.harmony_hub_bed
-         
- # - platform: template
-   # switches:
-     # movie_mode:
-       # friendly_name: Movie Mode
-       # value_template: "{% if is_state('input_boolean.movie_mode', 'on') %}on{% else %}off{% endif %}"
-       # turn_on:
-        # - service: input_boolean.turn_on
-          # data:
-            # entity_id: input_boolean.movie_mode
-       # turn_off:
-        # - service: input_boolean.turn_off
-          # data:
-            # entity_id: input_boolean.movie_mode
             
  - platform: template
    switches:

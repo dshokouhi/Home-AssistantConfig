@@ -1,93 +1,3 @@
- # - platform: mqtt
-   # name: "Den Sliding Door"
-   # state_topic: "smartthings/Den Sliding Door/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Den Window"
-   # state_topic: "smartthings/Den Window/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Kitchen Window"
-   # state_topic: "smartthings/Kitchen Window/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Living Room Side Window"
-   # state_topic: "smartthings/Living Room Side Window/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Living Room Left Bay Window"
-   # state_topic: "smartthings/Living Room Left Bay Window/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Living Room Right Bay Window"
-   # state_topic: "smartthings/Living Room Right Bay Window/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Bedroom Window"
-   # state_topic: "smartthings/Bedroom Window/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Office Window"
-   # state_topic: "smartthings/Office Window/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Bathroom Window"
-   # state_topic: "smartthings/Bathroom Window/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Office Closet Door"
-   # state_topic: "smartthings/Office Closet Door/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Bedroom Closet Door"
-   # state_topic: "smartthings/Bedroom Closet Door/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Front Door"
-   # state_topic: "smartthings/Front Door/temperature"
-   # unit_of_measurement: "F"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Washer"
-   # state_topic: "smartthings/Washer/power"
-   # unit_of_measurement: "Watts"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Dryer"
-   # state_topic: "smartthings/Dryer/power"
-   # unit_of_measurement: "Watts"
-   # qos: 0
-
- # - platform: mqtt
-   # name: "Dishwasher"
-   # state_topic: "smartthings/Dishwasher/power"
-   # unit_of_measurement: "Watts"
-   # qos: 0
-   
  - platform: crimereports
    name: Crime Reports
    radius: 1000
@@ -489,11 +399,6 @@
           n/a
          {% endif %}
    
- # - platform: xbox_live
-   # api_key: !secret xbox_live_api
-   # xuid:
-   # - !secret xbox_gamer_tag
-   
  - platform: template
    sensors:
      harmony_den_activity:
@@ -547,23 +452,9 @@
    #server_id: 5861 #webnx
    #server_id: 5827 #twc
    #server_id: 10564 #speedtest
-      
- # - platform: pollen
-   # zip_code: !secret zip_code
-   # monitored_conditions:
-   # - allergy_average_forecasted
-   # - allergy_average_historical
-   # - allergy_index_today
-   # - allergy_index_tomorrow
-   # - allergy_index_yesterday
-   # - disease_average_forecasted
    
  - platform: cert_expiry
    host: !secret cert_expiry_host
-   
- # - platform: spotcrime
-   # name: Spot Crime
-   # radius: 1000
    
  - platform: filesize
    file_paths:
