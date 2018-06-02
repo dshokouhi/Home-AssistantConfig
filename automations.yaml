@@ -399,6 +399,7 @@
   - service: switch.turn_on
     entity_id: switch.bedroom_fan
     
+    
 ################################################
 #
 #      Laundry notifications
@@ -1154,6 +1155,60 @@
     data_template:
       message: "Alarm is in armed night and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
 
+- alias: Windows open while going to bed
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.den_window
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.living_room_right_bay_window
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.living_room_side_window
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.living_room_left_bay_window
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.kitchen_window
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.office_window
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.bedroom_window
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.bathroom_window
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.windows
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.windows
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'on'
+  action:
+  - service: notify.chrome
+    data_template:
+      message: "The alarm is arming in night mode and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
+  - condition: state
+    entity_id: group.tracked_users
+    state: 'home'
+  - service: tts.google_say
+    #entity_id: media_player.home_notification
+    entity_id: media_player.bedroom_speaker
+    data_template:
+      message: "The alarm is arming in night mode and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
+
+      
 ################################################
 #
 #      Office automation
@@ -2146,66 +2201,83 @@
 #
 ################################################
 
-- alias: Notify dryer died
-  trigger:
-    platform: state
-    entity_id: zwave.dryer
-    to: 'dead'
-  action:
-  - service: zwave.test_node
-    data:
-      node_id: 11
-  - service: notify.chrome
-    data:
-      message: "Dryer zwave died"
-      target: danny_pixel
-      title: Shokabow Zoo
+# - alias: Notify dryer died
+  # trigger:
+    # platform: state
+    # entity_id: zwave.dryer
+    # to: 'dead'
+  # action:
+  # - service: zwave.test_node
+    # data:
+      # node_id: 11
+  # - service: notify.chrome
+    # data:
+      # message: "Dryer zwave died"
+      # target: danny_pixel
+      # title: Shokabow Zoo
 
-- alias: Notify washer died
-  trigger:
-    platform: state
-    entity_id: zwave.washer
-    to: 'dead'
-  action:
-  - service: zwave.test_node
-    data:
-      node_id: 10
-  - service: notify.chrome
-    data:
-      message: "Washer zwave died"
-      target: danny_pixel
-      title: Shokabow Zoo
+# - alias: Notify washer died
+  # trigger:
+    # platform: state
+    # entity_id: zwave.washer
+    # to: 'dead'
+  # action:
+  # - service: zwave.test_node
+    # data:
+      # node_id: 10
+  # - service: notify.chrome
+    # data:
+      # message: "Washer zwave died"
+      # target: danny_pixel
+      # title: Shokabow Zoo
 
-- alias: Notify bedroom lights died
-  trigger:
-    platform: state
-    entity_id: zwave.bedroom_lights
-    to: 'dead'
-  action:
-  - service: zwave.test_node
-    data:
-      node_id: 2
-  - service: notify.chrome
-    data:
-      message: "bedroom lights zwave died"
-      target: danny_pixel
-      title: Shokabow Zoo
+# - alias: Notify bedroom lights died
+  # trigger:
+    # platform: state
+    # entity_id: zwave.bedroom_lights
+    # to: 'dead'
+  # action:
+  # - service: zwave.test_node
+    # data:
+      # node_id: 2
+  # - service: notify.chrome
+    # data:
+      # message: "bedroom lights zwave died"
+      # target: danny_pixel
+      # title: Shokabow Zoo
 
-- alias: Notify lock died
-  trigger:
-    platform: state
-    entity_id: zwave.front_door_lock
-    to: 'dead'
-  action:
-  - service: zwave.test_node
-    data:
-      node_id: 23
-  - service: notify.chrome
-    data:
-      message: "front door lock zwave died"
-      target: danny_pixel
-      title: Shokabow Zoo
+# - alias: Notify lock died
+  # trigger:
+    # platform: state
+    # entity_id: zwave.front_door_lock
+    # to: 'dead'
+  # action:
+  # - service: zwave.test_node
+    # data:
+      # node_id: 23
+  # - service: notify.chrome
+    # data:
+      # message: "front door lock zwave died"
+      # target: danny_pixel
+      # title: Shokabow Zoo
       
+- alias: Notify zwave device died
+  trigger:
+    platform: template
+    value_template: >
+      {%- for state in states.zwave -%}
+        {%- if state.state == "dead" -%}
+          true
+        {%- endif -%}
+      {%- endfor -%}
+  action:
+  - service: notify.chrome
+    data_template:
+      message: "node {{ trigger.entity_id }} has died"
+      target: danny_pixel
+      title: Shokabow Zoo
+
+
 # - alias: Notify zwave network ready
   # trigger:
     # platform: event
@@ -2568,7 +2640,7 @@
   condition:
     - condition: template
       value_template: >
-          {%- set threshold = 10 -%}
+          {%- set threshold = 25 -%}
           {% macro battery_level() %}
           {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
           {% for domain in domains -%}
@@ -2587,7 +2659,7 @@
         title: "Low Battery levels"
         notification_id: low-battery-alert
         message: >
-          {%- set threshold = 10 -%}
+          {%- set threshold = 25 -%}
           {% macro battery_level(domain) %}
           {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
           {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
@@ -2606,7 +2678,7 @@
         target: ["danny_pixel", "tosh_phone"]
         message: >
           {% macro battery_level() %}
-          {%- set threshold = 10 -%}
+          {%- set threshold = 25 -%}
           {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
           {% for domain in domains -%}
           {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
@@ -2627,7 +2699,7 @@
   condition:
     - condition: template
       value_template: >
-        {%- set threshold = 10 -%}
+        {%- set threshold = 25 -%}
         {% macro battery_level() %}
         {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
         {% for domain in domains -%}
@@ -3089,92 +3161,121 @@
 #      BBQ Automations
 #
 ################################################
-
-- alias: Chicken notifications
+ 
+- alias: BBQ Notifications
   trigger:
     platform: state
     entity_id: input_select.bbq_probe1
-    to: "Chicken"
+    from: "Select Input"
   condition:
     condition: state
     entity_id: binary_sensor.bbq1
     state: 'on'
   action:
-  - wait_template: "{{ states.sensor.bbq1temperature.state|int >= 150 }}"
+  - wait_template: >
+     {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 195 }}
+     {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 195 }}
+     {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 155 }}
+     {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 120 }}
+     {%- else -%}
+     {%- endif %}
   - service: notify.chrome
-    data:
-      message: "Chicken is almost ready"
+    data_template:
+      message: >
+       {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+         Beef Ribs are almost ready
+       {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+         Briket is almost ready
+       {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+         Chicken is almost ready
+       {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+         Tritip is almost ready
+       {%- else -%}
+       {%- endif %}
       target: danny_pixel
       title: Shokabow Zoo
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
-      message: 'Chicken is almost ready'
-  - wait_template: "{{ states.sensor.bbq1temperature.state|int >= 165 }}"
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data_template:
+      message: >
+       {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+         Beef Ribs are almost ready
+       {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+         Briket is almost ready
+       {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+         Chicken is almost ready
+       {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+         Tritip is almost ready
+       {%- else -%}
+       {%- endif %}
+  - wait_template: >
+     {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 205 }}
+     {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 205 }}
+     {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 165 }}
+     {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 130 }}
+     {%- else -%}
+     {%- endif %}
   - service: notify.chrome
-    data:
-      message: "Chicken is ready"
+    data_template:
+      message: >
+       {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+         Beef Ribs are done
+       {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+         Briket is done
+       {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+         Chicken is done
+       {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+         Tritip is done
+       {%- else -%}
+       {%- endif %}
       target: danny_pixel
       title: Shokabow Zoo
   - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
-      message: 'Chicken is ready'
+    #entity_id: media_player.home_notification
+    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data_template:
+      message: >
+       {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+         Beef Ribs are done
+       {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+         Briket is done
+       {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+         Chicken is done
+       {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+         Tritip is done
+       {%- else -%}
+       {%- endif %}
   - service: notify.den
     data_template:
       data:
         color: red
         duration: 30
         position: center
-      message: "Chicken is ready"
-      title: Shokabow Zoo
-      
-- alias: Tritip notifications
-  trigger:
-    platform: state
-    entity_id: input_select.bbq_probe1
-    to: "Tritip"
-  condition:
-    condition: state
-    entity_id: binary_sensor.bbq1
-    state: 'on'
-  action:
-  - wait_template: "{{ states.sensor.bbq1temperature.state|int >= 120 }}"
-  - service: notify.chrome
-    data:
-      message: "Tritip is almost ready"
-      target: danny_pixel
-      title: Shokabow Zoo
-  - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
-      message: 'Tritip is almost ready'
-  - wait_template: "{{ states.sensor.bbq1temperature.state|int >= 130 }}"
-  - service: notify.chrome
-    data:
-      message: "Tritip is ready"
-      target: danny_pixel
-      title: Shokabow Zoo
-  - service: tts.google_say
-    entity_id: media_player.home_notification
-    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
-      message: 'Tritip is ready'
-  - service: notify.den
-    data_template:
-      data:
-        color: red
-        duration: 30
-        position: center
-      message: "Tritip is ready"
+      message: >
+       {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+         Beef Ribs are done
+       {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+         Briket is done
+       {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+         Chicken is done
+       {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+         Tritip is done
+       {%- else -%}
+       {%- endif %}
       title: Shokabow Zoo
       
 - alias: BBQ notifications not on
   trigger:
-    platform: state
+  - platform: state
     entity_id: input_select.bbq_probe1
     from: "Select Input"
   condition:
@@ -3187,7 +3288,33 @@
     entity_id: input_select.bbq_probe1
     data:
       option: "Select Input"
-      
+
+- alias: Set BBQ override
+  trigger:
+    platform: state
+    entity_id: input_select.bbq_probe1
+  condition:
+    condition: state
+    entity_id: binary_sensor.bbq1
+    state: 'on'
+  action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.bbq1_override
+      value: >
+       {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+         205
+       {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+         205
+       {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+         165
+       {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+         130
+       {% elif is_state("input_select.bbq_probe1", "Select Input") -%}
+         130
+       {%- else -%}
+       {%- endif %}
+
 ################################################
 #
 #      Pool Pump Automations

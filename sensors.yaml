@@ -87,7 +87,7 @@
    # state_topic: "smartthings/Dishwasher/power"
    # unit_of_measurement: "Watts"
    # qos: 0
-
+   
  - platform: crimereports
    name: Crime Reports
    radius: 1000
@@ -683,15 +683,15 @@
    verify_ssl: false
    name: Artichoke Next Water
    value_template: '{{ value_json.last_measurements[0]["predicted_water_needed"] | timestamp_local }}'
-   
-  - platform: geo_rss_events
-    name: USGS All Earthquakes
-    url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.atom
-    categories:
-      - 'Past Hour'
-      - 'Past Day'
-      
-  - platform: geo_rss_events
-    name: NSW Fire Service
-    url: http://www.fire.ca.gov/rss/rss.xml
-    unit_of_measurement: 'Incidents'
+
+ - platform: geo_rss_events
+   name: USGS All Earthquakes
+   url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.atom
+   categories:
+     - 'Past Hour'
+     - 'Past Day'
+
+ - platform: geo_rss_events
+   name: NSW Fire Service
+   url: http://www.fire.ca.gov/rss/rss.xml
+   unit_of_measurement: 'Incidents'
