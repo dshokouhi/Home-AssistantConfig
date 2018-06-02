@@ -555,27 +555,25 @@
 #
 ################################################
 
-- alias: Front Door Open
+- alias: Front Door TTS
   trigger:
-    platform: state
+  - platform: state
     entity_id: binary_sensor.front_door
     to: 'on'
-  action:
-  - service: tts.google_say
-    entity_id: media_player.living_room_home
-    data:
-      message: 'The front door is open'
-
-- alias: Front Door Close
-  trigger:
-    platform: state
+  - platform: state
     entity_id: binary_sensor.front_door
     to: 'off'
   action:
   - service: tts.google_say
     entity_id: media_player.living_room_home
-    data:
-      message: 'The front door is closed'
+    data_template:
+      message: >
+        {% if is_state("binary_sensor.front_door", "on") %}
+          The front door is open
+        {% elif is_state("binary_sensor.front_door", "off") %}
+          The front door is closed
+        {% else %}
+        {% endif %}
 
 - alias: Announce Lock Jammed
   trigger:
@@ -649,7 +647,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'armed_away'
   action:
   - service: switch.turn_on
@@ -683,7 +681,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'armed_away'
   action:
   - service: switch.turn_on
@@ -714,7 +712,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'armed_away'
   action:
   - service: switch.turn_on
@@ -745,7 +743,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'armed_away'
   action:
   - service: camera.snapshot
@@ -807,11 +805,11 @@
     to: '2'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'armed_away'
   action:
   - service: alarm_control_panel.alarm_trigger
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
   # - service: notify.chrome
     # data:
       # data:
@@ -823,20 +821,13 @@
 - alias: Goodbye on Alarm
   trigger:
     platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     to: 'armed_away'
   action:
   - service: scene.turn_on
     entity_id: scene.goodbye
   - service: lock.lock
     entity_id: lock.front_door_lock_locked
-
-- alias: Notify Alarm On
-  trigger:
-    platform: state
-    entity_id: alarm_control_panel.shm
-    to: armed_away
-  action:
   - service: notify.chrome
     data:
       message: "The alarm has been activated"
@@ -846,18 +837,10 @@
 - alias: Notify Alarm Off
   trigger:
     platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     from: armed_away
     to: disarmed
-  condition:
-    condition: state
-    entity_id: group.tracked_users
-    state: not_home
   action:
-  - service: light.turn_off
-    entity_id: light.corner_lamp
-  - service: light.turn_off
-    entity_id: light.front_door_lamp
   - service: notify.chrome
     data:
       message: "The alarm has been deactivated"
@@ -875,7 +858,7 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
       state: 'disarmed'
     - condition: state
       entity_id: input_boolean.vacation_mode
@@ -886,7 +869,7 @@
   action:
   - service: alarm_control_panel.alarm_arm_away
     data:
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
   - service: notify.chrome
     data:
       message: "The alarm has been activated since nobody is home"
@@ -900,37 +883,17 @@
     to: 'home'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'armed_away'
   action:
   - service: alarm_control_panel.alarm_disarm
     data:
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
   - service: notify.chrome
     data:
       message: "The alarm has been deactivated since a tracked user is home"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
-      
-# - alias: SHM Alarm On
-  # trigger:
-  # - platform: state
-    # entity_id: switch.shm
-    # to: 'on'
-  # action:
-  # - service: alarm_control_panel.alarm_arm_away
-    # data:
-      # entity_id: alarm_control_panel.shm
-
-# - alias: SHM Alarm Off
-  # trigger:
-  # - platform: state
-    # entity_id: switch.shm
-    # to: 'off'
-  # action:
-  # - service: alarm_control_panel.alarm_disarm
-    # data:
-      # entity_id: alarm_control_panel.shm
 
 - alias: Arm Alarm Front Door
   trigger:
@@ -939,12 +902,12 @@
     to: '18'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'disarmed'
   action:
   - service: alarm_control_panel.alarm_arm_away
     data:
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
 
 - alias: Disarm Alarm Front Door
   trigger:
@@ -953,12 +916,12 @@
     to: '19'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'armed_away'
   action:
   - service: alarm_control_panel.alarm_disarm
     data:
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
 
 - alias: Turn on lights if alarm is disarmed and code 1 unlocks
   trigger:
@@ -969,7 +932,7 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
       state: 'disarmed'
     - condition: state
       entity_id: sensor.front_door_lock_alarm_level
@@ -1019,7 +982,7 @@
 - alias: Warn Alarm On But Window Open
   trigger:
     platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     to: 'armed_away'
   condition:
     condition: state
@@ -1047,7 +1010,7 @@
 - alias: Notify alarm triggered
   trigger:
     platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     to: 'triggered'
   action:
   - service: light.turn_on
@@ -1088,11 +1051,11 @@
     to: 'off'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'armed_night'
   action:
   - service: alarm_control_panel.alarm_disarm
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
   - service: input_boolean.turn_off
     entity_id: input_boolean.night_mode
 
@@ -1103,7 +1066,7 @@
     to: 'on'
   action:
   - service: alarm_control_panel.alarm_arm_night
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     
 - alias: Alarm Tripped in armed night
   trigger:
@@ -1142,7 +1105,7 @@
     to: '2'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'armed_night'
   action:
   - service: notify.chrome
@@ -1208,7 +1171,32 @@
     data_template:
       message: "The alarm is arming in night mode and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
 
-      
+- alias: Set alarm status drop down
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.home
+    to: 'disarmed'
+  - platform: state
+    entity_id: alarm_control_panel.home
+    to: 'armed_away'
+  - platform: state
+    entity_id: alarm_control_panel.home
+    to: 'armed_night'
+  action:
+  - service: input_select.select_option
+    entity_id: input_select.alarm_status
+    data_template:
+      option: >
+        {% if is_state("alarm_control_panel.home", "disarmed") %}
+          Disarmed
+        {% elif is_state("alarm_control_panel.home", "armed_away") %}
+          Armed Away
+        {% elif is_state("alarm_control_panel.home", "armed_night") %}
+          Armed Night
+        {% else %}
+        {% endif %}
+
+    
 ################################################
 #
 #      Office automation
@@ -1257,36 +1245,6 @@
   - service: light.turn_off
     entity_id: light.o4
 
-# - alias: Turn off office light that turns on randomly
-  # trigger:
-  # - platform: state
-    # entity_id: light.o1
-    # to: 'on'
-  # - platform: state
-    # entity_id: light.o2
-    # to: 'on'
-  # - platform: state
-    # entity_id: light.o3
-    # to: 'on'
-  # - platform: state
-    # entity_id: light.o4
-    # to: 'on'
-  # condition:
-    # condition: state
-    # entity_id: light.office_lights
-    # state: 'off'
-  # action:
-  # - service: light.turn_off
-    # entity_id: light.o1
-  # - service: light.turn_off
-    # entity_id: light.o2
-  # - service: light.turn_off
-    # entity_id: light.o3
-  # - service: light.turn_off
-    # entity_id: light.o4
-  # - service: light.turn_off
-    # entity_id: light.office_lights
-
 ################################################
 #
 #      Dog Lights
@@ -1296,7 +1254,7 @@
 - alias: Dog Lights On
   trigger:
   - platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     to: 'armed_away'
   - platform: sun
     event: sunset
@@ -1308,7 +1266,7 @@
       entity_id: sun.sun
       state: 'below_horizon'
     - condition: state
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
       state: 'armed_away'
   action:
   - service: light.turn_on
@@ -1324,7 +1282,7 @@
   - platform: sun
     event: sunrise
   - platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     from: 'armed_away'
     to: 'disarmed'
   action:
@@ -1357,10 +1315,10 @@
     - condition: or
       conditions:
       - condition: state
-        entity_id: alarm_control_panel.shm
+        entity_id: alarm_control_panel.home
         state: 'disarmed'
       - condition: state
-        entity_id: alarm_control_panel.shm
+        entity_id: alarm_control_panel.home
         state: 'armed_night'
   action:
   - service: light.turn_on
@@ -1423,10 +1381,10 @@
     - condition: or
       conditions:
       - condition: state
-        entity_id: alarm_control_panel.shm
+        entity_id: alarm_control_panel.home
         state: 'disarmed'
       - condition: state
-        entity_id: alarm_control_panel.shm
+        entity_id: alarm_control_panel.home
         state: 'armed_night'
   action:
   - service: tts.google_say
@@ -1442,16 +1400,18 @@
     condition: or
     conditions:
     - condition: state
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
       state: 'disarmed'
     - condition: state
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
       state: 'armed_night'
   action:
   - service: script.turn_on
     entity_id: script.open_bay_window_curtains
   - service: switch.turn_off
     entity_id: switch.house_fan
+  - service: light.turn_off
+    entity_id: light.bathroom_night_light
 
 - alias: Hallway light above horizon
   trigger:
@@ -1486,10 +1446,10 @@
     - condition: or
       conditions:
       - condition: state
-        entity_id: alarm_control_panel.shm
+        entity_id: alarm_control_panel.home
         state: 'disarmed'
       - condition: state
-        entity_id: alarm_control_panel.shm
+        entity_id: alarm_control_panel.home
         state: 'armed_night'
   action:
   - service: script.turn_on
@@ -1517,10 +1477,10 @@
     - condition: or
       conditions:
       - condition: state
-        entity_id: alarm_control_panel.shm
+        entity_id: alarm_control_panel.home
         state: 'disarmed'
       - condition: state
-        entity_id: alarm_control_panel.shm
+        entity_id: alarm_control_panel.home
         state: 'armed_night'
   action:
   - service: climate.set_temperature
@@ -1659,7 +1619,7 @@
     to: 'off'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: 'disarmed'
   action:
   - service: notify.chrome
@@ -1699,22 +1659,22 @@
 #
 ################################################
 
-- alias: Turn on bedroom closet
+- alias: Bedroom closet light
   trigger:
   - platform: state
     entity_id: binary_sensor.bedroom_closet_door
     to: 'on'
-  action:
-  - service: light.turn_on
-    entity_id: light.bedroom_closet
-
-- alias: Turn off bedroom closet
-  trigger:
   - platform: state
     entity_id: binary_sensor.bedroom_closet_door
     to: 'off'
   action:
-  - service: light.turn_off
+    service_template: >
+           {% if is_state("binary_sensor.bedroom_closet_door", "on") %}
+             light.turn_on
+           {% elif is_state("binary_sensor.bedroom_closet_door", "off") %}
+             light.turn_off
+           {% else %}
+           {% endif %}
     entity_id: light.bedroom_closet
 
 - alias: Turn off bedroom closet if on for 15 min and door closed
@@ -1732,7 +1692,7 @@
     service: light.turn_off
     entity_id: light.bedroom_closet
 
-- alias: Turn off office closet if on for 15 min and door closet
+- alias: Turn off office closet if on for 15 min and door closed
   trigger:
   - platform: state
     entity_id: light.office_closet
@@ -1747,40 +1707,40 @@
     service: light.turn_off
     entity_id: light.office_closet
     
-- alias: Turn on office closet
+- alias: Office Closet Light
   trigger:
   - platform: state
     entity_id: binary_sensor.office_closet_door
     to: 'on'
-  action:
-  - service: light.turn_on
-    entity_id: light.office_closet
-
-- alias: Turn off office closet
-  trigger:
   - platform: state
     entity_id: binary_sensor.office_closet_door
     to: 'off'
   action:
-  - service: light.turn_off
+    service_template: >
+           {% if is_state("binary_sensor.office_closet_door", "on") %}
+             light.turn_on
+           {% elif is_state("binary_sensor.office_closet_door", "off") %}
+             light.turn_off
+           {% else %}
+           {% endif %}
     entity_id: light.office_closet
 
-- alias: Turn on garage lights from frontyard
+- alias: Garage lights from frontyard
   trigger:
   - platform: state
     entity_id: binary_sensor.garage_frontyard
     to: 'on'
-  action:
-  - service: switch.turn_on
-    entity_id: switch.garage_lights_switch
-
-- alias: Turn off garage lights from frontyard
-  trigger:
   - platform: state
     entity_id: binary_sensor.garage_frontyard
     to: 'off'
   action:
-  - service: switch.turn_off
+    service_template: >
+           {% if is_state("binary_sensor.garage_frontyard", "on") %}
+             switch.turn_on
+           {% elif is_state("binary_sensor.garage_frontyard", "off") %}
+             switch.turn_off
+           {% else %}
+           {% endif %}
     entity_id: switch.garage_lights_switch
 
 - alias: Turn on garage lights from backyard
@@ -1789,7 +1749,7 @@
     entity_id: binary_sensor.garage_backyard_door
     to: 'on'
   action:
-  - service: switch.turn_on
+    service: switch.turn_on
     entity_id: switch.garage_lights_switch
 
 - alias: Turn off garage lights from backyard
@@ -1958,24 +1918,19 @@
   - platform: sun
     event: sunset
     offset: "00:01:00"
-  condition:
-    condition: state
-    entity_id: alarm_control_panel.shm
-    state: 'disarmed'
-  action:
-  - service: scene.turn_on
-    entity_id: scene.colorful
-
-- alias: Colorful night after disarmed
-  trigger:
   - platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     from: 'armed_away'
     to: 'disarmed'
   condition:
-    condition: state
-    entity_id: sun.sun
-    state: 'below_horizon'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
   action:
   - service: scene.turn_on
     entity_id: scene.colorful
@@ -2040,7 +1995,7 @@
 - alias: Lights On When Alarm Off
   trigger:
   - platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     from: 'armed_away'
     to: 'disarmed'
   action:
@@ -2404,7 +2359,7 @@
 - alias: Set thermostat cooling if on and house is armed
   trigger:
   - platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     to: 'armed_away'
   condition:
     condition: and
@@ -2422,7 +2377,7 @@
 - alias: Set thermostat heating if on and house is armed
   trigger:
   - platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     to: 'armed_away'
   condition:
     condition: and
@@ -2763,7 +2718,7 @@
     event_type: system_log_event
   condition:
     condition: template
-    value_template: '{{ "timer" in trigger.event.data.message }}'
+    value_template: '{{ "Timer" in trigger.event.data.message }}'
   action:
   - service: persistent_notification.create
     data_template:
@@ -2900,7 +2855,7 @@
     for:
       minutes: 5
   - platform: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     to: 'armed_away'
   - platform: state
     entity_id: media_player.bathroom_speaker
@@ -2926,7 +2881,7 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
       entity_id: input_boolean.night_mode
@@ -2959,7 +2914,7 @@
       entity_id: input_boolean.night_mode
       state: 'off'
     - condition: state
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
       entity_id: switch.tasker_sleep_danny
@@ -2993,7 +2948,7 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: alarm_control_panel.shm
+      entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
       entity_id: lock.front_door_lock_locked
@@ -3013,7 +2968,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: alarm_control_panel.shm
+    entity_id: alarm_control_panel.home
     state: disarmed
   action:
   - service: notify.den

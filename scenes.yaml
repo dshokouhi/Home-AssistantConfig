@@ -40,6 +40,10 @@
       state: on
       brightness_pct: 20
       color_name: 'blue'
+    light.bathroom_night_light:
+      state: on
+      brightness_pct: 50
+      color_name: 'yellow'
     #switch.little_christmas_trees_switch: on
     #switch.christmas_tree_switch: on
 
@@ -68,6 +72,7 @@
     light.den_bookshelf_left: off
     light.nook_lamp: off
     light.spot: off
+    light.bathroom_night_light: off
     
 - name: Cleaning Mode
   entities:

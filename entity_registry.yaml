@@ -362,8 +362,8 @@ media_player.house:
   name:
   platform: cast
   unique_id: f6dd91a4-97ea-41af-a716-2bb70272c811
-light.gateway_light_34ce0091f546:
-  name:
+light.bathroom_night_light:
+  name: Xiaomi Gateway Light
   platform: xiaomi_aqara
   unique_id: rgb34ce0091f546
 media_player.bathroom_speaker:
