@@ -115,11 +115,13 @@ class TemperatureSensor(Sensor):
     @property
     def state(self):
         """Return the state of the entity."""
-        if self._state == 'unknown':
-            return 'unknown'
-        celsius = round(float(self._state) / 100, 1)
-        return round(convert_temperature(celsius, TEMP_CELSIUS,
-                                         self.unit_of_measurement), 1)
+        if self._state is None:
+            return None
+        celsius = self._state / 100
+        return round(convert_temperature(celsius,
+                                         TEMP_CELSIUS,
+                                         self.unit_of_measurement),
+                     1)
 
 
 class RelativeHumiditySensor(Sensor):
@@ -140,6 +142,21 @@ class RelativeHumiditySensor(Sensor):
 
         return round(float(self._state) / 100, 1)
 
+class PressureSensor(Sensor):
+    """ZHA pressure sensor."""
+
+    @property
+    def unit_of_measurement(self):
+        """Return the unit of measurement of this entity."""
+        return 'hPa'
+
+    @property
+    def state(self):
+        """Return the state of the entity."""
+        if self._state is None:
+            return None
+
+        return round(float(self._state))
 
 class GenericBatterySensor(Sensor):
     """ZHA generic battery sensor."""
@@ -249,6 +266,11 @@ class ElectricalMeasurementSensor(Sensor):
     def unit_of_measurement(self):
         """Return the unit of measurement of this entity."""
         return 'W'
+
+    @property
+    def force_update(self) -> bool:
+        """Force update this entity."""
+        return True
 
     @property
     def state(self):

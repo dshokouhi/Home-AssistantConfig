@@ -1,14 +1,9 @@
 homeassistant:
-  # Name of the location where Home Assistant is running
   name: Home
-  # Location required to calculate the time the sun rises and sets
   latitude: !secret home_lat
   longitude: !secret home_long
-  # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 739
-  # metric for Metric, imperial for Imperial
   unit_system: imperial
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/Los_Angeles
   customize: !include customize.yaml
   customize_glob: !include custom-ui.yaml
@@ -16,11 +11,10 @@ homeassistant:
   - /home/homeassistant/.homeassistant/snapshot
   - /home/homeassistant/.homeassistant
 
-# Custom UI tfrom https://github.com/andrey-git/home-assistant-custom-ui
+# Custom UI from https://github.com/andrey-git/home-assistant-custom-ui
 customizer:
   custom_ui: local
 
-# Enables the frontend
 frontend:
  themes:
   material_dark_green:
@@ -106,7 +100,6 @@ frontend:
 # row 2 on entities page
    table-row-alternative-background-color: "var(--dark_grey)"
 
-# Enables configuration UI
 config:
 
 system_log:
@@ -123,22 +116,14 @@ automation: !include automations.yaml
 scene: !include scenes.yaml
 
 http:
-  # Uncomment this to add a password (recommended!)
    api_password: !secret http_password
-  # Uncomment this if you are using SSL or running in Docker etc
    base_url: !secret baseurl
    ssl_certificate: !secret sslcert
    ssl_key: !secret sslkey
 
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
 updater:
   include_used_components: true
 
-# Discover some devices automatically
 discovery:
   ignore:
   - netgear_router
@@ -147,31 +132,25 @@ discovery:
   - roku
   - google_cast
 
-# Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
-# Enables support for tracking state changes over time.
 history:
 
-# View all events in a logbook
 logbook:
 
 logger:
   default: warn
 
-# Record events
 recorder:
   purge_interval: 1
   purge_keep_days: 5
 
-# Track the sun
 sun:
 
 ffmpeg:
 
 script: !include scripts.yaml
 
-# Text to speech
 tts:
   platform: google
 
@@ -236,15 +215,6 @@ input_boolean: !include input_booleans.yaml
 binary_sensor: !include binary_sensors.yaml
 
 sensor: !include sensors.yaml
-
-# lock:
-   # platform: mqtt
-   # name: "Front Door Lock"
-   # state_topic: "smartthings/Front Door Lock/lock"
-   # command_topic: "smartthings/Front Door Lock/lock"
-   # payload_lock: "locked"
-   # payload_unlock: "unlocked"
-   # retain: true
 
 media_player 1:
  - platform: kodi
@@ -343,7 +313,7 @@ camera:
 
  #- platform: amcrest
 
- - platform: ring
+ #- platform: ring
  
  - platform: yi
    host: '192.168.1.33'
@@ -396,9 +366,9 @@ alert:
     notifiers:
     - chrome_alerts
 
-ring:
-   username: !secret ringuser
-   password: !secret ringpass
+#ring:
+#   username: !secret ringuser
+#   password: !secret ringpass
 
 google:
    client_id: !secret google_client_id
@@ -430,6 +400,8 @@ google_assistant:
     script.off_fireplace:
       expose: false
     script.zone_2_cc:
+      expose: false
+    script.zone_2_off:
       expose: false
     script.open_den_curtains:
       expose: false
@@ -745,3 +717,9 @@ sabnzbd:
     - 'queue_remaining'
     - 'disk_size'
     - 'disk_free'
+    
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: !secret hass_config_url

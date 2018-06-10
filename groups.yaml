@@ -178,15 +178,15 @@ sab:
   - group.sab_sensors
 
 hallway:
-  name: Hallway & Office
+  name: Bathroom, Hallway & Office
   control: hidden
   entities:
+  - light.bathroom_night_light
   - light.hallway_light
   - switch.house_fan
   - fan.office_air_purifier
   - light.office_closet
   - light.office_lights
-  - light.bathroom_night_light
   - group.hallway_sensors
 
 hallway_sensors:
@@ -200,6 +200,7 @@ hallway_sensors:
   - binary_sensor.office_motion_sensor
   - binary_sensor.office_window
   - sensor.bathroom_humidity
+  - sensor.illumination_34ce0091f546
   - sensor.bathroom_pressure
   - sensor.bathroom_temperature
   - sensor.bathroom_window
@@ -207,7 +208,6 @@ hallway_sensors:
   - sensor.office_air_purifier_humidity
   - sensor.office_air_purifier_temp
   - sensor.office_closet_door
-  - sensor.illumination_34ce0091f546
   - sensor.office_motion_sensor
   - sensor.office_smoke_status
   - sensor.office_window
@@ -239,11 +239,11 @@ default_view:
   - sun.sun
   - sensor.yr_symbol
   - sensor.crime_reports
-  - sensor.spot_crime
+  #- sensor.spot_crime
   - sensor.fedex
   - sensor.ups
-  - sensor.usps_mail
-  - sensor.usps_packages
+  #- sensor.usps_mail
+  #- sensor.usps_packages
   - sensor.waqi_reseda_los_angeles
   - binary_sensor.windows
   - binary_sensor.dannys_bayesian_presence
@@ -270,10 +270,10 @@ cameras:
   - camera.kitchen_camera
   - camera.office_camera
   - camera.shokabow_weather
-  - camera.outdoor_camera
-  - camera.front_door
-  - camera.side_gate
-  - camera.usps_mail
+  #- camera.outdoor_camera
+  #- camera.front_door
+  #- camera.side_gate
+  #- camera.usps_mail
 
 tracked_users:
   name: Tracked Users
@@ -291,20 +291,20 @@ auto:
   - group.all_automations
   - group.all_scripts
   
-ring_sensor:
-  name: Ring Sensors
-  control: hidden
-  entities:
-  - binary_sensor.ring_front_door_ding
-  - binary_sensor.ring_front_door_motion
-  - binary_sensor.ring_side_gate_motion
-  - sensor.ring_front_door_battery
+# ring_sensor:
+  # name: Ring Sensors
+  # control: hidden
+  # entities:
+  # - binary_sensor.ring_front_door_ding
+  # - binary_sensor.ring_front_door_motion
+  # - binary_sensor.ring_side_gate_motion
+  # - sensor.ring_front_door_battery
 
-ring:
-  name: Ring
-  control: hidden
-  entities:
-  - group.ring_sensor
+# ring:
+  # name: Ring
+  # control: hidden
+  # entities:
+  # - group.ring_sensor
 
 services:
   name: Services
@@ -322,7 +322,7 @@ services:
    - sensor.zestimate
    - group.pihole_status
    - group.sab
-   - group.ring
+   #- group.ring
    #- group.sprinklers
    - group.weather
    - group.forecast
@@ -365,12 +365,12 @@ media_players:
   - media_player.kodi_kitchen
   - media_player.kodi_outdoor
   - media_player.living_room_home
-  - media_player.living_room_speaker
+  #- media_player.living_room_speaker
   - media_player.office_speaker
   - media_player.outdoor_speakers
-  - media_player.roku_yj007e334976
+  #- media_player.roku_yj007e334976
   - media_player.sony_bravia_tv
-  - media_player.spotify
+  #- media_player.spotify
 
 forecast:
  name: Forecast
@@ -429,6 +429,8 @@ colorful:
   - light.counter_lights
   - light.cabinet_lights
   - light.hallway_light
+  - light.spot
+  - light.bathroom_night_light
 
 # neato:
   # name: 'Mr. Neato'

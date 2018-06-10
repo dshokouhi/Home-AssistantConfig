@@ -363,7 +363,7 @@ media_player.house:
   platform: cast
   unique_id: f6dd91a4-97ea-41af-a716-2bb70272c811
 light.bathroom_night_light:
-  name: Xiaomi Gateway Light
+  name: Bathroom Night Light
   platform: xiaomi_aqara
   unique_id: rgb34ce0091f546
 media_player.bathroom_speaker:
@@ -483,7 +483,7 @@ binary_sensor.living_room_left_bay_window:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:5f:4e-1-1280
 sensor.illumination_34ce0091f546:
-  name: Office Illumination Sensor
+  name: Bathroom Illumination
   platform: xiaomi_aqara
   unique_id: illumination34ce0091f546
 light.cree_connected_a19_60w_equivalent_fe010d00_10:
@@ -926,3 +926,11 @@ media_player.chrome_4:
   name:
   platform: plex
   unique_id: vsrf5mdi5yqfkct2ujipkp08
+media_player.chrome_5:
+  name:
+  platform: plex
+  unique_id: xfdgq7lg2mpgurjo03g6dg56
+media_player.stream_unlimited9639:
+  name:
+  platform: cast
+  unique_id: 1ae648d6-7fbf-25d1-d4dd-14953039851e

@@ -2,9 +2,9 @@
    name: Crime Reports
    radius: 1000
 
- - platform: ring
-   monitored_conditions:
-   - 'battery'
+ # - platform: ring
+   # monitored_conditions:
+   # - 'battery'
 
  - platform: ups
    username: !secret upsuser
@@ -49,13 +49,13 @@
  - platform: template
    sensors:
      front_door_lock_battery:
-       value_template: "{{ states.zwave.front_door_lock.attributes.battery_level }}"
+       value_template: "{{ state_attr('zwave.front_door_lock', 'battery_level') }}"
        unit_of_measurement: '%'
 
  - platform: template
    sensors:
      den_smoke_battery:
-       value_template: "{{ states.zwave.den_smoke.attributes.battery_level }}"
+       value_template: "{{ state_attr('zwave.den_smoke', 'battery_level') }}"
        unit_of_measurement: '%'
 
  - platform: pi_hole
@@ -402,13 +402,13 @@
  - platform: template
    sensors:
      harmony_den_activity:
-       value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity }}"
+       value_template: "{{ state_attr('remote.harmony_hub_den', 'current_activity') }}"
        friendly_name: Harmony Den Input
        
  - platform: template
    sensors:
      harmony_bed_activity:
-       value_template: "{{ states.remote.harmony_hub_bed.attributes.current_activity }}"
+       value_template: "{{ state_attr('remote.harmony_hub_bed', 'current_activity') }}"
        friendly_name: Harmony Bed Input
        
  - platform: uptime

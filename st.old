@@ -1,5 +1,15 @@
 # this will be all of ST code that was working but not anymore as I am no longer on ST.
 
+
+# lock:
+   # platform: mqtt
+   # name: "Front Door Lock"
+   # state_topic: "smartthings/Front Door Lock/lock"
+   # command_topic: "smartthings/Front Door Lock/lock"
+   # payload_lock: "locked"
+   # payload_unlock: "unlocked"
+   # retain: true
+
 # sensor:
  # - platform: mqtt
    # name: "Den Sliding Door"

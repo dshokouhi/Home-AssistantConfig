@@ -35,20 +35,12 @@
   - platform: state
     entity_id: media_player.outdoor_speakers
     to: 'playing'
+  - platform: state
+    entity_id: media_player.outdoor_speakers
+    to: 'idle'
   action:
   - service: script.turn_on
     entity_id: script.zone_2_cc
-
-- alias: Set Den Fan on
-  trigger:
-    platform: state
-    entity_id: remote.harmony_hub_den
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Den Fan" }}'
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.den_fan
 
 - alias: Set Den Harmony Off
   trigger:
@@ -69,28 +61,6 @@
     state: 'on'
   - service: switch.turn_off
     entity_id: switch.fireplace
-
-- alias: Set Fireplace on
-  trigger:
-    platform: state
-    entity_id: remote.harmony_hub_den
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Fireplace" }}'
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.fireplace
-
-- alias: Set Bedroom Fan on
-  trigger:
-    platform: state
-    entity_id: remote.harmony_hub_bed
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Bedroom fan" }}'
-  action:
-  - service: switch.turn_on
-    entity_id: switch.bedroom_fan
 
 - alias: Set Bedroom Booleans Off
   trigger:
@@ -177,72 +147,6 @@
     data:
       brightness_pct: 100
       kelvin: 6500
-
-- alias: Set Bay Window Boolean Open
-  trigger:
-    platform: state
-    entity_id: remote.harmony_hub_den
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Open Bay window curtains" }}'
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.bay_window_curtains
-
-- alias: Set Bay Window Boolean Close
-  trigger:
-    platform: state
-    entity_id: remote.harmony_hub_den
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Close Bay window curtains" }}'
-  action:
-    service: input_boolean.turn_off
-    entity_id: input_boolean.bay_window_curtains
-
-- alias: Set Den Curtain Boolean Open
-  trigger:
-    platform: state
-    entity_id: remote.harmony_hub_den
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Open den curtains" }}'
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.den_curtains
-
-- alias: Set Den Curtain Boolean Close
-  trigger:
-    platform: state
-    entity_id: remote.harmony_hub_den
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Close den curtains" }}'
-  action:
-    service: input_boolean.turn_off
-    entity_id: input_boolean.den_curtains
-
-- alias: Set Bedroom Curtain Boolean Open
-  trigger:
-    platform: state
-    entity_id: remote.harmony_hub_bed
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Open bedroom curtains" }}'
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.bedroom_curtains
-
-- alias: Set Bedroom Curtain Boolean Close
-  trigger:
-    platform: state
-    entity_id: remote.harmony_hub_bed
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.attributes.current_activity == "Close bedroom curtains" }}'
-  action:
-    service: input_boolean.turn_off
-    entity_id: input_boolean.bedroom_curtains
 
 - alias: Curtain booleans hass restart
   trigger:
@@ -438,9 +342,15 @@
     state: 'off'
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes{% endif %}"
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
 
 - alias: Washer Notification
   trigger:
@@ -474,10 +384,16 @@
     state: 'off'
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry {% endif %}"
-
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
+        
 - alias: Dishwasher Notification
   trigger:
     platform: state
@@ -512,10 +428,16 @@
     state: 'off'
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data_template:
       message: 'Dishes are done!'
-
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
+        
 - alias: Washer Start
   trigger:
     platform: state
@@ -583,9 +505,15 @@
   action:
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data_template:
       message: 'The front door lock is jammed'
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
   - service: notify.chrome
     data:
       message: "The front door lock is jammed"
@@ -1632,9 +1560,15 @@
     state: 'home'
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data_template:
       message: 'You got mail'
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
   - service: notify.den
     data:
       data:
@@ -1846,10 +1780,16 @@
     state: 'home'
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "Its raining and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
-
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
+        
 - alias: Thermostat on and window open
   trigger:
   - platform: state
@@ -1903,10 +1843,15 @@
     state: 'home'
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: "The thermostat is on and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
-
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
 ################################################
 #
 #      Night time automations
@@ -2277,10 +2222,16 @@
   action:
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data_template:
       message: 'Boogie, I need help outside'
-      
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
+        
 - alias: Notify bayesian off
   trigger:
     platform: state
@@ -2552,10 +2503,16 @@
     state: 'home'
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    data_template:
       message: 'The water heater is leaking'
-      
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
+        
 - alias: Water heater and rain notification
   trigger:
     platform: state
@@ -2575,11 +2532,17 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.home_notification
+    #entity_id: media_player.home_notification
     #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
-    data:
+    data_template:
       message: 'There is rain getting into the water heater'
-      
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
+        
 ################################################
 #
 #      Battery Notification
@@ -2850,11 +2813,6 @@
     for:
       minutes: 30
   - platform: state
-    entity_id: media_player.bathroom_speaker
-    to: 'idle'
-    for:
-      minutes: 5
-  - platform: state
     entity_id: alarm_control_panel.home
     to: 'armed_away'
   - platform: state
@@ -2890,6 +2848,24 @@
     service: input_boolean.turn_on
     entity_id: input_boolean.shower_mode
     
+- alias: Play music again if interrupted
+  trigger:
+    platform: state
+    entity_id: media_player.bathroom_speaker
+    to: 'idle'
+    for:
+      seconds: 20
+  condition:
+    condition: state
+    entity_id: input_boolean.shower_mode
+    state: 'on'
+  action:
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.bathroom_speaker
+      media_content_id: "http://15363.live.streamtheworld.com:80/KROQFMDIALUP_SC"
+      media_content_type: "audio/mp4"
+      
 ################################################
 #
 #      Motion Light Automations
@@ -3063,51 +3039,45 @@
 #
 ################################################
 
-- alias: Danny car turned on or arrived home
+- alias: Danny car
   trigger:
-    platform: state
+  - platform: state
     entity_id: binary_sensor.tsxpresence
     to: 'on'
-  action:
-  - service: notify.chrome
-    data:
-      message: "TSX turned on or arrived home"
-      target: danny_pixel
-      title: Shokabow Zoo
-      
-- alias: Danny car turned off or left home
-  trigger:
-    platform: state
+  - platform: state
     entity_id: binary_sensor.tsxpresence
     to: 'off'
   action:
   - service: notify.chrome
-    data:
-      message: "TSX turned off or left home"
+    data_template:
+      message: >
+        {% if is_state("binary_sensor.tsxpresence", "on") %}
+          TSX turned on or arrived home
+        {% elif is_state("binary_sensor.tsxpresence", "off") %}
+          TSX turned off or left home
+        {% else %}
+        {% endif %}
       target: danny_pixel
       title: Shokabow Zoo
       
-- alias: Tosh car turned on or arrived home
+- alias: Tosh car
   trigger:
-    platform: state
+  - platform: state
     entity_id: binary_sensor.rdxpresence
     to: 'on'
-  action:
-  - service: notify.chrome
-    data:
-      message: "RDX turned on or arrived home"
-      target: danny_pixel
-      title: Shokabow Zoo
-      
-- alias: Tosh car turned off or left home
-  trigger:
-    platform: state
+  - platform: state
     entity_id: binary_sensor.rdxpresence
     to: 'off'
   action:
   - service: notify.chrome
-    data:
-      message: "RDX turned off or left home"
+    data_template:
+      message: >
+        {% if is_state("binary_sensor.rdxpresence", "on") %}
+          RDX turned on or arrived home
+        {% elif is_state("binary_sensor.rdxpresence", "off") %}
+          RDX turned off or left home
+        {% else %}
+        {% endif %}
       target: danny_pixel
       title: Shokabow Zoo
       
@@ -3155,7 +3125,7 @@
       title: Shokabow Zoo
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: >
        {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
@@ -3168,6 +3138,12 @@
          Tritip is almost ready
        {%- else -%}
        {%- endif %}
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
   - wait_template: >
      {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
        {{ states.sensor.bbq1temperature.state|int >= 205 }}
@@ -3196,7 +3172,7 @@
       title: Shokabow Zoo
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+    #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
     data_template:
       message: >
        {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
@@ -3209,6 +3185,12 @@
          Tritip is done
        {%- else -%}
        {%- endif %}
+      entity_id: >
+        {% if states.media_player.home_notification.state != 'unavailable' %}
+          media_player.home_notification
+        {% else %}
+          media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
+        {%endif %}
   - service: notify.den
     data_template:
       data:
@@ -3227,6 +3209,10 @@
        {%- else -%}
        {%- endif %}
       title: Shokabow Zoo
+  - service: input_select.select_option
+    entity_id: input_select.bbq_probe1
+    data:
+      option: "Select Input"
       
 - alias: BBQ notifications not on
   trigger:
