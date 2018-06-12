@@ -284,11 +284,11 @@ amcrest:
    resolution: high
    stream_source: rtsp
 
- # - host: 192.168.1.36
-   # port: 1027
-   # username: !secret amcrest_user
-   # password: !secret boogie1
-   # name: "Outdoor Camera"
+ - host: 192.168.1.36
+   port: 1027
+   username: !secret amcrest_user
+   password: !secret boogie1
+   name: "Outdoor Camera"
 
 camera:
  - platform: mjpeg
@@ -379,6 +379,7 @@ google_assistant:
   client_id: !secret ga_client_id
   access_token: !secret ga_access_token
   api_key: !secret ga_api_key
+  agent_user_id: !secret ga_agent_id
   exposed_domains:
   - switch
   - light
@@ -391,9 +392,11 @@ google_assistant:
       expose: false
     script.off_bedroom_fan:
       expose: false
-    script.on_den_fan:
+    script.den_fan_toggle:
       expose: false
-    script.den_fan_off:
+    script.on_lr_fan:
+      expose: false
+    script.lr_fan_off:
       expose: false
     script.on_fireplace:
       expose: false

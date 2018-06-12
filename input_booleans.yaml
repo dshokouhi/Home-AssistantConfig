@@ -63,3 +63,7 @@ shower_mode:
   
 rachio:
   name: Rachio
+
+living_room_fan:
+  name: Living Room Fan
+  icon: mdi:fan

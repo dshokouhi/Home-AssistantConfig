@@ -15,6 +15,9 @@ group.auto:
 
 switch.den_fan:
   icon: mdi:fan
+  
+switch.living_room_fan:
+  icon: mdi:fan
 
 switch.fireplace:
   icon: mdi:fire

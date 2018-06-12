@@ -51,7 +51,7 @@
     value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
   action:
   - service: switch.turn_off
-    entity_id: switch.den_fan
+    entity_id: switch.den_fan, switch.living_room_fan
   - service: switch.turn_off
     entity_id: switch.kitchen_tv
   - service: light.turn_off
@@ -2850,8 +2850,13 @@
     
 - alias: Play music again if interrupted
   trigger:
-    platform: state
+  - platform: state
     entity_id: media_player.bathroom_speaker
+    to: 'idle'
+    for:
+      seconds: 20
+  - platform: state
+    entity_id: media_player.home_notification
     to: 'idle'
     for:
       seconds: 20
