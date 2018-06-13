@@ -1,4 +1,4 @@
- #- platform: ring
+ - platform: ring
 
  - platform: template
    sensors:

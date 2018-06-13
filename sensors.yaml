@@ -2,9 +2,9 @@
    name: Crime Reports
    radius: 1000
 
- # - platform: ring
-   # monitored_conditions:
-   # - 'battery'
+ - platform: ring
+   monitored_conditions:
+   - 'battery'
 
  - platform: ups
    username: !secret upsuser
@@ -240,7 +240,7 @@
  - platform: template
    sensors:
      den_air_purifier_temp:
-       value_template: "{{ (states.fan.den_air_purifier.attributes.temperature * 9)/5 + 32 }}"
+       value_template: "{{ ((states.fan.den_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
        friendly_name: Den Air Purifier Temperature
        unit_of_measurement: "F"
        
@@ -261,7 +261,7 @@
  - platform: template
    sensors:
      bedroom_air_purifier_temp:
-       value_template: "{{ (states.fan.bedroom_air_purifier.attributes.temperature * 9)/5 + 32 }}"
+       value_template: "{{ ((states.fan.bedroom_air_purifier.attributes.temperature * 9)/5 + 32)|round}}"
        friendly_name: Bedroom Air Purifier Temperature
        unit_of_measurement: "F"
        
@@ -282,7 +282,7 @@
  - platform: template
    sensors:
      living_room_air_purifier_temp:
-       value_template: "{{ (states.fan.living_room_air_purifier.attributes.temperature * 9)/5 + 32 }}"
+       value_template: "{{ ((states.fan.living_room_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
        friendly_name: Living Room Air Purifier Temperature
        unit_of_measurement: "F"
        
@@ -303,7 +303,7 @@
  - platform: template
    sensors:
      office_air_purifier_temp:
-       value_template: "{{ (states.fan.office_air_purifier.attributes.temperature * 9)/5 + 32 }}"
+       value_template: "{{ ((states.fan.office_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
        friendly_name: Office Air Purifier Temperature
        unit_of_measurement: "F"
        

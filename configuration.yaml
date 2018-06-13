@@ -253,6 +253,8 @@ media_player 6:
 
 media_player 7:
  - platform: onkyo
+   host: 192.168.1.27
+   name: Onkyo Den
  
 media_player 8:
  - platform: kodi
@@ -313,7 +315,7 @@ camera:
 
  #- platform: amcrest
 
- #- platform: ring
+ - platform: ring
  
  - platform: yi
    host: '192.168.1.33'
@@ -366,9 +368,9 @@ alert:
     notifiers:
     - chrome_alerts
 
-#ring:
-#   username: !secret ringuser
-#   password: !secret ringpass
+ring:
+   username: !secret ringuser
+   password: !secret ringpass
 
 google:
    client_id: !secret google_client_id
