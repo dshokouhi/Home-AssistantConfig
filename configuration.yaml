@@ -468,8 +468,8 @@ google_assistant:
       expose: false
     switch.washer_switch:
       expose: false
-    # switch.mr_neato_schedule:
-      # expose: false
+    switch.mr_neato_schedule:
+      expose: false
     light.patio_bbq:
       expose: false      
     light.patio_table_left:
@@ -651,9 +651,9 @@ input_number:
     mode: box
     unit_of_measurement: "F"
     
-# neato:
-  # username: !secret neato_user
-  # password: !secret neato_pass
+neato:
+  username: !secret neato_user
+  password: !secret neato_pass
 
 cover:
   - platform: template

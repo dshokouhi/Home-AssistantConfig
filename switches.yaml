@@ -91,14 +91,14 @@
           data:
             entity_id: input_boolean.kitchen_tv
 
- # - platform: template
-   # switches:
-     # vacuum:
-       # value_template: "{{ is_state('vacuum.mr_neato', 'on') }}"
-       # turn_on:
-         # service: vacuum.turn_on
-       # turn_off:
-         # service: vacuum.return_to_base
+ - platform: template
+   switches:
+     vacuum:
+       value_template: "{{ is_state('vacuum.mr_neato', 'on') }}"
+       turn_on:
+         service: vacuum.turn_on
+       turn_off:
+         service: vacuum.return_to_base
 
  - platform: template
    switches:

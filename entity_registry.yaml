@@ -934,3 +934,11 @@ media_player.stream_unlimited9639:
   name:
   platform: cast
   unique_id: 1ae648d6-7fbf-25d1-d4dd-14953039851e
+media_player.galaxy_s8:
+  name:
+  platform: plex
+  unique_id: b901bdbbf53d5449-com-plexapp-android
+media_player.chrome_6:
+  name:
+  platform: plex
+  unique_id: 3yivxsbqizvb4x7fv3szu5zn

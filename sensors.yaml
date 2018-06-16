@@ -475,6 +475,10 @@
    - wind_speed
    - pressure
    - wind_bearing
+   - precip_type
+   - nearest_storm_distance
+   - cloud_cover
+   - visibility
    
  - platform: zestimate
    api_key: !secret zillow_api
@@ -575,14 +579,14 @@
    name: Artichoke Next Water
    value_template: '{{ value_json.last_measurements[0]["predicted_water_needed"] | timestamp_local }}'
 
- - platform: geo_rss_events
-   name: USGS All Earthquakes
-   url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.atom
-   categories:
-     - 'Past Hour'
-     - 'Past Day'
+ # - platform: geo_rss_events
+   # name: USGS All Earthquakes
+   # url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.atom
+   # categories:
+     # - 'Past Hour'
+     # - 'Past Day'
 
- - platform: geo_rss_events
-   name: NSW Fire Service
-   url: http://www.fire.ca.gov/rss/rss.xml
-   unit_of_measurement: 'Incidents'
+ # - platform: geo_rss_events
+   # name: NSW Fire Service
+   # url: http://www.fire.ca.gov/rss/rss.xml
+   # unit_of_measurement: 'Incidents'

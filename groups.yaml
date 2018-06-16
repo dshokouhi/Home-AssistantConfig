@@ -235,7 +235,7 @@ default_view:
   - group.den
   - group.kitchen
   - group.living_room
-  #- group.neato
+  - group.neato
   - alarm_control_panel.home
   - sun.sun
   - sensor.yr_symbol
@@ -331,7 +331,7 @@ services:
    - group.speedtest
    - group.zoneminder
    - group.artichoke
-   - group.disaster
+   #- group.disaster
 
 zoneminder:
   name: ZoneMinder
@@ -435,13 +435,13 @@ colorful:
   - light.spot
   - light.bathroom_night_light
 
-# neato:
-  # name: 'Mr. Neato'
-  # control: hidden
-  # entities:
-  # - camera.mr_neato_cleaning_map
-  # - switch.mr_neato_schedule
-  # - vacuum.mr_neato
+neato:
+  name: 'Mr. Neato'
+  control: hidden
+  entities:
+  - camera.mr_neato_cleaning_map
+  - switch.mr_neato_schedule
+  - vacuum.mr_neato
 
 epson_printer:
   name: Epson Printer Info
@@ -472,9 +472,9 @@ bbq:
   - sensor.bbq1temperature
   - binary_sensor.bbq1
   
-disaster:
-  name: Earthquakes and Fires
-  entities:
-  - sensor.usgs_all_earthquakes_past_hour
-  - sensor.usgs_all_earthquakes_past_day
-  - sensor.nsw_fire_service_any
+# disaster:
+  # name: Earthquakes and Fires
+  # entities:
+  # - sensor.usgs_all_earthquakes_past_hour
+  # - sensor.usgs_all_earthquakes_past_day
+  # - sensor.nsw_fire_service_any
