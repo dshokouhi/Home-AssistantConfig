@@ -274,6 +274,8 @@ cameras:
   - camera.outdoor_camera
   - camera.front_door
   - camera.side_gate
+  - camera.mr_neato_cleaning_map
+  - camera.mrs_neato_cleaning_map
   #- camera.usps_mail
 
 tracked_users:
@@ -436,12 +438,13 @@ colorful:
   - light.bathroom_night_light
 
 neato:
-  name: 'Mr. Neato'
+  name: 'Vacuums'
   control: hidden
   entities:
-  - camera.mr_neato_cleaning_map
   - switch.mr_neato_schedule
   - vacuum.mr_neato
+  - switch.mrs_neato_schedule
+  - vacuum.mrs_neato
 
 epson_printer:
   name: Epson Printer Info
