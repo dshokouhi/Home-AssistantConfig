@@ -919,7 +919,7 @@
   action:
   - service: notify.chrome
     data:
-      message: "The following window(s) is/are open but the alarm is turned on {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      message: "The following window(s) is/are open but the alarm is turned on{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
       
@@ -946,7 +946,7 @@
   - service: notify.chrome
     data:
       image: !secret living_room_camera_snapshot
-      message: "The alarm has been triggered since it was not disarmed for 60 seconds, check Slack for snapshots!! Following windows/doors triggered the alarm {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      message: "The alarm has been triggered since it was not disarmed for 60 seconds, check Slack for snapshots!! Following windows/doors triggered the alarm{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - service: switch.turn_on
@@ -1038,13 +1038,13 @@
   action:
   - service: notify.chrome
     data:
-      message: "Alarm is in armed night and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      message: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - service: tts.google_say
     entity_id: media_player.bedroom_speaker
     data_template:
-      message: "Alarm is in armed night and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
+      message: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
 
 - alias: Windows open while going to bed
   trigger:
@@ -1087,7 +1087,7 @@
   action:
   - service: notify.chrome
     data_template:
-      message: "The alarm is arming in night mode and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
+      message: "The alarm is arming in night mode and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - condition: state
@@ -1097,7 +1097,7 @@
     #entity_id: media_player.home_notification
     entity_id: media_player.bedroom_speaker
     data_template:
-      message: "The alarm is arming in night mode and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
+      message: "The alarm is arming in night mode and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
 
 - alias: Set alarm status drop down
   trigger:
@@ -1419,7 +1419,7 @@
   - service: climate.set_operation_mode
     data:
       entity_id: climate.thermostat_heating_1
-      operation_mode: 'Heat'
+      operation_mode: 'heat'
 
 - alias: Den lights on between 4 and 8am
   trigger:
@@ -1772,7 +1772,7 @@
   action:
   - service: notify.chrome
     data_template:
-      message: "It's raining and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
+      message: "It's raining and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
       target: danny_pixel
       title: Shokabow Zoo
   - condition: state
@@ -1817,7 +1817,7 @@
     entity_id: binary_sensor.bathroom_window
     to: 'on'
   - platform: template
-    value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode != 'Off' }}"
+    value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode != 'off' }}"
   condition:
     condition: and
     conditions:
@@ -1825,7 +1825,7 @@
       entity_id: binary_sensor.windows
       state: 'on'
     - condition: template
-      value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode != 'Off' }}"
+      value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode != 'off' }}"
     - condition: state
       entity_id: input_boolean.night_mode
       state: 'off'
@@ -1835,7 +1835,7 @@
   action:
   - service: notify.chrome
     data_template:
-      message: "The thermostat is on and {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %}"
+      message: "The thermostat is on and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
       target: danny_pixel
       title: Shokabow Zoo
   - condition: state
@@ -1914,7 +1914,7 @@
     to: 'on'
   - platform: state
     entity_id: climate.thermostat_cooling_1
-    to: 'Cool'
+    to: 'cool'
   condition:
     condition: and
     conditions:
@@ -1923,14 +1923,14 @@
       state: 'on'
     - condition: state
       entity_id: climate.thermostat_cooling_1
-      state: 'Cool'
+      state: 'cool'
   action:
   - delay: "00:01:00"
   - wait_template: "{{ states.climate.thermostat_cooling_1.attributes.current_temperature == states.climate.thermostat_cooling_1.attributes.temperature }}"
   - service: climate.set_operation_mode
     data:
       entity_id: climate.thermostat_cooling_1
-      operation_mode: 'Off'
+      operation_mode: 'off'
     
 ##################################################
 #
@@ -2306,7 +2306,7 @@
   - service: climate.set_operation_mode
     data:
       entity_id: climate.thermostat_cooling_1
-      operation_mode: 'Cool'
+      operation_mode: 'cool'
 
 - alias: Set thermostat cooling if on and house is armed
   trigger:
@@ -2317,7 +2317,7 @@
     condition: and
     conditions:
     - condition: template
-      value_template: "{{ states.climate.thermostat_cooling_1.attributes.operation_mode == 'Cool' }}"
+      value_template: "{{ states.climate.thermostat_cooling_1.attributes.operation_mode == 'cool' }}"
     - condition: template
       value_template: "{{ states.climate.thermostat_cooling_1.attributes.temperature < 78 }}"
   action:
@@ -2335,7 +2335,7 @@
     condition: and
     conditions:
     - condition: template
-      value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode == 'Heat' }}"
+      value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode == 'heat' }}"
     - condition: template
       value_template: "{{ states.climate.thermostat_heating_1.attributes.temperature > 70 }}"
   action:
@@ -3332,3 +3332,31 @@
     state: 'armed_away'
   - service: light.turn_off
     entity_id: light.bedroom_lights_level
+    
+################################################
+#
+#      Fan Automations
+#
+################################################
+
+- alias: Turn on den fan when its too hot
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.den_air_purifier_temp
+    above: 75
+  condition:
+    condition: state
+    entity_id: switch.den_fan
+    state: 'off'
+  action:
+    service: switch.turn_on
+    entity_id: switch.den_fan
+ 
+- alias: Turn on living room fan when its too hot
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.living_room_air_purifier_temp
+    above: 75
+  action:
+    service: switch.turn_on
+    entity_id: switch.living_room_fan

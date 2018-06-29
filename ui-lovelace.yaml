@@ -1,0 +1,350 @@
+name: Home
+views:
+- tab_icon: mdi:home
+  cards:
+  - type: entities
+    title: Den
+    entities:
+    - switch.den_fan
+    - light.den_lights_level
+    - switch.fireplace
+    - light.tv_lights
+    - binary_sensor.den_window
+    - sensor.den_air_purifier_temp
+  # - type: picture-glance
+    # title: Den Sensors
+    # image: /local/den_camera.jpg
+    # entities:
+    # - binary_sensor.den_sliding_door
+    # - binary_sensor.den_window
+    # - sensor.den_air_purifier_aqi
+    # - sensor.den_air_purifier_humidity
+    # - sensor.den_air_purifier_temp
+    # - sensor.den_sliding_door
+    # - sensor.den_smoke_status
+    # - sensor.den_window
+  - type: entities
+    title: Kitchen
+    entities:
+    - switch.island_lights_switch
+    - light.kitchen_lights_level
+    - switch.kitchen_tv
+    - sensor.dishwasher
+    - binary_sensor.kitchen_window
+    - sensor.kitchen_window
+  # - type: picture-glance
+    # image: /local/kitchen_camera.jpg
+    # title: Kitchen Sensors
+    # entities:
+    # - binary_sensor.bar_sink_leak_sensor
+    # - binary_sensor.kitchen_sink_leak_sensor
+    # - binary_sensor.kitchen_window
+    # - sensor.dishwasher
+    # - sensor.kitchen_window
+  - type: entities
+    title: Living Room
+    entities:
+    - lock.front_door_lock_locked
+    - switch.living_room_fan
+    - light.living_room_lights_level
+    - binary_sensor.living_room_left_bay_window
+    - binary_sensor.living_room_right_bay_window
+    - binary_sensor.living_room_side_window
+    - sensor.living_room_air_purifier_temp
+  # - type: picture-glance
+    # image: /local/living_room_camera.jpg
+    # title: Living Room Sensor
+    # entities:
+    # - binary_sensor.front_door
+    # - binary_sensor.living_room_left_bay_window
+    # - binary_sensor.living_room_right_bay_window
+    # - binary_sensor.living_room_side_window
+    # - binary_sensor.mailbox
+    # - sensor.front_door_lock_battery
+    # - sensor.front_door
+    # - sensor.living_room_air_purifier_aqi
+    # - sensor.living_room_air_purifier_humidity
+    # - sensor.living_room_air_purifier_temp
+    # - sensor.living_room_left_bay_window
+    # - sensor.living_room_right_bay_window
+    # - sensor.living_room_side_window
+  - type: entities
+    title: Vacuums
+    entities:
+    - switch.mr_neato_schedule
+    - vacuum.mr_neato
+    - switch.mrs_neato_schedule
+    - vacuum.mrs_neato
+  - type: entities
+    title: BBQ
+    entities:
+    - input_select.bbq_probe1
+    - input_number.bbq1_override
+    - sensor.bbq1temperature
+    - binary_sensor.bbq1
+  - type: entities
+    title: Thermostat
+    entities:
+    - climate.thermostat_cooling_1
+    - climate.thermostat_heating_1
+- name: Room
+  tab_icon: mdi:home-modern
+  cards:
+  - type: entities
+    title: Bedroom
+    entities:
+    - switch.bedroom_fan
+    - light.bedroom_lights_level
+    - light.biased_lights
+    - light.dannys
+    - light.toshs
+    - binary_sensor.bedroom_door
+    - binary_sensor.bedroom_window
+    - sensor.bedroom_air_purifier_temp
+  # - type: glance
+    # title: Bedroom Sensors
+    # entities:
+    # - binary_sensor.bedroom_closet_door
+    # - binary_sensor.bedroom_door
+    # - binary_sensor.bedroom_motion_sensor
+    # - binary_sensor.bedroom_window
+    # - sensor.bedroom_air_purifier_aqi
+    # - sensor.bedroom_air_purifier_humidity
+    # - sensor.bedroom_air_purifier_temp
+    # - sensor.bedroom_closet_door
+    # - sensor.bedroom_illumination_sensor
+    # - sensor.bedroom_smoke_status
+    # - sensor.bedroom_window
+  - type: entities
+    title: Bathroom, Hallway & Office
+    entities:
+    - light.bathroom_night_light
+    - light.hallway_light
+    - light.office_lights
+    - binary_sensor.bathroom_door
+    - binary_sensor.bathroom_window
+    - binary_sensor.office_window
+    - sensor.office_air_purifier_temp
+  # - type: glance
+    # title: Hallway Sensors
+    # entities:
+    # - binary_sensor.bathroom_door
+    # - binary_sensor.bathroom_sink_leak_sensor
+    # - binary_sensor.bathroom_window
+    # - binary_sensor.office_closet_door
+    # - binary_sensor.office_motion_sensor
+    # - binary_sensor.office_window
+    # - sensor.bathroom_humidity
+    # - sensor.illumination_34ce0091f546
+    # - sensor.bathroom_pressure
+    # - sensor.bathroom_temperature
+    # - sensor.bathroom_window
+    # - sensor.office_air_purifier_aqi
+    # - sensor.office_air_purifier_humidity
+    # - sensor.office_air_purifier_temp
+    # - sensor.office_closet_door
+    # - sensor.office_motion_sensor
+    # - sensor.office_smoke_status
+    # - sensor.office_window
+  - type: entities
+    title: Backyard & Garage
+    entities:
+    - switch.backyard_lights_switch
+    - switch.garage_lights_switch
+    - light.patio
+    - binary_sensor.garage_backyard_door
+    - binary_sensor.garage_frontyard
+    - sensor.dryer_power_2
+    - sensor.pool_pump_power
+    - sensor.washer_power_2
+  # - type: glance
+    # title: Outside Sensors
+    # entities:
+    # - binary_sensor.garage_backyard_door
+    # - binary_sensor.garage_frontyard
+    # - binary_sensor.water_leak_sensor_158d0001bc24f5
+    # - sensor.dryer_power_2
+    # - sensor.pool_pump_power
+    # - sensor.washer_power_2
+  - type: entities
+    title: House Settings
+    entities:
+    - alarm_control_panel.home
+    - input_boolean.guest_mode
+    - input_boolean.movie_mode
+    - input_boolean.night_mode
+    - input_boolean.shower_mode
+    - input_boolean.vacation_mode
+- name: Cameras
+  tab_icon: mdi:camera
+  cards:
+  - type: camera-preview
+    entity: camera.den_camera
+  - type: camera-preview
+    entity: camera.living_room_camera
+  - type: camera-preview
+    entity: camera.kitchen_camera
+  - type: camera-preview
+    entity: camera.office_camera
+  - type: camera-preview
+    entity: camera.shokabow_weather
+  - type: camera-preview
+    entity: camera.outdoor_camera
+  - type: camera-preview
+    entity: camera.front_door
+  - type: camera-preview
+    entity: camera.side_gate
+  - type: camera-preview
+    entity: camera.mr_neato_cleaning_map
+  - type: camera-preview
+    entity: camera.mrs_neato_cleaning_map
+- name: Automations
+  tab_icon: mdi:home-automation
+  cards:
+  - type: entity-filter
+    card_config:
+      title: All Automations
+    filter:
+    - domain: automation
+  - type: entity-filter
+    card_config:
+      title: All Scripts
+    filter:
+    - domain: script
+- name: Services
+  tab_icon: mdi:home-circle
+  cards:
+  - type: glance
+    title: Pi-Hole
+    entities:
+    - sensor.pihole_ads_blocked_today
+    - sensor.pihole_dns_queries_today
+    - sensor.pihole_ads_percentage_blocked_today
+    - sensor.pihole_domains_blocked
+  - type: glance
+    title: SABnzbd
+    entities:
+    - sensor.sabnzbd_disk
+    - sensor.sabnzbd_disk_free
+    - sensor.sabnzbd_left
+    - sensor.sabnzbd_queue
+    - sensor.sabnzbd_speed
+    - sensor.sabnzbd_status
+  - type: glance
+    title: Ring
+    entities:
+    - binary_sensor.ring_front_door_ding
+    - binary_sensor.ring_front_door_motion
+    - binary_sensor.ring_side_gate_motion
+    - sensor.ring_front_door_battery
+  - type: glance
+    title: Weather Station
+    entities:
+    - binary_sensor.shokabow_weather_night
+    - binary_sensor.shokabow_weather_rain
+    - sensor.shokabow_weather_humidity
+    - sensor.shokabow_weather_luminance
+    - sensor.shokabow_weather_pressure
+    - sensor.shokabow_weather_temperature
+    - sensor.shokabow_weather_uvindex
+    - sensor.shokabow_weather_voltage
+  - type: entities
+    title: Forecast
+    entities:
+    - sensor.pws_weather
+    - sensor.pws_alerts
+    - sensor.pws_feelslike_f
+    - sensor.pws_weather_1d
+    - sensor.pws_weather_1n
+    - sensor.pws_weather_2d
+    - sensor.pws_weather_2n
+    - sensor.pws_weather_3d
+    - sensor.pws_weather_3n
+  - type: entities
+    title: Epson Printer Info
+    entities:
+    - sensor.epson_ink_level_black
+    - sensor.epson_ink_level_cyan
+    - sensor.epson_ink_level_magenta
+    - sensor.epson_ink_level_yellow
+    - sensor.epson_ink_level_photo_black
+  - type: entities
+    title: Speed Test
+    entities:
+    - sensor.speedtest_ping
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+  - type: entities
+    title: ZoneMinder
+    entities:
+    - switch.den_state
+    - switch.garage_state
+    - switch.kitchen_state
+    - switch.living_room_state
+  - type: entities
+    title: PlantLink Artichoke
+    entities:
+    - sensor.artichoke_status
+    - sensor.artichoke_last_updated
+    - sensor.artichoke_next_water
+    - sensor.artichoke_fuel
+    - sensor.artichoke_moisture
+    - sensor.artichoke_signal
+    - sensor.artichoke_battery
+- name: Media Players
+  tab_icon: mdi:cast
+  cards:
+  - type: media-control
+    entity: media_player.bedroom_speaker
+  - type: media-control
+    entity: media_player.bathroom_speaker
+  - type: media-control
+    entity: media_player.den_home
+  - type: media-control
+    entity: media_player.den_tv
+  - type: media-control
+    entity: media_player.home_notification
+  - type: media-control
+    entity: media_player.house
+  - type: media-control
+    entity: media_player.kitchen_home
+  - type: media-control
+    entity: media_player.kodi_bedroom
+  - type: media-control
+    entity: media_player.kodi_den
+  - type: media-control
+    entity: media_player.kodi_kitchen
+  - type: media-control
+    entity: media_player.kodi_outdoor
+  - type: media-control
+    entity: media_player.living_room_home
+  - type: media-control
+    entity: media_player.office_speaker
+  - type: media-control
+    entity: media_player.onkyo_den
+  - type: media-control
+    entity: media_player.outdoor_speakers
+  - type: media-control
+    entity: media_player.sony_bravia_tv
+  - type: media-control
+    entity: media_player.stream_unlimited9639
+- name: Calendar
+  tab_icon: mdi:calendar
+  cards:
+  - type: entities
+    title: Calendar Sensors
+    entities:
+    - sensor.danny_next_event
+    - sensor.tosh_next_event
+    - sensor.danny_next_meeting
+    - sensor.next_us_holiday
+    - sensor.next_jewish_holiday
+- cards:
+  - card_config:
+      title: All Entities
+    filter:
+    - {}
+    type: entity-filter
+  name: All Entities
+  tab_icon: mdi:settings
+

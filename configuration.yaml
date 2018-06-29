@@ -140,7 +140,7 @@ logbook:
 
 logger:
   default: warn
-
+  
 recorder:
   purge_interval: 1
   purge_keep_days: 5
@@ -247,9 +247,9 @@ media_player 5:
    password: !secret kodi
    name: "Kodi Kitchen"
 
-media_player 6:
- - platform: cast
-   scan_interval: 1234567890
+# media_player 6:
+ # - platform: cast
+   # scan_interval: 1234567890
 
 media_player 7:
  - platform: onkyo
@@ -469,6 +469,8 @@ google_assistant:
     switch.washer_switch:
       expose: false
     switch.mr_neato_schedule:
+      expose: false
+    switch.mrs_neato_schedule:
       expose: false
     light.patio_bbq:
       expose: false      
@@ -735,8 +737,8 @@ shell_command:
   dishes_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+dishes+are+done&user=hass-broadcast
   front_door_jammed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+front+door+lock+is+jammed&user=hass-broadcast
   mail: curl -X POST http://192.168.1.47:3000/customBroadcast?text=you+got+mail&user=hass-broadcast
-  rain_window: curl -X POST http://192.168.1.47:3000/customBroadcast?text=its+raining+and{% if is_state('binary_sensor.den_window', 'on') %}+den+window+open{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window+open{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window+open{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window+open{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window+open{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window+open{% endif %}{% if is_state('binary_sensor.office_window', 'on') %}+office+window+open{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window+open{% endif %}&user=hass-broadcast
-  thermostat_window: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+thermostat+is+on+and{% if is_state('binary_sensor.den_window', 'on') %}+den+window+open{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window+open{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window+open{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window+open{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window+open{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window+open{% endif %}{% if is_state('binary_sensor.office_window', 'on') %}+office+window+open{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window+open{% endif %}&user=hass-broadcast
+  rain_window: curl -X POST http://192.168.1.47:3000/customBroadcast?text=its+raining+and+the+following+windows+are+open{% if is_state('binary_sensor.den_window', 'on') %}+den+window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %}+office+window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window{% endif %}&user=hass-broadcast
+  thermostat_window: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+thermostat+is+on+and+the+following+windows+are+open{% if is_state('binary_sensor.den_window', 'on') %}+den+window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %}+office+window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window{% endif %}&user=hass-broadcast
   boogie_help: curl -X POST http://192.168.1.47:3000/customBroadcast?text=boogie+i+need+help+outside&user=hass-broadcast
   water_heater_leak: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+water+heater+is+leaking&user=hass-broadcast
   rain_water_heater: curl -X POST http://192.168.1.47:3000/customBroadcast?text=there+is+rain+getting+into+the+water+heater&user=hass-broadcast
