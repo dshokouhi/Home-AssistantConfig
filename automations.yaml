@@ -880,6 +880,10 @@
   - platform: state
     entity_id: sensor.front_door_code
     to: 'Dad'
+  - platform: state
+    entity_id: sensor.front_door_code
+    to: 'Dad'
+    from: 'Dad'
   action:
   - service: light.turn_on
     entity_id: light.office_lights
@@ -893,17 +897,21 @@
     data:
       message: 'Hello just a friendly reminder to make sure the water bowls in the den, living room and also the ferret cage are refilled.  Dont forget to feed the ferrets and cats.  Please clean up the ferrets and cat litter. Thank you so much have a great day.'
 
-- alias: Zookeeper Unlock
+- alias: Zoo keeper Unlock
   trigger:
   - platform: state
     entity_id: sensor.front_door_code
     to: 'Zoo Keeper'
+  - platform: state
+    entity_id: sensor.front_door_code
+    to: 'Zoo Keeper'
+    from: 'Zoo Keeper'
   action:
   - service: light.turn_on
     entity_id: light.office_lights
   - service: notify.chrome
     data:
-      message: "The alarm has been deactivated by zookeper"
+      message: "The alarm has been deactivated by zoo keeper"
       target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
 

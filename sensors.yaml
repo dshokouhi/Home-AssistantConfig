@@ -14,10 +14,10 @@
    username: !secret fedexuser
    password: !secret fedexpass
 
- - platform: fitbit
-   clock_format: 12H
-   monitored_resources:
-    - "sleep/startTime"
+ # - platform: fitbit
+   # clock_format: 12H
+   # monitored_resources:
+    # - "sleep/startTime"
 
  - platform: moon
 
@@ -60,6 +60,11 @@
 
  - platform: pi_hole
    host: 192.168.1.47
+   monitored_conditions:
+   - ads_blocked_today
+   - dns_queries_today
+   - ads_percentage_today
+   - domains_being_blocked
 
  - platform: radarr
    api_key: !secret radarr
@@ -243,6 +248,7 @@
        value_template: "{{ ((states.fan.den_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
        friendly_name: Den Air Purifier Temperature
        unit_of_measurement: "F"
+       device_class: temperature
        
  - platform: template
    sensors:
@@ -250,6 +256,7 @@
        value_template: "{{ states.fan.den_air_purifier.attributes.humidity }}"
        friendly_name: Den Air Purifier Humidity
        unit_of_measurement: "%"
+       device_class: humidity
        
  - platform: template
    sensors:
@@ -264,6 +271,7 @@
        value_template: "{{ ((states.fan.bedroom_air_purifier.attributes.temperature * 9)/5 + 32)|round}}"
        friendly_name: Bedroom Air Purifier Temperature
        unit_of_measurement: "F"
+       device_class: temperature
        
  - platform: template
    sensors:
@@ -271,6 +279,7 @@
        value_template: "{{ states.fan.bedroom_air_purifier.attributes.humidity }}"
        friendly_name: Bedroom Air Purifier Humidity
        unit_of_measurement: "%"
+       device_class: humidity
        
  - platform: template
    sensors:
@@ -285,6 +294,7 @@
        value_template: "{{ ((states.fan.living_room_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
        friendly_name: Living Room Air Purifier Temperature
        unit_of_measurement: "F"
+       device_class: temperature
        
  - platform: template
    sensors:
@@ -292,6 +302,7 @@
        value_template: "{{ states.fan.living_room_air_purifier.attributes.humidity }}"
        friendly_name: Living Room Air Purifier Humidity
        unit_of_measurement: "%"
+       device_class: humidity
        
  - platform: template
    sensors:
@@ -306,6 +317,7 @@
        value_template: "{{ ((states.fan.office_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
        friendly_name: Office Air Purifier Temperature
        unit_of_measurement: "F"
+       device_class: temperature
        
  - platform: template
    sensors:
@@ -313,6 +325,7 @@
        value_template: "{{ states.fan.office_air_purifier.attributes.humidity }}"
        friendly_name: Office Air Purifier Humidity
        unit_of_measurement: "%"
+       device_class: humidity
        
  - platform: template
    sensors:

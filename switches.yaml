@@ -1,5 +1,4 @@
- # - platform: rachio
-   # access_token: !secret rachiokey
+ - platform: rachio
 
  - platform: template
    switches:

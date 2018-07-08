@@ -732,7 +732,7 @@ panel_iframe:
     url: !secret hass_config_url
     
 shell_command:
-  washer_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+washer+is+done{% if is_state('input_boolean.washer_status', 'on') %}+however+the+dryer+is+still+running{% else %}+time+to+switch+laundry{% endif %}&user=hass-broadcast
+  washer_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+washer+is+done{% if is_state('input_boolean.dryer_status', 'on') %}+however+the+dryer+is+still+running{% else %}+time+to+switch+laundry{% endif %}&user=hass-broadcast
   dryer_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+dryer+is+done{% if is_state('input_boolean.washer_status', 'on') %}+however+the+washer+is+still+running{% else %}+time+to+get+your+clothes{% endif %}&user=hass-broadcast
   dishes_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+dishes+are+done&user=hass-broadcast
   front_door_jammed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+front+door+lock+is+jammed&user=hass-broadcast
@@ -744,3 +744,6 @@ shell_command:
   rain_water_heater: curl -X POST http://192.168.1.47:3000/customBroadcast?text=there+is+rain+getting+into+the+water+heater&user=hass-broadcast
   bbq_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+done{%- else -%}{%- endif %}&user=hass-broadcast
   bbq_almost: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+almost+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+almost+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+almost+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+almost+done{%- else -%}{%- endif %}&user=hass-broadcast
+  
+rachio:
+  api_key: !secret rachiokey
