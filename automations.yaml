@@ -1766,7 +1766,7 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: input_boolean.rachio
+      entity_id: group.sprinklers
       state: 'off'
     - condition: state
       entity_id: binary_sensor.windows

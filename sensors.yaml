@@ -51,12 +51,14 @@
      front_door_lock_battery:
        value_template: "{{ state_attr('zwave.front_door_lock', 'battery_level') }}"
        unit_of_measurement: '%'
+       device_class: battery
 
  - platform: template
    sensors:
      den_smoke_battery:
        value_template: "{{ state_attr('zwave.den_smoke', 'battery_level') }}"
        unit_of_measurement: '%'
+       device_class: battery
 
  - platform: pi_hole
    host: 192.168.1.47

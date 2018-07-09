@@ -430,20 +430,20 @@ google_assistant:
       expose: false
     light.living_room:
       expose: false
-    # switch.zone_1_patio:
-      # expose: false
-    # switch.zone_2_pool:
-      # expose: false
-    # switch.zone_3_garage:
-      # expose: false
-    # switch.zone_4_firepit:
-      # expose: false
-    # switch.zone_5_front_lawn_boogie_car:
-      # expose: false
-    # switch.zone_6_front_lawn_walkway:
-      # expose: false
-    # switch.zone_7_front_lawn_street:
-      # expose: false
+    switch.zone_1_patio:
+      expose: false
+    switch.zone_2_pool:
+      expose: false
+    switch.zone_3_garage:
+      expose: false
+    switch.zone_4_firepit:
+      expose: false
+    switch.zone_5_front_lawn_boogie_car:
+      expose: false
+    switch.zone_6_front_lawn_walkway:
+      expose: false
+    switch.zone_7_front_lawn_street:
+      expose: false
     light.o1:
       expose: false
     light.o2:
@@ -747,3 +747,8 @@ shell_command:
   
 rachio:
   api_key: !secret rachiokey
+  
+weather:
+  - platform: yweather
+    euid: !secret yahoo
+    name: Home

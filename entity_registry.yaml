@@ -34,34 +34,6 @@ light.patio_table_right:
   name:
   platform: hue
   unique_id: 7c:e5:24:00:00:0c:34:80-01
-switch.zone_5_front_lawn_boogie_car:
-  name:
-  platform: rachio
-  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-f6faaddf-1a49-4577-8cd3-5922cbb7a211
-switch.zone_1_patio:
-  name:
-  platform: rachio
-  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-39c978b9-4d94-4a33-b1c5-872956d8aa35
-switch.zone_2_pool:
-  name:
-  platform: rachio
-  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-9dde28a2-511e-439a-987a-ca4fa38a08f2
-switch.zone_6_front_lawn_walkway:
-  name:
-  platform: rachio
-  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-70bb5773-c58f-44df-8683-3f5db00370bf
-switch.zone_7_front_lawn_street:
-  name:
-  platform: rachio
-  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-8aba3ca5-5111-4a04-84b9-d5d3b339478b
-switch.zone_3_garage:
-  name:
-  platform: rachio
-  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-5d3fbccd-9618-43d6-88be-3b4f36fd6a23
-switch.zone_4_firepit:
-  name:
-  platform: rachio
-  unique_id: 025317e2-198b-41ff-b647-7731d595dba6-6c8cba8b-34a0-4f31-93d0-33b7583114f7
 light.bedroom_lights_level:
   name:
   platform: zwave
