@@ -443,9 +443,7 @@ neato:
   name: 'Vacuums'
   control: hidden
   entities:
-  - switch.mr_neato_schedule
   - vacuum.mr_neato
-  - switch.mrs_neato_schedule
   - vacuum.mrs_neato
 
 epson_printer:

@@ -137,8 +137,8 @@ class RelativeHumiditySensor(Sensor):
     @property
     def state(self):
         """Return the state of the entity."""
-        if self._state == 'unknown':
-            return 'unknown'
+        if self._state is None:
+            return None
 
         return round(float(self._state) / 100, 1)
 
@@ -237,6 +237,10 @@ class CentraliteBatterySensor(GenericBatterySensor):
 
         return self.values.get(self._state, 'unknown')
 
+    @property
+    def icon(self):
+        """Return battery icon."""
+        return 'mdi:battery'
 
 class MeteringSensor(Sensor):
     """ZHA Metering sensor."""

@@ -57,7 +57,7 @@
  - platform: template
    sensors:
      den_smoke_battery:
-     friendly_name: "Den Smoke Sensor"
+       friendly_name: "Den Smoke Sensor"
        value_template: "{{ state_attr('zwave.den_smoke', 'battery_level') }}"
        unit_of_measurement: '%'
        device_class: battery

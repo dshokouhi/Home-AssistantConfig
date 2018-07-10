@@ -34,11 +34,11 @@ sensor.fedex:
 sensor.ups:
   friendly_name: UPS
 
-sensor.usps_mail:
-  friendly_name: USPS Daily Mail Count
+# sensor.usps_mail:
+  # friendly_name: USPS Daily Mail Count
   
-sensor.usps_packages:
-  friendly_name: USPS Packages
+# sensor.usps_packages:
+  # friendly_name: USPS Packages
   
 sensor.yr_symbol:
   friendly_name: Weather
@@ -173,6 +173,9 @@ switch.zone_6_front_lawn_walkway:
 switch.zone_7_front_lawn_street:
   emulated_hue_hidden: true
 
+switch.sprinklers_in_standby_mode:
+  emulated_hue_hidden: true
+  
 light.corner_lamp:
   friendly_name: Corner Lamp
   icon: mdi:lamp
@@ -185,6 +188,7 @@ light.firepit_lights:
 
 light.fig_tree_lights:
   friendly_name: Fig Tree Lights
+  icon: mdi:pine-tree
 
 light.hallway_light:
   friendly_name: Hallway Light
@@ -452,3 +456,84 @@ sensor.bbq1temperature:
   
 binary_sensor.bbq1:
   friendly_name: BBQ Probe 1 Status
+  
+sensor.dishwasher_running:
+  icon: mdi:gauge
+  
+sensor.washer_running:
+  icon: mdi:gauge
+  
+sensor.dryer_running:
+  icon: mdi:gauge
+  
+light.spot:
+  icon: mdi:spotlight
+  
+sensor.shokabow_weather_humidity:
+  device_class: humidity
+  
+sensor.shokabow_weather_luminance:
+  device_class: illuminance
+  
+sensor.shokabow_weather_pressure:
+  icon: mdi:gauge
+  
+sensor.shokabow_weather_uvindex:
+  icon: mdi:white-balance-sunny
+
+sensor.shokabow_weather_voltage:
+  icon: mdi:power-plug
+  
+sensor.artichoke_status:
+  icon: mdi:tree
+  
+sensor.artichoke_last_updated:
+  icon: mdi:calendar-clock
+  
+sensor.artichoke_moisture:
+  device_class: humidity
+  
+sensor.artichoke_next_water:
+  icon: mdi:cup-water
+  
+sensor.artichoke_battery:
+  device_class: battery
+  
+sensor.artichoke_signal:
+  icon: mdi:signal-variant
+  
+sensor.artichoke_fuel:
+  icon: mdi:fuel
+  
+sensor.sabnzbd_disk:
+  icon: mdi:download
+
+sensor.sabnzbd_disk_free:
+  icon: mdi:download
+
+sensor.sabnzbd_left:
+  icon: mdi:download
+
+sensor.sabnzbd_queue:
+  icon: mdi:download
+
+sensor.sabnzbd_speed:
+  icon: mdi:download
+  
+sensor.sabnzbd_status:
+  icon: mdi:download
+
+sensor.zestimate:
+  unit_of_measurement: USD
+  
+sensor.bedroom_air_purifier_aqi:
+  icon: mdi:cloud
+  
+sensor.den_air_purifier_aqi:
+  icon: mdi:cloud
+  
+sensor.living_room_air_purifier_aqi:
+  icon: mdi:cloud
+  
+sensor.office_air_purifier_aqi:
+  icon: mdi:cloud

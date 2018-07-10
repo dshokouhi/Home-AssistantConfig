@@ -3,60 +3,6 @@ views:
 - icon: mdi:home
   title: Home
   cards:
-  - type: picture-glance
-    image: /local/den_camera.jpg
-    #camera_image: camera.den_camera
-    title: Den
-    entities:
-    - light.bookshelf_left
-    - light.corner_lamp
-    - switch.den_fan
-    - light.den_lights_level
-    - switch.fireplace
-    - remote.harmony_hub_den
-    - light.tv_lights
-    - sensor.den_air_purifier_temp
-  - type: picture-glance
-    image: /local/kitchen_camera.jpg
-    #camera_image: camera.kitchen_camera
-    title: Kitchen
-    entities:
-    - light.bar_flex
-    - light.cabinet_lights
-    - light.counter_lights
-    - switch.island_lights_switch
-    - light.kitchen_lights_level
-    - switch.kitchen_tv
-    - sensor.kitchen_window
-  - type: picture-glance
-    image: /local/living_room_camera1.jpg
-    #camera_image: camera.living_room_camera
-    title: Living
-    entities:
-    - light.front_door_lamp
-    - lock.front_door_lock_locked
-    - switch.living_room_fan
-    - light.living_room_lights_level
-    - light.nook_lamp
-    - sensor.living_room_air_purifier_temp
-  - type: entities
-    title: Vacuums
-    show_header_toggle: false
-    entities:
-    - vacuum.mr_neato
-    - vacuum.mrs_neato
-  - type: entities
-    title: BBQ
-    entities:
-    - input_select.bbq_probe1
-    - input_number.bbq1_override
-    - sensor.bbq1temperature
-    - binary_sensor.bbq1
-  - type: entities
-    title: Thermostat
-    entities:
-    - climate.thermostat_cooling_1
-    - climate.thermostat_heating_1
   - type: entity-filter
     card:
       title: People Who Are Home
@@ -115,6 +61,75 @@ views:
     state_filter:
     - 'on'
     show_empty: false
+  - type: entity-filter
+    card:
+      title: "Things That Are Running"
+      type: glance
+    entities:
+    - entity: sensor.washer_running
+      name: Washer
+    - entity: sensor.dryer_running
+      name: Dryer
+    - entity: sensor.dishwasher_running
+      name: Dishwasher
+    state_filter:
+    - 'True'
+    show_empty: false
+  - type: picture-glance
+    image: /local/den_camera.jpg
+    #camera_image: camera.den_camera
+    title: Den
+    entities:
+    - light.bookshelf_left
+    - light.corner_lamp
+    - switch.den_fan
+    - light.den_lights_level
+    - switch.fireplace
+    - remote.harmony_hub_den
+    - light.tv_lights
+    - sensor.den_air_purifier_temp
+  - type: picture-glance
+    image: /local/kitchen_camera.jpg
+    #camera_image: camera.kitchen_camera
+    title: Kitchen
+    entities:
+    - light.bar_flex
+    - light.cabinet_lights
+    - light.counter_lights
+    - switch.island_lights_switch
+    - light.kitchen_lights_level
+    - switch.kitchen_tv
+    - light.spot
+    - sensor.kitchen_window
+  - type: picture-glance
+    image: /local/living_room_camera1.jpg
+    #camera_image: camera.living_room_camera
+    title: Living
+    entities:
+    - light.front_door_lamp
+    - lock.front_door_lock_locked
+    - switch.living_room_fan
+    - light.living_room_lights_level
+    - light.nook_lamp
+    - sensor.living_room_air_purifier_temp
+  - type: entities
+    title: Vacuums
+    show_header_toggle: false
+    entities:
+    - vacuum.mr_neato
+    - vacuum.mrs_neato
+  - type: entities
+    title: BBQ
+    entities:
+    - input_select.bbq_probe1
+    - input_number.bbq1_override
+    - sensor.bbq1temperature
+    - binary_sensor.bbq1
+  - type: entities
+    title: Thermostat
+    entities:
+    - climate.thermostat_cooling_1
+    - climate.thermostat_heating_1
 - title: Room
   icon: mdi:home-modern
   cards:
@@ -178,7 +193,6 @@ views:
       max: 1200
   - type: entities
     title: Backyard
-    show_header_toggle: false
     entities:
     - switch.backyard_lights_switch
     - light.fig_tree_lights
@@ -462,6 +476,7 @@ views:
       include:
         - entity_id: "*window"
         - entity_id: "*door"
+        - entity_id: binary_sensor.garage_frontyard
       exclude:
         - domain: automation
         - domain: sensor
@@ -496,7 +511,7 @@ views:
       title: AQI
     filter:
       include:
-      - entity_id: "*aqi"
+      - entity_id: "*aqi*"
   - type: custom:monster-card
     show_header_toggle: false
     card:

@@ -444,6 +444,8 @@ google_assistant:
       expose: false
     switch.zone_7_front_lawn_street:
       expose: false
+    switch.sprinklers_in_standby_mode:
+      expose: false
     light.o1:
       expose: false
     light.o2:
