@@ -216,12 +216,17 @@
 - Notify me if any of the sinks are leaking
 
 ## Screenshots
+![home1](https://user-images.githubusercontent.com/1634145/35309383-102d3826-0061-11e8-9392-eaf853efe7ea.JPG)
 ![home2](https://user-images.githubusercontent.com/1634145/35309377-0f99e134-0061-11e8-8567-35f34da1ace3.JPG)
 ![home3](https://user-images.githubusercontent.com/1634145/35309378-0fb19d60-0061-11e8-9336-efc86757ff46.JPG)
 ![home4](https://user-images.githubusercontent.com/1634145/35309379-0fcf4766-0061-11e8-8d96-d86205e61e24.JPG)
 ![home5](https://user-images.githubusercontent.com/1634145/35309380-0fe4f4e4-0061-11e8-8d8f-8f84e9e2c4a7.JPG)
 ![home6](https://user-images.githubusercontent.com/1634145/35309381-0ffe3e90-0061-11e8-8ee5-f96ba553957c.JPG)
 ![home7](https://user-images.githubusercontent.com/1634145/35309382-101375a8-0061-11e8-9053-14c6605a8edf.JPG)
-![home1](https://user-images.githubusercontent.com/1634145/35309383-102d3826-0061-11e8-9392-eaf853efe7ea.JPG)
+
+## Lovelace Screenshots
+![lovelace1](https://user-images.githubusercontent.com/1634145/42484271-01e7922e-83a7-11e8-95c3-0af19588b5af.png)
+![lovelace2](https://user-images.githubusercontent.com/1634145/42484279-059f240e-83a7-11e8-9549-8987afdac077.png)
+![lovelace3](https://user-images.githubusercontent.com/1634145/42484282-080976b8-83a7-11e8-8583-e2bffc7ddbaf.png)
 
 Special shout out to all of the various GitHub Repo's I had used in here.  Lots of people to list here but many members of the Home Assistant community contributed.
