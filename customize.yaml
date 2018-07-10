@@ -113,7 +113,6 @@ script.fire_tv:
   #google_assistant: false
 
 switch.fire_tv:
-  friendly_name: Fire TV
   emulated_hue_hidden: true
 
 script.roku:
@@ -153,26 +152,26 @@ light.living_room:
   #google_assistant: false
   emulated_hue_hidden: true
 
-# switch.zone_1_patio:
-  # emulated_hue_hidden: true
+switch.zone_1_patio:
+  emulated_hue_hidden: true
 
-# switch.zone_2_pool:
-  # emulated_hue_hidden: true
+switch.zone_2_pool:
+  emulated_hue_hidden: true
 
-# switch.zone_3_garage:
-  # emulated_hue_hidden: true
+switch.zone_3_garage:
+  emulated_hue_hidden: true
 
-# switch.zone_4_firepit:
-  # emulated_hue_hidden: true
+switch.zone_4_firepit:
+  emulated_hue_hidden: true
 
-# switch.zone_5_front_lawn_boogie_car:
-  # emulated_hue_hidden: true
+switch.zone_5_front_lawn_boogie_car:
+  emulated_hue_hidden: true
 
-# switch.zone_6_front_lawn_walkway:
-  # emulated_hue_hidden: true
+switch.zone_6_front_lawn_walkway:
+  emulated_hue_hidden: true
 
-# switch.zone_7_front_lawn_street:
-  # emulated_hue_hidden: true
+switch.zone_7_front_lawn_street:
+  emulated_hue_hidden: true
 
 light.corner_lamp:
   friendly_name: Corner Lamp
@@ -180,13 +179,12 @@ light.corner_lamp:
 
 switch.house_fan:
   icon: mdi:fan
-  friendly_name: House Fan
 
 light.firepit_lights:
   friendly_name: Firepit Lights
 
-# light.fig_tree_lights:
-  # friendly_name: Fig Tree Lights
+light.fig_tree_lights:
+  friendly_name: Fig Tree Lights
 
 light.hallway_light:
   friendly_name: Hallway Light
@@ -351,9 +349,6 @@ light.living_room_lights_level:
 light.bedroom_lights_level:
   friendly_name: Bedroom Lights
 
-sensor.den_motion_battery:
-  friendly_name: Den Motion Sensor Battery
-
 switch.garage_lights_switch:
   friendly_name: Garage Lights
   icon: mdi:lightbulb
@@ -383,12 +378,11 @@ switch.washer_switch:
   #google_assistant: false
   emulated_hue_hidden: true
 
-# switch.mr_neato_schedule:
-  # google_assistant: false
-  # emulated_hue_hidden: true
-
-switch.vacuum:
-  friendly_name: Vacuum
+switch.mr_neato_schedule:
+  emulated_hue_hidden: true
+  
+switch.mrs_neato_schedule:
+  emulated_hue_hidden: true
 
 light.patio_bbq:
   #google_assistant: false
@@ -405,9 +399,6 @@ light.patio_table_right:
 light.patio_pool_light:
   #google_assistant: false
   emulated_hue_hidden: true
-
-light.gateway_light_34ce0091f546:
-  friendly_name: Xiaomi Gateway Light
   
 light.front_door_lamp:
   icon: mdi:lamp

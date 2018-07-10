@@ -1,916 +1,1145 @@
 light.front_door_lamp:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 00:17:88:01:10:57:95:68-0b
 light.office_closet:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 00:17:88:01:02:83:8d:e7-0b
 light.bedroom_closet:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 00:17:88:01:10:57:e3:bc-0b
 light.patio_bbq:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 7c:e5:24:00:00:01:44:24-01
 light.nook_lamp:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 00:17:88:01:02:80:b6:cf-0b
 light.patio_table_left:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 7c:e5:24:00:00:0a:f7:cf-01
 light.bookshelf_left:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 00:17:88:01:10:50:2a:a7-0b
 light.patio_pool_light:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 7c:e5:24:00:00:03:90:ae-01
 light.patio_table_right:
+  config_entry_id:
   name:
   platform: hue
   unique_id: 7c:e5:24:00:00:0c:34:80-01
 light.bedroom_lights_level:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 2-72057594076299265
 light.living_room_lights_level:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 4-72057594109853697
 switch.island_lights_switch:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 5-72057594126614528
 light.kitchen_lights_level:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 6-72057594143408129
 light.den_lights_level:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 7-72057594160185345
 switch.garage_lights_switch:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 9-72057594193723392
 switch.washer_switch:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 10-72057594210500608
 sensor.washer_power:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 10-72057594210697282
 sensor.washer_energy:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 10-72057594210713602
 sensor.washer_previous_reading:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 10-72057594210713618
 sensor.washer_interval:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 10-72057594210713635
 sensor.washer_power_2:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 10-72057594210713730
 sensor.washer_previous_reading_2:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 10-72057594210713746
 sensor.washer_interval_2:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 10-72057594210713763
 sensor.washer_exporting:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 10-72057594210714112
 switch.dryer_switch:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 11-72057594227277824
 sensor.dryer_power:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 11-72057594227474498
 sensor.dryer_energy:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 11-72057594227490818
 sensor.dryer_previous_reading:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 11-72057594227490834
 sensor.dryer_interval:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 11-72057594227490851
 sensor.dryer_power_2:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 11-72057594227490946
 sensor.dryer_previous_reading_2:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 11-72057594227490962
 sensor.dryer_interval_2:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 11-72057594227490979
 sensor.dryer_exporting:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 11-72057594227491328
 switch.backyard_lights_switch:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 12-72057594244055040
 switch.little_christmas_trees_switch:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 13-72057594260832256
 switch.christmas_tree_switch:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 14-72057594277609472
 switch.living_room_camera_plug_switch:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 15-72057594294386688
 switch.siren_switch:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 17-72057594327941120
 sensor.office_smoke_alarm_type:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 18-72057594345963521
 sensor.office_smoke_alarm_level:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 18-72057594345963537
 sensor.bedroom_smoke_alarm_type:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 19-72057594362740737
 sensor.bedroom_smoke_alarm_level:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 19-72057594362740753
 binary_sensor.garage_door_frontyard_sensor:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 21-72057594395230208
 sensor.garage_door_frontyard_alarm_type:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 21-72057594396295169
 sensor.garage_door_frontyard_alarm_level:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 21-72057594396295185
 sensor.garage_door_frontyard_sourcenodeid:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 21-72057594396295201
 sensor.garage_door_frontyard_burglar:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 21-72057594396295329
 binary_sensor.bay_window_shock_sensor:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 22-72057594412007424
 sensor.bay_window_shock_alarm_type:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 22-72057594413072385
 sensor.bay_window_shock_alarm_level:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 22-72057594413072401
 sensor.bay_window_shock_sourcenodeid:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 22-72057594413072417
 sensor.bay_window_shock_burglar:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 22-72057594413072545
 sensor.bay_window_shock_power_management:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 22-72057594413072561
 sensor.bay_window_shock_clock:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 22-72057594413072609
 lock.front_door_lock_locked:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 23-72057594429603840
 sensor.front_door_lock_alarm_type:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 23-72057594429849601
 sensor.front_door_lock_alarm_level:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 23-72057594429849617
 sensor.front_door_lock_sourcenodeid:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 23-72057594429849633
 sensor.front_door_lock_access_control:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 23-72057594429849745
 sensor.front_door_lock_burglar:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 23-72057594429849761
 sensor.front_door_lock_power_management:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 23-72057594429849777
 sensor.front_door_lock_system:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 23-72057594429849793
 media_player.pixel_2_xl:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 95595efb566831cf-com-plexapp-android
 media_player.plex_web_chrome:
+  config_entry_id:
   name:
   platform: plex
   unique_id: ldz381hpo3ir1dmhg6lzif03
 media_player.bravia_4k_2015:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 87004aae453a970d-com-plexapp-android
 media_player.aftt:
+  config_entry_id:
   name:
   platform: plex
   unique_id: ee85b54e3b55368b-com-plexapp-android
 media_player.fire_tv:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 6a89d29643119ce5-com-plexapp-android
 media_player.plex_web_chrome_2:
+  config_entry_id:
   name:
   platform: plex
   unique_id: myitfpxiqx89jyyihk63smp0
 media_player.acerdesktop:
+  config_entry_id:
   name:
   platform: plex
   unique_id: v5u1pq1xwvto8lr2ebwlba9k
 sensor.allergy_index_tomorrow:
+  config_entry_id:
   name:
   platform: pollen
   unique_id: 91335_allergy_index_tomorrow
 sensor.allergy_index_today:
+  config_entry_id:
   name:
   platform: pollen
   unique_id: 91335_allergy_index_today
 sensor.allergy_index_forecasted_average:
+  config_entry_id:
   name:
   platform: pollen
   unique_id: 91335_allergy_index_forecasted_average
 sensor.allergy_index_historical_average:
+  config_entry_id:
   name:
   platform: pollen
   unique_id: 91335_allergy_index_historical_average
 sensor.allergy_index_yesterday:
+  config_entry_id:
   name:
   platform: pollen
   unique_id: 91335_allergy_index_yesterday
 sensor.cold__flu_forecasted_average:
+  config_entry_id:
   name:
   platform: pollen
   unique_id: 91335_cold__flu_forecasted_average
 binary_sensor.water_leak_sensor_158d0001bc24f5:
+  config_entry_id:
   name:
   platform: xiaomi_aqara
   unique_id: status158d0001bc24f5
 media_player.den_home:
+  config_entry_id:
   name:
   platform: cast
   unique_id: 2f574570-6944-ddf8-afbb-9f09d63fa439
 media_player.office_speaker:
+  config_entry_id:
   name:
   platform: cast
   unique_id: bd9c0392-22f7-bd2a-d800-3c5b11296787
 media_player.living_room_home:
+  config_entry_id:
   name:
   platform: cast
   unique_id: 5b30fffc-822c-060d-3643-e32f010332ee
 media_player.den_tv:
+  config_entry_id:
   name:
   platform: cast
   unique_id: a77e8b82-dbfb-1354-a620-0199e0c5f9a7
 media_player.kitchen_home:
+  config_entry_id:
   name:
   platform: cast
   unique_id: c24b6d75-ac65-08aa-8221-d373ed04e8e6
 media_player.home_notification:
+  config_entry_id:
   name:
   platform: cast
   unique_id: ed48b7b4-72b7-4aae-a34b-9321d63c4b91
 media_player.outdoor_speakers:
+  config_entry_id:
   name:
   platform: cast
   unique_id: d21dfa02-e7ac-291b-5617-88b54186a174
 media_player.house:
+  config_entry_id:
   name:
   platform: cast
   unique_id: f6dd91a4-97ea-41af-a716-2bb70272c811
 light.bathroom_night_light:
+  config_entry_id:
   name: Bathroom Night Light
   platform: xiaomi_aqara
   unique_id: rgb34ce0091f546
 media_player.bathroom_speaker:
+  config_entry_id:
   name:
   platform: cast
   unique_id: b915cf0c-6744-ed34-e12f-d620c9d4b7c5
 light.centralite_3210l_0a932dbf_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0a:93:2d:bf-1
 media_player.bedroom_speaker:
+  config_entry_id:
   name:
   platform: cast
   unique_id: 142c8dc2-983c-cc61-cf98-8263c01c4dd2
 light.centralite_3210l_0b2d4417_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:2d:44:17-1
 light.centralite_3210l_0b0383b4_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:03:83:b4-1
 sensor.bedroom_closet_door:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6b:fc-1-1026
 binary_sensor.bedroom_closet_door:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6b:fc-1-1280
 sensor.office_closet_door:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6e:d0-1-1026
 binary_sensor.office_closet_door:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6e:d0-1-1280
 sensor.bathroom_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:b3:31-1-1026
 binary_sensor.bathroom_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:b3:31-1-1280
 sensor.office_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:9e:9b-1-1026
 binary_sensor.office_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:9e:9b-1-1280
 sensor.bedroom_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6d:0d-1-1026
 binary_sensor.bedroom_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6d:0d-1-1280
 sensor.front_door:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:83:3c-1-1026
 binary_sensor.front_door:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:83:3c-1-1280
 sensor.kitchen_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6e:ab-1-1026
 binary_sensor.kitchen_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6e:ab-1-1280
 sensor.living_room_side_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:89:f7-1-1026
 binary_sensor.living_room_side_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:89:f7-1-1280
 sensor.den_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7c:e4:6f-1-1026
 binary_sensor.den_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7c:e4:6f-1-1280
 sensor.den_sliding_door:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:7c:44-1-1026
 binary_sensor.den_sliding_door:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:7c:44-1-1280
 sensor.living_room_right_bay_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:98:96:06-1-1026
 binary_sensor.living_room_right_bay_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:98:96:06-1-1280
 sensor.living_room_left_bay_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:5f:4e-1-1026
 binary_sensor.living_room_left_bay_window:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:5f:4e-1-1280
 sensor.illumination_34ce0091f546:
+  config_entry_id:
   name: Bathroom Illumination
   platform: xiaomi_aqara
   unique_id: illumination34ce0091f546
 light.cree_connected_a19_60w_equivalent_fe010d00_10:
+  config_entry_id:
   name:
   platform: zha
   unique_id: e2:0d:b9:ff:fe:01:0d:00-10
 light.cree_connected_a19_60w_equivalent_fe010d32_10:
+  config_entry_id:
   name:
   platform: zha
   unique_id: e2:0d:b9:ff:fe:01:0d:32-10
 light.cree_connected_a19_60w_equivalent_fe013293_10:
+  config_entry_id:
   name:
   platform: zha
   unique_id: e2:0d:b9:ff:fe:01:32:93-10
 light.sengled_z01cia19nae26_03003148_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: b0:ce:18:14:03:00:31:48-1
 light.osram_lightify_flex_rgbw_00026309_3:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 84:18:26:00:00:02:63:09-3
 media_player.kitchen_tv:
+  config_entry_id:
   name:
   platform: cast
   unique_id: 1ad22278-6a9f-ca82-738e-dd117ba14cee
 media_player.plex_web_chrome_3:
+  config_entry_id:
   name:
   platform: plex
   unique_id: fub5u0n2rcpdvvdoyapapage
 media_player.plex_web_chrome_4:
+  config_entry_id:
   name:
   platform: plex
   unique_id: k7w7q7y18u9tqn61p441d78k
 media_player.bedroom_tv:
+  config_entry_id:
   name:
   platform: cast
   unique_id: 58cccc48-c121-a872-d7ef-aab60e904ff9
 climate.thermostat_heating_1:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 24-72057594445873170
 climate.thermostat_cooling_1:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 24-72057594445873186
 climate.thermostat_furnace:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 24-72057594445873266
 climate.thermostat_dry_air:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 24-72057594445873282
 sensor.thermostat_temperature:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 24-72057594445578258
 media_player.chrome:
+  config_entry_id:
   name:
   platform: plex
   unique_id: s1d3h5vdiwic77q5tsycbqn2
 binary_sensor.garage_backyard_door:
+  config_entry_id:
   name: Garage Door Backyard
   platform: xiaomi_aqara
   unique_id: status158d0001bf876a
 binary_sensor.bedroom_motion_sensor:
+  config_entry_id:
   name: Bedroom Motion Sensor
   platform: xiaomi_aqara
   unique_id: status158d000224f40d
 sensor.bedroom_illumination_sensor:
+  config_entry_id:
   name: Bedroom Illumination Sensor
   platform: xiaomi_aqara
   unique_id: lux158d000224f40d
 sensor.bathroom_temperature:
+  config_entry_id:
   name: Bathroom Temperature
   platform: xiaomi_aqara
   unique_id: temperature158d0001fa8943
 sensor.bathroom_humidity:
+  config_entry_id:
   name: Bathroom Humidity
   platform: xiaomi_aqara
   unique_id: humidity158d0001fa8943
 sensor.bathroom_pressure:
+  config_entry_id:
   name: Bathroom Pressure
   platform: xiaomi_aqara
   unique_id: pressure158d0001fa8943
 binary_sensor.mailbox:
+  config_entry_id:
   name: Mailbox
   platform: xiaomi_aqara
   unique_id: status158d0001c035b8
 sensor.den_smoke_alarm_type:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 27-72057594496958465
 sensor.den_smoke_alarm_level:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 27-72057594496958481
 binary_sensor.kitchen_sink_leak_sensor:
+  config_entry_id:
   name: Kitchen Sink Leak Sensor
   platform: xiaomi_aqara
   unique_id: status158d0001bb91cc
 binary_sensor.bar_sink_leak_sensor:
+  config_entry_id:
   name: Bar Sink Leak Sensor
   platform: xiaomi_aqara
   unique_id: status158d0001bb8cb2
 binary_sensor.bathroom_sink_leak_sensor:
+  config_entry_id:
   name: Bathroom Sink Leak Sensor
   platform: xiaomi_aqara
   unique_id: status158d0001bc1aa1
 binary_sensor.bedroom_door:
+  config_entry_id:
   name: Bedroom Door
   platform: xiaomi_aqara
   unique_id: status158d0001c312ee
 fan.living_room_air_purifier:
+  config_entry_id:
   name:
   platform: xiaomi_miio
   unique_id: zhimi.airpurifier.m2-78:11:DC:2D:E8:9F
 fan.den_air_purifier:
+  config_entry_id:
   name:
   platform: xiaomi_miio
   unique_id: zhimi.airpurifier.m2-34:CE:00:BF:74:76
 fan.bedroom_air_purifier:
+  config_entry_id:
   name:
   platform: xiaomi_miio
   unique_id: zhimi.airpurifier.m1-34:CE:00:A0:85:09
 sensor.centralite_3320l_0b63b331_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:b3:31-2-1
 sensor.office_window_battery:
-  name:
+  config_entry_id:
+  name: Office Window
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:9e:9b-1-1
 sensor.centralite_3320l_0b629e9b_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:9e:9b-2-1
 sensor.bedroom_window_battery:
-  name:
+  config_entry_id:
+  name: Bedroom Window
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6d:0d-1-1
 sensor.centralite_3320l_0b636d0d_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6d:0d-2-1
 sensor.front_door_battery:
-  name:
+  config_entry_id:
+  name: Front Door
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:83:3c-1-1
 sensor.centralite_3320l_057b833c_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:83:3c-2-1
 sensor.kitchen_window_battery:
-  name:
+  config_entry_id:
+  name: Kitchen Window
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6e:ab-1-1
 sensor.centralite_3320l_0b636eab_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:6e:ab-2-1
 sensor.living_room_side_window_battery:
-  name:
+  config_entry_id:
+  name: Living Room Side Window
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:89:f7-1-1
 sensor.centralite_3320l_0b6289f7_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:89:f7-2-1
 sensor.den_window_battery:
-  name:
+  config_entry_id:
+  name: Den Window
   platform: zha
   unique_id: 00:0d:6f:00:05:7c:e4:6f-1-1
 sensor.den_window_battery1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7c:e4:6f-2-1
 sensor.den_sliding_door_battery:
-  name:
+  config_entry_id:
+  name: Den Sliding Door
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:7c:44-1-1
 sensor.den_sliding_door_battery1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:7b:7c:44-2-1
 sensor.living_room_right_bay_window_battery:
-  name:
+  config_entry_id:
+  name: Living Room Right Bay Window
   platform: zha
   unique_id: 00:0d:6f:00:05:98:96:06-1-1
 sensor.centralite_3320l_05989606_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:05:98:96:06-2-1
 sensor.living_room_left_bay_window_battery:
-  name:
+  config_entry_id:
+  name: Living Room Left Bay Window
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:5f:4e-1-1
 sensor.centralite_3320l_0b665f4e_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:5f:4e-2-1
 sensor.centralite_3210l_0b0383b4_1_2820:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:03:83:b4-1-2820
 sensor.dishwasher:
+  config_entry_id:
   name: Dishwasher
   platform: zha
   unique_id: 00:0d:6f:00:0a:93:2d:bf-1-2820
 sensor.pool_pump_power:
+  config_entry_id:
   name: Pool Pump Power
   platform: zha
   unique_id: 00:0d:6f:00:0b:2d:44:17-1-2820
 sensor.centralite_3320l_0b666ed0_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6e:d0-2-1
 sensor.office_closet_door_battery:
-  name:
+  config_entry_id:
+  name: Office Closet Door
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6e:d0-1-1
 sensor.centralite_3320l_0b666bfc_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6b:fc-2-1
 sensor.bedroom_closet_door_battery:
-  name:
+  config_entry_id:
+  name: Bedroom Closet Door
   platform: zha
   unique_id: 00:0d:6f:00:0b:66:6b:fc-1-1
 sensor.bathroom_window_battery:
-  name:
+  config_entry_id:
+  name: Bathroom Window
   platform: zha
   unique_id: 00:0d:6f:00:0b:63:b3:31-1-1
 media_player.xboxone:
+  config_entry_id:
   name:
   platform: plex
   unique_id: jrd8mteijza1feyyr9l42kcc
 binary_sensor.hallway_office_switch:
+  config_entry_id:
   name:
   platform: xiaomi_aqara
   unique_id: status158d0001f4b0a4
 media_player.chrome_2:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 6vecnw3i7sf3ppspjiqxxsyw
 sensor.pws_temp_f:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,temp_f'
 sensor.pws_weather_1n:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,weather_1n'
 sensor.pws_weather_2n:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,weather_2n'
 sensor.pws_relative_humidity:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,relative_humidity'
 sensor.pws_wind_string:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,wind_string'
 sensor.pws_weather_2d:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,weather_2d'
 sensor.pws_station_id:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,station_id'
 sensor.pws_weather_3n:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,weather_3n'
 sensor.pws_uv:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,UV'
 sensor.pws_feelslike_f:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,feelslike_f'
 sensor.pws_weather_1d:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,weather_1d'
 sensor.pws_weather:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,weather'
 sensor.pws_heat_index_f:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,heat_index_f'
 sensor.pws_wind_gust_mph:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,wind_gust_mph'
 sensor.pws_wind_mph:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,wind_mph'
 sensor.pws_weather_3d:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,weather_3d'
 sensor.pws_temperature_string:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,temperature_string'
 sensor.pws_alerts:
+  config_entry_id:
   name:
   platform: wunderground
   unique_id: '@-118.522752,34.198819,alerts'
 zwave.aeotec_zw090_zstick_gen5_us:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-1
 zwave.bedroom_lights:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-2
 zwave.living_room_lights:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-4
 zwave.island_lights:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-5
 zwave.kitchen_lights:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-6
 zwave.den_lights:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-7
 zwave.garage_lights:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-9
 zwave.washer:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-10
 zwave.dryer:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-11
 zwave.backyard_lights:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-12
 zwave.little_christmas_trees:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-13
 zwave.christmas_tree:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-14
 zwave.living_room_camera_plug:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-15
 zwave.siren:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-17
 zwave.office_smoke:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-18
 zwave.bedroom_smoke:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-19
 zwave.garage_door_frontyard:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-21
 zwave.bay_window_shock:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-22
 zwave.front_door_lock:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-23
 zwave.thermostat:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-24
 zwave.den_smoke:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: node-27
 sensor.office_motion_sensor:
+  config_entry_id:
   name: Office Motion Sensor
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:7f:8a-1-1026
 sensor.office_motion_sensor_battery:
-  name:
+  config_entry_id:
+  name: Office Motion Sensor
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:7f:8a-1-1
 sensor.centralite_3326l_0b627f8a_2_1:
+  config_entry_id:
   name:
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:7f:8a-2-1
 binary_sensor.office_motion_sensor:
+  config_entry_id:
   name: Office Motion Sensor
   platform: zha
   unique_id: 00:0d:6f:00:0b:62:7f:8a-1-1280
 sensor.dryer_distance:
+  config_entry_id:
   name:
   platform: zwave
   unique_id: 11-72057594227474754
 fan.office_air_purifier:
+  config_entry_id:
   name:
   platform: xiaomi_miio
   unique_id: zhimi.airpurifier.m2-78:11:DC:47:D6:9F
 binary_sensor.bathroom_door:
+  config_entry_id:
   name: Bathroom Door
   platform: xiaomi_aqara
   unique_id: status158d0001e7c2ba
 media_player.aftt_2:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 5cebdbc536db5e15-com-plexapp-android
 media_player.chrome_3:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 082jxptp4kysc6d3bftgzmed
 media_player.chrome_4:
+  config_entry_id:
   name:
   platform: plex
   unique_id: vsrf5mdi5yqfkct2ujipkp08
 media_player.chrome_5:
+  config_entry_id:
   name:
   platform: plex
   unique_id: xfdgq7lg2mpgurjo03g6dg56
 media_player.stream_unlimited9639:
+  config_entry_id:
   name:
   platform: cast
   unique_id: 1ae648d6-7fbf-25d1-d4dd-14953039851e
 media_player.galaxy_s8:
+  config_entry_id:
   name:
   platform: plex
   unique_id: b901bdbbf53d5449-com-plexapp-android
 media_player.chrome_6:
+  config_entry_id:
   name:
   platform: plex
   unique_id: 3yivxsbqizvb4x7fv3szu5zn

@@ -328,6 +328,7 @@ services:
    - group.ring
    - group.sprinklers
    - group.weather
+   - weather.home
    - group.forecast
    - group.epson_printer
    - group.speedtest

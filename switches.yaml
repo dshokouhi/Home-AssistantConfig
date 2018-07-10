@@ -117,6 +117,7 @@
  - platform: template
    switches:
      fire_tv:
+       friendly_name: Fire TV
        value_template: "{{ is_state_attr('remote.harmony_hub_bed', 'current_activity', 'Watch Fire TV') }}"
        turn_on:
          service: remote.turn_on
@@ -130,6 +131,7 @@
  - platform: template
    switches:
      house_fan:
+       friendly_name: House Fan
        value_template: "{{ is_state_attr('climate.thermostat_cooling_1', 'fan_mode', 'On Low') }}"
        turn_on:
        - service: climate.set_fan_mode

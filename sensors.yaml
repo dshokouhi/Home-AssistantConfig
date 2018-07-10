@@ -49,6 +49,7 @@
  - platform: template
    sensors:
      front_door_lock_battery:
+       friendly_name: "Front Door Lock"
        value_template: "{{ state_attr('zwave.front_door_lock', 'battery_level') }}"
        unit_of_measurement: '%'
        device_class: battery
@@ -56,6 +57,7 @@
  - platform: template
    sensors:
      den_smoke_battery:
+     friendly_name: "Den Smoke Sensor"
        value_template: "{{ state_attr('zwave.den_smoke', 'battery_level') }}"
        unit_of_measurement: '%'
        device_class: battery
