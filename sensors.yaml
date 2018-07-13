@@ -1,6 +1,6 @@
- - platform: crimereports
-   name: Crime Reports
-   radius: 1000
+ # - platform: crimereports
+   # name: Crime Reports
+   # radius: 1000
 
  - platform: ring
    monitored_conditions:

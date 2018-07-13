@@ -75,12 +75,25 @@ views:
     state_filter:
     - 'True'
     show_empty: false
+  - type: "custom:monster-card"
+    card:
+      type: glance
+      title: High Temperature
+    filter:
+      include:
+      - entity_id: "*temp*"
+        state: '> 79'
+      exclude:
+      - entity_id: "*dark*"
+      - entity_id: sensor.bbq1temperature
+      - entity_id: sensor.pws_temp_f
+      - entity_id: sensor.shokabow_weather_temperature
+    show_empty: false
   - type: picture-glance
     image: /local/den_camera.jpg
     #camera_image: camera.den_camera
     title: Den
     entities:
-    - light.bookshelf_left
     - light.corner_lamp
     - switch.den_fan
     - light.den_lights_level
@@ -104,7 +117,7 @@ views:
   - type: picture-glance
     image: /local/living_room_camera1.jpg
     #camera_image: camera.living_room_camera
-    title: Living
+    title: Living Room
     entities:
     - light.front_door_lamp
     - lock.front_door_lock_locked
@@ -133,35 +146,29 @@ views:
 - title: Room
   icon: mdi:home-modern
   cards:
-  - type: entities
+  - type: picture-glance
+    image: /local/bedroom.jpg
     title: Bedroom
-    show_header_toggle: false
     entities:
-    - light.bedroom_closet
     - switch.bedroom_fan
     - light.bedroom_lights_level
     - light.biased_lights
     - light.dannys
     - remote.harmony_hub_bed
     - light.toshs
-    - binary_sensor.bedroom_motion_sensor
-    - sensor.bedroom_illumination_sensor
+    - sensor.bedroom_air_purifier_temp
   - type: picture-glance
     image: /local/office.jpg
     #camera_image: camera.office_camera
     title: Office
     entities:
-    - light.hallway_light
-    - light.office_closet
-    - light.office_lights
-    - sensor.office_air_purifier_temp
-  - type: entities
-    title: Bathroom
-    show_header_toggle: false
-    entities:
     - light.bathroom_night_light
-    - sensor.illumination_34ce0091f546
-    - sensor.bathroom_pressure
+    - light.hallway_light
+    - light.office_lights
+    - switch.house_fan
+    - sensor.bathroom_humidity
+    - sensor.bathroom_temperature
+    - sensor.office_air_purifier_temp
   - type: picture-entity
     #image: /local/outdoor_camera.jpg
     #camera_image: camera.outdoor_camera
@@ -284,11 +291,13 @@ views:
       title: Ads Blocked
       entity: sensor.pihole_ads_percentage_blocked_today
       scale: 30px
+    - type: "custom:bignumber-card"
+      title: DB File
+      entity: sensor.homeassistant_v2db
+      scale: 20px
   - type: glance
     title: SABnzbd
     entities:
-    - entity: sensor.sabnzbd_disk
-      name: Disk
     - entity: sensor.sabnzbd_disk_free
       name: Disk Free
     - entity: sensor.sabnzbd_left
@@ -370,6 +379,13 @@ views:
       name: Signal
     - entity: sensor.artichoke_battery
       name: Battery
+  - type: glance
+    title: Packages
+    entities:
+   # - sensor.fedex
+    - sensor.ups
+   # - sensor.usps_mail
+   # - sensor.usps_packages
 - title: Media Players
   icon: mdi:cast
   cards:
@@ -456,10 +472,38 @@ views:
     - sensor.pws_weather_3n
   - type: weather-forecast
     entity: weather.home
+  - type: glance
+    title: sun
+    entities:
+    - sun.sun
+    - sensor.yr_symbol
 - icon: mdi:settings
   title: Settings
   id: settings
   cards:
+  - type: custom:monster-card
+    show_header_toggle: false
+    card:
+      type: entities
+      title: Lights & Switches
+    filter:
+      include:
+      - domain: light
+      - entity_id: switch.island_lights_switch
+      - entity_id: switch.christmas_tree_switch
+      - entity_id: switch.little_christmas_trees_switch
+      - entity_id: switch.garage_lights_switch
+      - entity_id: switch.siren_switch
+      - entity_id: switch.backyard_lights_switch
+      exclude:
+      - entity_id: light.centralite_3210l_0a932dbf_1
+      - entity_id: light.centralite_3210l_0b0383b4_1
+      - entity_id: light.centralite_3210l_0b2d4417_1
+      - entity_id: light.o1
+      - entity_id: light.o2
+      - entity_id: light.o3
+      - entity_id: light.o4
+      - entity_id: light.living_room
   - type: custom:monster-card
     card:
       type: entities
@@ -468,7 +512,6 @@ views:
       include:
       - entity_id: "*battery"
   - type: custom:monster-card
-    show_header_toggle: false
     card:
       type: entities
       title: Door and Window Status
@@ -483,25 +526,23 @@ views:
         - domain: camera
         - domain: media_player
   - type: custom:monster-card
-    show_header_toggle: false
     card:
       type: entities
-      title: House Temperature
+      title: Temperature
     filter:
       include:
         - entity_id: "*window"
         - entity_id: "*door"
-        - entity_id: "*temperature"
+        - entity_id: "*temp*"
       exclude:
         - domain: automation
         - domain: binary_sensor
         - domain: camera
         - domain: media_player
   - type: custom:monster-card
-    show_header_toggle: false
     card:
       type: entities
-      title: House Humidity
+      title: Humidity
     filter:
       include:
         - entity_id: "*humidity"
@@ -529,7 +570,9 @@ views:
     entities:
     - sensor.uptime
 resources:
-  - url: /local/monster-card.js
+  - url: /local/monster-card.js?v=0.2.1
     type: js
   - url: /local/gauge-card.js
+    type: js
+  - url: /local/bignumber-card.js?v=0.0.1
     type: js

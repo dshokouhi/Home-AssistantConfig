@@ -22,6 +22,12 @@ switch.living_room_fan:
 switch.fireplace:
   icon: mdi:fire
 
+light.firepit_lights:
+  icon: mdi:fire
+
+light.garden_lights:
+  icon: mdi:tree
+
 switch.bedroom_fan:
   icon: mdi:fan
 
@@ -43,103 +49,42 @@ sensor.ups:
 sensor.yr_symbol:
   friendly_name: Weather
 
-script.on_bedroom_fan:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.off_bedroom_fan:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.on_den_fan:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.den_fan_off:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.on_fireplace:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.off_fireplace:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.zone_2_cc:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.open_den_curtains:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.close_den_curtains:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.open_bedroom_curtains:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.close_bedroom_curtains:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.open_bay_window_curtains:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.close_bay_window_curtains:
-  #google_assistant: false
-  emulated_hue_hidden: true
-
-script.stop_den_curtains:
-  #google_assistant: false
+switch.living_room_state:
   emulated_hue_hidden: true
   
-script.kitchen_tv_on:
-  #google_assistant: false
+switch.den_state:
   emulated_hue_hidden: true
-
-script.kitchen_tv_off:
-  #google_assistant: false
+  
+switch.kitchen_state:
+  emulated_hue_hidden: true
+  
+switch.garage_state:
+  emulated_hue_hidden: true
+ 
+switch.office_state:
   emulated_hue_hidden: true
 
 script.fire_tv:
   friendly_name: Fire TV
-  emulated_hue_hidden: true
-  #google_assistant: false
 
 switch.fire_tv:
   emulated_hue_hidden: true
 
 script.roku:
   friendly_name: Roku
-  emulated_hue_hidden: true
 
 script.netflix:
   friendly_name: Netflix
-  emulated_hue_hidden: true
 
 script.pc:
   friendly_name: PC
-  emulated_hue_hidden: true
 
 script.xbox:
   friendly_name: XBox
-  emulated_hue_hidden: true
 
 light.bar_flex:
   friendly_name: Bar Lights
   icon: mdi:glass-cocktail
-
-light.cabinet_lights:
-  friendly_name: Cabinet Lights
-
-light.counter_lights:
-  friendly_name: Counter Lights
 
 switch.island_lights_switch:
   friendly_name: Island Lights
@@ -149,7 +94,6 @@ light.patio:
   friendly_name: Patio Lights
 
 light.living_room:
-  #google_assistant: false
   emulated_hue_hidden: true
 
 switch.zone_1_patio:
@@ -177,21 +121,16 @@ switch.sprinklers_in_standby_mode:
   emulated_hue_hidden: true
   
 light.corner_lamp:
-  friendly_name: Corner Lamp
   icon: mdi:lamp
 
+light.counter_lights:
+  icon: mdi:fridge
+  
 switch.house_fan:
   icon: mdi:fan
 
-light.firepit_lights:
-  friendly_name: Firepit Lights
-
 light.fig_tree_lights:
-  friendly_name: Fig Tree Lights
   icon: mdi:pine-tree
-
-light.hallway_light:
-  friendly_name: Hallway Light
 
 light.dannys:
   friendly_name: Dannys Nightstand
@@ -201,32 +140,27 @@ light.toshs:
   friendly_name: Toshs Nightstand
   icon: mdi:lamp
 
+light.cabinet_lights:
+  icon: mdi:food-variant
+
 light.o1:
-  #google_assistant: false
   emulated_hue_hidden: true
 
 light.o2:
-  #google_assistant: false
   emulated_hue_hidden: true
 
 light.o3:
-  #google_assistant: false
   emulated_hue_hidden: true
 
 light.o4:
-  #google_assistant: false
   emulated_hue_hidden: true
 
-light.office_lights:
-  friendly_name: Office Lights
-  
 light.bedroom_closet:
-  #google_assistant: false
   emulated_hue_hidden: true
 
 light.centralite_3210l_0b0383b4_1:
   friendly_name: Bedroom Plug
-  #google_assistant: false
+  emulated_hue_hidden: true
 
 binary_sensor.bedroom_closet_door:
   friendly_name: Bedroom Closet Door
@@ -307,10 +241,9 @@ sensor.den_sliding_door:
   
 light.centralite_3210l_0a932dbf_1:
   friendly_name: Office Plug
-  #google_assistant: false
+  emulated_hue_hidden: true
   
 light.office_closet:
-  #google_assistant: false
   emulated_hue_hidden: true
 
 binary_sensor.office_closet_door:
@@ -331,8 +264,8 @@ switch.little_christmas_trees_switch:
   friendly_name: Little Christmas Trees
   icon: mdi:pine-tree
 
-sensor.den_motion_sensor_temperature:
-  friendly_name: Den Motion Sensor
+# sensor.den_motion_sensor_temperature:
+  # friendly_name: Den Motion Sensor
 
 switch.christmas_tree_switch:
   friendly_name: Christmas Tree
@@ -340,7 +273,6 @@ switch.christmas_tree_switch:
 
 switch.living_room_camera_plug_switch:
   friendly_name: Living Room Camera Plug
-  #google_assistant: false
   emulated_hue_hidden: true
   icon: mdi:camera
 
@@ -363,23 +295,24 @@ lock.front_door_lock_locked:
 switch.siren_switch:
   friendly_name: Siren
   icon: mdi:alarm
-
-sensor.front_door_lock_battery:
-  friendly_name: Front Door Lock Battery
+  emulated_hue_hidden: true
 
 light.centralite_3210l_0b2d4417_1:
   friendly_name: Pool Plug
-  #google_assistant: false
   emulated_hue_hidden: true
 
 switch.dryer_switch:
   friendly_name: Dryer
-  #google_assistant: false
   emulated_hue_hidden: true
 
+switch.tasker_sleep_danny:
+  emulated_hue_hidden: true
+  
+switch.tasker_sleep_tosh:
+  emulated_hue_hidden: true
+  
 switch.washer_switch:
   friendly_name: Washer
-  #google_assistant: false
   emulated_hue_hidden: true
 
 switch.mr_neato_schedule:
@@ -389,26 +322,22 @@ switch.mrs_neato_schedule:
   emulated_hue_hidden: true
 
 light.patio_bbq:
-  #google_assistant: false
   emulated_hue_hidden: true
   
 light.patio_table_left:
-  #google_assistant: false
   emulated_hue_hidden: true
   
 light.patio_table_right:
-  #google_assistant: false
   emulated_hue_hidden: true
   
 light.patio_pool_light:
-  #google_assistant: false
   emulated_hue_hidden: true
   
 light.front_door_lamp:
   icon: mdi:lamp
   
 light.nook_lamp:
-  icon: mdi:lamp
+  icon: mdi:floor-lamp
   
 binary_sensor.water_leak_sensor_158d0001bc24f5:
   friendly_name: Water Heater Leak Sensor
@@ -458,13 +387,13 @@ binary_sensor.bbq1:
   friendly_name: BBQ Probe 1 Status
   
 sensor.dishwasher_running:
-  icon: mdi:gauge
+  icon: mdi:washing-machine
   
 sensor.washer_running:
-  icon: mdi:gauge
+  icon: mdi:washing-machine
   
 sensor.dryer_running:
-  icon: mdi:gauge
+  icon: mdi:washing-machine
   
 light.spot:
   icon: mdi:spotlight
@@ -537,3 +466,9 @@ sensor.living_room_air_purifier_aqi:
   
 sensor.office_air_purifier_aqi:
   icon: mdi:cloud
+  
+light.hallway_light:
+  icon: mdi:ceiling-light
+  
+light.bathroom_night_light:
+  icon: mdi:weather-night

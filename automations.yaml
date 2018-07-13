@@ -1265,8 +1265,6 @@
     entity_id: light.bedroom_lights_level
   - service: script.turn_on
     entity_id: script.open_bedroom_curtains
-  - service: switch.turn_off
-    entity_id: switch.bedroom_fan
   - wait_template: "{{ states.binary_sensor.natachas_bayesian_presence.state == 'off' }}"
   - service: light.turn_off
     entity_id: light.office_lights
@@ -1276,6 +1274,8 @@
     entity_id: light.living_room_lights_level
   - service: light.turn_off
     entity_id: light.bedroom_lights_level
+  - service: switch.turn_off
+    entity_id: switch.bedroom_fan
   - condition: state
     entity_id: binary_sensor.bedroom_door
     state: 'on'
@@ -1934,7 +1934,7 @@
       state: 'cool'
   action:
   - delay: "00:01:00"
-  - wait_template: "{{ states.climate.thermostat_cooling_1.attributes.current_temperature == states.climate.thermostat_cooling_1.attributes.temperature }}"
+  - wait_template: "{{ states('sensor.thermostat_temperature')|int == state_attr('climate.thermostat_cooling_1', 'temperature') }}"
   - service: climate.set_operation_mode
     data:
       entity_id: climate.thermostat_cooling_1
@@ -2302,8 +2302,7 @@
 - alias: Cool down house if thermostat gets above 80
   trigger:
   - platform: numeric_state
-    entity_id: climate.thermostat_cooling_1
-    value_template: "{{ states.climate.thermostat_cooling_1.attributes.current_temperature }}"
+    entity_id: sensor.thermostat_temperature
     above: 79
   action:
   - service: climate.set_temperature
@@ -2324,8 +2323,9 @@
   condition:
     condition: and
     conditions:
-    - condition: template
-      value_template: "{{ states.climate.thermostat_cooling_1.attributes.operation_mode == 'cool' }}"
+    - condition: state
+      entity_id: climate.thermostat_cooling_1
+      state: 'cool'
     - condition: template
       value_template: "{{ states.climate.thermostat_cooling_1.attributes.temperature < 78 }}"
   action:
@@ -2342,8 +2342,9 @@
   condition:
     condition: and
     conditions:
-    - condition: template
-      value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode == 'heat' }}"
+    - condition: state
+      entity_id: climate.thermostat_heating_1
+      state: 'heat'
     - condition: template
       value_template: "{{ states.climate.thermostat_heating_1.attributes.temperature > 70 }}"
   action:
@@ -3359,12 +3360,33 @@
   action:
     service: switch.turn_on
     entity_id: switch.den_fan
+    
+- alias: Turn off den fan when it cools down
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.den_air_purifier_temp
+    below: 73
+  condition:
+    condition: state
+    entity_id: switch.den_fan
+    state: 'on'
+  action:
+    service: switch.turn_off
+    entity_id: switch.den_fan
  
-- alias: Turn on living room fan when its too hot
+- alias: Living room fan
   trigger:
   - platform: numeric_state
     entity_id: sensor.living_room_air_purifier_temp
     above: 75
+  - platform: numeric_state
+    entity_id: sensor.living_room_air_purifier_temp
+    below: 73
   action:
-    service: switch.turn_on
+    service_template: >
+        {% if states('sensor.living_room_air_purifier_temp')|int > 75 %}
+          switch.turn_on
+        {% elif states('sensor.living_room_air_purifier_temp')|int < 73 %}
+          switch.turn_off
+        {% endif %}
     entity_id: switch.living_room_fan

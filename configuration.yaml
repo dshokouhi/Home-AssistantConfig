@@ -421,7 +421,7 @@ google_assistant:
     script.close_bay_window_curtains:
       expose: false
     script.stop_den_curtains:
-      expose: false      
+      expose: false
     script.kitchen_tv_on:
       expose: false
     script.kitchen_tv_off:
@@ -453,13 +453,13 @@ google_assistant:
     light.o3:
       expose: false
     light.o4:
-      expose: false           
+      expose: false
     light.bedroom_closet:
       expose: false
     light.centralite_3210l_0b0383b4_1:
       expose: false
     light.centralite_3210l_0a932dbf_1:
-      expose: false      
+      expose: false
     light.office_closet:
       expose: false
     switch.living_room_camera_plug_switch:
@@ -475,11 +475,11 @@ google_assistant:
     switch.mrs_neato_schedule:
       expose: false
     light.patio_bbq:
-      expose: false      
+      expose: false
     light.patio_table_left:
-      expose: false      
+      expose: false
     light.patio_table_right:
-      expose: false      
+      expose: false
     light.patio_pool_light:
       expose: false
     climate.thermostat_dry_air:
