@@ -44,7 +44,7 @@ close_bedroom_curtains:
     data_template:
       command: Close
       device: 44919307
-      entity_id: remote.harmony_hub_bed
+      entity_id: remote.harmony_hub_bedroom
   - service: input_boolean.turn_off
     entity_id: input_boolean.bedroom_curtains
 
@@ -54,7 +54,7 @@ open_bedroom_curtains:
     data_template:
       command: Open
       device: 44919307
-      entity_id: remote.harmony_hub_bed
+      entity_id: remote.harmony_hub_bedroom
   - service: input_boolean.turn_on
     entity_id: input_boolean.bedroom_curtains
 
@@ -72,7 +72,7 @@ on_bedroom_fan:
     data_template:
       command: Low
       device: 37826190
-      entity_id: remote.harmony_hub_bed
+      entity_id: remote.harmony_hub_bedroom
 
 off_bedroom_fan:
   sequence:
@@ -80,7 +80,7 @@ off_bedroom_fan:
     data:
       command: 'Off'
       device: '37826190'
-      entity_id: remote.harmony_hub_bed
+      entity_id: remote.harmony_hub_bedroom
 
 on_lr_fan:
   sequence:
@@ -181,7 +181,7 @@ netflix:
 fire_tv:
   sequence:
   - service: remote.turn_on
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
     data:
       activity: 19492437
 

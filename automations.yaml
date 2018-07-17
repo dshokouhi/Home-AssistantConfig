@@ -51,8 +51,6 @@
     value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
   action:
   - service: switch.turn_off
-    entity_id: switch.den_fan, switch.living_room_fan
-  - service: switch.turn_off
     entity_id: switch.kitchen_tv
   - service: light.turn_off
     entity_id: light.tv_lights
@@ -65,7 +63,7 @@
 - alias: Set Bedroom Booleans Off
   trigger:
     platform: state
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
   condition:
     condition: template
     value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
@@ -124,7 +122,7 @@
 - alias: Turn on bias lighting bedroom at night
   trigger:
   - platform: state
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
   - platform: sun
     event: sunset
   condition:
@@ -203,7 +201,7 @@
     from: 'Select Input'
   action:
   - service: remote.turn_on
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
     data_template:
       activity: >
         {% if is_state("input_select.harmony_den", "Bedroom Bluray") %}
@@ -239,7 +237,7 @@
     to: 'Power Off'
   action:
   - service: remote.turn_off
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
   - service: input_select.select_option
     entity_id: input_select.harmony_bed
     data_template:
@@ -274,7 +272,7 @@
     state: 'on'
   action:
   - service: remote.turn_off
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
   - delay: "00:00:15"
   - service: switch.turn_on
     entity_id: switch.bedroom_fan
@@ -298,7 +296,7 @@
   - service: media_player.media_stop
     entity_id: media_player.kodi_bedroom
   - service: remote.turn_off
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
   - delay: "00:00:15"
   - service: switch.turn_on
     entity_id: switch.bedroom_fan
@@ -1405,8 +1403,9 @@
       - wed
       - thu
       - fri
-    - condition: template
-      value_template: "{{ states.climate.thermostat_heating_1.attributes.current_temperature <= 65 }}"
+    - condition: numeric_state
+      entity_id: sensor.thermostat_temperature
+      below: 66
     - condition: state
       entity_id: input_boolean.vacation_mode
       state: 'off'
@@ -1891,8 +1890,9 @@
 
 - alias: Turn off fan if house is cold
   trigger:
-  - platform: template
-    value_template: "{{ states.climate.thermostat_heating_1.attributes.current_temperature <= 65 }}"
+  - platform: numeric_state
+    entity_id: sensor.thermostat_temperature
+    below: 65
   condition:
     condition: state
     entity_id: switch.bedroom_fan
@@ -3118,7 +3118,7 @@
      {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
        {{ states.sensor.bbq1temperature.state|int >= 195 }}
      {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-       {{ states.sensor.bbq1temperature.state|int >= 155 }}
+       {{ states.sensor.bbq1temperature.state|int >= 145 }}
      {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
        {{ states.sensor.bbq1temperature.state|int >= 120 }}
      {%- else -%}
@@ -3136,7 +3136,7 @@
          Tritip is almost ready
        {%- else -%}
        {%- endif %}
-      target: danny_pixel
+      target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - service: shell_command.bbq_almost
     #entity_id: media_player.home_notification
@@ -3183,7 +3183,7 @@
          Tritip is done
        {%- else -%}
        {%- endif %}
-      target: danny_pixel
+      target: ["danny_pixel", "tosh_phone"]
       title: Shokabow Zoo
   - service: shell_command.bbq_done
     #entity_id: media_player.home_notification
