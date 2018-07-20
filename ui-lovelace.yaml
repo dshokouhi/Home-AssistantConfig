@@ -571,6 +571,23 @@ views:
     filter:
       include:
         - domain: fan
+  - type: custom:monster-card
+    card:
+      type: entities
+      title: Fans
+    filter:
+      include:
+      - entity_id: "*fan"
+      exclude:
+      - domain: automation
+      - domain: input_boolean
+      - domain: script
+  - type: entities
+    title: Lock
+    entities:
+    - lock.front_door_lock_locked
+    - sensor.front_door_action
+    - sensor.front_door_code
   - type: entities
     title: Zestimate
     entities:

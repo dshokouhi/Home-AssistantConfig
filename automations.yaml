@@ -3352,7 +3352,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.den_air_purifier_temp
-    above: 75
+    above: 78
   condition:
     condition: state
     entity_id: switch.den_fan
@@ -3365,7 +3365,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.den_air_purifier_temp
-    below: 73
+    below: 75
   condition:
     condition: state
     entity_id: switch.den_fan
@@ -3378,15 +3378,15 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.living_room_air_purifier_temp
-    above: 75
+    above: 78
   - platform: numeric_state
     entity_id: sensor.living_room_air_purifier_temp
-    below: 73
+    below: 75
   action:
     service_template: >
-        {% if states('sensor.living_room_air_purifier_temp')|int > 75 %}
+        {% if states('sensor.living_room_air_purifier_temp')|int > 78 %}
           switch.turn_on
-        {% elif states('sensor.living_room_air_purifier_temp')|int < 73 %}
+        {% elif states('sensor.living_room_air_purifier_temp')|int < 75 %}
           switch.turn_off
         {% endif %}
     entity_id: switch.living_room_fan
