@@ -225,8 +225,14 @@
 ![home7](https://user-images.githubusercontent.com/1634145/35309382-101375a8-0061-11e8-9053-14c6605a8edf.JPG)
 
 ## Lovelace Screenshots
-![lovelace1](https://user-images.githubusercontent.com/1634145/42484271-01e7922e-83a7-11e8-95c3-0af19588b5af.png)
-![lovelace2](https://user-images.githubusercontent.com/1634145/42484279-059f240e-83a7-11e8-9549-8987afdac077.png)
-![lovelace3](https://user-images.githubusercontent.com/1634145/42484282-080976b8-83a7-11e8-8583-e2bffc7ddbaf.png)
+![lovelace1](https://user-images.githubusercontent.com/1634145/43029010-39611fe2-8c38-11e8-9b5b-911e13c4b5c4.png)
+![lovelace2](https://user-images.githubusercontent.com/1634145/43029011-398ecee2-8c38-11e8-9b1a-8aff963ca405.png)
+![lovelace3 png](https://user-images.githubusercontent.com/1634145/43029012-39a71ba0-8c38-11e8-9844-48d2db1e562d.jpg)
+![lovelace4](https://user-images.githubusercontent.com/1634145/43029013-39bf2402-8c38-11e8-86c9-fd254b369a96.png)
+![lovelace5](https://user-images.githubusercontent.com/1634145/43029014-39d9e7a6-8c38-11e8-9261-424da0f43632.png)
+![lovelace6](https://user-images.githubusercontent.com/1634145/43029015-39f0d6fa-8c38-11e8-887c-47eba75921d9.png)
+![lovelace7](https://user-images.githubusercontent.com/1634145/43029016-3a08a35c-8c38-11e8-8db0-b2aa1490b6c8.png)
+![lovelace8](https://user-images.githubusercontent.com/1634145/43029017-3a25437c-8c38-11e8-9de4-f83ab415794f.png)
+![lovelace9](https://user-images.githubusercontent.com/1634145/43029018-3a455a22-8c38-11e8-9b93-da64730be438.png)
 
 Special shout out to all of the various GitHub Repo's I had used in here.  Lots of people to list here but many members of the Home Assistant community contributed.
