@@ -7,6 +7,7 @@ views:
     card:
       title: People Who Are Home
       type: glance
+      show_state: false
     entities:
     - binary_sensor.dannys_bayesian_presence
     - binary_sensor.natachas_bayesian_presence
@@ -41,6 +42,7 @@ views:
     card:
       title: "Open Doors/Windows"
       type: glance
+      show_state: false
     entities:
     - binary_sensor.den_sliding_door
     - binary_sensor.den_window
@@ -65,6 +67,7 @@ views:
     card:
       title: "Things That Are Running"
       type: glance
+      show_state: false
     entities:
     - entity: sensor.washer_running
       name: Washer
