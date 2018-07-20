@@ -222,11 +222,7 @@ views:
   - type: "custom:alarm_control_panel-card"
     entity: alarm_control_panel.home
     title: House Alarm
-<<<<<<< HEAD
     style: '--alarm-color-disarmed: var(--label-badge-green);'
-=======
-    style: '--alarm-color-disarmed: var(--label-badge-blue);'
->>>>>>> 1b56c9c982666f371f92be089d8ca8b2c4dfb926
     states:
     - arm_away
     - arm_night
