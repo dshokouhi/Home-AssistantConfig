@@ -425,7 +425,7 @@
  - platform: template
    sensors:
      harmony_bed_activity:
-       value_template: "{{ state_attr('remote.harmony_hub_bedroom', 'current_activity') }}"
+       value_template: "{{ state_attr('remote.harmony_hub_bed', 'current_activity') }}"
        friendly_name: Harmony Bed Input
        
  - platform: uptime

@@ -39,7 +39,7 @@ bedroom:
   - light.bedroom_lights_level
   - light.biased_lights
   - light.dannys
-  - remote.harmony_hub_bedroom
+  - remote.harmony_hub_bed
   - light.toshs
   - group.bedroom_sensors
   view: false

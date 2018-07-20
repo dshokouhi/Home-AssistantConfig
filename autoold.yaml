@@ -63,7 +63,7 @@
 - alias: Set Bedroom Booleans Off
   trigger:
     platform: state
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
   condition:
     condition: template
     value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
@@ -122,7 +122,7 @@
 - alias: Turn on bias lighting bedroom at night
   trigger:
   - platform: state
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
   - platform: sun
     event: sunset
   condition:
@@ -201,7 +201,7 @@
     from: 'Select Input'
   action:
   - service: remote.turn_on
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
     data_template:
       activity: >
         {% if is_state("input_select.harmony_den", "Bedroom Bluray") %}
@@ -237,7 +237,7 @@
     to: 'Power Off'
   action:
   - service: remote.turn_off
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
   - service: input_select.select_option
     entity_id: input_select.harmony_bed
     data_template:
@@ -272,7 +272,7 @@
     state: 'on'
   action:
   - service: remote.turn_off
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
   - delay: "00:00:15"
   - service: switch.turn_on
     entity_id: switch.bedroom_fan
@@ -296,7 +296,7 @@
   - service: media_player.media_stop
     entity_id: media_player.kodi_bedroom
   - service: remote.turn_off
-    entity_id: remote.harmony_hub_bed
+    entity_id: remote.harmony_hub_bedroom
   - delay: "00:00:15"
   - service: switch.turn_on
     entity_id: switch.bedroom_fan
