@@ -191,7 +191,13 @@ roku:
     entity_id: remote.harmony_hub_den
     data:
       activity: 27030102
-      
+
+shield:
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub_den
+    data:
+      activity: 34652500
 pseudo_tv:
   sequence:
   - service: media_player.kodi_call_method

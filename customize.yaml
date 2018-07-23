@@ -81,6 +81,9 @@ script.pc:
 
 script.xbox:
   friendly_name: XBox
+  
+script.shield:
+  friendly_name: Shield
 
 light.bar_flex:
   friendly_name: Bar Lights
@@ -393,7 +396,7 @@ sensor.washer_running:
   icon: mdi:washing-machine
   
 sensor.dryer_running:
-  icon: mdi:washing-machine
+  icon: mdi:tumble-dryer
   
 light.spot:
   icon: mdi:spotlight

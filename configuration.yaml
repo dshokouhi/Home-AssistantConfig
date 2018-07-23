@@ -91,9 +91,9 @@ frontend:
 #colour of edge of sensor labels
    label-badge-red: "var(--red)"
 #not sure where used
-   label-badge-blue: "var(--blue)"
-   label-badge-green: "var(--green)"
-   label-badge-yellow: "var(--yellow)"
+   label-badge-blue: "var(--pink)"
+   label-badge-green: "var(--pink)"
+   label-badge-yellow: "var(--pink)"
    label-badge-grey: "var(--pink)"
 # Row 1 on entities page
    table-row-background-color: "var(--light_grey)"
@@ -263,7 +263,15 @@ media_player 8:
    username: kodi
    password: !secret kodi
    name: "Kodi Outdoor"
-   
+
+media_player 9:
+ - platform: kodi
+   host: 192.168.1.72
+   port: 8080
+   username: kodi
+   password: !secret kodi
+   name: "Kodi Shield"
+
 # media_player 9:
  # - platform: spotify
    # client_id: !secret spotify_client_id

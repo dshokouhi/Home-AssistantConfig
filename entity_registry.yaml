@@ -1143,3 +1143,13 @@ media_player.chrome_6:
   name:
   platform: plex
   unique_id: 3yivxsbqizvb4x7fv3szu5zn
+media_player.shield:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
+  name:
+  platform: cast
+  unique_id: f7d330e7-c983-f0da-91cf-5e2433a232a5
+media_player.shield_android_tv:
+  config_entry_id:
+  name:
+  platform: plex
+  unique_id: f683eec5e46fc9a3-com-plexapp-android

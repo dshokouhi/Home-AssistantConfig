@@ -375,6 +375,7 @@ media_players:
   - media_player.onkyo_den_zone_2
   - media_player.outdoor_speakers
   #- media_player.roku_yj007e334976
+  - media_player.shield
   - media_player.sony_bravia_tv
   - media_player.stream_unlimited9639
   #- media_player.spotify

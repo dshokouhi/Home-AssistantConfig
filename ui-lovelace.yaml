@@ -2,18 +2,68 @@ title: Home
 views:
 - icon: mdi:home
   title: Home
+  badges:
+  - alarm_control_panel.home
+  - sun.sun
+  - sensor.yr_symbol
   cards:
-  - type: entity-filter
-    card:
-      title: People Who Are Home
-      type: glance
-      show_state: false
+  - type: picture-glance
+    image: /local/den_camera.jpg
+    #camera_image: camera.den_camera
+    title: Den
     entities:
-    - binary_sensor.dannys_bayesian_presence
-    - binary_sensor.natachas_bayesian_presence
-    state_filter:
-    - 'on'
-    show_empty: false
+    - light.corner_lamp
+    - switch.den_fan
+    - light.den_lights_level
+    - switch.fireplace
+    - remote.harmony_hub_den
+    - light.tv_lights
+    - sensor.den_air_purifier_temp
+  - type: picture-glance
+    image: /local/kitchen_camera.jpg
+    #camera_image: camera.kitchen_camera
+    title: Kitchen
+    entities:
+    - light.bar_flex
+    - light.cabinet_lights
+    - light.counter_lights
+    - switch.island_lights_switch
+    - light.kitchen_lights_level
+    - switch.kitchen_tv
+    - light.spot
+    - sensor.kitchen_window
+  - type: picture-glance
+    image: /local/living_room_camera1.jpg
+    #camera_image: camera.living_room_camera
+    title: Living Room
+    entities:
+    - light.front_door_lamp
+    - lock.front_door_lock_locked
+    - switch.living_room_fan
+    - light.living_room_lights_level
+    - light.nook_lamp
+    - sensor.living_room_air_purifier_temp
+  - type: entities
+    title: Vacuums
+    show_header_toggle: false
+    entities:
+    - entity: vacuum.mr_neato
+      secondary_info: last-changed
+    - entity: vacuum.mrs_neato
+      secondary_info: last-changed
+  - type: entities
+    title: BBQ
+    entities:
+    - input_select.bbq_probe1
+    - input_number.bbq1_override
+    - sensor.bbq1temperature
+    - entity: binary_sensor.bbq1
+      secondary_info: last-changed
+  - type: entities
+    title: Thermostat
+    entities:
+    - climate.thermostat_cooling_1
+    - climate.thermostat_heating_1
   - type: entity-filter
     card:
       title: Detected Leaks
@@ -96,60 +146,17 @@ views:
       - entity_id: sensor.pws_temp_f
       - entity_id: sensor.shokabow_weather_temperature
     show_empty: false
-  - type: picture-glance
-    image: /local/den_camera.jpg
-    #camera_image: camera.den_camera
-    title: Den
+  - type: entity-filter
+    card:
+      title: People Who Are Home
+      type: glance
+      show_state: false
     entities:
-    - light.corner_lamp
-    - switch.den_fan
-    - light.den_lights_level
-    - switch.fireplace
-    - remote.harmony_hub_den
-    - light.tv_lights
-    - sensor.den_air_purifier_temp
-  - type: picture-glance
-    image: /local/kitchen_camera.jpg
-    #camera_image: camera.kitchen_camera
-    title: Kitchen
-    entities:
-    - light.bar_flex
-    - light.cabinet_lights
-    - light.counter_lights
-    - switch.island_lights_switch
-    - light.kitchen_lights_level
-    - switch.kitchen_tv
-    - light.spot
-    - sensor.kitchen_window
-  - type: picture-glance
-    image: /local/living_room_camera1.jpg
-    #camera_image: camera.living_room_camera
-    title: Living Room
-    entities:
-    - light.front_door_lamp
-    - lock.front_door_lock_locked
-    - switch.living_room_fan
-    - light.living_room_lights_level
-    - light.nook_lamp
-    - sensor.living_room_air_purifier_temp
-  - type: entities
-    title: Vacuums
-    show_header_toggle: false
-    entities:
-    - vacuum.mr_neato
-    - vacuum.mrs_neato
-  - type: entities
-    title: BBQ
-    entities:
-    - input_select.bbq_probe1
-    - input_number.bbq1_override
-    - sensor.bbq1temperature
-    - binary_sensor.bbq1
-  - type: entities
-    title: Thermostat
-    entities:
-    - climate.thermostat_cooling_1
-    - climate.thermostat_heating_1
+    - binary_sensor.dannys_bayesian_presence
+    - binary_sensor.natachas_bayesian_presence
+    state_filter:
+    - 'on'
+    show_empty: false
 - title: Room
   icon: mdi:home-modern
   cards:
@@ -229,52 +236,13 @@ views:
     states:
     - arm_away
     - arm_night
-- title: Cameras
-  icon: mdi:camera
-  cards:
-  - type: picture-entity
-    entity: camera.den_camera
-  - type: picture-entity
-    entity: camera.kitchen_camera
-  - type: picture-entity
-    entity: camera.living_room_camera
-  - type: picture-entity
-    entity: camera.office_camera
-  - type: picture-entity
-    entity: camera.outdoor_camera
-  - type: picture-entity
-    entity: camera.shokabow_weather
-  - type: picture-entity
-    entity: camera.front_door
-  - type: picture-entity
-    entity: camera.side_gate
-  - type: picture-entity
-    entity: camera.mr_neato_cleaning_map
-  - type: picture-entity
-    entity: camera.mrs_neato_cleaning_map
-- title: Automations
-  icon: mdi:home-automation
-  cards:
-  - type: "custom:monster-card"
-    title: All Automations
-    filter:
-      include:
-      - domain: automation
-    card:
-      type: entities
-      title: All Automations
-      #show_header_toggle: false
-  - type: "custom:monster-card"
-    title: All Scripts
-    card:
-      type: entities
-      title: All Scripts
-      #show_header_toggle: false
-    filter:
-      include:
-      - domain: script
 - title: Services
   icon: mdi:home-circle
+  badges:
+  - sensor.zestimate
+  - sensor.uptime
+  - sensor.homeassistant_v2db
+  - sensor.ssl_certificate_expiry
   cards:
   - type: horizontal-stack
     cards:
@@ -283,14 +251,8 @@ views:
       entity: sensor.memory_use_percent
       scale: 30px
     - type: "custom:gauge-card"
-      title: Disk Free
+      title: Disk Space Used
       entity: sensor.disk_use_percent_home
-      scale: 30px
-    - type: "custom:gauge-card"
-      title: SSL Expires
-      entity: sensor.ssl_certificate_expiry
-      min: 0
-      max: 90
       scale: 30px
   - type: horizontal-stack
     cards:
@@ -304,10 +266,6 @@ views:
       title: Ads Blocked
       entity: sensor.pihole_ads_percentage_blocked_today
       scale: 30px
-    - type: "custom:bignumber-card"
-      title: DB File
-      entity: sensor.homeassistant_v2db
-      scale: 20px
   - type: glance
     title: SABnzbd
     entities:
@@ -356,7 +314,6 @@ views:
       name: Upload
   - type: entities
     title: ZoneMinder
-    show_header_toggle: false
     entities:
     - switch.den_state
     - switch.garage_state
@@ -373,8 +330,6 @@ views:
     - switch.zone_5_front_lawn_boogie_car
     - switch.zone_6_front_lawn_walkway
     - switch.zone_7_front_lawn_street
-    - entity: binary_sensor.sprinklers_online
-      name: Sprinkler Controller
   - type: glance
     title: PlantLink Artichoke
     entities:
@@ -399,6 +354,29 @@ views:
     - sensor.ups
    # - sensor.usps_mail
    # - sensor.usps_packages
+- title: Cameras
+  icon: mdi:camera
+  cards:
+  - type: picture-entity
+    entity: camera.den_camera
+  - type: picture-entity
+    entity: camera.kitchen_camera
+  - type: picture-entity
+    entity: camera.living_room_camera
+  - type: picture-entity
+    entity: camera.office_camera
+  - type: picture-entity
+    entity: camera.outdoor_camera
+  - type: picture-entity
+    entity: camera.shokabow_weather
+  - type: picture-entity
+    entity: camera.front_door
+  - type: picture-entity
+    entity: camera.side_gate
+  - type: picture-entity
+    entity: camera.mr_neato_cleaning_map
+  - type: picture-entity
+    entity: camera.mrs_neato_cleaning_map
 - title: Media Players
   icon: mdi:cast
   cards:
@@ -434,6 +412,8 @@ views:
     entity: media_player.onkyo_den_zone_2
   - type: media-control
     entity: media_player.outdoor_speakers
+  - type: media-control
+    entity: media_player.shield
   - type: media-control
     entity: media_player.sony_bravia_tv
   - type: media-control
@@ -485,11 +465,30 @@ views:
     - sensor.pws_weather_3n
   - type: weather-forecast
     entity: weather.home
-  - type: glance
-    title: sun
-    entities:
-    - sun.sun
-    - sensor.yr_symbol
+  # - type: "custom:weather-card"
+    # entity_weather: weather.home
+    # entity_sun: sun.sun
+- title: Automations
+  icon: mdi:home-automation
+  cards:
+  - type: "custom:monster-card"
+    title: All Automations
+    filter:
+      include:
+      - domain: automation
+    card:
+      type: entities
+      title: All Automations
+      #show_header_toggle: false
+  - type: "custom:monster-card"
+    title: All Scripts
+    card:
+      type: entities
+      title: All Scripts
+      #show_header_toggle: false
+    filter:
+      include:
+      - domain: script
 - icon: mdi:settings
   title: Settings
   id: settings
@@ -588,23 +587,18 @@ views:
   - type: entities
     title: Lock
     entities:
-    - lock.front_door_lock_locked
+    - entity: lock.front_door_lock_locked
+      secondary_info: last-changed
     - sensor.front_door_action
     - sensor.front_door_code
-  - type: entities
-    title: Zestimate
-    entities:
-    - sensor.zestimate
-  - type: entities
-    title: Uptime
-    entities:
-    - sensor.uptime
 resources:
   - url: /local/monster-card.js?v=0.2.1
     type: js
-  - url: /local/gauge-card.js
+  - url: /local/gauge-card.js?v=0.1.0
     type: js
   - url: /local/bignumber-card.js?v=0.0.1
     type: js
-  - url: /local/alarm_control_panel-card.js?v=0.2.0
+  - url: /local/alarm_control_panel-card.js?v=0.3.1
     type: js
+  # - url: /local/custom_ui/weather-card.js
+    # type: js
