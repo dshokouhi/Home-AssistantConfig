@@ -869,7 +869,7 @@
   - service: light.turn_on
     entity_id: light.kitchen_lights_level
   - condition: template
-    value_template: "{{ states.media_player.kodi_den.state != 'playing' }}"
+    value_template: "{{ states.media_player.kodi_den.state != 'playing' and states.media_player.kodi_shield.state != 'playing' }}"
   - service: light.turn_on
     entity_id: light.den_lights_level
 
@@ -2408,7 +2408,7 @@
 - alias: Turn off lights when movie plays
   trigger:
     platform: state
-    entity_id: media_player.kodi_den
+    entity_id: media_player.kodi_den, media_player.kodi_shield
     to: 'playing'
   condition:
     condition: state
@@ -2423,12 +2423,12 @@
 - alias: Turn on lights when movie paused
   trigger:
   - platform: state
-    entity_id: media_player.kodi_den
+    entity_id: media_player.kodi_den, media_player.kodi_shield
     to: 'paused'
     for:
       seconds: 30
   - platform: state
-    entity_id: media_player.kodi_den
+    entity_id: media_player.kodi_den, media_player.kodi_shield
     to: 'idle'
     for:
       minutes: 1
@@ -2481,8 +2481,11 @@
     - condition: state
       entity_id: media_player.kodi_den
       state: playing
+    - condition: state
+      entity_id: media_player.kodi_shield
+      state: playing
     - condition: template
-      value_template: '{{ states.remote.harmony_hub_den.attributes.current_activity != "Watch PC" }}'
+      value_template: '{{ states.remote.harmony_hub_den.attributes.current_activity != "PowerOff" }}'
   action:
     service: light.turn_off
     entity_id: light.den_lights_level
@@ -2815,7 +2818,7 @@
       media_content_id: "http://15363.live.streamtheworld.com:80/KROQFMDIALUP_SC"
       media_content_type: "audio/mp4"
     
-- alias: Shower mode off if bathroom speaker not playing
+- alias: Shower mode off if bathroom speaker not playing or humidity drops below 60
   trigger:
   - platform: state
     entity_id: media_player.bathroom_speaker
@@ -2830,6 +2833,9 @@
     to: 'off'
     for:
       minutes: 5
+  - platform: numeric_state
+    entity_id: sensor.bathroom_humidity
+    below: 60
   condition:
     condition: state
     entity_id: input_boolean.shower_mode

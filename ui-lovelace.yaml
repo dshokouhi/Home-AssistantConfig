@@ -403,6 +403,8 @@ views:
   - type: media-control
     entity: media_player.kodi_outdoor
   - type: media-control
+    entity: media_player.kodi_shield
+  - type: media-control
     entity: media_player.living_room_home
   - type: media-control
     entity: media_player.office_speaker
@@ -414,6 +416,8 @@ views:
     entity: media_player.outdoor_speakers
   - type: media-control
     entity: media_player.shield
+  - type: media-control
+    entity: media_player.shield_android_tv
   - type: media-control
     entity: media_player.sony_bravia_tv
   - type: media-control
