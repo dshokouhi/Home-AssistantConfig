@@ -3125,6 +3125,10 @@
        {{ states.sensor.bbq1temperature.state|int >= 195 }}
      {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
        {{ states.sensor.bbq1temperature.state|int >= 145 }}
+     {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 130 }}
+     {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 120 }}
      {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
        {{ states.sensor.bbq1temperature.state|int >= 120 }}
      {%- else -%}
@@ -3138,6 +3142,10 @@
          Briket is almost ready
        {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
          Chicken is almost ready
+       {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+         Fish is almost ready
+       {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+         Steak is almost ready
        {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
          Tritip is almost ready
        {%- else -%}
@@ -3172,6 +3180,10 @@
        {{ states.sensor.bbq1temperature.state|int >= 205 }}
      {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
        {{ states.sensor.bbq1temperature.state|int >= 165 }}
+     {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 145 }}
+     {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+       {{ states.sensor.bbq1temperature.state|int >= 130 }}
      {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
        {{ states.sensor.bbq1temperature.state|int >= 130 }}
      {%- else -%}
@@ -3185,6 +3197,10 @@
          Briket is done
        {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
          Chicken is done
+       {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+         Fish is done
+       {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+         Steak is done
        {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
          Tritip is done
        {%- else -%}
@@ -3225,6 +3241,10 @@
          Briket is done
        {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
          Chicken is done
+       {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+         Fish is done
+       {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+         Steak is done
        {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
          Tritip is done
        {%- else -%}

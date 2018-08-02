@@ -6,13 +6,13 @@
    monitored_conditions:
    - 'battery'
 
- - platform: ups
-   username: !secret upsuser
-   password: !secret upspass
+ # - platform: ups
+   # username: !secret upsuser
+   # password: !secret upspass
 
- - platform: fedex
-   username: !secret fedexuser
-   password: !secret fedexpass
+ # - platform: fedex
+   # username: !secret fedexuser
+   # password: !secret fedexpass
 
  # - platform: fitbit
    # clock_format: 12H

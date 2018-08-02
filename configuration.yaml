@@ -165,11 +165,21 @@ bloomsky:
    api_key: !secret bloomsky
 
 device_tracker:
-  - platform: netgear
-    host: 192.168.1.1
-    username: !secret router_user
-    password: !secret router_pwd
-    consider_home: 60
+  # - platform: netgear
+    # host: 192.168.1.1
+    # username: !secret router_user
+    # password: !secret router_pwd
+    # consider_home: 60
+    
+  # - platform: nmap_tracker
+    # hosts:
+    # - 192.168.1.5
+    # - 192.168.1.16
+    
+  - platform: unifi_direct
+    host: 192.168.1.39
+    username: !secret unifi_user
+    password: !secret unifi_pass
     
   - platform: bluetooth_tracker
     request_rssi: true
@@ -178,15 +188,15 @@ device_tracker:
     username: !secret gmap_user
     password: !secret gmap_pass
 
-# remote:
- # - platform: harmony
-   # name: Harmony Hub den
-   # host: 192.168.1.9
+remote:
+ - platform: harmony
+   name: Harmony Hub Den
+   host: 192.168.1.9
 
-# remote 1:
- # - platform: harmony
-   # name: Harmony Hub bed
-   # host: 192.168.1.21
+remote 1:
+ - platform: harmony
+   name: Harmony Hub Bedroom
+   host: 192.168.1.21
 
 mqtt:
   broker: 192.168.1.47
@@ -553,7 +563,7 @@ namecheapdns:
   host: plex
   domain: !secret namecheap_site
   password: !secret namecheap_pw
-  
+
 zwave:
   usb_path: /dev/ttyACM0
   network_key: !secret zwave_network_key
@@ -644,6 +654,8 @@ input_select:
     - Beef Ribs
     - Brisket
     - Chicken
+    - Fish
+    - Steak
     - Tritip
     initial: "Select Input"
     
@@ -752,8 +764,8 @@ shell_command:
   boogie_help: curl -X POST http://192.168.1.47:3000/customBroadcast?text=boogie+i+need+help+outside&user=hass-broadcast
   water_heater_leak: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+water+heater+is+leaking&user=hass-broadcast
   rain_water_heater: curl -X POST http://192.168.1.47:3000/customBroadcast?text=there+is+rain+getting+into+the+water+heater&user=hass-broadcast
-  bbq_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+done{%- else -%}{%- endif %}&user=hass-broadcast
-  bbq_almost: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+almost+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+almost+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+almost+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+almost+done{%- else -%}{%- endif %}&user=hass-broadcast
+  bbq_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+done{%- else -%}{%- endif %}&user=hass-broadcast
+  bbq_almost: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+almost+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+almost+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+almost+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+almost+done{{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+almost+done{{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+almost+done{%- else -%}{%- endif %}&user=hass-broadcast
   
 rachio:
   api_key: !secret rachiokey

@@ -478,6 +478,18 @@ bbq:
   - sensor.bbq1temperature
   - binary_sensor.bbq1
   
+all_windows:
+  name: All Windows
+  entities:
+  - binary_sensor.bathroom_window
+  - binary_sensor.bedroom_window
+  - binary_sensor.den_window
+  - binary_sensor.kitchen_window
+  - binary_sensor.living_room_left_bay_window
+  - binary_sensor.living_room_right_bay_window
+  - binary_sensor.living_room_side_window
+  - binary_sensor.office_window
+  
 # disaster:
   # name: Earthquakes and Fires
   # entities:

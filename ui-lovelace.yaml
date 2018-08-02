@@ -242,7 +242,6 @@ views:
   - sensor.zestimate
   - sensor.uptime
   - sensor.homeassistant_v2db
-  - sensor.ssl_certificate_expiry
   cards:
   - type: horizontal-stack
     cards:
@@ -253,6 +252,10 @@ views:
     - type: "custom:gauge-card"
       title: Disk Space Used
       entity: sensor.disk_use_percent_home
+      scale: 30px
+    - type: "custom:gauge-card"
+      title: Processor Speed
+      entity: sensor.processor_use
       scale: 30px
   - type: horizontal-stack
     cards:
@@ -265,6 +268,12 @@ views:
     - type: "custom:gauge-card"
       title: Ads Blocked
       entity: sensor.pihole_ads_percentage_blocked_today
+      scale: 30px
+    - type: "custom:gauge-card"
+      title: SSL Expiration
+      entity: sensor.ssl_certificate_expiry
+      min: 1
+      max: 90
       scale: 30px
   - type: glance
     title: SABnzbd
