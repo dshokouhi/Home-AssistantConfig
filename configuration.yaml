@@ -180,10 +180,11 @@ device_tracker:
     host: 192.168.1.39
     username: !secret unifi_user
     password: !secret unifi_pass
-    
+    consider_home: 60
+
   - platform: bluetooth_tracker
     request_rssi: true
-    
+
   - platform: google_maps
     username: !secret gmap_user
     password: !secret gmap_pass
