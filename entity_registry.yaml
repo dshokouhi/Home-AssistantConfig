@@ -1,45 +1,45 @@
 light.front_door_lamp:
-  config_entry_id:
+  config_entry_id: b1dcf07b9e1746acbb8ab0c314d11348
   name:
   platform: hue
   unique_id: 00:17:88:01:10:57:95:68-0b
 light.office_closet:
-  config_entry_id:
+  config_entry_id: b1dcf07b9e1746acbb8ab0c314d11348
   name:
   platform: hue
   unique_id: 00:17:88:01:02:83:8d:e7-0b
 light.bedroom_closet:
-  config_entry_id:
+  config_entry_id: b1dcf07b9e1746acbb8ab0c314d11348
   name:
   platform: hue
   unique_id: 00:17:88:01:10:57:e3:bc-0b
 light.patio_bbq:
-  config_entry_id:
+  config_entry_id: b1dcf07b9e1746acbb8ab0c314d11348
   name:
   platform: hue
   unique_id: 7c:e5:24:00:00:01:44:24-01
 light.nook_lamp:
-  config_entry_id:
+  config_entry_id: b1dcf07b9e1746acbb8ab0c314d11348
   name:
   platform: hue
   unique_id: 00:17:88:01:02:80:b6:cf-0b
 light.patio_table_left:
-  config_entry_id:
+  config_entry_id: b1dcf07b9e1746acbb8ab0c314d11348
   name:
   platform: hue
   unique_id: 7c:e5:24:00:00:0a:f7:cf-01
 light.bookshelf_left:
-  config_entry_id:
+  config_entry_id: b1dcf07b9e1746acbb8ab0c314d11348
   name:
   platform: hue
   unique_id: 00:17:88:01:10:50:2a:a7-0b
 light.patio_pool_light:
-  config_entry_id:
+  config_entry_id: b1dcf07b9e1746acbb8ab0c314d11348
   name:
   platform: hue
   unique_id: 7c:e5:24:00:00:03:90:ae-01
 light.patio_table_right:
-  config_entry_id:
+  config_entry_id: b1dcf07b9e1746acbb8ab0c314d11348
   name:
   platform: hue
   unique_id: 7c:e5:24:00:00:0c:34:80-01
@@ -379,42 +379,42 @@ binary_sensor.water_leak_sensor_158d0001bc24f5:
   platform: xiaomi_aqara
   unique_id: status158d0001bc24f5
 media_player.den_home:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: 2f574570-6944-ddf8-afbb-9f09d63fa439
 media_player.office_speaker:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: bd9c0392-22f7-bd2a-d800-3c5b11296787
 media_player.living_room_home:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: 5b30fffc-822c-060d-3643-e32f010332ee
 media_player.den_tv:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: a77e8b82-dbfb-1354-a620-0199e0c5f9a7
 media_player.kitchen_home:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: c24b6d75-ac65-08aa-8221-d373ed04e8e6
 media_player.home_notification:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: ed48b7b4-72b7-4aae-a34b-9321d63c4b91
 media_player.outdoor_speakers:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: d21dfa02-e7ac-291b-5617-88b54186a174
 media_player.house:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: f6dd91a4-97ea-41af-a716-2bb70272c811
@@ -424,7 +424,7 @@ light.bathroom_night_light:
   platform: xiaomi_aqara
   unique_id: rgb34ce0091f546
 media_player.bathroom_speaker:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: b915cf0c-6744-ed34-e12f-d620c9d4b7c5
@@ -434,7 +434,7 @@ light.centralite_3210l_0a932dbf_1:
   platform: zha
   unique_id: 00:0d:6f:00:0a:93:2d:bf-1
 media_player.bedroom_speaker:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: 142c8dc2-983c-cc61-cf98-8263c01c4dd2
@@ -1129,7 +1129,7 @@ media_player.chrome_5:
   platform: plex
   unique_id: xfdgq7lg2mpgurjo03g6dg56
 media_player.stream_unlimited9639:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: 1ae648d6-7fbf-25d1-d4dd-14953039851e
