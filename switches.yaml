@@ -118,15 +118,15 @@
    switches:
      fire_tv:
        friendly_name: Fire TV
-       value_template: "{{ is_state_attr('remote.harmony_hub_bed', 'current_activity', 'Watch Fire TV') }}"
+       value_template: "{{ is_state_attr('remote.harmony_hub_bedroom', 'current_activity', 'Watch Fire TV') }}"
        turn_on:
          service: remote.turn_on
-         entity_id: remote.harmony_hub_bed
+         entity_id: remote.harmony_hub_bedroom
          data:
            activity: '19492437'
        turn_off:
          service: remote.turn_off
-         entity_id: remote.harmony_hub_bed
+         entity_id: remote.harmony_hub_bedroom
             
  - platform: template
    switches:

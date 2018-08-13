@@ -2390,7 +2390,7 @@
     value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity == PowerOff }}"
   action:
     service: script.turn_on
-    entity_id: script.pc
+    entity_id: script.shield
     
 - alias: Movie mode curtains if sun is above horizon
   trigger:
@@ -2484,8 +2484,10 @@
     - condition: state
       entity_id: media_player.kodi_shield
       state: playing
-    - condition: template
-      value_template: '{{ states.remote.harmony_hub_den.attributes.current_activity != "PowerOff" }}'
+    - condition: and
+      conditions:
+      - condition: template
+        value_template: '{{ states.remote.harmony_hub_den.attributes.current_activity != "PowerOff" }}'
   action:
     service: light.turn_off
     entity_id: light.den_lights_level
@@ -2848,9 +2850,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.bathroom_humidity
-    above: 75
-    for:
-      minutes: 1
+    above: 65
   condition:
     condition: and
     conditions:
@@ -3378,7 +3378,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.den_air_purifier_temp
-    above: 78
+    above: 76
   condition:
     condition: state
     entity_id: switch.den_fan
@@ -3391,7 +3391,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.den_air_purifier_temp
-    below: 75
+    below: 73
   condition:
     condition: state
     entity_id: switch.den_fan
@@ -3407,12 +3407,12 @@
     above: 78
   - platform: numeric_state
     entity_id: sensor.living_room_air_purifier_temp
-    below: 75
+    below: 73
   action:
     service_template: >
         {% if states('sensor.living_room_air_purifier_temp')|int > 78 %}
           switch.turn_on
-        {% elif states('sensor.living_room_air_purifier_temp')|int < 75 %}
+        {% elif states('sensor.living_room_air_purifier_temp')|int < 73 %}
           switch.turn_off
         {% endif %}
     entity_id: switch.living_room_fan

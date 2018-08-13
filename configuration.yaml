@@ -165,17 +165,12 @@ bloomsky:
    api_key: !secret bloomsky
 
 device_tracker:
-  - platform: unifi_direct
-    host: 192.168.1.39
-    username: !secret unifi_user
-    password: !secret unifi_pass
+  - platform: nmap_tracker
     consider_home: 60
-
-  - platform: unifi_direct
-    host: 192.168.1.71
-    username: !secret unifi_user
-    password: !secret unifi_pass
-
+    hosts:
+    - 192.168.1.5
+    - 192.168.1.16
+    
   - platform: bluetooth_tracker
     request_rssi: true
 

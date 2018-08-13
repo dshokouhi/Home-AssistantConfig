@@ -599,7 +599,7 @@ light.osram_lightify_flex_rgbw_00026309_3:
   platform: zha
   unique_id: 84:18:26:00:00:02:63:09-3
 media_player.kitchen_tv:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: 1ad22278-6a9f-ca82-738e-dd117ba14cee
@@ -614,7 +614,7 @@ media_player.plex_web_chrome_4:
   platform: plex
   unique_id: k7w7q7y18u9tqn61p441d78k
 media_player.bedroom_tv:
-  config_entry_id:
+  config_entry_id: 22c8f656967a4652b1ec83f7c0fa6f9d
   name:
   platform: cast
   unique_id: 58cccc48-c121-a872-d7ef-aab60e904ff9

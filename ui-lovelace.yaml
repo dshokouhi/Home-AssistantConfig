@@ -62,8 +62,10 @@ views:
   - type: entities
     title: Thermostat
     entities:
-    - climate.thermostat_cooling_1
-    - climate.thermostat_heating_1
+    - entity: climate.thermostat_cooling_1
+      secondary_info: last-changed
+    - entity: climate.thermostat_heating_1
+      secondary_info: last-changed
   - type: entity-filter
     card:
       title: Detected Leaks
