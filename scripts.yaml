@@ -202,7 +202,7 @@ pseudo_tv:
   sequence:
   - service: media_player.kodi_call_method
     data:
-      entity_id: media_player.kodi_den
+      entity_id: media_player.kodi_shield
       method: Addons.ExecuteAddon
       addonid: script.pseudotv.live
 
