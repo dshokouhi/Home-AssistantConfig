@@ -3416,3 +3416,35 @@
           switch.turn_off
         {% endif %}
     entity_id: switch.living_room_fan
+
+################################################
+#
+#      Air Purifier Automations
+#
+################################################
+
+- alias: Clean Air Purifier Filter
+  trigger:
+    - platform: time
+      at: '10:00:00'
+    - platform: time
+      at: '18:00:00'
+  condition:
+    condition: template
+    value_template: "{{ (state_attr('fan.den_air_purifier', 'filter_life_remaining')| int == 0) or (state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int == 0) or (state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int == 0) or (state_attr('fan.office_air_purifier', 'filter_life_remaining')| int == 0) }}"
+  action:
+  - service: notify.chrome
+    data_template:
+      message: >-
+         {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int == 0 %}
+           Clean den air purifier filter
+         {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int == 0 %}
+           Clean living room air purifier filter
+         {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int == 0 %}
+           Clean bedroom air purifier filter
+         {% elif state_attr('fan.office_air_purifier', 'filter_life_remaining')| int == 0 %}
+           Clean office air purifier filter
+         {% else %}
+         {% endif %}
+      target: ["danny_pixel", "tosh_phone"]
+      title: Shokabow Zoo
