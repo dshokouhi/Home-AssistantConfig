@@ -3124,7 +3124,7 @@
      {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
        {{ states.sensor.bbq1temperature.state|int >= 195 }}
      {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-       {{ states.sensor.bbq1temperature.state|int >= 145 }}
+       {{ states.sensor.bbq1temperature.state|int >= 155 }}
      {% elif is_state("input_select.bbq_probe1", "Fish") -%}
        {{ states.sensor.bbq1temperature.state|int >= 130 }}
      {% elif is_state("input_select.bbq_probe1", "Steak") -%}

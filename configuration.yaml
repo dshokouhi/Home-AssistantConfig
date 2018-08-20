@@ -764,3 +764,6 @@ weather:
   - platform: yweather
     euid: !secret yahoo
     name: Home
+
+openuv:
+  api_key: !secret openuv_api
