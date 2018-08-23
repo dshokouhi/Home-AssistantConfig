@@ -6,6 +6,8 @@
 !custom_components
 !custom_components/sensor
 !custom_components/sensor/*
+!custom_components/media_player
+!custom_components/media_player/*
 !.gitignore
 secrets.yaml
 known_devices.yaml
