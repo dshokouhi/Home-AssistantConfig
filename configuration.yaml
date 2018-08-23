@@ -276,7 +276,13 @@ media_player 9:
  # - platform: spotify
    # client_id: !secret spotify_client_id
    # client_secret: !secret spotify_client_secret
- 
+
+media_player 10:
+  - platform: xboxone
+    device: !secret xbox_device
+    host: 192.168.1.47
+    name: Xbox Den
+
 amcrest:
  - host: 192.168.1.42
    port: 1025
@@ -765,5 +771,5 @@ weather:
     euid: !secret yahoo
     name: Home
 
-openuv:
-  api_key: !secret openuv_api
+# openuv:
+  # api_key: !secret openuv_api

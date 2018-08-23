@@ -381,6 +381,7 @@ media_players:
   - media_player.sony_bravia_tv
   - media_player.stream_unlimited9639
   #- media_player.spotify
+  - media_player.xbox_den
 
 forecast:
  name: Forecast

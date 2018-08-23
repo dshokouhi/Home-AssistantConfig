@@ -433,6 +433,8 @@ views:
     entity: media_player.sony_bravia_tv
   - type: media-control
     entity: media_player.stream_unlimited9639
+  - type: media-control
+    entity: media_player.xbox_den
 - title: Calendar
   icon: mdi:calendar
   cards:
