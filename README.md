@@ -225,9 +225,9 @@
 ![home7](https://user-images.githubusercontent.com/1634145/35309382-101375a8-0061-11e8-9053-14c6605a8edf.JPG)
 
 ## Lovelace Screenshots
-![lovelace1](https://user-images.githubusercontent.com/1634145/43029010-39611fe2-8c38-11e8-9b5b-911e13c4b5c4.png)
-![lovelace2](https://user-images.githubusercontent.com/1634145/43029011-398ecee2-8c38-11e8-9b1a-8aff963ca405.png)
-![lovelace3 png](https://user-images.githubusercontent.com/1634145/43029012-39a71ba0-8c38-11e8-9844-48d2db1e562d.jpg)
+![lovelace1](https://user-images.githubusercontent.com/1634145/44822304-40d30d80-abaf-11e8-82df-588d0d2c70db.png)
+![lovelace2](https://user-images.githubusercontent.com/1634145/44822305-40d30d80-abaf-11e8-8a4b-b3f938976b4e.png)
+![lovelace3 png](https://user-images.githubusercontent.com/1634145/44822306-416ba400-abaf-11e8-901b-98eff4b93cda.png)
 ![lovelace4](https://user-images.githubusercontent.com/1634145/43029013-39bf2402-8c38-11e8-86c9-fd254b369a96.png)
 ![lovelace5](https://user-images.githubusercontent.com/1634145/43029014-39d9e7a6-8c38-11e8-9261-424da0f43632.png)
 ![lovelace6](https://user-images.githubusercontent.com/1634145/43029015-39f0d6fa-8c38-11e8-887c-47eba75921d9.png)
