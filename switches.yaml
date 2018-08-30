@@ -94,9 +94,9 @@
    switches:
      den_vacuum:
        friendly_name: Den Vacuum
-       value_template: "{{ is_state('vacuum.mr_neato', 'on') }}"
+       value_template: "{{ is_state('vacuum.mr_neato', 'cleaning') }}"
        turn_on:
-       - service: vacuum.turn_on
+       - service: vacuum.start
          entity_id: vacuum.mr_neato
        turn_off:
        - service: vacuum.return_to_base
@@ -106,9 +106,9 @@
    switches:
      house_vacuum:
        friendly_name: House Vacuum
-       value_template: "{{ is_state('vacuum.mrs_neato', 'on') }}"
+       value_template: "{{ is_state('vacuum.mrs_neato', 'cleaning') }}"
        turn_on:
-       - service: vacuum.turn_on
+       - service: vacuum.start
          entity_id: vacuum.mrs_neato
        turn_off:
        - service: vacuum.return_to_base
