@@ -2551,9 +2551,18 @@
   - platform: state
     entity_id: climate.thermostat_cooling_1
     to: 'cool'
+  - platform: state
+    entity_id: sensor.inside_outside_temp
+    to: 'True'
   condition:
-    condition: template
-    value_template: "{{ states('sensor.thermostat_temperature') > states('sensor.shokabow_weather_temperature') }}"
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sensor.inside_outside_temp
+      state: 'True'
+    - condition: state
+      entity_id: climate.thermostat_cooling_1
+      state: 'cool'
   action:
   - service: hangouts.send_message
     data_template:

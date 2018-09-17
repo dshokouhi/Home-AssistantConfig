@@ -415,19 +415,30 @@
          {% else %}
           n/a
          {% endif %}
-   
+
  - platform: template
    sensors:
      harmony_den_activity:
        value_template: "{{ state_attr('remote.harmony_hub_den', 'current_activity') }}"
        friendly_name: Harmony Den Input
-       
+
  - platform: template
    sensors:
      harmony_bed_activity:
        value_template: "{{ state_attr('remote.harmony_hub_bedroom', 'current_activity') }}"
        friendly_name: Harmony Bed Input
-       
+
+ - platform: template
+   sensors:
+     inside_outside_temp:
+       friendly_name: Inside vs Outside Temperature
+       value_template: >-
+         {% if states('sensor.thermostat_temperature') > states('sensor.shokabow_weather_temperature') %}
+           True
+         {% else %}
+           False
+         {% endif %}
+
  - platform: uptime
  
  - platform: waqi
