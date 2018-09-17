@@ -184,7 +184,7 @@ views:
       entity: sensor.dryer_power_2
       scale: 30px
       min: 0
-      max: 1200
+      max: 1500
     - type: "custom:gauge-card"
       title: Pool Pump Power
       entity: sensor.pool_pump_power
@@ -196,7 +196,7 @@ views:
       entity: sensor.washer_power_2
       scale: 30px
       min: 0
-      max: 1200
+      max: 1500
   - type: entities
     title: Backyard & Garage
     entities:
@@ -307,6 +307,12 @@ views:
       name: Download
     - entity: sensor.speedtest_upload
       name: Upload
+    - entity: automation.speed_test
+      name: Run Test
+      tap_action: call-service
+      service: automation.trigger
+      service_data:
+        entity_id: automation.speed_test
   - type: entities
     title: ZoneMinder
     entities:

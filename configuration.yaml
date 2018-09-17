@@ -6,14 +6,14 @@ homeassistant:
   unit_system: imperial
   time_zone: America/Los_Angeles
   customize: !include customize.yaml
-  customize_glob: !include custom-ui.yaml
+  # customize_glob: !include custom-ui.yaml
   whitelist_external_dirs:
   - /home/homeassistant/.homeassistant/snapshot
   - /home/homeassistant/.homeassistant
 
 # Custom UI from https://github.com/andrey-git/home-assistant-custom-ui
-customizer:
-  custom_ui: local
+# customizer:
+  # custom_ui: local
 
 frontend:
  themes:
@@ -372,6 +372,19 @@ notify:
        target: ["danny_pixel", "tosh_phone"]
        title: Shokabow Zoo
 
+ - platform: hangouts
+   name: hangouts
+   default_conversations:
+   - id: UgwfRqvPBbaXU1nGfS14AaABAQ
+
+ - platform: group
+   name: hangouts_alerts
+   services:
+   - service: hangouts
+     data:
+       target:
+       - id: UgwfRqvPBbaXU1nGfS14AaABAQ
+
 alert:
   front_door_unlocked:
     name: Front Door is unlocked
@@ -380,7 +393,7 @@ alert:
     repeat: 5
     skip_first: true
     notifiers:
-    - chrome_alerts
+    - hangouts_alerts
 
 ring:
    username: !secret ringuser
@@ -771,5 +784,18 @@ weather:
     euid: !secret yahoo
     name: Home
 
-# openuv:
-  # api_key: !secret openuv_api
+hangouts:
+  intents:
+    help:
+      sentences:
+        - help
+        - I need help
+        - send help
+        - yes
+
+intent_script:
+  help:
+    speech:
+      text: Sending help
+    action:
+      service: shell_command.boogie_help

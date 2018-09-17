@@ -330,11 +330,17 @@
         position: center
       message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes {% endif %}"
       title: Shokabow Zoo
-  - service: notify.chrome
-    data:
-      message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes{% endif %}"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes{% endif %}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes{% endif %}"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
@@ -370,13 +376,19 @@
         color: red
         duration: 10
         position: center
-      message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry {% endif %}"
+      message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry{% endif %}"
       title: Shokabow Zoo
-  - service: notify.chrome
-    data:
-      message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry {% endif %}"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry {% endif %}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry{% endif %}"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
@@ -414,11 +426,17 @@
       title: Shokabow Zoo
   - service: input_boolean.turn_off
     entity_id: input_boolean.dishwasher_status
-  - service: notify.chrome
-    data:
-      message: "The dishes are done"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The dishes are done"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The dishes are done."
   - service: input_boolean.turn_on
     entity_id: input_boolean.dishes_clean
   - condition: state
@@ -512,11 +530,17 @@
         # {% else %}
           # media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
         # {%endif %}
-  - service: notify.chrome
-    data:
-      message: "The front door lock is jammed"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The front door lock is jammed"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The front door lock is jammed."
       
 - alias: Speak close den sliding door
   trigger:
@@ -534,11 +558,17 @@
     entity_id: media_player.den_home
     data:
       message: 'Please close the den sliding door'
-  - service: notify.chrome
-    data:
-      message: "Please close the den sliding door"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "Please close the den sliding door"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Please close the den sliding door."
 
 - alias: Check dishwasher
   trigger:
@@ -754,11 +784,17 @@
     entity_id: scene.goodbye
   - service: lock.lock
     entity_id: lock.front_door_lock_locked
-  - service: notify.chrome
-    data:
-      message: "The alarm has been activated"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The alarm has been activated"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The alarm has been activated."
 
 - alias: Notify Alarm Off
   trigger:
@@ -767,11 +803,17 @@
     from: armed_away
     to: disarmed
   action:
-  - service: notify.chrome
-    data:
-      message: "The alarm has been deactivated"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The alarm has been deactivated"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The alarm has been deactivated."
 
 - alias: Arm Alarm When Nobody Home
   trigger:
@@ -796,11 +838,17 @@
   - service: alarm_control_panel.alarm_arm_away
     data:
       entity_id: alarm_control_panel.home
-  - service: notify.chrome
-    data:
-      message: "The alarm has been activated since nobody is home"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The alarm has been activated since nobody is home"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The alarm has been activated since nobody is home"
 
 - alias: Disarm alarm when someone comes home
   trigger:
@@ -815,11 +863,17 @@
   - service: alarm_control_panel.alarm_disarm
     data:
       entity_id: alarm_control_panel.home
-  - service: notify.chrome
-    data:
-      message: "The alarm has been deactivated since a tracked user is home"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The alarm has been deactivated since a tracked user is home"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The alarm has been deactivated since a tracked user is home"
 
 - alias: Arm Alarm Front Door
   trigger:
@@ -854,6 +908,8 @@
   - platform: state
     entity_id: sensor.front_door_lock_alarm_type
     to: '19'
+    for:
+      seconds: 2
   condition:
     condition: and
     conditions:
@@ -876,20 +932,28 @@
 - alias: Dad Unlock
   trigger:
   - platform: state
+    entity_id: sensor.front_door_lock_alarm_type
+    to: '19'
+    for:
+      seconds: 2
+  condition:
+    condition: state
     entity_id: sensor.front_door_code
-    to: 'Dad'
-  - platform: state
-    entity_id: sensor.front_door_code
-    to: 'Dad'
-    from: 'Dad'
+    state: 'Dad'
   action:
   - service: light.turn_on
     entity_id: light.office_lights
-  - service: notify.chrome
-    data:
-      message: "The alarm has been deactivated by dad"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The alarm has been deactivated by dad"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The alarm has been deactivated by dad"
   - service: tts.google_say
     entity_id: media_player.kitchen_home, media_player.den_home, media_player.office_speaker
     data:
@@ -898,20 +962,28 @@
 - alias: Zoo keeper Unlock
   trigger:
   - platform: state
+    entity_id: sensor.front_door_lock_alarm_type
+    to: '19'
+    for:
+      seconds: 2
+  condition:
+    condition: state
     entity_id: sensor.front_door_code
-    to: 'Zoo Keeper'
-  - platform: state
-    entity_id: sensor.front_door_code
-    to: 'Zoo Keeper'
-    from: 'Zoo Keeper'
+    state: 'Zoo Keeper'
   action:
   - service: light.turn_on
     entity_id: light.office_lights
-  - service: notify.chrome
-    data:
-      message: "The alarm has been deactivated by zoo keeper"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The alarm has been deactivated by zoo keeper"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The alarm has been deactivated by zoo keeper"
 
 - alias: Warn Alarm On But Window Open
   trigger:
@@ -923,11 +995,17 @@
     entity_id: binary_sensor.windows
     state: 'on'
   action:
-  - service: notify.chrome
-    data:
-      message: "The following window(s) is/are open but the alarm is turned on{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The following window(s) is/are open but the alarm is turned on{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The following window(s) is/are open but the alarm is turned on{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
       
 - alias: Notify door lock keypad locked
   trigger:
@@ -935,11 +1013,17 @@
     entity_id: sensor.front_door_lock_alarm_type
     to: '161'
   action:
-  - service: notify.chrome
-    data:
-      message: "Too many incorrect codes used on front door.  Keypad locked."
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "Too many incorrect codes used on front door.  Keypad locked."
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Too many incorrect codes used on front door.  Keypad locked."
 
 - alias: Notify alarm triggered
   trigger:
@@ -1042,11 +1126,17 @@
     entity_id: alarm_control_panel.home
     state: 'armed_night'
   action:
-  - service: notify.chrome
-    data:
-      message: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
   - service: tts.google_say
     entity_id: media_player.bedroom_speaker
     data_template:
@@ -1091,11 +1181,17 @@
       entity_id: input_boolean.night_mode
       state: 'on'
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: "The alarm is arming in night mode and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: "The alarm is arming in night mode and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The alarm is arming in night mode and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -1285,11 +1381,17 @@
         position: center
       message: 'Bedroom door left open and boogie has left for work, go close it!'
       title: Shokabow Zoo
-  - service: notify.chrome
-    data_template:
-      message: "Bedroom door left open and boogie has left for work, go close it!"
-      target: danny_pixel
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data_template:
+      # message: "Bedroom door left open and boogie has left for work, go close it!"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "Bedroom door left open and boogie has left for work, go close it!"
   - service: tts.google_say
     entity_id: media_player.den_home
     data:
@@ -1557,11 +1659,17 @@
     entity_id: alarm_control_panel.home
     state: 'disarmed'
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data:
+      # message: "You got mail"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data:
-      message: "You got mail"
-      target: danny_pixel
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "You got mail"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -1777,11 +1885,17 @@
       entity_id: input_boolean.night_mode
       state: 'off'
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: "It's raining and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: "It's raining and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
-      target: danny_pixel
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "It's raining and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -1840,11 +1954,17 @@
       entity_id: input_boolean.shower_mode
       state: 'off'
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: "The thermostat is on and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: "The thermostat is on and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
-      target: danny_pixel
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The thermostat is on and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -1939,10 +2059,34 @@
     data:
       entity_id: climate.thermostat_cooling_1
       operation_mode: 'off'
-    
+
+- alias: Cool down house while sleeping
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.thermostat_temperature
+    above: 75
+  - platform: state
+    entity_id: input_boolean.night_mode
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'on'
+  action:
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.thermostat_cooling_1
+      temperature: 74
+  - service: climate.set_operation_mode
+    data:
+      entity_id: climate.thermostat_cooling_1
+      operation_mode: 'cool'
+
 ##################################################
 #
-#      Lights Alarm Off
+#      Alarm Off Automations
 #
 ################################################
 
@@ -1961,6 +2105,13 @@
     entity_id: light.living_room_lights_level
   - service: switch.turn_off
     entity_id: switch.siren_switch
+  - condition: state
+    entity_id: climate.thermostat_cooling_1
+    state: cool
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.thermostat_cooling_1
+      temperature: 76
 
 ################################################
 #
@@ -1988,11 +2139,17 @@
         position: center
       message: 'Smoke Detected! {{ trigger.to_state.attributes.friendly_name }}'
       title: Shokabow Zoo
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: "Smoke Detected {{ trigger.to_state.attributes.friendly_name }}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: "Smoke Detected {{ trigger.to_state.attributes.friendly_name }}"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Smoke detected at home  {{ trigger.to_state.attributes.friendly_name }}"
   - service: notify.slack
     data_template:
       message: "Smoke detected at home  {{ trigger.to_state.attributes.friendly_name }}"
@@ -2017,11 +2174,17 @@
         position: center
       message: 'CO2 Detected! {{ trigger.to_state.attributes.friendly_name }}'
       title: Shokabow Zoo
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: "CO2 Detected  {{ trigger.to_state.attributes.friendly_name }}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: "CO2 Detected  {{ trigger.to_state.attributes.friendly_name }}"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "CO2 Detected  {{ trigger.to_state.attributes.friendly_name }}"
   - service: notify.slack
     data_template:
       message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }}"
@@ -2180,11 +2343,17 @@
         {%- endif -%}
       {%- endfor -%}
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: "node {{ trigger.entity_id }} has died"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: "node {{ trigger.entity_id }} has died"
-      target: danny_pixel
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "node {{ trigger.entity_id }} has died"
 
 
 # - alias: Notify zwave network ready
@@ -2212,15 +2381,21 @@
     entity_id: switch.tasker_sleep_danny
     state: 'off'
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data:
+      # message: "Welcome home, do you need help?"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+      # data:
+        # actions:
+        # - action: "help"
+          # title: "Yes"
+  - service: hangouts.send_message
     data:
-      message: "Welcome home, do you need help?"
-      target: danny_pixel
-      title: Shokabow Zoo
-      data:
-        actions:
-        - action: "help"
-          title: "Yes"
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "Welcome home! Do you need help? Type 'help' or 'yes' if yes."
 
 - alias: Notify help needed at cars
   trigger:
@@ -2251,11 +2426,17 @@
     entity_id: switch.tasker_sleep_danny
     state: 'off'
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data:
+      # message: "You are not home, did you forget anything?"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data:
-      message: "You are not home, did you forget anything?"
-      target: danny_pixel
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "You are not home, did you forget anything?"
       
 - alias: Notify bayesian on tosh
   trigger:
@@ -2267,15 +2448,21 @@
     entity_id: switch.tasker_sleep_tosh
     state: 'off'
   action:
-  - service: notify.chrome
-    data:
-      message: "Welcome home, do you need help?"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
-      data:
-        actions:
-        - action: "help"
-          title: "Yes"
+  # - service: notify.chrome
+    # data:
+      # message: "Welcome home, do you need help?"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+      # data:
+        # actions:
+        # - action: "help"
+          # title: "Yes"
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Welcome home boogie! Do you need help? Type 'help' or 'yes' if yes."
 
 - alias: Notify bayesian off tosh
   trigger:
@@ -2287,11 +2474,17 @@
     entity_id: switch.tasker_sleep_tosh
     state: 'off'
   action:
-  - service: notify.chrome
-    data:
-      message: "Tosh has left the zoo.  Did you forget anything?"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "Tosh has left the zoo.  Did you forget anything?"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Tosh has left the zoo.  Did you forget anything?"
       
 ################################################
 #
@@ -2352,7 +2545,23 @@
     data:
       entity_id: climate.thermostat_heating_1
       temperature: 70
-      
+
+- alias: Open windows if ac is on and its cooler outside
+  trigger:
+  - platform: state
+    entity_id: climate.thermostat_cooling_1
+    to: 'cool'
+  condition:
+    condition: template
+    value_template: "{{ states('sensor.thermostat_temperature') > states('sensor.shokabow_weather_temperature') }}"
+  action:
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Please open a window, it is cooler outside than it is inside."
+
 ################################################
 #
 #      Movie Mode Automations
@@ -2508,11 +2717,17 @@
     entity_id: binary_sensor.shokabow_weather_rain
     state: 'off'
   action:
-  - service: notify.chrome
-    data:
-      message: "The water heater is leaking"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "The water heater is leaking"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The water heater is leaking."
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -2538,11 +2753,17 @@
     entity_id: binary_sensor.shokabow_weather_rain
     state: 'on'
   action:
-  - service: notify.chrome
-    data:
-      message: "There is rain getting into the water heater"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "There is rain getting into the water heater"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "There is rain getting into the water heater."
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -2605,24 +2826,30 @@
           {%- for domain in domains if battery_level(domain) |trim != ""-%}
           {{ battery_level(domain) }}{%- if not loop.last %}, {% endif -%}
           {%- endfor -%}
-    - service: notify.chrome
+    # - service: notify.chrome
+      # data_template:
+        # title: "Battery status"
+        # target: ["danny_pixel", "tosh_phone"]
+        # message: >
+    - service: hangouts.send_message
       data_template:
-        title: "Battery status"
-        target: ["danny_pixel", "tosh_phone"]
-        message: >
-          {% macro battery_level() %}
-          {%- set threshold = 25 -%}
-          {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
-          {% for domain in domains -%}
-          {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
-          {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
-          {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{% endif -%}
-          {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
-          {{ item.name }} ({{ item.state }}){% if not loop.last %}, {%- endif %} {% endif -%}
-          {% endfor %}
-          {%- endfor %}
-          {% endmacro %}
-          {{ battery_level()}}
+        target:
+        - id: !secret hangouts_group
+        message:
+        - text: >
+             {% macro battery_level() %}
+             {%- set threshold = 25 -%}
+             {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
+             {% for domain in domains -%}
+             {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+             {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
+             {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{% endif -%}
+             {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
+             {{ item.name }} ({{ item.state }}){% if not loop.last %}, {%- endif %} {% endif -%}
+             {% endfor %}
+             {%- endfor %}
+             {% endmacro %}
+             {{ battery_level()}}
 
 - alias: Battery Alert Clear
   trigger:
@@ -2702,11 +2929,17 @@
     data_template:
       title: Something bad happened
       message: '{{ trigger.event.data.message }}'
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data:
+      # message: "Timer out of sync"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data:
-      message: "Timer out of sync"
-      target: danny_pixel
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "Timer out of sync"
   
 ################################################
 #
@@ -2744,11 +2977,17 @@
     entity_id: sensor.ssl_certificate_expiry
     below: 5
   action:
-  - service: notify.chrome
-    data:
-      message: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days!"
-      target: danny_pixel
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days!"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days!"
       
 - alias: Disk Getting Full
   trigger:
@@ -2756,11 +2995,17 @@
     entity_id: sensor.disk_use_percent_home
     above: 50
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data:
+      # message: "Home assistant drive getting full, over 50%! Check journal and zoneminder."
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data:
-      message: "Home assistant drive getting full, over 50%! Check journal and zoneminder."
-      target: danny_pixel
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "Home assistant drive getting full, over 50%! Check journal and zoneminder."
       
 ################################################
 #
@@ -2802,9 +3047,14 @@
     for:
       minutes: 2
   condition:
-    condition: state
-    entity_id: binary_sensor.bathroom_window
-    state: 'off'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.bathroom_window
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.bathroom_door
+      state: 'off'
   action:
   - service: media_player.media_play_pause
     entity_id: media_player.bathroom_speaker
@@ -2921,14 +3171,20 @@
       state: 'off'
   action:
   - service: light.turn_on
-    entity_id: light.bedroom_lights_level
+    data_template:
+      entity_id: >-
+          {%- if (now().hour < 22 and now().hour > 16) -%}
+            light.bedroom_lights_level
+          {%- else -%}
+            light.dannys, light.toshs
+          {%- endif -%}
   - delay: "00:03:00"
   - wait_template: "{{ states.binary_sensor.bedroom_motion_sensor.state == 'off' }}"
   - condition: state
     entity_id: binary_sensor.bedroom_door
     state: 'off'
   - service: light.turn_off
-    entity_id: light.bedroom_lights_level
+    entity_id: light.bedroom_lights_level, light.dannys, light.toshs
 
 ################################################
 #
@@ -3003,11 +3259,17 @@
         position: center
       message: 'Leak Detected! {{ trigger.to_state.attributes.friendly_name }}'
       title: Shokabow Zoo
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: "Leak Detected {{ trigger.to_state.attributes.friendly_name }}"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: "Leak Detected {{ trigger.to_state.attributes.friendly_name }}"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Leak Detected {{ trigger.to_state.attributes.friendly_name }}"
   - service: notify.slack
     data_template:
       message: "Leak detected at home {{ trigger.to_state.attributes.friendly_name }}"
@@ -3069,17 +3331,29 @@
     entity_id: binary_sensor.tsxpresence
     to: 'off'
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: >
+        # {% if is_state("binary_sensor.tsxpresence", "on") %}
+          # TSX turned on or arrived home
+        # {% elif is_state("binary_sensor.tsxpresence", "off") %}
+          # TSX turned off or left home
+        # {% else %}
+        # {% endif %}
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: >
-        {% if is_state("binary_sensor.tsxpresence", "on") %}
-          TSX turned on or arrived home
-        {% elif is_state("binary_sensor.tsxpresence", "off") %}
-          TSX turned off or left home
-        {% else %}
-        {% endif %}
-      target: danny_pixel
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: >
+           {% if is_state("binary_sensor.tsxpresence", "on") %}
+             TSX turned on or arrived home
+           {% elif is_state("binary_sensor.tsxpresence", "off") %}
+             TSX turned off or left home
+           {% else %}
+           {% endif %}
       
 - alias: Tosh car
   trigger:
@@ -3090,17 +3364,29 @@
     entity_id: binary_sensor.rdxpresence
     to: 'off'
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: >
+        # {% if is_state("binary_sensor.rdxpresence", "on") %}
+          # RDX turned on or arrived home
+        # {% elif is_state("binary_sensor.rdxpresence", "off") %}
+          # RDX turned off or left home
+        # {% else %}
+        # {% endif %}
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: >
-        {% if is_state("binary_sensor.rdxpresence", "on") %}
-          RDX turned on or arrived home
-        {% elif is_state("binary_sensor.rdxpresence", "off") %}
-          RDX turned off or left home
-        {% else %}
-        {% endif %}
-      target: danny_pixel
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: >
+           {% if is_state("binary_sensor.rdxpresence", "on") %}
+             RDX turned on or arrived home
+           {% elif is_state("binary_sensor.rdxpresence", "off") %}
+             RDX turned off or left home
+           {% else %}
+           {% endif %}
       
 ################################################
 #
@@ -3133,25 +3419,45 @@
        {{ states.sensor.bbq1temperature.state|int >= 120 }}
      {%- else -%}
      {%- endif %}
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: >
+       # {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+         # Beef Ribs are almost ready
+       # {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+         # Briket is almost ready
+       # {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+         # Chicken is almost ready
+       # {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+         # Fish is almost ready
+       # {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+         # Steak is almost ready
+       # {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+         # Tritip is almost ready
+       # {%- else -%}
+       # {%- endif %}
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: >
-       {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
-         Beef Ribs are almost ready
-       {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-         Briket is almost ready
-       {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-         Chicken is almost ready
-       {% elif is_state("input_select.bbq_probe1", "Fish") -%}
-         Fish is almost ready
-       {% elif is_state("input_select.bbq_probe1", "Steak") -%}
-         Steak is almost ready
-       {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-         Tritip is almost ready
-       {%- else -%}
-       {%- endif %}
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: >
+          {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+            Beef Ribs are almost ready
+          {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+            Briket is almost ready
+          {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+            Chicken is almost ready
+          {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+            Fish is almost ready
+          {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+            Steak is almost ready
+          {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+            Tritip is almost ready
+          {%- else -%}
+          {%- endif %}
   - service: shell_command.bbq_almost
     #entity_id: media_player.home_notification
     #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
@@ -3188,25 +3494,45 @@
        {{ states.sensor.bbq1temperature.state|int >= 130 }}
      {%- else -%}
      {%- endif %}
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: >
+       # {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+         # Beef Ribs are done
+       # {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+         # Briket is done
+       # {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+         # Chicken is done
+       # {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+         # Fish is done
+       # {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+         # Steak is done
+       # {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+         # Tritip is done
+       # {%- else -%}
+       # {%- endif %}
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: >
-       {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
-         Beef Ribs are done
-       {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-         Briket is done
-       {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-         Chicken is done
-       {% elif is_state("input_select.bbq_probe1", "Fish") -%}
-         Fish is done
-       {% elif is_state("input_select.bbq_probe1", "Steak") -%}
-         Steak is done
-       {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-         Tritip is done
-       {%- else -%}
-       {%- endif %}
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: >
+          {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+            Beef Ribs are done
+          {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+            Briket is done
+          {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+            Chicken is done
+          {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+            Fish is done
+          {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+            Steak is done
+          {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+            Tritip is done
+          {%- else -%}
+          {%- endif %}
   - service: shell_command.bbq_done
     #entity_id: media_player.home_notification
     #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
@@ -3311,11 +3637,17 @@
     for:
       minutes: 10
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data:
+      # message: "Pool pump is offline, go outside and hit reset"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data:
-      message: "Pool pump is offline, go outside and hit reset"
-      target: danny_pixel
-      title: Shokabow Zoo
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "Pool pump is offline, go outside and hit reset"
       
 ################################################
 #
@@ -3433,9 +3765,27 @@
     condition: template
     value_template: "{{ (state_attr('fan.den_air_purifier', 'filter_life_remaining')| int == 0) or (state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int == 0) or (state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int == 0) or (state_attr('fan.office_air_purifier', 'filter_life_remaining')| int == 0) }}"
   action:
-  - service: notify.chrome
+  # - service: notify.chrome
+    # data_template:
+      # message: >-
+         # {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int == 0 %}
+           # Clean den air purifier filter
+         # {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int == 0 %}
+           # Clean living room air purifier filter
+         # {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int == 0 %}
+           # Clean bedroom air purifier filter
+         # {% elif state_attr('fan.office_air_purifier', 'filter_life_remaining')| int == 0 %}
+           # Clean office air purifier filter
+         # {% else %}
+         # {% endif %}
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
+  - service: hangouts.send_message
     data_template:
-      message: >-
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: >-
          {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int == 0 %}
            Clean den air purifier filter
          {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int == 0 %}
@@ -3446,5 +3796,3 @@
            Clean office air purifier filter
          {% else %}
          {% endif %}
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo

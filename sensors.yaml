@@ -502,99 +502,99 @@
    zpid:
    - !secret zillow_zpid
    
- - platform: rest
-   resource: !secret plantlink_arti
-   scan_interval: 6000
-   method: GET
-   authentication: basic
-   headers:
-     Authorization: !secret plantlink_key
-   verify_ssl: false
-   name: Artichoke Status
-   value_template: >-
-                {% if value_json.status == '0' %}
-                  Needs Water
-                {% elif value_json.status == '1' %}
-                  Dry
-                {% elif value_json.status == '2' %}
-                  Good
-                {% elif value_json.status == '3' %}
-                  Good
-                {% elif value_json.status == '4' %}
-                  Too Wet
-                {% else %}
-                  value_json.status
-                {% endif %}
+ # - platform: rest
+   # resource: !secret plantlink_arti
+   # scan_interval: 6000
+   # method: GET
+   # authentication: basic
+   # headers:
+     # Authorization: !secret plantlink_key
+   # verify_ssl: false
+   # name: Artichoke Status
+   # value_template: >-
+                # {% if value_json.status == '0' %}
+                  # Needs Water
+                # {% elif value_json.status == '1' %}
+                  # Dry
+                # {% elif value_json.status == '2' %}
+                  # Good
+                # {% elif value_json.status == '3' %}
+                  # Good
+                # {% elif value_json.status == '4' %}
+                  # Too Wet
+                # {% else %}
+                  # value_json.status
+                # {% endif %}
 
- - platform: rest
-   resource: !secret plantlink_arti
-   scan_interval: 6000
-   method: GET
-   authentication: basic
-   headers:
-     Authorization: !secret plantlink_key
-   verify_ssl: false
-   name: Artichoke Moisture
-   sensor_class: moisture
-   unit_of_measurement: '%'
-   value_template: '{{ (value_json.last_measurements[0]["moisture"]) | round(3) * 100 }}'
+ # - platform: rest
+   # resource: !secret plantlink_arti
+   # scan_interval: 6000
+   # method: GET
+   # authentication: basic
+   # headers:
+     # Authorization: !secret plantlink_key
+   # verify_ssl: false
+   # name: Artichoke Moisture
+   # sensor_class: moisture
+   # unit_of_measurement: '%'
+   # value_template: '{{ (value_json.last_measurements[0]["moisture"]) | round(3) * 100 }}'
    
- - platform: rest
-   resource: !secret plantlink_arti
-   scan_interval: 6000
-   method: GET
-   authentication: basic
-   headers:
-     Authorization: !secret plantlink_key
-   verify_ssl: false
-   name: Artichoke Fuel
-   value_template: '{{ value_json.last_measurements[0]["plant_fuel_level"] | round(3) }}'
+ # - platform: rest
+   # resource: !secret plantlink_arti
+   # scan_interval: 6000
+   # method: GET
+   # authentication: basic
+   # headers:
+     # Authorization: !secret plantlink_key
+   # verify_ssl: false
+   # name: Artichoke Fuel
+   # value_template: '{{ value_json.last_measurements[0]["plant_fuel_level"] | round(3) }}'
    
- - platform: rest
-   resource: !secret plantlink_arti
-   scan_interval: 6000
-   method: GET
-   authentication: basic
-   headers:
-     Authorization: !secret plantlink_key
-   verify_ssl: false
-   name: Artichoke Signal
-   unit_of_measurement: '%'
-   value_template: '{{ float(value_json.last_measurements[0]["signal"]) * 100 | round(3) }}'
+ # - platform: rest
+   # resource: !secret plantlink_arti
+   # scan_interval: 6000
+   # method: GET
+   # authentication: basic
+   # headers:
+     # Authorization: !secret plantlink_key
+   # verify_ssl: false
+   # name: Artichoke Signal
+   # unit_of_measurement: '%'
+   # value_template: '{{ float(value_json.last_measurements[0]["signal"]) * 100 | round(3) }}'
    
- - platform: rest
-   resource: !secret plantlink_arti
-   scan_interval: 6000
-   method: GET
-   authentication: basic
-   headers:
-     Authorization: !secret plantlink_key
-   verify_ssl: false
-   name: Artichoke Battery
-   unit_of_measurement: '%'
-   value_template: '{{ float(value_json.last_measurements[0]["battery"]) * 100 | round(3) }}'
+ # - platform: rest
+   # resource: !secret plantlink_arti
+   # scan_interval: 6000
+   # method: GET
+   # authentication: basic
+   # headers:
+     # Authorization: !secret plantlink_key
+   # verify_ssl: false
+   # name: Artichoke Battery
+   # unit_of_measurement: '%'
+   # value_template: '{{ float(value_json.last_measurements[0]["battery"]) * 100 | round(3) }}'
    
- - platform: rest
-   resource: !secret plantlink_arti
-   scan_interval: 6000
-   method: GET
-   authentication: basic
-   headers:
-     Authorization: !secret plantlink_key
-   verify_ssl: false
-   name: Artichoke Last Updated
-   value_template: '{{ value_json.last_measurements[0]["updated"] | timestamp_local }}'
+ # - platform: rest
+   # resource: !secret plantlink_arti
+   # scan_interval: 6000
+   # method: GET
+   # authentication: basic
+   # headers:
+     # Authorization: !secret plantlink_key
+   # verify_ssl: false
+   # name: Artichoke Last Updated
+   # value_template: '{{ value_json.last_measurements[0]["updated"] | timestamp_local }}'
    
- - platform: rest
-   resource: !secret plantlink_arti
-   scan_interval: 6000
-   method: GET
-   authentication: basic
-   headers:
-     Authorization: !secret plantlink_key
-   verify_ssl: false
-   name: Artichoke Next Water
-   value_template: '{{ value_json.last_measurements[0]["predicted_water_needed"] | timestamp_local }}'
+ # - platform: rest
+   # resource: !secret plantlink_arti
+   # scan_interval: 6000
+   # method: GET
+   # authentication: basic
+   # headers:
+     # Authorization: !secret plantlink_key
+   # verify_ssl: false
+   # name: Artichoke Next Water
+   # value_template: '{{ value_json.last_measurements[0]["predicted_water_needed"] | timestamp_local }}'
 
  # - platform: geo_rss_events
    # name: USGS All Earthquakes
