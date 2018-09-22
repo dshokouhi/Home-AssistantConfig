@@ -398,7 +398,6 @@
      front_door_code:
        friendly_name: 'Front Door Code'
        value_template: >
-         {% if is_state('sensor.front_door_lock_alarm_type', '19') or is_state('sensor.front_door_lock_alarm_type', '18') %}
           {% if is_state('sensor.front_door_lock_alarm_level', '1') %}
             Us
           {% elif is_state('sensor.front_door_lock_alarm_level', '2') %}
@@ -412,9 +411,6 @@
           {% else %}
             Unknown
           {% endif %}
-         {% else %}
-          n/a
-         {% endif %}
 
  - platform: template
    sensors:

@@ -375,15 +375,7 @@ notify:
  - platform: hangouts
    name: hangouts
    default_conversations:
-   - id: UgwfRqvPBbaXU1nGfS14AaABAQ
-
- - platform: group
-   name: hangouts_alerts
-   services:
-   - service: hangouts
-     data:
-       target:
-       - id: UgwfRqvPBbaXU1nGfS14AaABAQ
+   - id: !secret hangouts_group
 
 alert:
   front_door_unlocked:
@@ -393,7 +385,7 @@ alert:
     repeat: 5
     skip_first: true
     notifiers:
-    - hangouts_alerts
+    - hangouts
 
 ring:
    username: !secret ringuser

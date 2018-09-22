@@ -439,13 +439,7 @@ class XboxOneDevice(MediaPlayerDevice):
     @property
     def supported_features(self):
         """Flag media player features that are supported."""
-        active_support = SUPPORT_XBOXONE
-        if self.state not in [STATE_PLAYING, STATE_PAUSED] \
-            and (self._xboxone.active_app_type not in ['Application', 'App'] or self._xboxone.active_app == 'Home'):
-            active_support &= ~SUPPORT_PLAY & ~SUPPORT_PAUSE & ~SUPPORT_NEXT_TRACK & ~SUPPORT_PREVIOUS_TRACK
-        if not self._xboxone.volume_controls:
-            active_support &= ~SUPPORT_VOLUME_MUTE & ~SUPPORT_VOLUME_STEP
-        return active_support
+        return SUPPORT_XBOXONE
 
     @property
     def state(self):

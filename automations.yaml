@@ -2563,6 +2563,15 @@
     - condition: state
       entity_id: climate.thermostat_cooling_1
       state: 'cool'
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: 'off'
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
   action:
   - service: hangouts.send_message
     data_template:
@@ -3105,7 +3114,7 @@
     service: input_boolean.turn_off
     entity_id: input_boolean.shower_mode
     
-- alias: Shower mode on when humidity above 75 for 2 minutes
+- alias: Shower mode on when humidity above 65
   trigger:
     platform: numeric_state
     entity_id: sensor.bathroom_humidity
@@ -3748,12 +3757,12 @@
     above: 78
   - platform: numeric_state
     entity_id: sensor.living_room_air_purifier_temp
-    below: 73
+    below: 74
   action:
     service_template: >
         {% if states('sensor.living_room_air_purifier_temp')|int > 78 %}
           switch.turn_on
-        {% elif states('sensor.living_room_air_purifier_temp')|int < 73 %}
+        {% elif states('sensor.living_room_air_purifier_temp')|int < 74 %}
           switch.turn_off
         {% endif %}
     entity_id: switch.living_room_fan
@@ -3772,7 +3781,7 @@
       at: '18:00:00'
   condition:
     condition: template
-    value_template: "{{ (state_attr('fan.den_air_purifier', 'filter_life_remaining')| int == 0) or (state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int == 0) or (state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int == 0) or (state_attr('fan.office_air_purifier', 'filter_life_remaining')| int == 0) }}"
+    value_template: "{{ (state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.office_air_purifier', 'filter_life_remaining')| int <= 3) }}"
   action:
   # - service: notify.chrome
     # data_template:
@@ -3795,13 +3804,13 @@
       - id: !secret hangouts_group
       message:
       - text: >-
-         {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int == 0 %}
+         {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3 %}
            Clean den air purifier filter
-         {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int == 0 %}
+         {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3 %}
            Clean living room air purifier filter
-         {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int == 0 %}
+         {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3 %}
            Clean bedroom air purifier filter
-         {% elif state_attr('fan.office_air_purifier', 'filter_life_remaining')| int == 0 %}
+         {% elif state_attr('fan.office_air_purifier', 'filter_life_remaining')| int <= 3 %}
            Clean office air purifier filter
          {% else %}
          {% endif %}
