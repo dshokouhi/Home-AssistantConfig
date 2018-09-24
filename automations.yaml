@@ -2573,6 +2573,10 @@
       entity_id: alarm_control_panel.home
       state: 'disarmed'
   action:
+  - wait_template: "{{ state_attr('climate.thermostat_cooling_1', 'temperature') == states('sensor.thermostat_temperature') | int }}"
+  - condition: state
+    entity_id: sensor.inside_outside_temp
+    state: 'True'
   - service: hangouts.send_message
     data_template:
       target:

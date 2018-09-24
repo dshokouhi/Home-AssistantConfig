@@ -17,11 +17,12 @@ from urllib.parse import urljoin
 from homeassistant.components.media_player import (
     SUPPORT_NEXT_TRACK, SUPPORT_PAUSE, SUPPORT_PREVIOUS_TRACK, PLATFORM_SCHEMA,
     SUPPORT_SELECT_SOURCE, SUPPORT_TURN_OFF, SUPPORT_TURN_ON,
-    SUPPORT_VOLUME_STEP, SUPPORT_VOLUME_MUTE, SUPPORT_PLAY, MediaPlayerDevice,
+    SUPPORT_VOLUME_SET, SUPPORT_PLAY, MediaPlayerDevice,
     MEDIA_TYPE_MUSIC, MEDIA_TYPE_VIDEO, MEDIA_TYPE_TVSHOW, MEDIA_TYPE_CHANNEL)
 from homeassistant.const import (
-    STATE_IDLE, STATE_OFF, STATE_PAUSED, STATE_PLAYING, STATE_UNKNOWN, STATE_ON,
-    CONF_HOST, CONF_PORT, CONF_SSL, CONF_NAME, CONF_DEVICE, CONF_AUTHENTICATION)
+    STATE_IDLE, STATE_OFF, STATE_PAUSED, STATE_PLAYING, STATE_STANDBY,
+    STATE_UNKNOWN, STATE_UNAVAILABLE, STATE_ON,
+    CONF_HOST, CONF_PORT, CONF_SSL, CONF_NAME, CONF_DEVICE, CONF_DEVICES)
 import homeassistant.util.dt as dt_util
 import homeassistant.helpers.config_validation as cv
 
@@ -29,16 +30,13 @@ _LOGGER = logging.getLogger(__name__)
 
 SUPPORT_XBOXONE = SUPPORT_PAUSE | \
     SUPPORT_TURN_ON | SUPPORT_TURN_OFF | SUPPORT_PREVIOUS_TRACK | \
-    SUPPORT_NEXT_TRACK | SUPPORT_SELECT_SOURCE | SUPPORT_PLAY | \
-    SUPPORT_VOLUME_STEP | SUPPORT_VOLUME_MUTE
-
-REQUIRED_SERVER_VERSION = '0.9.5'
+    SUPPORT_NEXT_TRACK | SUPPORT_SELECT_SOURCE | SUPPORT_PLAY
+    # SUPPORT_VOLUME_SET
 
 DEFAULT_SSL = False
 DEFAULT_HOST = 'localhost'
 DEFAULT_NAME = 'Xbox One SmartGlass'
 DEFAULT_PORT = 5557
-DEFAULT_AUTHENTICATION = True
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_DEVICE): cv.string,
@@ -46,7 +44,6 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
     vol.Optional(CONF_PORT, default=DEFAULT_PORT): cv.port,
     vol.Optional(CONF_SSL, default=DEFAULT_SSL): cv.boolean,
-    vol.Optional(CONF_AUTHENTICATION, default=DEFAULT_AUTHENTICATION): cv.boolean,
 })
 
 
@@ -57,32 +54,21 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     host = config.get(CONF_HOST)
     port = config.get(CONF_PORT)
     liveid = config.get(CONF_DEVICE)
-    auth = config.get(CONF_AUTHENTICATION)
 
     proto = 'https' if ssl else 'http'
     base_url = '{0}://{1}:{2}'.format(proto, host, port)
 
-    try:
-        version_url = urljoin(base_url, '/versions')
-        resp = requests.get(version_url).json()
-        if resp['versions']['xbox-smartglass-rest'] != REQUIRED_SERVER_VERSION:
-            _LOGGER.error("Invalid xbox-smartglass-rest version. Required: %s", REQUIRED_SERVER_VERSION)
-        else:
-            add_devices([XboxOneDevice(base_url, liveid, name, auth)])
-    except requests.exceptions.RequestException:
-        _LOGGER.error("Could not connect to xbox-smartglass-rest server at %s", base_url)
+    add_devices([XboxOneDevice(base_url, liveid, name)])
 
 
 class XboxOne:
-    def __init__(self, base_url, liveid, auth):
+    def __init__(self, base_url, liveid):
         self.base_url = base_url
         self.liveid = liveid
-        self._auth = auth
         self._available = False
         self._connected = False
         self._media_status = None
         self._console_status = None
-        self._volume_controls = None
 
     def get(self, endpoint, *args, **kwargs):
         endpoint = endpoint.replace('<liveid>', self.liveid)
@@ -104,10 +90,6 @@ class XboxOne:
     @property
     def media_status(self):
         return self._media_status
-
-    @property
-    def volume_controls(self):
-        return self._volume_controls
 
     @property
     def media_playback_state(self):
@@ -144,155 +126,89 @@ class XboxOne:
     def active_app(self):
         if self.console_status:
             active_titles = self.console_status.get('active_titles')
-            app = [a.get('name') for a in active_titles if a.get('has_focus')]
+            app = [a.get('aum') for a in active_titles if a.get('has_focus')]
             if len(app):
                 return app[0]
 
     @property
-    def active_app_image(self):
+    def all_running_apps(self):
         if self.console_status:
             active_titles = self.console_status.get('active_titles')
-            app = [a.get('image') for a in active_titles if a.get('has_focus')]
-            if len(app):
-                return app[0] or None
-
-    @property
-    def active_app_type(self):
-        if self.console_status:
-            active_titles = self.console_status.get('active_titles')
-            app = [a.get('type') for a in active_titles if a.get('has_focus')]
-            if len(app):
-                return app[0]
-
-    @property
-    def all_apps(self):
-        apps = {
-            'Home': 'ms-xbox-dashboard://home?view=home',
-            'TV': 'ms-xbox-livetv://'
-        }
-        if self._check_authentication():
-            response = self.get('/web/pins').json()
-            try:
-                for item in response['ListItems']:
-                    if item['Item']['ContentType'] == 'DApp' and item['Item']['Title'] not in apps.keys():
-                        apps[item['Item']['Title']] = 'appx:{0}!App'.format(item['Item']['ItemId'])
-            except:
-                pass
-        if self.console_status:
-            active_titles = self.console_status.get('active_titles')
-            for app in active_titles:
-                if app.get('has_focus') and app.get('name') not in apps.keys():
-                    apps[app.get('name')] = app.get('aum')
-        return apps
+            return [a.get('aum') for a in active_titles]
 
     def _check_authentication(self):
         try:
-            response = self.get('/auth').json()
+            response = self.get('/authentication').json()
             if response.get('authenticated'):
                 return True
 
-            response = self.get('/auth/refresh').json()
+            response = self.get('/authentication/refresh').json()
             if response.get('success'):
                 return True
 
         except requests.exceptions.RequestException:
-            _LOGGER.error('Unreachable /auth endpoint')
+            _LOGGER.error('Unreachable /authentication endpoint')
             return False
-        except Exception as e:
-            _LOGGER.error('Unknown Error: %s', e)
 
         _LOGGER.error('Refreshing authentication tokens failed!')
         return False
 
     def _refresh_devicelist(self):
-        self.get('/device')
+        self.get('/devices')
 
     def _connect(self):
-        if self._auth and not self._check_authentication():
+        if not self._check_authentication():
             return False
         try:
-            url = '/device/<liveid>/connect'
-            params = {}
-            if not self._auth:
-                params['anonymous'] = True
-            response = self.get(url, params=params).json()
+            response = self.get('/devices/<liveid>/connect').json()
             if not response.get('success'):
                 _LOGGER.error('Failed to connect to console {0}: {1}'.format(self.liveid, str(response)))
                 return False
         except requests.exceptions.RequestException:
             _LOGGER.error('Unreachable /connect endpoint')
             return False
-        except Exception as e:
-            _LOGGER.error('Unknown Error: %s', e)
 
         return True
 
     def _get_device_info(self):
         try:
-            response = self.get('/device/<liveid>').json()
+            response = self.get('/devices/<liveid>').json()
             if not response.get('success'):
                 _LOGGER.error('Console {0} not available'.format(self.liveid))
                 return None
         except requests.exceptions.RequestException:
             _LOGGER.error('Unreachable device info /<liveid> endpoint')
             return None
-        except Exception as e:
-            _LOGGER.error('Unknown Error: %s', e)
 
         return response['device']
 
     def _get_console_status(self):
         try:
-            response = self.get('/device/<liveid>/console_status').json()
+            response = self.get('/devices/<liveid>/console_status').json()
             if not response.get('success'):
                 _LOGGER.error('Console {0} not available'.format(self.liveid))
                 return None
         except requests.exceptions.RequestException:
             _LOGGER.error('Unreachable /console_status endpoint')
             return None
-        except Exception as e:
-            _LOGGER.error('Unknown Error: %s', e)
 
         return response['console_status']
 
     def _get_media_status(self):
         try:
-            response = self.get('/device/<liveid>/media_status').json()
+            response = self.get('/devices/<liveid>/media_status').json()
             if not response.get('success'):
                 _LOGGER.error('Console {0} not available'.format(self.liveid))
                 return None
         except requests.exceptions.RequestException:
             _LOGGER.error('Unreachable /media_status endpoint')
             return None
-        except Exception as e:
-            _LOGGER.error('Unknown Error: %s', e)
 
         return response['media_status']
 
-    def _get_volume_controls(self):
-        try:
-            response = self.get('/device/<liveid>/ir').json()
-            if not response.get('success'):
-                _LOGGER.error('Console {0} not available'.format(self.liveid))
-                return None
-        except requests.exceptions.RequestException:
-            _LOGGER.error('Unreachable /ir endpoint')
-            return None
-        except Exception as e:
-            _LOGGER.error('Unknown Error: %s', e)
-
-        controls = response.get('avr') or response.get('tv')
-        if not controls:
-            return None
-        return {
-            'mute': controls['buttons']['btn.vol_mute']['url'],
-            'up': controls['buttons']['btn.vol_up']['url'],
-            'down': controls['buttons']['btn.vol_down']['url'],
-        }
-
     def poweron(self):
         try:
-            response = self.get('/device/<liveid>/poweron').json()
+            response = self.get('/devices/<liveid>/poweron').json()
             if not response.get('success'):
                 _LOGGER.error('Failed to poweron {0}'.format(self.liveid))
                 return None
@@ -304,7 +220,7 @@ class XboxOne:
 
     def poweroff(self):
         try:
-            response = self.get('/device/<liveid>/poweroff').json()
+            response = self.get('/devices/<liveid>/poweroff').json()
             if not response.get('success'):
                 _LOGGER.error('Failed to poweroff {0}'.format(self.liveid))
                 return None
@@ -316,14 +232,12 @@ class XboxOne:
 
     def media_command(self, command):
         try:
-            response = self.get('/device/<liveid>/media').json()
+            response = self.get('/devices/<liveid>/media').json()
             if not response.get('success'):
                 return None
         except requests.exceptions.RequestException:
             _LOGGER.error('Failed to get enabled media commands for {0}'.format(self.liveid))
             return None
-        except Exception as e:
-            _LOGGER.error('Unknown Error: %s', e)
 
         enabled_commands = response.get('commands')
         if command not in enabled_commands:
@@ -331,51 +245,23 @@ class XboxOne:
             return None
 
         try:
-            response = self.get('/device/<liveid>/media/{0}'.format(command)).json()
+            response = self.get('/devices/<liveid>/media/{0}'.format(command)).json()
             if not response.get('success'):
                 return None
         except requests.exceptions.RequestException:
             _LOGGER.error('Failed to get enabled media commands for {0}'.format(self.liveid))
             return None
-        except Exception as e:
-            _LOGGER.error('Unknown Error: %s', e)
-
-        return response
-
-    def volume_command(self, command):
-        if not self._volume_controls:
-            return None
-
-        url = self._volume_controls.get(command)
-
-        if not url:
-            return None
-
-        try:
-            response = self.get(url).json()
-            if not response.get('success'):
-                return None
-        except requests.exceptions.RequestException:
-            _LOGGER.error('Failed to get enabled volume commands for {0}'.format(self.liveid))
-            return None
-        except Exception as e:
-            _LOGGER.error('Unknown Error: %s', e)
 
         return response
 
     def launch_title(self, launch_uri):
         try:
-            apps = self.all_apps
-            if launch_uri in apps.keys():
-                launch_uri = apps[launch_uri]
-            response = self.get('/device/<liveid>/launch/{0}'.format(launch_uri)).json()
+            response = self.get('/devices/<liveid>/launch/{0}'.format(launch_uri)).json()
             if not response.get('success'):
                 return None
         except requests.exceptions.RequestException:
             _LOGGER.error('Failed to launch title \'{0}\' for {1}'.format(launch_uri, self.liveid))
             return None
-        except Exception as e:
-            _LOGGER.error('Unknown Error: %s', e)
 
         return response
 
@@ -406,15 +292,14 @@ class XboxOne:
         if self.available and self.connected:
             self._console_status = self._get_console_status()
             self._media_status = self._get_media_status()
-            self._volume_controls = self._get_volume_controls()
 
 
 class XboxOneDevice(MediaPlayerDevice):
     """Representation of an Xbox One device on the network."""
 
-    def __init__(self, base_url, liveid, name, auth):
+    def __init__(self, base_url, liveid, name):
         """Initialize the Xbox One device."""
-        self._xboxone = XboxOne(base_url, liveid, auth)
+        self._xboxone = XboxOne(base_url, liveid)
         self._name = name
         self._liveid = liveid
         self._state = STATE_UNKNOWN
@@ -455,7 +340,7 @@ class XboxOneDevice(MediaPlayerDevice):
         if playback_state:
             state = playback_state
         elif self._xboxone.connected or self._xboxone.available:
-            state = STATE_ON
+            state = STATE_IDLE
         else:
             state = STATE_OFF
 
@@ -489,15 +374,11 @@ class XboxOneDevice(MediaPlayerDevice):
             return dt_util.utcnow()
 
     @property
-    def media_image_url(self):
-        """Image url of current playing media."""
-        return self._xboxone.active_app_image
-
-    @property
     def media_title(self):
         """When media is playing, print title (if any) - otherwise, print app name"""
         if self.state in [STATE_PLAYING, STATE_PAUSED]:
             return self._xboxone.media_title
+
         return self._xboxone.active_app
 
     @property
@@ -508,7 +389,7 @@ class XboxOneDevice(MediaPlayerDevice):
     @property
     def source_list(self):
         """Return a list of running apps."""
-        return list(self._xboxone.all_apps.keys())
+        return self._xboxone.all_running_apps
 
     def update(self):
         """Get the latest date and update device state."""
@@ -522,40 +403,28 @@ class XboxOneDevice(MediaPlayerDevice):
         """Turn off the device."""
         self._xboxone.poweroff()
 
-    def mute_volume(self, mute):
-        """Mute the volume."""
-        self._xboxone.volume_command('mute')
-
-    def volume_up(self):
-        """Turn volume up for media player."""
-        self._xboxone.volume_command('up')
-
-    def volume_down(self):
-        """Turn volume down for media player."""
-        self._xboxone.volume_command('down')
-
     def media_play(self):
         """Send play command."""
-        self._xboxone.media_command('play')
+        self._xboxone.media_command('Play')
 
     def media_pause(self):
         """Send pause command."""
-        self._xboxone.media_command('pause')
+        self._xboxone.media_command('Pause')
 
     def media_stop(self):
-        self._xboxone.media_command('stop')
+        self._xboxone.media_command('Stop')
 
     def media_play_pause(self):
         """Send play/pause command."""
-        self._xboxone.media_command('play_pause')
+        self._xboxone.media_command('PlayPauseToggle')
 
     def media_previous_track(self):
         """Send previous track command."""
-        self._xboxone.media_command('prev_track')
+        self._xboxone.media_command('PreviousTrack')
 
     def media_next_track(self):
         """Send next track command."""
-        self._xboxone.media_command('next_track')
+        self._xboxone.media_command('NextTrack')
 
     def select_source(self, source):
         """Select input source."""
