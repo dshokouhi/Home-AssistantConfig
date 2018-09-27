@@ -409,7 +409,7 @@
           {% elif is_state('sensor.front_door_lock_alarm_level', '5') %}
             Izzy
           {% else %}
-            Unknown
+            Locked
           {% endif %}
 
  - platform: template

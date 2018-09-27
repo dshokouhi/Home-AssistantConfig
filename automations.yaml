@@ -795,7 +795,10 @@
       - id: !secret hangouts_group
       message:
       - text: "The alarm has been activated."
-
+  - service: notify.slack
+    data:
+      message: "The alarm  has been activated."
+      
 - alias: Notify Alarm Off
   trigger:
     platform: state
@@ -814,6 +817,9 @@
       - id: !secret hangouts_group
       message:
       - text: "The alarm has been deactivated."
+  - service: notify.slack
+    data:
+      message: "The alarm has been deactivated."
 
 - alias: Arm Alarm When Nobody Home
   trigger:
@@ -849,7 +855,10 @@
       - id: !secret hangouts_group
       message:
       - text: "The alarm has been activated since nobody is home"
-
+  - service: notify.slack
+    data:
+      message: "The alarm has been activated since nobody is home"
+      
 - alias: Disarm alarm when someone comes home
   trigger:
   - platform: state
@@ -874,7 +883,10 @@
       - id: !secret hangouts_group
       message:
       - text: "The alarm has been deactivated since a tracked user is home"
-
+  - service: notify.slack
+    data:
+      message: "The alarm has been deactivated since a tracked user is home"
+      
 - alias: Arm Alarm Front Door
   trigger:
   - platform: state
@@ -954,6 +966,9 @@
       - id: !secret hangouts_group
       message:
       - text: "The alarm has been deactivated by dad"
+  - service: notify.slack
+    data:
+      message: "The alarm has been deactivated by dad"
   - service: tts.google_say
     entity_id: media_player.kitchen_home, media_player.den_home, media_player.office_speaker
     data:
@@ -984,6 +999,9 @@
       - id: !secret hangouts_group
       message:
       - text: "The alarm has been deactivated by zoo keeper"
+  - service: notify.slack
+    data:
+      message: "The alarm has been deactivated by zoo keeper"
 
 - alias: Warn Alarm On But Window Open
   trigger:
@@ -1024,7 +1042,10 @@
       - id: !secret hangouts_group
       message:
       - text: "Too many incorrect codes used on front door.  Keypad locked."
-
+  - service: notify.slack
+    data:
+      message: "Too many incorrect codes used on front door. Keypad locked."
+      
 - alias: Notify alarm triggered
   trigger:
     platform: state
@@ -3056,10 +3077,11 @@
     entity_id: input_boolean.shower_mode
     to: 'off'
   action:
-  - service: switch.turn_off
-    entity_id: switch.house_fan
   - service: media_player.media_stop
     entity_id: media_player.bathroom_speaker
+  - wait_template: "{{ states('sensor.bathroom_humidity') | int < 60 }}"
+  - service: switch.turn_off
+    entity_id: switch.house_fan
     
 - alias: Shower Mode On and bathroom window still open
   trigger:
