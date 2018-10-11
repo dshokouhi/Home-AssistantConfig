@@ -2575,6 +2575,9 @@
   - platform: state
     entity_id: sensor.inside_outside_temp
     to: 'True'
+  - platform: state
+    entity_id: alarm_control_panel.home
+    to: 'disarmed'
   condition:
     condition: and
     conditions:
@@ -2603,7 +2606,7 @@
       target:
       - id: !secret hangouts_group
       message:
-      - text: "Please open a window, it is cooler outside than it is inside."
+      - text: "Please open a window and turn off the thermostat.  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ states('sensor.shokabow_weather_temperature') }} {{ state_attr('sensor.shokabow_weather_temperature', 'unit_of_measurement') }} outside."
 
 ################################################
 #
@@ -3064,7 +3067,6 @@
   action:
   - service: switch.turn_on
     entity_id: switch.house_fan
-  - delay: "00:00:10"
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_speaker
@@ -3102,12 +3104,11 @@
   action:
   - service: media_player.media_play_pause
     entity_id: media_player.bathroom_speaker
-  - delay: "00:00:02"
   - service: tts.google_say
     entity_id: media_player.bathroom_speaker
     data:
       message: "Please open the bathroom window"
-  - delay: "00:00:05"
+  - delay: "00:00:02"
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_speaker
@@ -3665,6 +3666,7 @@
        {% elif is_state("input_select.bbq_probe1", "Select Input") -%}
          130
        {%- else -%}
+         130
        {%- endif %}
 
 ################################################
