@@ -3756,7 +3756,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.den_air_purifier_temp
-    above: 76
+    above: 77
   condition:
     condition: state
     entity_id: switch.den_fan
@@ -3769,7 +3769,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.den_air_purifier_temp
-    below: 73
+    below: 74
   condition:
     condition: state
     entity_id: switch.den_fan

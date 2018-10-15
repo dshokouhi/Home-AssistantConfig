@@ -532,6 +532,7 @@ views:
         - domain: sensor
         - domain: camera
         - domain: media_player
+        - domain: zha
   - type: custom:monster-card
     card:
       type: entities
@@ -546,6 +547,7 @@ views:
         - domain: binary_sensor
         - domain: camera
         - domain: media_player
+        - domain: zha
   - type: custom:monster-card
     card:
       type: entities

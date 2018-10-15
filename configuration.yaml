@@ -778,7 +778,7 @@ weather:
 
 hangouts:
   intents:
-    help:
+    SendHelp:
       sentences:
         - help
         - I need help
@@ -788,7 +788,7 @@ hangouts:
         - Help
 
 intent_script:
-  help:
+  SendHelp:
     speech:
       text: Sending help
     action:
