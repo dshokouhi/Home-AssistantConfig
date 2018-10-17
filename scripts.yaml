@@ -198,6 +198,7 @@ shield:
     entity_id: remote.harmony_hub_den
     data:
       activity: 34652500
+
 pseudo_tv:
   sequence:
   - service: media_player.kodi_call_method
@@ -219,6 +220,14 @@ den_camera_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Den camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
 
 living_room_camera_snapshot:
   sequence:
@@ -233,6 +242,14 @@ living_room_camera_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Living room camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
 
 kitchen_camera_snapshot:
   sequence:
@@ -247,7 +264,15 @@ kitchen_camera_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
-          
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Kitchen camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+
 outdoor_camera_snapshot:
   sequence:
   - service: camera.snapshot
@@ -261,6 +286,14 @@ outdoor_camera_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Outdoor camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"
 
 office_camera_snapshot:
   sequence:
@@ -275,6 +308,14 @@ office_camera_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Office camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
 
 light_at_night:
   sequence:
@@ -289,7 +330,7 @@ light_at_night:
   - delay: "00:02:00"
   - service: light.turn_off
     entity_id: light.hallway_light
-    
+
 den_alarm:
   sequence:
   - service: switch.turn_on
@@ -297,7 +338,7 @@ den_alarm:
   - delay: "00:05:00"
   - service: switch.turn_off
     entity_id: switch.den_state
- 
+
 lr_alarm:
   sequence:
   - service: switch.turn_on
@@ -305,7 +346,7 @@ lr_alarm:
   - delay: "00:05:00"
   - service: switch.turn_off
     entity_id: switch.living_room_state
-    
+
 kitchen_alarm:
   sequence:
   - service: switch.turn_on

@@ -1,4 +1,4 @@
- - platform: rachio
+# - platform: rachio
 
  - platform: template
    switches:

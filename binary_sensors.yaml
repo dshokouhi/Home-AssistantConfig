@@ -67,4 +67,4 @@
  - platform: workday
    country: US
    
- - platform: rachio
+# - platform: rachio

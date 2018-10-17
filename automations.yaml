@@ -623,6 +623,14 @@
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Living room camera snapshot"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
   - delay: "00:00:30"
   - service: switch.turn_off
     entity_id: switch.lr_alarm
@@ -657,6 +665,14 @@
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Den camera snapshot"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
   - delay: "00:00:30"
   - service: switch.turn_off
     entity_id: switch.den_alarm
@@ -688,6 +704,14 @@
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Kitchen camera snapshot"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
   - delay: "00:00:30"
   - service: switch.turn_off
     entity_id: switch.kitchen_alarm
@@ -717,6 +741,14 @@
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Office camera snapshot"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
     
 - alias: Alarm Tripped
   trigger:
