@@ -2,10 +2,10 @@ title: Home
 views:
 - icon: mdi:home
   title: Home
-  # badges:
-  # - alarm_control_panel.home
-  # - sun.sun
-  # - sensor.yr_symbol
+  badges:
+  - alarm_control_panel.home
+  - sun.sun
+  - sensor.yr_symbol
   cards:
   - type: entity-filter
     card:
@@ -37,22 +37,22 @@ views:
       type: glance
       show_state: false
     entities:
-    - binary_sensor.den_sliding_door
-    - binary_sensor.den_window
-    - binary_sensor.bedroom_closet_door
-    - binary_sensor.bedroom_door
     - binary_sensor.bathroom_door
     - binary_sensor.bathroom_window
+    - binary_sensor.bedroom_closet_door
+    - binary_sensor.bedroom_door
     - binary_sensor.bedroom_window
+    - binary_sensor.den_sliding_door
+    - binary_sensor.den_window
+    - binary_sensor.front_door
+    - binary_sensor.garage_frontyard
     - binary_sensor.kitchen_window
     - binary_sensor.living_room_left_bay_window
     - binary_sensor.living_room_right_bay_window
     - binary_sensor.living_room_side_window
-    - binary_sensor.front_door
+    - binary_sensor.mailbox
     - binary_sensor.office_closet_door
     - binary_sensor.office_window
-    - binary_sensor.garage_frontyard
-    - binary_sensor.mailbox
     state_filter:
     - 'on'
     show_empty: false
@@ -139,14 +139,19 @@ views:
       secondary_info: last-changed
     - entity: vacuum.mrs_neato
       secondary_info: last-changed
-  - type: entities
-    title: BBQ
-    entities:
-    - input_select.bbq_probe1
-    - input_number.bbq1_override
-    - sensor.bbq1temperature
+  - type: conditional
+    conditions:
     - entity: binary_sensor.bbq1
-      secondary_info: last-changed
+      state: 'on'
+    card:
+      type: entities
+      title: BBQ
+      entities:
+      - input_select.bbq_probe1
+      - input_number.bbq1_override
+      - sensor.bbq1temperature
+      - entity: binary_sensor.bbq1
+        secondary_info: last-changed
   - type: entities
     title: Thermostat
     entities:
@@ -224,10 +229,10 @@ views:
     - arm_night
 - title: Services
   icon: mdi:home-circle
-  # badges:
-  # - sensor.zestimate
-  # - sensor.uptime
-  # - sensor.homeassistant_v2db
+  badges:
+  - sensor.zestimate
+  - sensor.uptime
+  - sensor.homeassistant_v2db
   cards:
   - type: horizontal-stack
     cards:
@@ -331,12 +336,12 @@ views:
     - switch.zone_5_front_lawn_boogie_car
     - switch.zone_6_front_lawn_walkway
     - switch.zone_7_front_lawn_street
-  - type: entities
-    title: Badges
-    entities:
-    - sensor.zestimate
-    - sensor.uptime
-    - sensor.homeassistant_v2db
+  # - type: entities
+    # title: Badges
+    # entities:
+    # - sensor.zestimate
+    # - sensor.uptime
+    # - sensor.homeassistant_v2db
    # - type: glance
     # title: PlantLink Artichoke
     # entities:

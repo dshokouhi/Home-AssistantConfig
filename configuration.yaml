@@ -170,6 +170,7 @@ device_tracker:
     hosts:
     - 192.168.1.5
     - 192.168.1.16
+    - 192.168.1.88
     
   - platform: bluetooth_tracker
     request_rssi: true
@@ -510,11 +511,13 @@ google_assistant:
       aliases:
       - Heat
       - Heater
+      room: Hallway
     climate.thermostat_cooling_1:
       name: Thermostat Cooling
       aliases:
       - Cool
       - Cooler
+      room: Hallway
     script.pseudo_tv:
       name: Pseudo TV
     script.den_camera_snapshot:
@@ -535,14 +538,19 @@ google_assistant:
       expose: false
     input_boolean.night_mode:
       expose: true
+      room: "no group"
     input_boolean.movie_mode:
       expose: true
+      room: "no group"
     input_boolean.guest_mode:
       expose: true
+      room: "no group"
     input_boolean.vacation_mode:
       expose: true
+      room: "no group"
     input_boolean.shower_mode:
       expose: true
+      room: "no group"
     script.den_alarm:
       expose: false
     script.kitchen_alarm:
@@ -559,6 +567,50 @@ google_assistant:
       expose: false
     switch.garage_state:
       expose: false
+    light.den_lights_level:
+      room: Den
+    light.kitchen_lights_level:
+      room: Kitchen
+    light.bedroom_lights_level:
+      room: Bedroom
+    switch.bedroom_fan:
+      room: Bedroom
+    switch.fire_tv:
+      room: Bedroom
+    switch.house_fan:
+      room: Hallway
+    light.hallway_light:
+      room: Hallway
+    light.office_lights:
+      room: Office
+    switch.house_vacuum:
+      room: Kitchen
+    switch.den_vacuum:
+      room: Den
+    switch.kitchen_tv:
+      room: Kitchen
+    switch.island_lights_switch:
+      room: Kitchen
+    light.patio:
+      room: Patio
+    light.fig_tree_lights:
+      room: Outside
+    light.firepit_lights:
+      room: Outside
+    light.garden_lights:
+      room: Outside
+    switch.den_fan:
+      room: Den
+    switch.living_room_fan:
+      room: "Living Room"
+    light.dannys:
+      room: Nightstands
+    light.toshs:
+      room: Nightstands
+    switch.backyard_lights_switch:
+      room: Backyard
+    switch.fireplace:
+      room: Den
 
 namecheapdns:
   host: plex

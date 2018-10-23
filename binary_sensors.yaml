@@ -27,12 +27,12 @@
    name: "Dannys Bayesian Presence"
    probability_threshold: 0.82
    observations:
-   - entity_id: 'device_tracker.10f1f2822f12'
+   - entity_id: 'device_tracker.3c286d0536a7'
      prob_given_true: 0.99
      prob_given_false: 0.3
      platform: 'state'
      to_state: 'home'
-   - entity_id: 'device_tracker.pixel_2_xl'
+   - entity_id: 'device_tracker.pixel_3_xl'
      prob_given_true: 0.99
      prob_given_false: 0.3
      platform: 'state'

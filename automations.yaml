@@ -612,11 +612,11 @@
     data:
       entity_id: camera.living_room_camera
       filename: '/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg'
-  - service: notify.chrome
-    data:
-      message: "Alarm Tripped!! Check Slack for living room snapshot"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "Alarm Tripped!! Check Slack for living room snapshot"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
   - service: notify.slack
     data:
       message: "Living room camera snapshot"
@@ -654,11 +654,11 @@
     data:
       entity_id: camera.den_camera
       filename: '/home/homeassistant/.homeassistant/snapshot/den_camera.jpg'
-  - service: notify.chrome
-    data:
-      message: "Alarm Tripped!! Check Slack for den snapshot"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "Alarm Tripped!! Check Slack for den snapshot"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
   - service: notify.slack
     data:
       message: "Den camera snapshot"
@@ -693,11 +693,11 @@
     data:
       entity_id: camera.kitchen_camera
       filename: '/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg'
-  - service: notify.chrome
-    data:
-      message: "Alarm Tripped!! Check Slack for kitchen snapshot"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "Alarm Tripped!! Check Slack for kitchen snapshot"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
   - service: notify.slack
     data:
       message: "Kitchen camera snapshot"
@@ -730,11 +730,11 @@
     data:
       entity_id: camera.office_camera
       filename: '/home/homeassistant/.homeassistant/snapshot/office_camera.jpg'
-  - service: notify.chrome
-    data:
-      message: "Alarm Tripped!! Check Slack for Office snapshot"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  # - service: notify.chrome
+    # data:
+      # message: "Alarm Tripped!! Check Slack for Office snapshot"
+      # target: ["danny_pixel", "tosh_phone"]
+      # title: Shokabow Zoo
   - service: notify.slack
     data:
       message: "Office camera snapshot"
@@ -1056,6 +1056,9 @@
       - id: !secret hangouts_group
       message:
       - text: "The following window(s) is/are open but the alarm is turned on{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
+  - service: notify.slack
+    data_template:
+      message: "The following window(s) is/are open but the alarm is turned on{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
       
 - alias: Notify door lock keypad locked
   trigger:
@@ -1086,12 +1089,15 @@
   action:
   - service: light.turn_on
     entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.bedroom_lights_level, light.office_lights
-  - service: notify.chrome
-    data:
-      image: !secret living_room_camera_snapshot
+  - service: notify.slack
+    data_template:
       message: "The alarm has been triggered since it was not disarmed for 60 seconds, check Slack for snapshots!! Following windows/doors triggered the alarm{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
-      target: ["danny_pixel", "tosh_phone"]
-      title: Shokabow Zoo
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The alarm has been triggered since it was not disarmed for 60 seconds, check Slack for snapshots!! Following windows/doors triggered the alarm{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
   - service: switch.turn_on
     entity_id: switch.siren_switch
   - service: script.turn_on
@@ -3051,7 +3057,12 @@
 
 - alias: Certificate Expiring
   trigger:
-  - platform: numeric_state
+    - platform: time
+      at: '10:00:00'
+    - platform: time
+      at: '18:00:00'
+  condition:
+    condition: numeric_state
     entity_id: sensor.ssl_certificate_expiry
     below: 5
   action:
@@ -3069,7 +3080,12 @@
       
 - alias: Disk Getting Full
   trigger:
-    platform: numeric_state
+    - platform: time
+      at: '10:00:00'
+    - platform: time
+      at: '18:00:00'
+  condition:
+    condition: numeric_state
     entity_id: sensor.disk_use_percent_home
     above: 50
   action:
