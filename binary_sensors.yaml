@@ -48,12 +48,12 @@
    name: "Natachas Bayesian Presence"
    probability_threshold: 0.82
    observations:
-   - entity_id: 'device_tracker.androidc4ba94519e6666f2'
+   - entity_id: 'device_tracker.10f1f2822f12'
      prob_given_true: 0.99
      prob_given_false: 0.3
      platform: 'state'
      to_state: 'home'
-   - entity_id: 'device_tracker.pixel_xl'
+   - entity_id: 'device_tracker.pixel_2_xl'
      prob_given_true: 0.99
      prob_given_false: 0.3
      platform: 'state'
