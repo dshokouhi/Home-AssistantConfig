@@ -1197,7 +1197,7 @@
       message:
       - text: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
   - service: tts.google_say
-    entity_id: media_player.bedroom_speaker
+    entity_id: media_player.bedroom_home
     data_template:
       message: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
 
@@ -1256,7 +1256,7 @@
     state: 'home'
   - service: tts.google_say
     #entity_id: media_player.home_notification
-    entity_id: media_player.bedroom_speaker
+    entity_id: media_player.bedroom_home
     data_template:
       message: "The alarm is arming in night mode and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
 
@@ -2278,7 +2278,7 @@
               {%-elif is_state("input_select.streaming_audio", "Bathroom") %}
                 media_player.bathroom_speaker
               {%-elif is_state("input_select.streaming_audio", "Bedroom") %}
-                media_player.bedroom_speaker
+                media_player.bedroom_home
               {% else %}
                 "None"
               {% endif %}
@@ -2306,7 +2306,7 @@
             {%-elif is_state("input_select.streaming_audio", "Bathroom") %}
               media_player.bathroom_speaker
             {%-elif is_state("input_select.streaming_audio", "Bedroom") %}
-              media_player.bedroom_speaker
+              media_player.bedroom_home
             {% else %}
               "None"
             {% endif %}
@@ -3711,6 +3711,8 @@
          165
        {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
          130
+       {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+         145
        {% elif is_state("input_select.bbq_probe1", "Select Input") -%}
          130
        {%- else -%}

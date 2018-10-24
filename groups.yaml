@@ -359,7 +359,7 @@ media_players:
   view: yes
   icon: mdi:cast
   entities:
-  - media_player.bedroom_speaker
+  - media_player.bedroom_home
   - media_player.bathroom_speaker
   - media_player.den_home
   - media_player.den_tv

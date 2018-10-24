@@ -386,11 +386,11 @@ views:
   icon: mdi:cast
   cards:
   - type: media-control
-    entity: media_player.bedroom_speaker
+    entity: media_player.bedroom_home
   - type: media-control
     entity: media_player.bathroom_speaker
   - type: media-control
-    entity: media_player.den_home
+    entity: media_player.den_home_hub
   - type: media-control
     entity: media_player.den_tv
   - type: media-control
