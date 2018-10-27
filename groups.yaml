@@ -493,6 +493,21 @@ all_windows:
   - binary_sensor.living_room_side_window
   - binary_sensor.office_window
   
+monitored_contacts:
+  name: Monitored Doors and Windows
+  entities:
+  - binary_sensor.bathroom_window
+  - binary_sensor.bedroom_window
+  - binary_sensor.den_sliding_door
+  - binary_sensor.den_window
+  - binary_sensor.front_door
+  - binary_sensor.garage_frontyard
+  - binary_sensor.kitchen_window
+  - binary_sensor.living_room_left_bay_window
+  - binary_sensor.living_room_right_bay_window
+  - binary_sensor.living_room_side_window
+  - binary_sensor.office_window
+
 # disaster:
   # name: Earthquakes and Fires
   # entities:
