@@ -40,6 +40,7 @@ views:
       title: "Open Doors/Windows"
       type: glance
       show_state: false
+      columns: 5
     entities:
     - binary_sensor.bathroom_door
     - binary_sensor.bathroom_window
@@ -81,6 +82,7 @@ views:
     card:
       type: glance
       title: High Temperature
+      columns: 5
     filter:
       include:
       - entity_id: "*temp*"

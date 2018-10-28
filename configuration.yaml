@@ -102,8 +102,8 @@ frontend:
 
 config:
 
-system_log:
-  fire_event: true
+# system_log:
+  # fire_event: true
 
 cloud:
 
