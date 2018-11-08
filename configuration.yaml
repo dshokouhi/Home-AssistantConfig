@@ -234,8 +234,8 @@ media_player 3:
 
 media_player 4:
  - platform: kodi
-   host: 192.168.1.23
-   port: 6363
+   host: 192.168.1.92
+   port: 8080
    username: kodi
    password: !secret kodi
    name: "Kodi Bedroom"
@@ -448,6 +448,8 @@ google_assistant:
       expose: false
     script.fire_tv:
       expose: false
+    script.bedroom_shield:
+      expose: false
     light.living_room:
       expose: false
     switch.zone_1_patio:
@@ -577,6 +579,8 @@ google_assistant:
       room: Bedroom
     switch.fire_tv:
       room: Bedroom
+    switch.bedroom_shield:
+      room: Bedroom
     switch.house_fan:
       room: Hallway
     light.hallway_light:
@@ -697,6 +701,7 @@ input_select:
     - Select Input
     - Bedroom Bluray
     - Bedroom Chromecast
+    - Bedroom Shield
     - Watch Fire TV
     - Power Off
     

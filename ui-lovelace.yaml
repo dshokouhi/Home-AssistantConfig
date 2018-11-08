@@ -454,9 +454,9 @@ views:
   - type: media-control
     entity: media_player.outdoor_speakers
   - type: media-control
-    entity: media_player.shield
+    entity: media_player.den_shield
   - type: media-control
-    entity: media_player.shield_android_tv
+    entity: media_player.bedroom_shield
   - type: media-control
     entity: media_player.sony_bravia_tv
   - type: media-control

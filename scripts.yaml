@@ -185,6 +185,13 @@ fire_tv:
     data:
       activity: 19492437
 
+bedroom_shield:
+  sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub_bedroom
+    data:
+      activity: 36318456
+
 roku:
   sequence:
   - service: remote.turn_on
