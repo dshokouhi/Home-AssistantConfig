@@ -9,6 +9,20 @@
 
  - platform: template
    sensors:
+     danny_home:
+       friendly_name: "Danny Home"
+       device_class: presence
+       value_template: "{{ states('sensor.danny_bedroom') |int > 50 or states('sensor.danny_den') | int > 50 }}"
+       
+ - platform: template
+   sensors:
+     tosh_home:
+       friendly_name: "Tosh Home"
+       device_class: presence
+       value_template: "{{ states('sensor.tosh_bedroom') |int > 50 or states('sensor.tosh_den') | int > 50 }}"
+       
+ - platform: template
+   sensors:
      windows:
        friendly_name: "Windows"
        device_class: window
@@ -42,6 +56,11 @@
      prob_given_false: 0.4
      platform: 'state'
      to_state: 'home'
+   - entity_id: 'binary_sensor.danny_home'
+     prob_given_true: 0.99
+     prob_given_false: 0.3
+     platform: 'state'
+     to_state: 'on'
      
  - platform: bayesian
    prior: 0.6
@@ -63,6 +82,11 @@
      prob_given_false: 0.4
      platform: 'state'
      to_state: 'home'
+   - entity_id: 'binary_sensor.tosh_home'
+     prob_given_true: 0.99
+     prob_given_false: 0.3
+     platform: 'state'
+     to_state: 'on'
    
  - platform: workday
    country: US

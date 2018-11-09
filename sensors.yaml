@@ -503,12 +503,36 @@
    - nearest_storm_distance
    - cloud_cover
    - visibility
-   
+
  - platform: zestimate
    api_key: !secret zillow_api
    zpid:
    - !secret zillow_zpid
-   
+
+ - platform: mqtt
+   state_topic: !secret mqtt_danny_bedroom
+   value_template: '{{ value_json.confidence }}'
+   unit_of_measurement: '%'
+   name: 'Danny Bedroom'
+
+ - platform: mqtt
+   state_topic: !secret mqtt_tosh_bedroom
+   value_template: '{{ value_json.confidence }}'
+   unit_of_measurement: '%'
+   name: 'Tosh Bedroom'
+
+ - platform: mqtt
+   state_topic: !secret mqtt_danny_den
+   value_template: '{{ value_json.confidence }}'
+   unit_of_measurement: '%'
+   name: 'Danny Den'
+
+ - platform: mqtt
+   state_topic: !secret mqtt_tosh_den
+   value_template: '{{ value_json.confidence }}'
+   unit_of_measurement: '%'
+   name: 'Tosh Den'
+
  # - platform: rest
    # resource: !secret plantlink_arti
    # scan_interval: 6000
