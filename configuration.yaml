@@ -409,6 +409,7 @@ google_assistant:
   - scene
   - climate
   - fan
+  - vacuum
   entity_config:
     script.on_bedroom_fan:
       expose: false
@@ -615,6 +616,10 @@ google_assistant:
       room: Backyard
     switch.fireplace:
       room: Den
+    vacuum.mr_neato:
+      room: Den
+    vacuum.mrs_neato:
+      room: Kitchen
 
 namecheapdns:
   host: plex
