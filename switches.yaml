@@ -90,29 +90,29 @@
           data:
             entity_id: input_boolean.kitchen_tv
 
- - platform: template
-   switches:
-     den_vacuum:
-       friendly_name: Den Vacuum
-       value_template: "{{ is_state('vacuum.mr_neato', 'cleaning') }}"
-       turn_on:
-       - service: vacuum.start
-         entity_id: vacuum.mr_neato
-       turn_off:
-       - service: vacuum.return_to_base
-         entity_id: vacuum.mr_neato
+ # - platform: template
+   # switches:
+     # den_vacuum:
+       # friendly_name: Den Vacuum
+       # value_template: "{{ is_state('vacuum.mr_neato', 'cleaning') }}"
+       # turn_on:
+       # - service: vacuum.start
+         # entity_id: vacuum.mr_neato
+       # turn_off:
+       # - service: vacuum.return_to_base
+         # entity_id: vacuum.mr_neato
          
- - platform: template
-   switches:
-     house_vacuum:
-       friendly_name: House Vacuum
-       value_template: "{{ is_state('vacuum.mrs_neato', 'cleaning') }}"
-       turn_on:
-       - service: vacuum.start
-         entity_id: vacuum.mrs_neato
-       turn_off:
-       - service: vacuum.return_to_base
-         entity_id: vacuum.mrs_neato
+ # - platform: template
+   # switches:
+     # house_vacuum:
+       # friendly_name: House Vacuum
+       # value_template: "{{ is_state('vacuum.mrs_neato', 'cleaning') }}"
+       # turn_on:
+       # - service: vacuum.start
+         # entity_id: vacuum.mrs_neato
+       # turn_off:
+       # - service: vacuum.return_to_base
+         # entity_id: vacuum.mrs_neato
 
  - platform: template
    switches:

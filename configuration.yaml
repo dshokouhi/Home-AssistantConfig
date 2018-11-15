@@ -588,10 +588,10 @@ google_assistant:
       room: Hallway
     light.office_lights:
       room: Office
-    switch.house_vacuum:
-      room: Kitchen
-    switch.den_vacuum:
-      room: Den
+    # switch.house_vacuum:
+      # room: Kitchen
+    # switch.den_vacuum:
+      # room: Den
     switch.kitchen_tv:
       room: Kitchen
     switch.island_lights_switch:
@@ -618,8 +618,12 @@ google_assistant:
       room: Den
     vacuum.mr_neato:
       room: Den
+      aliases:
+      - Den Vacuum
     vacuum.mrs_neato:
       room: Kitchen
+      aliases:
+      - House Vacuum
 
 namecheapdns:
   host: plex
