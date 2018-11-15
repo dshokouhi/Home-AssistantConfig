@@ -2124,7 +2124,7 @@
       state: 'cool'
   action:
   - delay: "00:01:00"
-  - wait_template: "{{ states('sensor.thermostat_temperature')|int == state_attr('climate.thermostat_cooling_1', 'temperature') }}"
+  - wait_template: "{{ states('sensor.thermostat_temperature')|int <= state_attr('climate.thermostat_cooling_1', 'temperature') }}"
   - service: climate.set_operation_mode
     data:
       entity_id: climate.thermostat_cooling_1
@@ -2144,6 +2144,9 @@
     - condition: state
       entity_id: input_boolean.night_mode
       state: 'on'
+    - condition: numeric_state
+      entity_id: sensor.thermostat_temperature
+      above: 75
   action:
   - service: climate.set_temperature
     data:
@@ -3755,6 +3758,10 @@
     below: 3
     for:
       minutes: 10
+  condition:
+    condition: state
+    entity_id: sensor.season
+    state: summer
   action:
   # - service: notify.chrome
     # data:

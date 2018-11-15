@@ -68,12 +68,12 @@ views:
       type: glance
       show_state: false
     entities:
+    - entity: sensor.dishwasher_running
+      name: Dishwasher
     - entity: sensor.washer_running
       name: Washer
     - entity: sensor.dryer_running
       name: Dryer
-    - entity: sensor.dishwasher_running
-      name: Dishwasher
     state_filter:
     - 'True'
     show_empty: false
@@ -85,11 +85,11 @@ views:
       columns: 5
     filter:
       include:
+      - entity_id: "*door"
+        state: '> 79'
       - entity_id: "*temp*"
         state: '> 79'
       - entity_id: "*window"
-        state: '> 79'
-      - entity_id: "*door"
         state: '> 79'
       exclude:
       - entity_id: "*dark*"
@@ -310,14 +310,14 @@ views:
     id: ring
     title: Ring
     entities:
+    - entity: sensor.ring_front_door_battery
+      name: Door Battery
     - entity: binary_sensor.ring_front_door_ding
       name: Door Ding
     - entity: binary_sensor.ring_front_door_motion
       name: Door Motion
     - entity: binary_sensor.ring_side_gate_motion
       name: Gate Motion
-    - entity: sensor.ring_front_door_battery
-      name: Door Battery
   - type: glance
     id: printer
     title: Epson Printer Info
@@ -328,10 +328,10 @@ views:
       name: Cyan
     - entity: sensor.epson_ink_level_magenta
       name: Magenta
-    - entity: sensor.epson_ink_level_yellow
-      name: Yellow
     - entity: sensor.epson_ink_level_photo_black
       name: Photo
+    - entity: sensor.epson_ink_level_yellow
+      name: Yellow
   - type: glance
     id: speed
     title: Speed Test
@@ -422,7 +422,11 @@ views:
   - type: media-control
     entity: media_player.bedroom_home
   - type: media-control
+    entity: media_player.bedroom_shield
+  - type: media-control
     entity: media_player.bathroom_speaker
+  - type: media-control
+    entity: media_player.den_shield
   - type: media-control
     entity: media_player.den_home_hub
   - type: media-control
@@ -453,10 +457,6 @@ views:
     entity: media_player.onkyo_den_zone_2
   - type: media-control
     entity: media_player.outdoor_speakers
-  - type: media-control
-    entity: media_player.den_shield
-  - type: media-control
-    entity: media_player.bedroom_shield
   - type: media-control
     entity: media_player.sony_bravia_tv
   - type: media-control
@@ -551,12 +551,12 @@ views:
     filter:
       include:
       - domain: light
-      - entity_id: switch.island_lights_switch
-      - entity_id: switch.christmas_tree_switch
-      - entity_id: switch.little_christmas_trees_switch
-      - entity_id: switch.garage_lights_switch
-      - entity_id: switch.siren_switch
       - entity_id: switch.backyard_lights_switch
+      - entity_id: switch.christmas_tree_switch
+      - entity_id: switch.island_lights_switch
+      - entity_id: switch.garage_lights_switch
+      - entity_id: switch.little_christmas_trees_switch
+      - entity_id: switch.siren_switch
       exclude:
       - entity_id: light.centralite_3210l_0a932dbf_1
       - entity_id: light.centralite_3210l_0b0383b4_1
@@ -581,9 +581,9 @@ views:
       title: Door and Window Status
     filter:
       include:
-        - entity_id: "*window"
         - entity_id: "*door"
         - entity_id: binary_sensor.garage_frontyard
+        - entity_id: "*window"
       exclude:
         - domain: automation
         - domain: sensor
@@ -597,9 +597,9 @@ views:
       title: Temperature
     filter:
       include:
-        - entity_id: "*window"
         - entity_id: "*door"
         - entity_id: "*temp*"
+        - entity_id: "*window"
       exclude:
         - domain: automation
         - domain: binary_sensor
@@ -652,9 +652,9 @@ views:
     - sensor.front_door_action
     - sensor.front_door_code
 resources:
-  - url: /local/monster-card.js?v=0.2.1
+  - url: /local/monster-card.js?v=0.2.3
     type: js
   - url: /local/gauge-card.js?v=0.1.0
     type: js
-  - url: /local/alarm_control_panel-card.js?v=0.3.1
+  - url: /local/alarm_control_panel-card.js?v=0.4.0
     type: js
