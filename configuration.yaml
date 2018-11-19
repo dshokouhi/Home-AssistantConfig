@@ -292,6 +292,8 @@ amcrest:
    name: "Den Camera"
    resolution: high
    stream_source: rtsp
+   sensors:
+   - motion_detector
 
  - host: 192.168.1.41
    port: 1026
@@ -300,12 +302,16 @@ amcrest:
    name: "Living Room Camera"
    resolution: high
    stream_source: rtsp
+   sensors:
+   - motion_detector
 
  - host: 192.168.1.36
    port: 1027
    username: !secret amcrest_user
    password: !secret boogie1
    name: "Outdoor Camera"
+   sensors:
+   - motion_detector
 
 camera:
  - platform: mjpeg
@@ -698,8 +704,8 @@ input_select:
     options:
     - Select Input
     - Netflix
+    - Shield TV
     - Watch PC
-    - Watch Roku
     - Watch Smart TV
     - Xbox
     - Power Off
@@ -723,6 +729,7 @@ input_select:
     - Chicken
     - Fish
     - Steak
+    - Turkey
     - Tritip
     initial: "Select Input"
     
@@ -831,8 +838,8 @@ shell_command:
   boogie_help: curl -X POST http://192.168.1.47:3000/customBroadcast?text=boogie+i+need+help+outside&user=hass-broadcast
   water_heater_leak: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+water+heater+is+leaking&user=hass-broadcast
   rain_water_heater: curl -X POST http://192.168.1.47:3000/customBroadcast?text=there+is+rain+getting+into+the+water+heater&user=hass-broadcast
-  bbq_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+done{%- else -%}{%- endif %}&user=hass-broadcast
-  bbq_almost: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+almost+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+almost+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+almost+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+almost+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+almost+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+almost+done{%- else -%}{%- endif %}&user=hass-broadcast
+  bbq_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+done{% elif is_state("input_select.bbq_probe1", "Turkey") -%}turkey+is+done{%- else -%}{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+done{%- else -%}{%- endif %}&user=hass-broadcast
+  bbq_almost: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+almost+don{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+almost+done{%- else -%}e{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+almost+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+almost+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+almost+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+almost+done{% elif is_state("input_select.bbq_probe1", "Turkey") -%}turkey+is+almost+done{%- else -%}{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+almost+done{%- else -%}{%- endif %}&user=hass-broadcast
   
 rachio:
   api_key: !secret rachiokey
