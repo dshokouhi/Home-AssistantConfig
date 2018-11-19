@@ -370,6 +370,16 @@ views:
           - switch.zone_5_front_lawn_boogie_car
           - switch.zone_6_front_lawn_walkway
           - switch.zone_7_front_lawn_street
+      - type: custom:monster-card
+        id: timers
+        card:
+          type: entities
+          title: Google Home Timers
+        filter:
+          include:
+            - entity_id: "*timer"
+          exclude:
+            - domain: automation
   # - type: entities
     # title: Badges
     # entities:

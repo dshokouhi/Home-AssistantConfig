@@ -638,3 +638,21 @@
    # name: NSW Fire Service
    # url: http://www.fire.ca.gov/rss/rss.xml
    # unit_of_measurement: 'Incidents'
+
+ - platform: google_home_alarm
+   host: 192.168.1.89
+   
+ - platform: google_home_alarm
+   host: 192.168.1.13
+   
+ - platform: google_home_alarm
+   host: 192.168.1.50
+   
+ - platform: google_home_alarm
+   host: 192.168.1.43
+   
+ - platform: google_home_alarm
+   host: 192.168.1.49
+   
+ - platform: google_home_alarm
+   host: 192.168.1.45

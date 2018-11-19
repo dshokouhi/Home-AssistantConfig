@@ -3297,13 +3297,33 @@
           {%- else -%}
             light.dannys, light.toshs
           {%- endif -%}
-  - delay: "00:03:00"
+  - delay: "00:05:00"
   - wait_template: "{{ states.binary_sensor.bedroom_motion_sensor.state == 'off' }}"
-  - condition: state
-    entity_id: binary_sensor.bedroom_door
-    state: 'off'
   - service: light.turn_off
     entity_id: light.bedroom_lights_level, light.dannys, light.toshs
+
+- alias: Turn off living room lights when no motion
+  trigger:
+    platform: state
+    entity_id: sensor.living_room_camera_motion_detected
+    to: 'False'
+    for:
+      minutes: 5
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: "10:00:00"
+      before: "06:00:00"
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: disarmed
+    - condition: state
+      entity_id: light.living_room_lights_level
+      state: 'on'
+  action:
+    service: light.turn_off
+    entity_id: light.living_room_lights_level
 
 ################################################
 #
@@ -3934,3 +3954,41 @@
            Clean office air purifier filter
          {% else %}
          {% endif %}
+         
+################################################
+#
+#      Google Home Timer Automations
+#
+################################################
+
+- alias: Google Home Timer Notification
+  trigger:
+    platform: state
+    entity_id:
+    - sensor.bathroom_speaker_timer
+    - sensor.bedroom_home_timer
+    - sensor.den_home_hub_timer
+    - sensor.kitchen_home_timer
+    - sensor.living_room_home_timer
+    - sensor.office_speaker_timer
+  condition:
+    condition: template
+    value_template: "{{ trigger.from_state.state != 'unavailable' }}"
+  action:
+  - service: notify.den
+    data_template:
+      data:
+        color: red
+        duration: 10
+        position: center
+      message: "{{ trigger.to_state.attributes.friendly_name }} completed!"
+      title: Shokabow Zoo
+  - service: shell_command.timer_completed
+    data_template:
+      friendly_name: "{{ trigger.to_state.attributes.friendly_name | replace(' ', '+') }}"
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "{{ trigger.to_state.attributes.friendly_name }} completed!"
