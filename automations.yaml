@@ -1879,6 +1879,7 @@
     entity_id: binary_sensor.garage_frontyard
     state: 'off'
   action:
+  - wait_template: "{{ states.sensor.outdoor_camera_motion_detected.state == 'False' }}"
   - service: switch.turn_off
     entity_id: switch.garage_lights_switch
 

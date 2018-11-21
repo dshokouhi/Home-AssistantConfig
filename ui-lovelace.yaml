@@ -117,6 +117,8 @@ views:
           - light.corner_lamp
           - switch.den_fan
           - light.den_lights_level
+          - entity: sensor.den_camera_motion_detected
+            name: Den Motion
           - switch.fireplace
           - remote.harmony_hub_den
           - light.tv_lights
@@ -142,6 +144,8 @@ views:
             secondary_info: last-changed
           - switch.living_room_fan
           - light.living_room_lights_level
+          - entity: sensor.living_room_camera_motion_detected
+            name: Living Room Motion
           - light.nook_lamp
       - type: entities
         title: Vacuums
