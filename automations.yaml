@@ -131,14 +131,8 @@
     - condition: state
       entity_id: sun.sun
       state: 'below_horizon'
-    - condition: or
-      conditions:
-      - condition: template
-        value_template: '{{ trigger.to_state.attributes.current_activity == "Watch Fire TV" }}'
-      - condition: template
-        value_template: '{{ trigger.to_state.attributes.current_activity == "Bedroom Chromecast" }}'
-      - condition: template
-        value_template: '{{ trigger.to_state.attributes.current_activity == "Bedroom bluray" }}'
+    - condition: template
+      value_template: '{{ states.remote.harmony_hub_bedroom.attributes.current_activity != "PowerOff" }}'
   action:
   - service: light.turn_on
     entity_id: light.biased_lights
@@ -1879,7 +1873,6 @@
     entity_id: binary_sensor.garage_frontyard
     state: 'off'
   action:
-  - wait_template: "{{ states.sensor.outdoor_camera_motion_detected.state == 'False' }}"
   - service: switch.turn_off
     entity_id: switch.garage_lights_switch
 
@@ -1900,6 +1893,7 @@
     entity_id: binary_sensor.garage_frontyard
     state: 'off'
   action:
+  - wait_template: "{{ states.sensor.outdoor_camera_motion_detected.state == 'False' }}"
   - service: switch.turn_off
     entity_id: switch.garage_lights_switch
 
@@ -3326,6 +3320,29 @@
     service: light.turn_off
     entity_id: light.living_room_lights_level
 
+- alias: Turn off kitchen lights when no motion
+  trigger:
+    platform: state
+    entity_id: sensor.baby_monitor_motion_detected
+    to: 'False'
+    for:
+      minutes: 5
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: "10:00:00"
+      before: "06:00:00"
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: disarmed
+    - condition: state
+      entity_id: light.kitchen_lights_level
+      state: 'on'
+  action:
+    service: light.turn_off
+    entity_id: light.kitchen_lights_level
+ 
 ################################################
 #
 #      Ring Automations

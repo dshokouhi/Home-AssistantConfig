@@ -117,6 +117,9 @@ views:
           - light.corner_lamp
           - switch.den_fan
           - light.den_lights_level
+          - type: custom:slider-entity-row
+            entity: light.den_lights_level
+            full_row: true
           - entity: sensor.den_camera_motion_detected
             name: Den Motion
           - switch.fireplace
@@ -132,6 +135,11 @@ views:
           - light.counter_lights
           - switch.island_lights_switch
           - light.kitchen_lights_level
+          - type: custom:slider-entity-row
+            entity: light.kitchen_lights_level
+            full_row: true
+          - entity: sensor.baby_monitor_motion_detected
+            name: Kitchen Motion
           - switch.kitchen_tv
           - light.spot
       - type: entities
@@ -144,6 +152,9 @@ views:
             secondary_info: last-changed
           - switch.living_room_fan
           - light.living_room_lights_level
+          - type: custom:slider-entity-row
+            entity: light.living_room_lights_level
+            full_row: true
           - entity: sensor.living_room_camera_motion_detected
             name: Living Room Motion
           - light.nook_lamp
@@ -193,10 +204,19 @@ views:
           - light.bedroom_closet
           - switch.bedroom_fan
           - light.bedroom_lights_level
+          - type: custom:slider-entity-row
+            entity: light.bedroom_lights_level
+            full_row: true
           - light.biased_lights
           - light.dannys
+          - type: custom:slider-entity-row
+            entity: light.dannys
+            full_row: true
           - remote.harmony_hub_bedroom
           - light.toshs
+          - type: custom:slider-entity-row
+            entity: light.toshs
+            full_row: true
       - type: entities
         title: Bathroom, Hallway & Office
         id: bathoffice
@@ -207,6 +227,9 @@ views:
           - switch.house_fan
           - light.office_closet
           - light.office_lights
+          - type: custom:slider-entity-row
+            entity: light.office_lights
+            full_row: true
       - type: horizontal-stack
         id: power
         cards:
@@ -238,6 +261,9 @@ views:
           - switch.garage_lights_switch
           - light.garden_lights
           - light.patio
+          - type: custom:slider-entity-row
+            entity: light.patio
+            full_row: true
       - type: entities
         id: booleans
         title: House Settings
@@ -263,6 +289,7 @@ views:
       - sensor.zestimate
       - sensor.uptime
       - sensor.homeassistant_v2db
+      - sensor.reolink1_power
     cards:
       - type: horizontal-stack
         id: pc
@@ -358,10 +385,12 @@ views:
         id: zm
         title: ZoneMinder
         entities:
+          - switch.baby_monitor_state
           - switch.den_state
           - switch.garage_state
           - switch.kitchen_state
           - switch.living_room_state
+          - switch.reolink1_state
       - type: entities
         id: sprinklers
         title: Sprinklers
@@ -412,6 +441,8 @@ views:
     icon: mdi:camera
     cards:
       - type: picture-entity
+        entity: camera.baby_monitor
+      - type: picture-entity
         entity: camera.den_camera
       - type: picture-entity
         entity: camera.kitchen_camera
@@ -421,6 +452,8 @@ views:
         entity: camera.office_camera
       - type: picture-entity
         entity: camera.outdoor_camera
+      - type: picture-entity
+        entity: camera.reolink_cam1_still_image
       - type: picture-entity
         entity: camera.shokabow_weather
       - type: picture-entity
@@ -684,4 +717,6 @@ resources:
   - url: /local/gauge-card.js?v=0.1.0
     type: js
   - url: /local/alarm_control_panel-card.js?v=0.4.0
+    type: js
+  - url: /local/slider-entity-row.js
     type: js

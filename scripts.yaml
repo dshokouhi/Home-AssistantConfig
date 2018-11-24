@@ -324,6 +324,28 @@ office_camera_snapshot:
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
 
+reolink_camera_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.reolink_cam1_still_image
+      filename: '/home/homeassistant/.homeassistant/snapshot/reolink_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Reolink camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/reolink_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Reolink camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/reolink_camera.jpg"
+
 light_at_night:
   sequence:
   - service: light.turn_on

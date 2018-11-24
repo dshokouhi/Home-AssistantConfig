@@ -313,10 +313,22 @@ amcrest:
    sensors:
    - motion_detector
 
+ - host: 192.168.1.97
+   port: 1028
+   username: !secret amcrest_user
+   password: !secret amcrest_pass
+   name: "Baby Monitor"
+   sensors:
+   - motion_detector
+
 camera:
  - platform: mjpeg
    mjpeg_url: !secret kitchen_camera
    name: "Kitchen Camera"
+
+ - platform: generic
+   still_image_url: !secret reolink_cam1_snapshot
+   name: "Reolink Cam1 Still Image"
 
  # - platform: mjpeg
    # mjpeg_url: !secret den_camera_videofeed
@@ -474,6 +486,8 @@ google_assistant:
     switch.zone_7_front_lawn_street:
       expose: false
     switch.sprinklers_in_standby_mode:
+      expose: false
+    switch.camera1:
       expose: false
     light.o1:
       expose: false
