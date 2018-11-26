@@ -64,9 +64,9 @@
 
  - platform: template
    sensors:
-     reolink1_power:
-       friendly_name: Reolink Camera 1 Power
-       value_template: "{{ state_attr('switch.camera1', 'power') }}"
+     frontyard_driveway_camera_power:
+       friendly_name: Frontyard Driveway Camera Power
+       value_template: "{{ state_attr('switch.camera3', 'power') }}"
        unit_of_measurement: "W"
 
  - platform: pi_hole

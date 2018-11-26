@@ -1893,7 +1893,7 @@
     entity_id: binary_sensor.garage_frontyard
     state: 'off'
   action:
-  - wait_template: "{{ states.sensor.outdoor_camera_motion_detected.state == 'False' }}"
+  #- wait_template: "{{ states.sensor.outdoor_camera_motion_detected.state == 'False' }}"
   - service: switch.turn_off
     entity_id: switch.garage_lights_switch
 
@@ -2279,7 +2279,7 @@
               {%-elif is_state("input_select.streaming_audio", "Outside") %}
                 media_player.outside_speakers
               {%-elif is_state("input_select.streaming_audio", "Den") %}
-                media_player.den_home
+                media_player.den_home_hub
               {%-elif is_state("input_select.streaming_audio", "Office") %}
                 media_player.office_speaker
               {%-elif is_state("input_select.streaming_audio", "Kitchen") %}
@@ -2307,7 +2307,7 @@
             {%-elif is_state("input_select.streaming_audio", "Outside") %}
               media_player.outdoor_speakers
             {%-elif is_state("input_select.streaming_audio", "Den") %}
-              media_player.den_home
+              media_player.den_home_hub
             {%-elif is_state("input_select.streaming_audio", "Office") %}
               media_player.office_speaker
             {%-elif is_state("input_select.streaming_audio", "Kitchen") %}
@@ -2337,7 +2337,7 @@
 
 ################################################
 #
-#      Zwave Automations
+#      Zwave/Zha Automations
 #
 ################################################
 
@@ -2423,6 +2423,30 @@
       message:
       - text: "node {{ trigger.entity_id }} has died"
 
+- alias: Notify zha device died
+  trigger:
+    platform: template
+    value_template: >
+      {%- for state in states.zha -%}
+        {%- if state.state == "offline" -%}
+          true
+        {%- endif -%}
+      {%- endfor -%}
+  action:
+  # - service: notify.chrome
+    # data_template:
+      # message: "node {{ trigger.entity_id }} has died"
+      # target: danny_pixel
+      # title: Shokabow Zoo
+  - delay: '00:30:00'
+  - condition: template
+    value_template: '{{ trigger.to_state.state == "offline" }}'
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "node {{ trigger.entity_id }} has died"
 
 # - alias: Notify zwave network ready
   # trigger:
@@ -3286,8 +3310,8 @@
   action:
   - service: light.turn_on
     data_template:
-      entity_id: >-
-          {%- if (now().hour < 22 and now().hour > 16) -%}
+      entity_id: >
+          {%- if (now().hour < 22 and now().hour > 15) -%}
             light.bedroom_lights_level
           {%- else -%}
             light.dannys, light.toshs
@@ -3602,21 +3626,21 @@
       target:
       - id: !secret hangouts_group
       message:
-      - text: >
+      - text: >-
           {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
-            Beef Ribs are almost ready
+            Beef Ribs are almost done
           {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-            Briket is almost ready
+            Briket is almost done
           {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-            Chicken is almost ready
+            Chicken is almost done
           {% elif is_state("input_select.bbq_probe1", "Fish") -%}
-            Fish is almost ready
+            Fish is almost done
           {% elif is_state("input_select.bbq_probe1", "Steak") -%}
-            Steak is almost ready
+            Steak is almost done
           {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
-            Turkey is almost ready
+            Turkey is almost done
           {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-            Tritip is almost ready
+            Tritip is almost done
           {%- else -%}
           {%- endif %}
   - service: shell_command.bbq_almost
@@ -3651,7 +3675,7 @@
        {{ states.sensor.bbq1temperature.state|int >= 145 }}
      {% elif is_state("input_select.bbq_probe1", "Steak") -%}
        {{ states.sensor.bbq1temperature.state|int >= 130 }}
-     {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+     {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
        {{ states.sensor.bbq1temperature.state|int >= 160 }}
      {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
        {{ states.sensor.bbq1temperature.state|int >= 130 }}

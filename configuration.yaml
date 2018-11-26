@@ -310,8 +310,8 @@ amcrest:
    username: !secret amcrest_user
    password: !secret boogie1
    name: "Outdoor Camera"
-   sensors:
-   - motion_detector
+   # sensors:
+   # - motion_detector
 
  - host: 192.168.1.97
    port: 1028
@@ -329,6 +329,14 @@ camera:
  - platform: generic
    still_image_url: !secret reolink_cam1_snapshot
    name: "Reolink Cam1 Still Image"
+
+ - platform: generic
+   still_image_url: !secret reolink_cam2_snapshot
+   name: "Reolink Cam2 Still Image"
+
+ - platform: ffmpeg
+   input: !secret frontyard_driveway
+   name: Frontyard Driveway
 
  # - platform: mjpeg
    # mjpeg_url: !secret den_camera_videofeed

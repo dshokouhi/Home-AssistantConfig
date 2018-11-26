@@ -289,7 +289,7 @@ views:
       - sensor.zestimate
       - sensor.uptime
       - sensor.homeassistant_v2db
-      - sensor.reolink1_power
+      - sensor.frontyard_driveway_camera_power
     cards:
       - type: horizontal-stack
         id: pc
@@ -387,10 +387,10 @@ views:
         entities:
           - switch.baby_monitor_state
           - switch.den_state
+          - switch.frontyard_driveway_state
           - switch.garage_state
           - switch.kitchen_state
           - switch.living_room_state
-          - switch.reolink1_state
       - type: entities
         id: sprinklers
         title: Sprinklers
@@ -453,7 +453,7 @@ views:
       - type: picture-entity
         entity: camera.outdoor_camera
       - type: picture-entity
-        entity: camera.reolink_cam1_still_image
+        entity: camera.frontyard_driveway
       - type: picture-entity
         entity: camera.shokabow_weather
       - type: picture-entity
@@ -700,17 +700,6 @@ views:
             secondary_info: last-changed
           - sensor.front_door_action
           - sensor.front_door_code
-      - type: entities
-        id: motion
-        title: Motion Detection
-        entities:
-          - entity: sensor.den_camera_motion_detected
-            name: Den Camera Motion
-          - binary_sensor.bedroom_motion_sensor
-          - entity: sensor.living_room_camera_motion_detected
-            name: Living Room Camera Motion
-          - entity: sensor.outdoor_camera_motion_detected
-            name: Outdoor Camera Motion
 resources:
   - url: /local/monster-card.js?v=0.2.3
     type: js

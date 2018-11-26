@@ -329,14 +329,14 @@ reolink_camera_snapshot:
   - service: camera.snapshot
     data:
       entity_id: camera.reolink_cam1_still_image
-      filename: '/home/homeassistant/.homeassistant/snapshot/reolink_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/snapshot/reolink1_camera.jpg'
   - service: notify.slack
     data:
       message: "Reolink camera snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/reolink_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/snapshot/reolink1_camera.jpg"
   - service: hangouts.send_message
     data:
       target:
@@ -344,7 +344,51 @@ reolink_camera_snapshot:
       message:
       - text: "Reolink camera snapshot, may be false alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/reolink_camera.jpg"
+        image_file: "/home/homeassistant/.homeassistant/snapshot/reolink1_camera.jpg"
+
+reolink2_camera_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.reolink_cam2_still_image
+      filename: '/home/homeassistant/.homeassistant/snapshot/reolink2_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Reolink camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/reolink2_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Reolink camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/reolink2_camera.jpg"
+        
+frontyard_driveway_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.frontyard_driveway
+      filename: '/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Frontyard driveway camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Frontyard driveway camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg"
 
 light_at_night:
   sequence:
