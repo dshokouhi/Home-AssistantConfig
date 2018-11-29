@@ -122,6 +122,7 @@ views:
             full_row: true
           - entity: sensor.den_camera_motion_detected
             name: Den Motion
+            secondary_info: last-changed
           - switch.fireplace
           - remote.harmony_hub_den
           - light.tv_lights
@@ -140,6 +141,7 @@ views:
             full_row: true
           - entity: sensor.baby_monitor_motion_detected
             name: Kitchen Motion
+            secondary_info: last-changed
           - switch.kitchen_tv
           - light.spot
       - type: entities
@@ -157,6 +159,7 @@ views:
             full_row: true
           - entity: sensor.living_room_camera_motion_detected
             name: Living Room Motion
+            secondary_info: last-changed
           - light.nook_lamp
       - type: entities
         title: Vacuums
@@ -207,6 +210,9 @@ views:
           - type: custom:slider-entity-row
             entity: light.bedroom_lights_level
             full_row: true
+          - entity: binary_sensor.bedroom_motion_sensor
+            name: Bedroom Motion
+            secondary_info: last-changed
           - light.biased_lights
           - light.dannys
           - type: custom:slider-entity-row
@@ -556,6 +562,8 @@ views:
           - sensor.pws_weather
           - sensor.pws_alerts
           - sensor.pws_feelslike_f
+          - sensor.pws_relative_humidity
+          - sensor.pws_wind_string
           - sensor.pws_weather_1d
           - sensor.pws_weather_1n
           - sensor.pws_weather_2d

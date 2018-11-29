@@ -354,7 +354,7 @@ reolink2_camera_snapshot:
       filename: '/home/homeassistant/.homeassistant/snapshot/reolink2_camera.jpg'
   - service: notify.slack
     data:
-      message: "Reolink camera snapshot, may be false alarm"
+      message: "Reolink camera2 snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
@@ -364,10 +364,32 @@ reolink2_camera_snapshot:
       target:
       - id: !secret hangouts_group
       message:
-      - text: "Reolink camera snapshot, may be false alarm"
+      - text: "Reolink camera2 snapshot, may be false alarm"
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/reolink2_camera.jpg"
-        
+
+reolink3_camera_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.reolink_cam3_still_image
+      filename: '/home/homeassistant/.homeassistant/snapshot/reolink3_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Reolink camera3 snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/reolink3_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Reolink camera3 snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/reolink3_camera.jpg"
+
 frontyard_driveway_snapshot:
   sequence:
   - service: camera.snapshot
