@@ -13,9 +13,6 @@
 - Pi-Hole
 - Zoneminder
 - Influxdb/Grafana
-- Node-red
-- HADashboard
-- AppDaemon
 
 ## Devices
 ### Lightify
@@ -55,7 +52,7 @@
 ### Xiaomi gateway
 - 4 Leak sensor
 - 4 Contact sensor
-- 1 Motion sensor
+- 4 Motion sensor
 - 1 Temperature sensor
 - 3 Air Purifiers
 
@@ -78,9 +75,12 @@
 - 1 Ring video doorbell (2nd gen)
 - 1 Ring floodlight camera
 - 1 Yi Dome 1080p
+- 1 Amcrest 4mp PTZ
+- 4 Reolink RLC-420-5MP
 
 ### DIY
 - 1 ESP8266 for MQTTCarPresence project
+- 1 ESP8266 connected to MAX6675 and Thermocouple for Smoker
 
 ## Automations
 
