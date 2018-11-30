@@ -215,14 +215,8 @@ views:
             secondary_info: last-changed
           - light.biased_lights
           - light.dannys
-          - type: custom:slider-entity-row
-            entity: light.dannys
-            full_row: true
           - remote.harmony_hub_bedroom
           - light.toshs
-          - type: custom:slider-entity-row
-            entity: light.toshs
-            full_row: true
       - type: entities
         title: Bathroom, Hallway & Office
         id: bathoffice
@@ -230,12 +224,15 @@ views:
         entities:
           - light.bathroom_night_light
           - light.hallway_light
+          - entity: binary_sensor.hallway_motion_sensor
+            name: Hallway Motion
+            secondary_info: last-changed
           - switch.house_fan
           - light.office_closet
           - light.office_lights
-          - type: custom:slider-entity-row
-            entity: light.office_lights
-            full_row: true
+          - entity: binary_sensor.office_motion
+            name: Office Motion
+            secondary_info: last-changed
       - type: horizontal-stack
         id: power
         cards:
@@ -265,11 +262,11 @@ views:
           - light.fig_tree_lights
           - light.firepit_lights
           - switch.garage_lights_switch
+          - entity: binary_sensor.garage_motion_sensor
+            name: Garage Motion
+            secondary_info: last-changed
           - light.garden_lights
           - light.patio
-          - type: custom:slider-entity-row
-            entity: light.patio
-            full_row: true
       - type: entities
         id: booleans
         title: House Settings

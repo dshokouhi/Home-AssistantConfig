@@ -420,7 +420,11 @@ notify:
    name: slack
    api_key: !secret slack_api
    default_channel: '#hass'
-   
+
+ - platform: discord
+   name: discord
+   token: !secret discord
+
  - platform: group
    name: chrome_alerts
    services:

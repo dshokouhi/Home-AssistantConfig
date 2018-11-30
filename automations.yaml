@@ -1893,7 +1893,7 @@
     entity_id: binary_sensor.garage_frontyard
     state: 'off'
   action:
-  #- wait_template: "{{ states.sensor.outdoor_camera_motion_detected.state == 'False' }}"
+  - wait_template: "{{ states.binary_sensor.garage_motion_sensor.state == 'off' }}"
   - service: switch.turn_off
     entity_id: switch.garage_lights_switch
 
@@ -3281,7 +3281,7 @@
 #
 ################################################
 
-- alias: Bedroom Motion Light
+- alias: Bedroom Motion Light On
   trigger:
   - platform: state
     entity_id: binary_sensor.bedroom_motion_sensor
@@ -3316,8 +3316,36 @@
           {%- else -%}
             light.dannys, light.toshs
           {%- endif -%}
-  - delay: "00:03:00"
-  - wait_template: "{{ states.binary_sensor.bedroom_motion_sensor.state == 'off' and states.binary_sensor.bedroom_door.state == 'off' }}"
+
+- alias: Bedroom Motion Lights Off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.bedroom_motion_sensor
+    to: 'off'
+    for:
+      minutes: 5
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'off'
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: disarmed
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'off'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.bedroom_door
+      state: 'off'
+  action:
   - service: light.turn_off
     entity_id: light.bedroom_lights_level, light.dannys, light.toshs
 
@@ -3360,12 +3388,64 @@
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: light.kitchen_lights_level
+        state: 'on'
+      - condition: state
+        entity_id: switch.island_lights_switch
+        state: 'on'
   action:
   - service: light.turn_off
     entity_id: light.kitchen_lights_level
   - service: switch.turn_off
     entity_id: switch.island_lights_switch
- 
+
+- alias: Turn off office lights when no motion
+  trigger:
+    platform: state
+    entity_id: binary_sensor.office_motion
+    to: 'off'
+    for:
+      minutes: 5
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: "10:00:00"
+      before: "06:00:00"
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: disarmed
+    - condition: state
+      entity_id: light.office_lights
+      state: 'on'
+  action:
+    service: light.turn_off
+    entity_id: light.office_lights
+    
+- alias: Turn on office lights when motion
+  trigger:
+    platform: state
+    entity_id: binary_sensor.office_motion
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: "10:00:00"
+      before: "06:00:00"
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: disarmed
+    - condition: state
+      entity_id: light.office_lights
+      state: 'off'
+  action:
+    service: light.turn_on
+    entity_id: light.office_lights
+
 ################################################
 #
 #      Ring Automations
@@ -3404,12 +3484,18 @@
     entity_id: alarm_control_panel.home
     state: disarmed
   action:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.kitchen_camera
+      filename: '/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg'
   - service: notify.den
     data:
       data:
        color: red
        duration: 10
        position: center
+       file:
+         path: '/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg'
       message: Someone is at the front door
       title: Shokabow Zoo
       
