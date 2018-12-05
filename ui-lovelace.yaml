@@ -70,10 +70,10 @@ views:
         entities:
           - entity: sensor.dishwasher_running
             name: Dishwasher
-          - entity: sensor.washer_running
-            name: Washer
           - entity: sensor.dryer_running
             name: Dryer
+          - entity: sensor.washer_running
+            name: Washer
         state_filter:
           - 'True'
         show_empty: false
@@ -117,9 +117,6 @@ views:
           - light.corner_lamp
           - switch.den_fan
           - light.den_lights_level
-          - type: custom:slider-entity-row
-            entity: light.den_lights_level
-            full_row: true
           - entity: sensor.den_camera_motion_detected
             name: Den Motion
             secondary_info: last-changed
@@ -136,9 +133,6 @@ views:
           - light.counter_lights
           - switch.island_lights_switch
           - light.kitchen_lights_level
-          - type: custom:slider-entity-row
-            entity: light.kitchen_lights_level
-            full_row: true
           - entity: sensor.baby_monitor_motion_detected
             name: Kitchen Motion
             secondary_info: last-changed
@@ -154,9 +148,6 @@ views:
             secondary_info: last-changed
           - switch.living_room_fan
           - light.living_room_lights_level
-          - type: custom:slider-entity-row
-            entity: light.living_room_lights_level
-            full_row: true
           - entity: sensor.living_room_camera_motion_detected
             name: Living Room Motion
             secondary_info: last-changed
@@ -207,9 +198,6 @@ views:
           - light.bedroom_closet
           - switch.bedroom_fan
           - light.bedroom_lights_level
-          - type: custom:slider-entity-row
-            entity: light.bedroom_lights_level
-            full_row: true
           - entity: binary_sensor.bedroom_motion_sensor
             name: Bedroom Motion
             secondary_info: last-changed
@@ -393,7 +381,9 @@ views:
           - switch.frontyard_driveway_state
           - switch.garage_state
           - switch.kitchen_state
+          - switch.kitchen_side_gate_state
           - switch.living_room_state
+          - switch.patio_state
       - type: entities
         id: sprinklers
         title: Sprinklers
@@ -448,7 +438,13 @@ views:
       - type: picture-entity
         entity: camera.den_camera
       - type: picture-entity
+        entity: camera.front_door
+      - type: picture-entity
+        entity: camera.frontyard_driveway
+      - type: picture-entity
         entity: camera.kitchen_camera
+      - type: picture-entity
+        entity: camera.kitchen_side_gate
       - type: picture-entity
         entity: camera.living_room_camera
       - type: picture-entity
@@ -456,11 +452,9 @@ views:
       - type: picture-entity
         entity: camera.outdoor_camera
       - type: picture-entity
-        entity: camera.frontyard_driveway
+        entity: camera.patio
       - type: picture-entity
         entity: camera.shokabow_weather
-      - type: picture-entity
-        entity: camera.front_door
       - type: picture-entity
         entity: camera.side_gate
       - type: picture-entity
@@ -708,9 +702,5 @@ views:
 resources:
   - url: /local/monster-card.js?v=0.2.3
     type: js
-  - url: /local/gauge-card.js?v=0.1.0
-    type: js
   - url: /local/alarm_control_panel-card.js?v=0.4.0
-    type: js
-  - url: /local/slider-entity-row.js
     type: js

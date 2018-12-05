@@ -352,17 +352,17 @@ camera:
    mjpeg_url: !secret kitchen_camera
    name: "Kitchen Camera"
 
- - platform: generic
-   still_image_url: !secret reolink_cam1_snapshot
-   name: "Reolink Cam1 Still Image"
+ # - platform: generic
+   # still_image_url: !secret reolink_cam1_snapshot
+   # name: "Reolink Cam1 Still Image"
 
- - platform: generic
-   still_image_url: !secret reolink_cam2_snapshot
-   name: "Reolink Cam2 Still Image"
+ - platform: ffmpeg
+   input: !secret kitchen_side_gate
+   name: Kitchen Side Gate
 
- - platform: generic
-   still_image_url: !secret reolink_cam3_snapshot
-   name: "Reolink Cam3 Still Image"
+ - platform: ffmpeg
+   input: !secret patio
+   name: Patio
 
  - platform: ffmpeg
    input: !secret frontyard_driveway
@@ -511,6 +511,8 @@ google_assistant:
       expose: false
     script.bedroom_shield:
       expose: false
+    script.den_shield:
+      expose: false
     light.living_room:
       expose: false
     switch.zone_1_patio:
@@ -622,6 +624,26 @@ google_assistant:
       expose: false
     script.lr_alarm:
       expose: false
+    script.christmas_off:
+      expose: false
+    script.christmas_on:
+      expose: false
+    switch.frontyard_driveway_state:
+      expose: false
+    script.frontyard_driveway_snapshot:
+      expose: false
+    switch.patio_state:
+      expose: false
+    script.patio_snapshot:
+      expose: false
+    switch.reolink1_state:
+      expose: false
+    script.kitchen_side_gate_snapshot:
+      expose: false
+    switch.kitchen_side_gate_state:
+      expose: false
+    switch.baby_monitor_state:
+      expose: false
     switch.den_state:
       expose: false
     switch.kitchen_state:
@@ -631,6 +653,8 @@ google_assistant:
     switch.office_state:
       expose: false
     switch.garage_state:
+      expose: false
+    switch.camera3:
       expose: false
     light.den_lights_level:
       room: Den
@@ -644,16 +668,16 @@ google_assistant:
       room: Bedroom
     switch.bedroom_shield:
       room: Bedroom
+    switch.den_shield:
+      room: Den
     switch.house_fan:
       room: Hallway
     light.hallway_light:
       room: Hallway
     light.office_lights:
       room: Office
-    # switch.house_vacuum:
-      # room: Kitchen
-    # switch.den_vacuum:
-      # room: Den
+    light.bathroom_night_light:
+      room: Bathroom
     switch.kitchen_tv:
       room: Kitchen
     switch.island_lights_switch:
@@ -668,6 +692,8 @@ google_assistant:
       room: Outside
     switch.den_fan:
       room: Den
+    light.living_lights_level:
+      room: "Living Room"
     switch.living_room_fan:
       room: "Living Room"
     light.dannys:
@@ -703,7 +729,7 @@ zwave:
       #polling_intensity: 1
     light.kitchen_lights_level:
       refresh_value: true
-      delay: 2
+      delay: 3
       #polling_intensity: 1
     light.living_room_lights_level:
       refresh_value: true

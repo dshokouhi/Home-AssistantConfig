@@ -199,7 +199,7 @@ roku:
     data:
       activity: 27030102
 
-shield:
+den_shield:
   sequence:
   - service: remote.turn_on
     entity_id: remote.harmony_hub_den
@@ -324,71 +324,71 @@ office_camera_snapshot:
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
 
-reolink_camera_snapshot:
-  sequence:
-  - service: camera.snapshot
-    data:
-      entity_id: camera.reolink_cam1_still_image
-      filename: '/home/homeassistant/.homeassistant/snapshot/reolink1_camera.jpg'
-  - service: notify.slack
-    data:
-      message: "Reolink camera snapshot, may be false alarm"
-      title: "Shokabow Zoo - Alarm Tripped"
-      data:
-        file:
-          path: "/home/homeassistant/.homeassistant/snapshot/reolink1_camera.jpg"
-  - service: hangouts.send_message
-    data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Reolink camera snapshot, may be false alarm"
-      data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/reolink1_camera.jpg"
+# reolink_camera_snapshot:
+  # sequence:
+  # - service: camera.snapshot
+    # data:
+      # entity_id: camera.reolink_cam1_still_image
+      # filename: '/home/homeassistant/.homeassistant/snapshot/reolink1_camera.jpg'
+  # - service: notify.slack
+    # data:
+      # message: "Reolink camera snapshot, may be false alarm"
+      # title: "Shokabow Zoo - Alarm Tripped"
+      # data:
+        # file:
+          # path: "/home/homeassistant/.homeassistant/snapshot/reolink1_camera.jpg"
+  # - service: hangouts.send_message
+    # data:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Reolink camera snapshot, may be false alarm"
+      # data:
+        # image_file: "/home/homeassistant/.homeassistant/snapshot/reolink1_camera.jpg"
 
-reolink2_camera_snapshot:
+patio_snapshot:
   sequence:
   - service: camera.snapshot
     data:
-      entity_id: camera.reolink_cam2_still_image
-      filename: '/home/homeassistant/.homeassistant/snapshot/reolink2_camera.jpg'
+      entity_id: camera.patio
+      filename: '/home/homeassistant/.homeassistant/snapshot/patio_camera.jpg'
   - service: notify.slack
     data:
-      message: "Reolink camera2 snapshot, may be false alarm"
+      message: "Patio snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/reolink2_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/snapshot/patio_camera.jpg"
   - service: hangouts.send_message
     data:
       target:
       - id: !secret hangouts_group
       message:
-      - text: "Reolink camera2 snapshot, may be false alarm"
+      - text: "Patio snapshot, may be false alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/reolink2_camera.jpg"
+        image_file: "/home/homeassistant/.homeassistant/snapshot/patio_camera.jpg"
 
-reolink3_camera_snapshot:
+kitchen_side_gate_snapshot:
   sequence:
   - service: camera.snapshot
     data:
-      entity_id: camera.reolink_cam3_still_image
-      filename: '/home/homeassistant/.homeassistant/snapshot/reolink3_camera.jpg'
+      entity_id: camera.kitchen_side_gate
+      filename: '/home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_camera.jpg'
   - service: notify.slack
     data:
-      message: "Reolink camera3 snapshot, may be false alarm"
+      message: "Kitchen Side Gate snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/reolink3_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_camera.jpg"
   - service: hangouts.send_message
     data:
       target:
       - id: !secret hangouts_group
       message:
-      - text: "Reolink camera3 snapshot, may be false alarm"
+      - text: "Kitchen Side Gate snapshot, may be false alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/reolink3_camera.jpg"
+        image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_camera.jpg"
 
 frontyard_driveway_snapshot:
   sequence:
@@ -414,9 +414,6 @@ frontyard_driveway_snapshot:
 
 light_at_night:
   sequence:
-  - service: light.turn_on
-    entity_id: light.hallway_light
-  - delay: "00:00:02"
   - service: light.turn_on
     entity_id: light.hallway_light
     data:
@@ -449,3 +446,17 @@ kitchen_alarm:
   - delay: "00:05:00"
   - service: switch.turn_off
     entity_id: switch.kitchen_state
+    
+christmas_on:
+  sequence:
+  - service: switch.turn_on
+    entity_id: switch.christmas_tree_switch, switch.little_christmas_trees_switch
+  - service: light.turn_on
+    entity_id: light.centralite_3210l_0b0383b4_1
+    
+christmas_off:
+  sequence:
+  - service: switch.turn_off
+    entity_id: switch.christmas_tree_switch, switch.little_christmas_trees_switch
+  - service: light.turn_off
+    entity_id: light.centralite_3210l_0b0383b4_1

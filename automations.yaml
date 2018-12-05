@@ -1897,6 +1897,23 @@
   - service: switch.turn_off
     entity_id: switch.garage_lights_switch
 
+- alias: Christmas Lights
+  trigger:
+  - platform: state
+    entity_id: input_boolean.night_mode
+    to: 'on'
+  - event: sunset
+    platform: sun
+    offset: '-00:30:00'
+  action:
+    service: script.turn_on 
+    data_template:
+      entity_id: >
+       {% if trigger.entity_id == 'input_boolean.night_mode' %}
+         script.christmas_off
+       {% else %}
+         script.christmas_on
+       {% endif %}
 ################################################
 #
 #      Rain and Windows Open
@@ -2577,7 +2594,27 @@
       - id: !secret hangouts_group
       message:
       - text: "Tosh has left the zoo.  Did you forget anything?"
-      
+
+- alias: Turn off tasker_sleep_tosh
+  trigger:
+    platform: state
+    entity_id: device_tracker.google_maps_104359830266586918986
+    to: 'not_home'
+    for:
+      minutes: 10
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'off'
+  action:
+    service: switch.turn_off
+    entity_id: switch.tasker_sleep_tosh
+
 ################################################
 #
 #      Thermostat Automations
@@ -3175,6 +3212,9 @@
   - service: media_player.media_stop
     entity_id: media_player.bathroom_speaker
   - wait_template: "{{ states('sensor.bathroom_humidity') | int < 60 }}"
+  - condition: state
+    entity_id: input_boolean.night_mode
+    state: 'off'
   - service: switch.turn_off
     entity_id: switch.house_fan
     
@@ -3421,6 +3461,9 @@
     - condition: state
       entity_id: light.office_lights
       state: 'on'
+    - condition: state
+      entity_id: binary_sensor.office_closet_door
+      state: 'off'
   action:
     service: light.turn_off
     entity_id: light.office_lights
@@ -3445,6 +3488,24 @@
   action:
     service: light.turn_on
     entity_id: light.office_lights
+
+- alias: Hallway light motion at night
+  trigger:
+    platform: state
+    entity_id: binary_sensor.hallway_motion_sensor
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'on'
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+  action:
+    service: script.turn_on
+    entity_id: script.light_at_night
 
 ################################################
 #
@@ -3552,7 +3613,7 @@
     event_type: click
     event_data:
       entity_id: binary_sensor.hallway_office_switch
-      click_type: long_click_press
+      click_type: single
   action:
   - service: light.turn_on
     entity_id: light.hallway_light
@@ -3560,18 +3621,21 @@
       kelvin: 6500
       brightness_pct: 100
       
-- alias: Turn On Office Lights From Switch
+- alias: Turn On Hallway Light Color
   trigger:
     platform: event
     event_type: click
     event_data:
       entity_id: binary_sensor.hallway_office_switch
-      click_type: single
+      click_type: long_click_press
   action:
   - service: light.turn_on
-    entity_id: light.office_lights
-    
-- alias: Turn Off Office Lights and Hallway From Switch
+    data:
+      entity_id: light.hallway_light
+      brightness_pct: 40
+      color_name: 'green'
+
+- alias: Turn Off Hallway Light From Switch
   trigger:
     platform: event
     event_type: click
@@ -3580,7 +3644,7 @@
       click_type: double
   action:
   - service: light.turn_off
-    entity_id: light.hallway_light, light.office_lights
+    entity_id: light.hallway_light
     
 ################################################
 #
