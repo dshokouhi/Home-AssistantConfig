@@ -950,3 +950,5 @@ intent_script:
       text: Sending help
     action:
       service: shell_command.boogie_help
+
+shopping_list:

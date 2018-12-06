@@ -3610,7 +3610,7 @@
 - alias: Turn On Hallway Light Bright White
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.hallway_office_switch
       click_type: single
@@ -3624,7 +3624,7 @@
 - alias: Turn On Hallway Light Color
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.hallway_office_switch
       click_type: long_click_press
@@ -3638,7 +3638,7 @@
 - alias: Turn Off Hallway Light From Switch
   trigger:
     platform: event
-    event_type: click
+    event_type: xiaomi_aqara.click
     event_data:
       entity_id: binary_sensor.hallway_office_switch
       click_type: double

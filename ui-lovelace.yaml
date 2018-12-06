@@ -281,6 +281,8 @@ views:
       - sensor.uptime
       - sensor.homeassistant_v2db
       - sensor.frontyard_driveway_camera_power
+      - sensor.tautulli
+      - sensor.next_launch
     cards:
       - type: horizontal-stack
         id: pc
@@ -522,6 +524,12 @@ views:
           - sensor.danny_next_meeting
           - sensor.next_us_holiday
           - sensor.next_jewish_holiday
+  - title: Shopping List
+    id: shopping
+    icon: mdi:cart
+    cards:
+      - type: shopping-list
+        title: Shopping List
   - title: Weather
     id: weather
     icon: mdi:weather-sunny
