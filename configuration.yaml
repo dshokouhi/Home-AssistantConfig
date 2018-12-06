@@ -462,7 +462,7 @@ google_assistant:
   #access_token: !secret ga_access_token
   api_key: !secret ga_api_key
   #agent_user_id: !secret ga_agent_id
-  expose_by_default: false
+  #expose_by_default: false
   exposed_domains:
   - switch
   - light
