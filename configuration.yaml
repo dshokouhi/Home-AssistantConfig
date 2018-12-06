@@ -462,6 +462,7 @@ google_assistant:
   #access_token: !secret ga_access_token
   api_key: !secret ga_api_key
   #agent_user_id: !secret ga_agent_id
+  expose_by_default: false
   exposed_domains:
   - switch
   - light
@@ -692,7 +693,7 @@ google_assistant:
       room: Outside
     switch.den_fan:
       room: Den
-    light.living_lights_level:
+    light.living_room_lights_level:
       room: "Living Room"
     switch.living_room_fan:
       room: "Living Room"
