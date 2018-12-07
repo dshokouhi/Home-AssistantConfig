@@ -282,7 +282,6 @@ views:
       - sensor.homeassistant_v2db
       - sensor.frontyard_driveway_camera_power
       - sensor.tautulli
-      - sensor.next_launch
     cards:
       - type: horizontal-stack
         id: pc
@@ -408,6 +407,11 @@ views:
             - entity_id: "*timer"
           exclude:
             - domain: automation
+      - type: entities
+        id: launches
+        title: Launches
+        entities:
+        - sensor.next_launch
   # - type: entities
     # title: Badges
     # entities:

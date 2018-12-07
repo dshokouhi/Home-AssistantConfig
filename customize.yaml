@@ -457,7 +457,10 @@ sensor.sabnzbd_status:
 
 sensor.zestimate:
   unit_of_measurement: USD
-  
+
+sensor.tautulli:
+  unit_of_measurement: Watching
+
 sensor.bedroom_air_purifier_aqi:
   icon: mdi:cloud
   
