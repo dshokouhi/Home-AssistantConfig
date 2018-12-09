@@ -69,6 +69,13 @@
        value_template: "{{ state_attr('switch.camera3', 'power') }}"
        unit_of_measurement: "W"
 
+ - platform: template
+   sensors:
+     garage_side_gate_camera_power:
+       friendly_name: Garage Side Gate Camera Power
+       value_template: "{{ state_attr('switch.camera1', 'power') }}"
+       unit_of_measurement: "W"
+
  - platform: pi_hole
    host: 192.168.1.47
    monitored_conditions:

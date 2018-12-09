@@ -352,9 +352,9 @@ camera:
    mjpeg_url: !secret kitchen_camera
    name: "Kitchen Camera"
 
- # - platform: generic
-   # still_image_url: !secret reolink_cam1_snapshot
-   # name: "Reolink Cam1 Still Image"
+ - platform: ffmpeg
+   input: !secret garage_side_gate
+   name: Garage Side Gate
 
  - platform: ffmpeg
    input: !secret kitchen_side_gate
