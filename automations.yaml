@@ -4183,3 +4183,28 @@
       - id: !secret hangouts_group
       message:
       - text: "{{ trigger.to_state.attributes.friendly_name }} completed!"
+
+################################################
+#
+#      Next Rocket Launch Automations
+#
+################################################
+
+- alias: Rocket Launch
+  trigger:
+    platform: time
+    minutes: '/60'
+    seconds: 00
+  condition:
+    condition: template
+    value_template: >-
+      {%- if (as_timestamp(now()) > (as_timestamp(strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z')) - 3600)) and ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) - ( as_timestamp( now() ) > 0 ) -%}
+       true
+      {%- endif -%}
+  action:
+    service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Rocket launch within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) | timestamp_custom('%h %d, %Y %H:%M %p') }}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }}."
