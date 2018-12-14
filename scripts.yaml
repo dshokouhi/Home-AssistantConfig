@@ -418,7 +418,7 @@ light_at_night:
     entity_id: light.hallway_light
     data:
       brightness_pct: 5
-      kelvin: 6500
+      kelvin: 2703
   - delay: "00:02:00"
   - service: light.turn_off
     entity_id: light.hallway_light
