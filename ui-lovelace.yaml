@@ -181,6 +181,7 @@ views:
       - type: entities
         title: Thermostat
         id: thermostat
+        show_header_toggle: false
         entities:
           - entity: climate.thermostat_cooling_1
             secondary_info: last-changed
@@ -225,19 +226,19 @@ views:
         id: power
         cards:
           - type: gauge
-            title: Dryer Power
+            name: Dryer Power
             entity: sensor.dryer_power_2
             #scale: 30px
             min: 0
             max: 1500
           - type: gauge
-            title: Pool Pump Power
+            name: Pool Pump Power
             entity: sensor.pool_pump_power
             #scale: 30px
             min: 0
             max: 1000
           - type: gauge
-            title: Washer Power
+            name: Washer Power
             entity: sensor.washer_power_2
             #scale: 30px
             min: 0
@@ -288,32 +289,32 @@ views:
         id: pc
         cards:
           - type: gauge
-            title: Memory Used
+            name: Memory Used
             entity: sensor.memory_use_percent
             #scale: 30px
           - type: gauge
-            title: Disk Space Used
+            name: Disk Space Used
             entity: sensor.disk_use_percent_home
             #scale: 30px
           - type: gauge
-            title: Processor Speed
+            name: Processor Speed
             entity: sensor.processor_use
             #scale: 30px
       - type: horizontal-stack
         id: stats
         cards:
           - type: gauge
-            title: Plex
+            name: Plex
             entity: sensor.plex
             min: 0
             max: 10
             #scale: 30px
           - type: gauge
-            title: Ads Blocked
+            name: Ads Blocked
             entity: sensor.pihole_ads_percentage_blocked_today
             #scale: 30px
           - type: gauge
-            title: SSL Expiration
+            name: SSL Expiration
             entity: sensor.ssl_certificate_expiry
             min: 1
             max: 90
@@ -370,10 +371,11 @@ views:
             name: Upload
           - entity: automation.speed_test
             name: Run Test
-            tap_action: call-service
-            service: automation.trigger
-            service_data:
-              entity_id: automation.speed_test
+            tap_action:
+              action: call-service
+              service: automation.trigger
+              service_data:
+                entity_id: automation.speed_test
       - type: entities
         id: zm
         title: ZoneMinder
@@ -404,6 +406,7 @@ views:
         card:
           type: entities
           title: Google Home Timers
+          show_header_toggle: false
         filter:
           include:
             - entity_id: "*timer"
@@ -412,6 +415,7 @@ views:
       - type: entities
         id: launches
         title: Launches
+        show_header_toggle: false
         entities:
         - sensor.next_launch
   # - type: entities
@@ -565,6 +569,7 @@ views:
       - type: entities
         id: pws
         title: Forecast
+        show_header_toggle: false
         entities:
           - sensor.pws_weather
           - sensor.pws_alerts
@@ -607,11 +612,11 @@ views:
     id: settings
     cards:
       - type: custom:monster-card
-        show_header_toggle: false
         id: lights
         card:
           type: entities
           title: Lights & Switches
+          show_header_toggle: false
         filter:
           include:
             - domain: light
@@ -635,6 +640,7 @@ views:
         card:
           type: entities
           title: Battery Status
+          show_header_toggle: false
         filter:
           include:
             - entity_id: "*battery"
@@ -643,6 +649,7 @@ views:
         card:
           type: entities
           title: Door and Window Status
+          show_header_toggle: false
         filter:
           include:
             - entity_id: "*door"
@@ -659,6 +666,7 @@ views:
         card:
           type: entities
           title: Temperature
+          show_header_toggle: false
         filter:
           include:
             - entity_id: "*door"
@@ -675,6 +683,7 @@ views:
         card:
           type: entities
           title: Humidity
+          show_header_toggle: false
         filter:
           include:
             - entity_id: "*humidity"
@@ -683,15 +692,16 @@ views:
         card:
           type: entities
           title: AQI
+          show_header_toggle: false
         filter:
           include:
             - entity_id: "*aqi*"
       - type: custom:monster-card
-        show_header_toggle: false
         id: purifiers
         card:
           type: entities
           title: House Air Purifiers
+          show_header_toggle: false
         filter:
           include:
             - domain: fan
@@ -710,6 +720,7 @@ views:
       - type: entities
         id: lock
         title: Lock
+        show_header_toggle: false
         entities:
           - entity: lock.front_door_lock_locked
             secondary_info: last-changed
