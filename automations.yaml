@@ -4197,8 +4197,8 @@
     seconds: 00
   condition:
     condition: template
-    value_template: >
-      {%- if ((as_timestamp(now()) |int + 28800) > (as_timestamp(strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z')) - 3600)) and ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) - ( as_timestamp( now() ) > 0 ) -%}
+    value_template: >-
+      {%- if ((as_timestamp(now()) |int + 28800) > (as_timestamp(strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z')) - 3600)) and ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) - ( (as_timestamp( now() ) | int + 28800) > 0 ) -%}
        true
       {%- endif -%}
   action:
@@ -4207,4 +4207,4 @@
       target:
       - id: !secret hangouts_group
       message:
-      - text: "Rocket launch within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') )  | int - 28800 ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }}."
+      - text: "Rocket launch within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') )  | int - 28800 ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }}"
