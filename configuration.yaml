@@ -368,6 +368,10 @@ camera:
    input: !secret frontyard_driveway
    name: Frontyard Driveway
 
+ - platform: ffmpeg
+   input: !secret frontyard_side_gate
+   name: Frontyard Side Gate
+
  # - platform: mjpeg
    # mjpeg_url: !secret den_camera_videofeed
    # name: "Den Camera Video Feed"

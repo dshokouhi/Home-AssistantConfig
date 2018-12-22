@@ -508,6 +508,21 @@ monitored_contacts:
   - binary_sensor.living_room_side_window
   - binary_sensor.office_window
 
+zha:
+  name: zha
+  entities:
+  - zha.bathroom_window
+  - zha.bedroom_window
+  - zha.bedroom_closet_door
+  - zha.kitchen_window
+  - zha.living_room_left_bay_window
+  - zha.living_room_right_bay_window
+  - zha.front_door
+  - zha.living_room_side_window
+  - zha.den_window
+  - zha.den_sliding_door
+  - zha.office_closet_door
+  - zha.office_window
 # disaster:
   # name: Earthquakes and Fires
   # entities:

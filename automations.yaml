@@ -2457,13 +2457,18 @@
       # title: Shokabow Zoo
   - delay: '00:30:00'
   - condition: template
-    value_template: '{{ trigger.to_state.state == "offline" }}'
+    value_template: >
+      {%- for state in states.zha -%}
+        {%- if state.state == "offline" -%}
+          true
+        {%- endif -%}
+      {%- endfor -%}
   - service: hangouts.send_message
     data_template:
       target:
       - id: !secret hangouts_danny
       message:
-      - text: "node {{ trigger.entity_id }} has died"
+      - text: "The following ZHA devices have died: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.zha', 'entity_id'))|list)|groupby('state'))['offline']|map(attribute='name')|list|join(', ') }}"
 
 # - alias: Notify zwave network ready
   # trigger:

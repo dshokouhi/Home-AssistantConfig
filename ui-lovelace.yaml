@@ -172,6 +172,7 @@ views:
           type: entities
           id: bbq1
           title: BBQ
+          show_header_toggle: false
           entities:
             - input_select.bbq_probe1
             - input_number.bbq1_override
@@ -282,6 +283,7 @@ views:
       - sensor.uptime
       - sensor.homeassistant_v2db
       - sensor.frontyard_driveway_camera_power
+      - sensor.frontyard_side_gate_camera_power
       - sensor.garage_side_gate_camera_power
       - sensor.tautulli
     cards:
@@ -383,6 +385,7 @@ views:
           - switch.baby_monitor_state
           - switch.den_state
           - switch.frontyard_driveway_state
+          - switch.frontyard_side_gate_state
           - switch.garage_state
           - switch.garage_side_gate_state
           - switch.kitchen_state
@@ -453,6 +456,8 @@ views:
         entity: camera.front_door
       - type: picture-entity
         entity: camera.frontyard_driveway
+      - type: picture-entity
+        entity: camera.frontyard_side_gate
       - type: picture-entity
         entity: camera.garage_side_gate
       - type: picture-entity
@@ -607,6 +612,30 @@ views:
         filter:
           include:
             - domain: script
+  - title: Zwave and ZHA
+    icon: mdi:z-wave
+    id: devices
+    cards:
+      - type: "custom:monster-card"
+        title: All Z-wave Devices
+        id: automations
+        filter:
+          include:
+            - domain: zwave
+        card:
+          type: entities
+          title: All Z-wave Devices
+          show_header_toggle: false
+      - type: "custom:monster-card"
+        title: All ZHA Devices
+        id: automations
+        filter:
+          include:
+            - domain: zha
+        card:
+          type: entities
+          title: All ZHA Devices
+          show_header_toggle: false
   - icon: mdi:settings
     title: Settings
     id: settings

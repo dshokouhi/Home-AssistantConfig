@@ -412,6 +412,28 @@ frontyard_driveway_snapshot:
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg"
 
+frontyard_side_gate_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.frontyard_side_gate
+      filename: '/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Frontyard side gate camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Frontyard side gate camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg"
+
 light_at_night:
   sequence:
   - service: light.turn_on
