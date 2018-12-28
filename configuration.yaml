@@ -352,24 +352,24 @@ camera:
    mjpeg_url: !secret kitchen_camera
    name: "Kitchen Camera"
 
- - platform: ffmpeg
-   input: !secret garage_side_gate
+ - platform: mjpeg
+   mjpeg_url: !secret garage_side_gate_mjpg
    name: Garage Side Gate
 
- - platform: ffmpeg
-   input: !secret kitchen_side_gate
+ - platform: mjpeg
+   mjpeg_url: !secret kitchen_side_gate_mjpg
    name: Kitchen Side Gate
 
- - platform: ffmpeg
-   input: !secret patio
+ - platform: mjpeg
+   mjpeg_url: !secret patio_mjpg
    name: Patio
 
- - platform: ffmpeg
-   input: !secret frontyard_driveway
+ - platform: mjpeg
+   mjpeg_url: !secret frontyard_driveway_mjpg
    name: Frontyard Driveway
 
- - platform: ffmpeg
-   input: !secret frontyard_side_gate
+ - platform: mjpeg
+   mjpeg_url: !secret frontyard_side_gate_mjpg
    name: Frontyard Side Gate
 
  # - platform: mjpeg

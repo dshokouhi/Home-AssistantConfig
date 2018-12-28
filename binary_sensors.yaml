@@ -13,14 +13,14 @@
        friendly_name: "Danny Home"
        device_class: presence
        value_template: "{{ states('sensor.danny_bedroom') |int > 50 or states('sensor.danny_den') | int > 50 }}"
-       
+
  - platform: template
    sensors:
      tosh_home:
        friendly_name: "Tosh Home"
        device_class: presence
        value_template: "{{ states('sensor.tosh_bedroom') |int > 50 or states('sensor.tosh_den') | int > 50 }}"
-       
+
  - platform: template
    sensors:
      windows:
@@ -61,7 +61,7 @@
      prob_given_false: 0.3
      platform: 'state'
      to_state: 'on'
-     
+
  - platform: bayesian
    prior: 0.6
    name: "Natachas Bayesian Presence"
@@ -87,8 +87,78 @@
      prob_given_false: 0.3
      platform: 'state'
      to_state: 'on'
-   
+
  - platform: workday
    country: US
-   
+
 # - platform: rachio
+
+ - platform: mqtt
+   name: Patio Offline
+   state_topic: blue_iris/binary_sensor/patio/connectivity
+   payload_on: 'off'
+   payload_off: 'on'
+   device_class: connectivity
+
+ - platform: mqtt
+   name: Patio Motion
+   state_topic: blue_iris/binary_sensor/patio/motion
+   payload_on: 'on'
+   payload_off: 'off'
+   device_class: motion
+
+ - platform: mqtt
+   name: Frontyard Driveway Offline
+   state_topic: blue_iris/binary_sensor/frontyard_drwy/connectivity
+   payload_on: 'off'
+   payload_off: 'on'
+   device_class: connectivity
+
+ - platform: mqtt
+   name: Frontyard Driveway Motion
+   state_topic: blue_iris/binary_sensor/frontyard_drwy/motion
+   payload_on: 'on'
+   payload_off: 'off'
+   device_class: motion
+
+ - platform: mqtt
+   name: Frontyard Side Gate Offline
+   state_topic: blue_iris/binary_sensor/frontyard_sg/connectivity
+   payload_on: 'off'
+   payload_off: 'on'
+   device_class: connectivity
+
+ - platform: mqtt
+   name: Frontyard Side Gate Motion
+   state_topic: blue_iris/binary_sensor/frontyard_sg/motion
+   payload_on: 'on'
+   payload_off: 'off'
+   device_class: motion
+
+ - platform: mqtt
+   name: Garage Side Gate Offline
+   state_topic: blue_iris/binary_sensor/garage_sg/connectivity
+   payload_on: 'off'
+   payload_off: 'on'
+   device_class: connectivity
+
+ - platform: mqtt
+   name: Garage Side Gate Motion
+   state_topic: blue_iris/binary_sensor/garage_sg/motion
+   payload_on: 'on'
+   payload_off: 'off'
+   device_class: motion
+
+ - platform: mqtt
+   name: Kitchen Side Gate Offline
+   state_topic: blue_iris/binary_sensor/kitchen_sg/connectivity
+   payload_on: 'off'
+   payload_off: 'on'
+   device_class: connectivity
+
+ - platform: mqtt
+   name: Kitchen Side Gate Motion
+   state_topic: blue_iris/binary_sensor/kitchen_sg/motion
+   payload_on: 'on'
+   payload_off: 'off'
+   device_class: motion

@@ -109,6 +109,26 @@ views:
         state_filter:
           - 'on'
         show_empty: false
+      - type: entity-filter
+        id: cameras-offline
+        card:
+          title: "Cameras Offline"
+          type: glance
+          show_state: false
+        entities:
+        - entity: binary_sensor.frontyard_driveway_offline
+          name: Front Drwy
+        - entity: binary_sensor.frontyard_side_gate_offline
+          name: Front SG
+        - entity: binary_sensor.garage_side_gate_offline
+          name: Garage SG
+        - entity: binary_sensor.kitchen_side_gate_offline
+          name: Kitchen SG
+        - entity: binary_sensor.patio_offline
+          name: Patio
+        state_filter:
+          - 'on'
+        show_empty: false
       - type: entities
         id: den
         title: Den
@@ -421,6 +441,21 @@ views:
         show_header_toggle: false
         entities:
         - sensor.next_launch
+      - type: glance
+        id: outdoor-motion
+        title: Outdoor Motion
+        show_header_toggle: false
+        entities:
+        - entity: binary_sensor.frontyard_driveway_motion
+          name: Front Drwy
+        - entity: binary_sensor.frontyard_side_gate_motion
+          name: Front SG
+        - entity: binary_sensor.garage_side_gate_motion
+          name: Garage SG
+        - entity: binary_sensor.kitchen_side_gate_motion
+          name: Kitchen SG
+        - entity: binary_sensor.patio_motion
+          name: Patio
   # - type: entities
     # title: Badges
     # entities:
@@ -485,11 +520,11 @@ views:
     icon: mdi:cast
     cards:
       - type: media-control
-        entity: media_player.bedroom_home
+        entity: media_player.bathroom_speaker
       - type: media-control
         entity: media_player.bedroom_shield
       - type: media-control
-        entity: media_player.bathroom_speaker
+        entity: media_player.bedroom_home
       - type: media-control
         entity: media_player.den_shield
       - type: media-control
@@ -535,6 +570,7 @@ views:
       - type: entities
         id: calsensor
         title: Calendar Sensors
+        show_header_toggle: false
         entities:
           - sensor.danny_next_event
           - sensor.tosh_next_event
