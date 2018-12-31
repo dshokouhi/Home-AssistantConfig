@@ -4213,3 +4213,47 @@
       - id: !secret hangouts_group
       message:
       - text: "Rocket launch within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') )  | int - 28800 ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }}"
+
+################################################
+#
+#      Image Processing Automations
+#
+################################################
+
+- alias: Image processing on motion detection
+  trigger:
+    platform: state
+    entity_id: binary_sensor.frontyard_driveway_motion, binary_sensor.frontyard_side_gate_motion
+    to: 'on'
+  action:
+  - service: image_processing.scan
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'binary_sensor.frontyard_driveway_motion' %}
+          image_processing.tensorflow_frontyard_driveway
+        {% else %}
+          image_processing.tensorflow_frontyard_side_gate
+        {% endif %}
+
+- alias: Notify image processing
+  trigger:
+    platform: state
+    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate
+  condition:
+    condition: template
+    value_template: '{{ trigger.to_state.state |int > 0 }}'
+  action:
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: >
+            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ') }} and attributes are {{ states.image_processing[trigger.entity_id.split('.')[1]].attributes.matches }}.
+      data:
+        image_file: >
+          {% if trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway' %}
+            /home/homeassistant/.homeassistant/snapshot/frontyard_driveway_latest.jpg
+          {% else %}
+            /home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_latest.jpg
+          {% endif %}

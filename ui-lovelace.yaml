@@ -278,6 +278,21 @@ views:
           - light.garden_lights
           - light.patio
       - type: entities
+        id: outdoor-motion
+        title: Outdoor Motion
+        show_header_toggle: false
+        entities:
+        - entity: binary_sensor.frontyard_driveway_motion
+          secondary_info: last-changed
+        - entity: binary_sensor.frontyard_side_gate_motion
+          secondary_info: last-changed
+        - entity: binary_sensor.garage_side_gate_motion
+          secondary_info: last-changed
+        - entity: binary_sensor.kitchen_side_gate_motion
+          secondary_info: last-changed
+        - entity: binary_sensor.patio_motion
+          secondary_info: last-changed
+      - type: entities
         id: booleans
         title: House Settings
         show_header_toggle: false
@@ -440,22 +455,8 @@ views:
         title: Launches
         show_header_toggle: false
         entities:
-        - sensor.next_launch
-      - type: glance
-        id: outdoor-motion
-        title: Outdoor Motion
-        show_header_toggle: false
-        entities:
-        - entity: binary_sensor.frontyard_driveway_motion
-          name: Front Drwy
-        - entity: binary_sensor.frontyard_side_gate_motion
-          name: Front SG
-        - entity: binary_sensor.garage_side_gate_motion
-          name: Garage SG
-        - entity: binary_sensor.kitchen_side_gate_motion
-          name: Kitchen SG
-        - entity: binary_sensor.patio_motion
-          name: Patio
+        - entity: sensor.next_launch
+          secondary_info: last-changed
   # - type: entities
     # title: Badges
     # entities:

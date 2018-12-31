@@ -959,3 +959,17 @@ shopping_list:
 
 lovelace:
   mode: yaml
+
+image_processing:
+  - platform: tensorflow
+    source:
+      - entity_id: camera.frontyard_driveway
+      - entity_id: camera.frontyard_side_gate
+      - entity_id: camera.garage_side_gate
+      - entity_id: camera.kitchen_side_gate
+    scan_interval: 604800
+    file_out:
+      - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"
+      #- "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
+    model:
+      graph: /home/homeassistant/.homeassistant/tensorflow/frozen_inference_graph.pb
