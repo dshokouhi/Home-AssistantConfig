@@ -516,6 +516,20 @@ views:
         entity: camera.mr_neato_cleaning_map
       - type: picture-entity
         entity: camera.mrs_neato_cleaning_map
+  - title: Image Processing Scans
+    id: imageproc
+    icon: mdi:cctv
+    cards:
+      - type: picture-entity
+        entity: camera.frontyard_driveway_scan
+      - type: picture-entity
+        entity: camera.frontyard_side_gate_scan
+      - type: picture-entity
+        entity: camera.garage_side_gate_scan
+      - type: picture-entity
+        entity: camera.kitchen_side_gate_scan
+      - type: picture-entity
+        entity: camera.patio_scan
   - title: Media Players
     id: media
     icon: mdi:cast

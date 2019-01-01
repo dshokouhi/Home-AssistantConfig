@@ -372,6 +372,26 @@ camera:
    mjpeg_url: !secret frontyard_side_gate_mjpg
    name: Frontyard Side Gate
 
+ - platform: local_file
+   name: Frontyard Driveway Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/frontyard_driveway_latest.jpg
+
+ - platform: local_file
+   name: Frontyard Side Gate Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_latest.jpg
+
+ - platform: local_file
+   name: Garage Side Gate Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/garage_side_gate_latest.jpg
+
+ - platform: local_file
+   name: Kitchen Side Gate Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_latest.jpg
+
+ - platform: local_file
+   name: Patio Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/patio_latest.jpg
+
  # - platform: mjpeg
    # mjpeg_url: !secret den_camera_videofeed
    # name: "Den Camera Video Feed"
@@ -967,6 +987,7 @@ image_processing:
       - entity_id: camera.frontyard_side_gate
       - entity_id: camera.garage_side_gate
       - entity_id: camera.kitchen_side_gate
+      - entity_id: camera.patio
     scan_interval: 604800
     file_out:
       - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"

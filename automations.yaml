@@ -4257,3 +4257,52 @@
           {% else %}
             /home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_latest.jpg
           {% endif %}
+          
+- alias: Image Processing When Away
+  trigger:
+    platform: state
+    entity_id: binary_sensor.patio_motion, binary_sensor.kitchen_side_gate_motion, binary_sensor.garage_side_gate_motion
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.home
+    state: armed_away
+  action:
+  - service: image_processing.scan
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'binary_sensor.patio_motion' %}
+          image_processing.tensorflow_patio
+        {% elif trigger.entity_id == 'binary_sensor.kitchen_side_gate_motion' %}
+          image_processing.tensorflow_kitchen_side_gate
+        {% else %}
+          image_processing.tensorflow_garage_side_gate
+        {% endif %}
+
+- alias: Notify image processing when away
+  trigger:
+    platform: state
+    entity_id: image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_kitchen_side_gate
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.home
+    state: armed_away
+  - condition: template
+    value_template: '{{ trigger.to_state.state |int > 0 }}'
+  action:
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: >
+            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ') }} and attributes are {{ states.image_processing[trigger.entity_id.split('.')[1]].attributes.matches }}.
+      data:
+        image_file: >
+          {% if trigger.entity_id == 'image_processing.tensorflow_patio' %}
+            /home/homeassistant/.homeassistant/snapshot/patio_latest.jpg
+          {% elif trigger.entity_id == 'image_processing.tensorflow_kitchen_side_gate' %}
+            /home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_latest.jpg
+          {% else %}
+            /home/homeassistant/.homeassistant/snapshot/garage_side_gate_latest.jpg
+          {% endif %}
