@@ -392,6 +392,21 @@ camera:
    name: Patio Scan
    file_path: /home/homeassistant/.homeassistant/snapshot/patio_latest.jpg
 
+ - platform: local_file
+   name: Den Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/den_camera_latest.jpg
+
+ - platform: local_file
+   name: Baby Monitor Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/baby_monitor_latest.jpg
+
+ - platform: local_file
+   name: Living Room Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/living_room_camera_latest.jpg
+
+ - platform: local_file
+   name: Garage Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/outdoor_camera_latest.jpg
  # - platform: mjpeg
    # mjpeg_url: !secret den_camera_videofeed
    # name: "Den Camera Video Feed"
@@ -1000,3 +1015,18 @@ image_processing:
       graph: /home/homeassistant/.homeassistant/tensorflow/frozen_inference_graph.pb
       categories:
         - person
+
+  - platform: tensorflow
+    source:
+      - entity_id: camera.baby_monitor
+      - entity_id: camera.den_camera
+      - entity_id: camera.kitchen_camera
+      - entity_id: camera.living_room_camera
+      - entity_id: camera.office_camera
+      - entity_id: camera.outdoor_camera
+    scan_interval: 604800
+    file_out:
+      - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"
+      #- "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
+    model:
+      graph: /home/homeassistant/.homeassistant/tensorflow/frozen_inference_graph.pb
