@@ -948,6 +948,10 @@ shell_command:
   bbq_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+done{% elif is_state("input_select.bbq_probe1", "Turkey") -%}turkey+is+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+done{%- else -%}{%- endif %}&user=hass-broadcast
   bbq_almost: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+almost+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}briket+is+almost+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+almost+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+almost+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+almost+done{% elif is_state("input_select.bbq_probe1", "Turkey") -%}turkey+is+almost+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+almost+done{%- else -%}{%- endif %}&user=hass-broadcast
   timer_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text={{ friendly_name }}+completed&user=hass-broadcast
+  blueiris_home: !secret blueiris_home
+  blueiris_night: !secret blueiris_night
+  blueiris_vacation: !secret blueiris_vacation
+  blueiris_dnd: !secret blueiris_dnd
   
 rachio:
   api_key: !secret rachiokey
@@ -994,3 +998,5 @@ image_processing:
       #- "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
     model:
       graph: /home/homeassistant/.homeassistant/tensorflow/frozen_inference_graph.pb
+      categories:
+        - person

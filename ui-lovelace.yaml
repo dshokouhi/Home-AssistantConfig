@@ -530,6 +530,26 @@ views:
         entity: camera.kitchen_side_gate_scan
       - type: picture-entity
         entity: camera.patio_scan
+      - type: entities
+        id: tensorflow
+        title: Image Processing
+        show_header_toggle: false
+        entities:
+        - entity: image_processing.tensorflow_frontyard_driveway
+          secondary_info: last-changed
+          name: Frontyard Driveway
+        - entity: image_processing.tensorflow_frontyard_side_gate
+          secondary_info: last-changed
+          name: Frontyard Side Gate
+        - entity: image_processing.tensorflow_garage_side_gate
+          secondary_info: last-changed
+          name: Garage Side Gate
+        - entity: image_processing.tensorflow_kitchen_side_gate
+          secondary_info: last-changed
+          name: Kitchen Side Gate
+        - entity: image_processing.tensorflow_patio
+          secondary_info: last-changed
+          name: Patio
   - title: Media Players
     id: media
     icon: mdi:cast

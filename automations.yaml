@@ -4224,7 +4224,6 @@
   trigger:
     platform: state
     entity_id: binary_sensor.frontyard_driveway_motion, binary_sensor.frontyard_side_gate_motion
-    to: 'on'
   action:
   - service: image_processing.scan
     data_template:
@@ -4248,8 +4247,8 @@
       target:
       - id: !secret hangouts_danny
       message:
-      - text: >
-            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ') }} and attributes are {{ states.image_processing[trigger.entity_id.split('.')[1]].attributes.matches }}.
+      - text: >-
+            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow', '') }}.
       data:
         image_file: >
           {% if trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway' %}
@@ -4262,7 +4261,6 @@
   trigger:
     platform: state
     entity_id: binary_sensor.patio_motion, binary_sensor.kitchen_side_gate_motion, binary_sensor.garage_side_gate_motion
-    to: 'on'
   condition:
   - condition: state
     entity_id: alarm_control_panel.home
@@ -4295,8 +4293,8 @@
       target:
       - id: !secret hangouts_danny
       message:
-      - text: >
-            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ') }} and attributes are {{ states.image_processing[trigger.entity_id.split('.')[1]].attributes.matches }}.
+      - text: >-
+             {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow', '') }} and alarm is on.
       data:
         image_file: >
           {% if trigger.entity_id == 'image_processing.tensorflow_patio' %}
