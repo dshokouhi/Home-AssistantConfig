@@ -971,10 +971,10 @@ shell_command:
 rachio:
   api_key: !secret rachiokey
   
-weather:
-  - platform: yweather
-    euid: !secret yahoo
-    name: Home
+# weather:
+  # - platform: yweather
+    # euid: !secret yahoo
+    # name: Home
 
 hangouts:
   intents:
@@ -1002,6 +1002,7 @@ lovelace:
 image_processing:
   - platform: tensorflow
     source:
+      - entity_id: camera.baby_monitor
       - entity_id: camera.frontyard_driveway
       - entity_id: camera.frontyard_side_gate
       - entity_id: camera.garage_side_gate
@@ -1018,7 +1019,6 @@ image_processing:
 
   - platform: tensorflow
     source:
-      - entity_id: camera.baby_monitor
       - entity_id: camera.den_camera
       - entity_id: camera.kitchen_camera
       - entity_id: camera.living_room_camera

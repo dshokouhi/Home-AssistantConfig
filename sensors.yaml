@@ -505,25 +505,25 @@
    file_paths:
    - /home/homeassistant/.homeassistant/home-assistant_v2.db
    
- - platform: darksky
-   api_key: !secret darksky_api
-   units: us
-   update_interval: "00:05"
-   monitored_conditions:
-   - summary
-   - icon
-   - apparent_temperature
-   - temperature
-   - humidity
-   - precip_probability
-   - precip_intensity
-   - wind_speed
-   - pressure
-   - wind_bearing
-   - precip_type
-   - nearest_storm_distance
-   - cloud_cover
-   - visibility
+ # - platform: darksky
+   # api_key: !secret darksky_api
+   # units: us
+   # update_interval: "00:05"
+   # monitored_conditions:
+   # - summary
+   # - icon
+   # - apparent_temperature
+   # - temperature
+   # - humidity
+   # - precip_probability
+   # - precip_intensity
+   # - wind_speed
+   # - pressure
+   # - wind_bearing
+   # - precip_type
+   # - nearest_storm_distance
+   # - cloud_cover
+   # - visibility
 
  - platform: zestimate
    api_key: !secret zillow_api

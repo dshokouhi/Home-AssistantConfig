@@ -933,9 +933,14 @@
     entity_id: sensor.front_door_lock_alarm_type
     to: '19'
   condition:
-    condition: state
-    entity_id: alarm_control_panel.home
-    state: 'armed_away'
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'armed_away'
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'pending'
   action:
   - service: alarm_control_panel.alarm_disarm
     data:
@@ -2234,10 +2239,10 @@
       target:
       - id: !secret hangouts_group
       message:
-      - text: "Smoke detected at home  {{ trigger.to_state.attributes.friendly_name }}"
+      - text: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }}"
   - service: notify.slack
     data_template:
-      message: "Smoke detected at home  {{ trigger.to_state.attributes.friendly_name }}"
+      message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }}"
 
 - alias: CO2 Detected
   trigger:
@@ -2269,7 +2274,7 @@
       target:
       - id: !secret hangouts_group
       message:
-      - text: "CO2 Detected  {{ trigger.to_state.attributes.friendly_name }}"
+      - text: "CO2 Detected {{ trigger.to_state.attributes.friendly_name }}"
   - service: notify.slack
     data_template:
       message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }}"
@@ -4220,19 +4225,19 @@
 #
 ################################################
 
-- alias: Image processing on motion detection
+- alias: Image processing on motion detection frontyard
   trigger:
     platform: state
     entity_id: binary_sensor.frontyard_driveway_motion, binary_sensor.frontyard_side_gate_motion
   action:
   - service: image_processing.scan
     data_template:
-      entity_id: >
-        {% if trigger.entity_id == 'binary_sensor.frontyard_driveway_motion' %}
-          image_processing.tensorflow_frontyard_driveway
-        {% else %}
-          image_processing.tensorflow_frontyard_side_gate
-        {% endif %}
+      entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
+        # {% if trigger.entity_id == 'binary_sensor.frontyard_driveway_motion' %}
+          # image_processing.tensorflow_frontyard_driveway
+        # {% else %}
+          # image_processing.tensorflow_frontyard_side_gate
+        # {% endif %}
 
 - alias: Notify image processing
   trigger:
@@ -4248,33 +4253,33 @@
       - id: !secret hangouts_danny
       message:
       - text: >-
-            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow', '') }}.
+            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow_', '') }}.
       data:
-        image_file: >
-          {% if trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway' %}
-            /home/homeassistant/.homeassistant/snapshot/frontyard_driveway_latest.jpg
-          {% elif trigger.entity_id == 'image_processing.tensorflow_frontyard_side_gate' %}
-            /home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_latest.jpg
-          {% elif trigger.entity_id == 'image_processing.tensorflow_patio' %}
-            /home/homeassistant/.homeassistant/snapshot/patio_latest.jpg
-          {% elif trigger.entity_id == 'image_processing.tensorflow_garage_side_gate' %}
-            /home/homeassistant/.homeassistant/snapshot/garage_side_gate_latest.jpg
-          {% elif trigger.entity_id == 'image_processing.tensorflow_kitchen_side_gate' %}
-            /home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_latest.jpg
-          {% elif trigger.entity_id == 'image_processing.tensorflow_den_camera' %}
-            /home/homeassistant/.homeassistant/snapshot/den_camera_latest.jpg
-          {% elif trigger.entity_id == 'image_processing.tensorflow_kitchen_camera' %}
-            /home/homeassistant/.homeassistant/snapshot/kitchen_camera_latest.jpg
-          {% elif trigger.entity_id == 'image_processing.tensorflow_baby_monitor' %}
-            /home/homeassistant/.homeassistant/snapshot/baby_monitor_latest.jpg
-          {% elif trigger.entity_id == 'image_processing.tensorflow_living_room_camera' %}
-            /home/homeassistant/.homeassistant/snapshot/living_room_camera_latest.jpg
-          {% elif trigger.entity_id == 'image_processing.tensorflow_office_camera' %}
-            /home/homeassistant/.homeassistant/snapshot/office_camera_latest.jpg
-          {% else %}
-            /home/homeassistant/.homeassistant/snapshot/outdoor_camera_latest.jpg
-          {% endif %}
-          
+        image_file: "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
+          # {% if trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway' %}
+            # /home/homeassistant/.homeassistant/snapshot/frontyard_driveway_latest.jpg
+          # {% elif trigger.entity_id == 'image_processing.tensorflow_frontyard_side_gate' %}
+            # /home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_latest.jpg
+          # {% elif trigger.entity_id == 'image_processing.tensorflow_patio' %}
+            # /home/homeassistant/.homeassistant/snapshot/patio_latest.jpg
+          # {% elif trigger.entity_id == 'image_processing.tensorflow_garage_side_gate' %}
+            # /home/homeassistant/.homeassistant/snapshot/garage_side_gate_latest.jpg
+          # {% elif trigger.entity_id == 'image_processing.tensorflow_kitchen_side_gate' %}
+            # /home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_latest.jpg
+          # {% elif trigger.entity_id == 'image_processing.tensorflow_den_camera' %}
+            # /home/homeassistant/.homeassistant/snapshot/den_camera_latest.jpg
+          # {% elif trigger.entity_id == 'image_processing.tensorflow_kitchen_camera' %}
+            # /home/homeassistant/.homeassistant/snapshot/kitchen_camera_latest.jpg
+          # {% elif trigger.entity_id == 'image_processing.tensorflow_baby_monitor' %}
+            # /home/homeassistant/.homeassistant/snapshot/baby_monitor_latest.jpg
+          # {% elif trigger.entity_id == 'image_processing.tensorflow_living_room_camera' %}
+            # /home/homeassistant/.homeassistant/snapshot/living_room_camera_latest.jpg
+          # {% elif trigger.entity_id == 'image_processing.tensorflow_office_camera' %}
+            # /home/homeassistant/.homeassistant/snapshot/office_camera_latest.jpg
+          # {% else %}
+            # /home/homeassistant/.homeassistant/snapshot/outdoor_camera_latest.jpg
+          # {% endif %}
+
 - alias: Image Processing When Away
   trigger:
     platform: state
@@ -4286,11 +4291,50 @@
   action:
   - service: image_processing.scan
     data_template:
-      entity_id: >
-        {% if trigger.entity_id == 'binary_sensor.patio_motion' %}
-          image_processing.tensorflow_patio
-        {% elif trigger.entity_id == 'binary_sensor.kitchen_side_gate_motion' %}
-          image_processing.tensorflow_kitchen_side_gate
-        {% else %}
-          image_processing.tensorflow_garage_side_gate
-        {% endif %}
+      entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
+        # {% if trigger.entity_id == 'binary_sensor.patio_motion' %}
+          # image_processing.tensorflow_patio
+        # {% elif trigger.entity_id == 'binary_sensor.kitchen_side_gate_motion' %}
+          # image_processing.tensorflow_kitchen_side_gate
+        # {% else %}
+          # image_processing.tensorflow_garage_side_gate
+        # {% endif %}
+
+- alias: Image processing in kitchen on motion when someone is home and awake
+  trigger:
+    platform: state
+    entity_id: sensor.baby_monitor_motion_detected
+    to: 'True'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: group.tracked_users
+      state: 'home'
+    - condition: state
+      entity_id: light.kitchen_lights_level
+      state: 'off'
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
+    - condition: state
+      entity_id: switch.island_lights_switch
+      state: 'off'
+    - condition: time
+      after: "10:00:00"
+      before: "06:00:00"
+  action:
+  - service: image_processing.scan
+    data:
+      entity_id: image_processing.tensorflow_baby_monitor
+
+- alias: Turn on kitchen lights when person detected
+  trigger:
+    platform: state
+    entity_id: image_processing.tensorflow_baby_monitor
+  condition:
+    condition: template
+    value_template: '{{ trigger.to_state.state |int > 0 }}'
+  action:
+  - service: light.turn_on
+    entity_id: light.kitchen_lights_level

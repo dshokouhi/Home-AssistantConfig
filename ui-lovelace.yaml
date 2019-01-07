@@ -2,7 +2,7 @@ title: Home
 views:
   - icon: mdi:home
     title: Home
-    id: home
+    path: home
     badges:
       - alarm_control_panel.home
       - sun.sun
@@ -209,7 +209,7 @@ views:
           - entity: climate.thermostat_heating_1
             secondary_info: last-changed
   - title: Room
-    id: room
+    path: room
     icon: mdi:home-modern
     cards:
       - type: entities
@@ -311,7 +311,7 @@ views:
           - arm_away
           - arm_night
   - title: Services
-    id: services
+    path: services
     icon: mdi:home-circle
     badges:
       - sensor.zestimate
@@ -481,7 +481,7 @@ views:
     # - entity: sensor.artichoke_battery
       # name: Battery
   - title: Cameras
-    id: cameras
+    path: cameras
     icon: mdi:camera
     cards:
       - type: picture-entity
@@ -517,7 +517,7 @@ views:
       - type: picture-entity
         entity: camera.mrs_neato_cleaning_map
   - title: Image Processing Scans
-    id: imageproc
+    path: imageproc
     icon: mdi:cctv
     cards:
       - type: picture-entity
@@ -538,17 +538,89 @@ views:
         entity: camera.living_room_scan
       - type: picture-entity
         entity: camera.garage_scan
-      - type: custom:monster-card
+      - type: glance
         id: tensorflow
-        card:
-          type: entities
-          title: Image Processing
-          show_header_toggle: false
-        filter:
-          include:
-            - domain: image_processing
+        title: Image Processing Scanning
+        entities:
+          - entity: image_processing.tensorflow_baby_monitor
+            name: Baby Monitor
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_baby_monitor
+          - entity: image_processing.tensorflow_den_camera
+            name: Den
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_den_camera
+          - entity: image_processing.tensorflow_frontyard_driveway
+            name: Driveway
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_frontyard_driveway
+          - entity: image_processing.tensorflow_frontyard_side_gate
+            name: Frontyard
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_frontyard_side_gate
+          - entity: image_processing.tensorflow_outdoor_camera
+            name: Garage
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_outdoor_camera
+          - entity: image_processing.tensorflow_garage_side_gate
+            name: Garage Side
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_garage_side_gate
+          - entity: image_processing.tensorflow_kitchen_camera
+            name: Kitchen
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_kitchen_camera
+          - entity: image_processing.tensorflow_kitchen_side_gate
+            name: Kitchen Side
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_kitchen_side_gate
+          - entity: image_processing.tensorflow_living_room_camera
+            name: Living Room
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_living_room_camera
+          - entity: image_processing.tensorflow_office_camera
+            name: Office
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_office_camera
+          - entity: image_processing.tensorflow_patio
+            name: Patio
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_patio
   - title: Media Players
-    id: media
+    path: media
     icon: mdi:cast
     cards:
       - type: media-control
@@ -596,7 +668,7 @@ views:
       - type: media-control
         entity: media_player.xbox_den
   - title: Calendar
-    id: calendar
+    path: calendar
     icon: mdi:calendar
     cards:
       - type: entities
@@ -610,13 +682,13 @@ views:
           - sensor.next_us_holiday
           - sensor.next_jewish_holiday
   - title: Shopping List
-    id: shopping
+    path: shopping
     icon: mdi:cart
     cards:
       - type: shopping-list
         title: Shopping List
   - title: Weather
-    id: weather
+    path: weather
     icon: mdi:weather-sunny
     cards:
       - type: glance
@@ -655,12 +727,12 @@ views:
           - sensor.pws_weather_2n
           - sensor.pws_weather_3d
           - sensor.pws_weather_3n
-      - type: weather-forecast
-        entity: weather.home
-        id: yahoo
+      # - type: weather-forecast
+        # entity: weather.home
+        # id: yahoo
   - title: Automations
     icon: mdi:home-automation
-    id: auto
+    path: auto
     cards:
       - type: "custom:monster-card"
         title: All Automations
@@ -682,7 +754,7 @@ views:
             - domain: script
   - title: Zwave and ZHA
     icon: mdi:z-wave
-    id: devices
+    path: devices
     cards:
       - type: "custom:monster-card"
         title: All Z-wave Devices
@@ -706,7 +778,7 @@ views:
           show_header_toggle: false
   - icon: mdi:settings
     title: Settings
-    id: settings
+    path: settings
     cards:
       - type: custom:monster-card
         id: lights
