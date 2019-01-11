@@ -67,3 +67,6 @@ rachio:
 living_room_fan:
   name: Living Room Fan
   icon: mdi:fan
+
+gardener:
+  name: Gardener
