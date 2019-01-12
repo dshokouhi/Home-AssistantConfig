@@ -93,7 +93,7 @@ views:
               state: '> 79'
           exclude:
             - entity_id: "*dark*"
-            - entity_id: sensor.bbq1temperature
+            - entity_id: sensor.bbq1_temperature
             - entity_id: sensor.pws_temp_f
             - entity_id: sensor.shokabow_weather_temperature
         show_empty: false
@@ -196,7 +196,7 @@ views:
           entities:
             - input_select.bbq_probe1
             - input_number.bbq1_override
-            - sensor.bbq1temperature
+            - sensor.bbq1_temperature
             - entity: binary_sensor.bbq1
               secondary_info: last-changed
       - type: entities
@@ -302,11 +302,11 @@ views:
           - input_boolean.night_mode
           - input_boolean.shower_mode
           - input_boolean.vacation_mode
-      - type: "custom:alarm_control_panel-card"
+      - type: alarm-panel
         id: alarm
         entity: alarm_control_panel.home
-        title: House Alarm
-        style: '--alarm-color-disarmed: var(--label-badge-green);'
+        #name: House Alarm
+        #style: '--alarm-color-disarmed: var(--label-badge-green);'
         states:
           - arm_away
           - arm_night
@@ -316,7 +316,7 @@ views:
     badges:
       - sensor.zestimate
       - sensor.uptime
-      - sensor.homeassistant_v2db
+      - sensor.home_assistant_v2_db
       - sensor.frontyard_driveway_camera_power
       - sensor.frontyard_side_gate_camera_power
       - sensor.garage_side_gate_camera_power
@@ -348,7 +348,7 @@ views:
             #scale: 30px
           - type: gauge
             name: Ads Blocked
-            entity: sensor.pihole_ads_percentage_blocked_today
+            entity: sensor.pi_hole_ads_percentage_blocked_today
             #scale: 30px
           - type: gauge
             name: SSL Expiration
@@ -897,6 +897,4 @@ views:
           - sensor.front_door_code
 resources:
   - url: /local/monster-card.js?v=0.2.3
-    type: js
-  - url: /local/alarm_control_panel-card.js?v=0.4.0
     type: js

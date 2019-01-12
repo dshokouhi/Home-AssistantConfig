@@ -172,76 +172,109 @@ binary_sensor.bedroom_closet_door:
 sensor.bedroom_closet_door:
   friendly_name: Bedroom Closet Door
 
+sensor.bedroom_closet_door_battery:
+  device_class: battery
+
 binary_sensor.bathroom_window:
   friendly_name: Bathroom Window
   device_class: window
-  
+
 sensor.bathroom_window:
   friendly_name: Bathroom Window
-  
+
+sensor.bathroom_window_battery:
+  device_class: battery
+
 binary_sensor.office_window:
   friendly_name: Office Window
   device_class: window
   
 sensor.office_window:
   friendly_name: Office Window
-  
+
+sensor.office_window_battery:
+  device_class: battery
+
 binary_sensor.bedroom_window:
   friendly_name: Bedroom Window
   device_class: window
   
 sensor.bedroom_window:
   friendly_name: Bedroom Window
-  
+
+sensor.bedroom_window_battery:
+  device_class: battery
+
 binary_sensor.front_door:
   friendly_name: Front Door
   device_class: door
   
 sensor.front_door:
   friendly_name: Front Door
-  
+
+sensor.front_door_battery:
+  device_class: battery
+
 binary_sensor.kitchen_window:
   friendly_name: Kitchen Window
   device_class: window
   
 sensor.kitchen_window:
   friendly_name: Kitchen Window
-  
+
+sensor.kitchen_window_battery:
+  device_class: battery
+
 binary_sensor.living_room_side_window:
   friendly_name: Living Room Side Window
   device_class: window
   
 sensor.living_room_side_window:
   friendly_name: Living Room  Side Window
-  
+
+sensor.living_room_side_window_battery:
+  device_class: battery
+
 binary_sensor.living_room_right_bay_window:
   friendly_name: Living Room Right Bay Window
   device_class: 'window'
   
 sensor.living_room_right_bay_window:
   friendly_name: Living Room Right Bay Window
-  
+
+sensor.living_room_right_bay_window_battery:
+  device_class: battery
+
 binary_sensor.living_room_left_bay_window:
   friendly_name: Living Room Left Bay Window
   device_class: window
   
 sensor.living_room_left_bay_window:
   friendly_name: Living Room Left Bay Window
-  
+
+sensor.living_room_left_bay_window_battery:
+  device_class: battery
+
 binary_sensor.den_window:
   friendly_name: Den Window
   device_class: window
   
 sensor.den_window:
   friendly_name: Den Window
-  
+
+sensor.den_window_batter:
+  device_class: battery
+
 binary_sensor.den_sliding_door:
   friendly_name: Den Sliding Door
   device_class: door
   
 sensor.den_sliding_door:
   friendly_name: Den Sliding Door
-  
+
+sensor.den_sliding_door_battery:
+  device_class: battery
+
 light.centralite_3210l_0a932dbf_1:
   friendly_name: Office Plug
   emulated_hue_hidden: true
@@ -255,6 +288,9 @@ binary_sensor.office_closet_door:
 
 sensor.office_closet_door:
   friendly_name: Office Closet Door
+
+sensor.office_closet_door_battery:
+  device_class: battery
 
 light.den_lights_level:
   friendly_name: Den Lights
