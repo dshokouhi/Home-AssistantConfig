@@ -425,7 +425,7 @@ camera:
 
  #- platform: amcrest
 
- - platform: ring
+ #- platform: ring
  
  - platform: yi
    host: '192.168.1.33'
@@ -465,12 +465,16 @@ notify:
    token: !secret discord
 
  - platform: group
-   name: chrome_alerts
+   name: group_alerts
    services:
    - service: chrome
      data:
        target: ["danny_pixel", "tosh_phone"]
        title: Shokabow Zoo
+   - service: discord
+     data:
+       target:
+       - !secret discord_house
 
  - platform: hangouts
    name: hangouts
@@ -486,10 +490,11 @@ alert:
     skip_first: true
     notifiers:
     - hangouts
+    - group_alerts
 
-ring:
-   username: !secret ringuser
-   password: !secret ringpass
+# ring:
+   # username: !secret ringuser
+   # password: !secret ringpass
 
 google:
    client_id: !secret google_client_id

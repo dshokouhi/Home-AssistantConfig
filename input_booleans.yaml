@@ -70,3 +70,7 @@ living_room_fan:
 
 gardener:
   name: Gardener
+
+cleaning_mode:
+  name: Cleaning Mode
+  icon: mdi:spray-bottle

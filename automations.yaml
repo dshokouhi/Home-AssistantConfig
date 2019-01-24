@@ -140,26 +140,26 @@
       brightness_pct: 100
       kelvin: 6500
 
-- alias: Curtain booleans hass restart
-  trigger:
-    platform: homeassistant
-    event: start
-  condition: 
-    condition: sun
-    before: sunset
-  action:
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.bedroom_curtains
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.bay_window_curtains
+# - alias: Curtain booleans hass restart
+  # trigger:
+    # platform: homeassistant
+    # event: start
+  # condition: 
+    # condition: sun
+    # before: sunset
+  # action:
+  # - service: input_boolean.turn_on
+    # entity_id: input_boolean.bedroom_curtains
+  # - service: input_boolean.turn_on
+    # entity_id: input_boolean.bay_window_curtains
 
-- alias: Den Curtains hass restart
-  trigger:
-    platform: homeassistant
-    event: start
-  action:
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.den_curtains
+# - alias: Den Curtains hass restart
+  # trigger:
+    # platform: homeassistant
+    # event: start
+  # action:
+  # - service: input_boolean.turn_on
+    # entity_id: input_boolean.den_curtains
 
 - alias: Harmony Den activity start
   trigger:
@@ -1872,16 +1872,16 @@
       message: You got mail!
       title: Shokabow Zoo
 
-- alias: Mailbox boolean hass restart
-  trigger:
-    platform: homeassistant
-    event: start
-  condition:
-    condition: time
-    before: '11:00:00'
-  action:
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.mailbox
+# - alias: Mailbox boolean hass restart
+  # trigger:
+    # platform: homeassistant
+    # event: start
+  # condition:
+    # condition: time
+    # before: '11:00:00'
+  # action:
+  # - service: input_boolean.turn_on
+    # entity_id: input_boolean.mailbox
 
 ################################################
 #
@@ -2886,6 +2886,38 @@
       target:
       - !secret discord_house
 
+- alias: Heat up house if below 63 and away
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.thermostat_temperature
+    below: 63
+  - platform: state
+    entity_id: alarm_control_panel.home
+    to: 'armed_away'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'armed_away'
+    - condition: numeric_state
+      entity_id: sensor.thermostat_temperature
+      below: 63
+  action:
+  - service: climate.set_operation_mode
+    data:
+      entity_id: climate.thermostat_heating_1
+      operation_mode: 'heat'
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.thermostat_heating_1
+      temperature: 67
+  - wait_template: "{{ state_attr('climate.thermostat_heating_1', 'temperature') == states('sensor.thermostat_temperature') | int }}"
+  - service: climate.set_operation_mode
+    data:
+      entity_id: climate.thermostat_heating_1
+      operation_mode: 'off'
+
 ################################################
 #
 #      Movie Mode Automations
@@ -3621,6 +3653,9 @@
     - condition: state
       entity_id: light.living_room_lights_level
       state: 'on'
+    - condition: state
+      entity_id: group.tracked_users
+      state: 'home'
   action:
     service: light.turn_off
     entity_id: light.living_room_lights_level
@@ -3641,6 +3676,9 @@
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
+    - condition: state
+      entity_id: group.tracked_users
+      state: 'home'
     - condition: or
       conditions:
       - condition: state
@@ -3677,6 +3715,9 @@
     - condition: state
       entity_id: binary_sensor.office_closet_door
       state: 'off'
+    - condition: state
+      entity_id: group.tracked_users
+      state: 'home'
   action:
     service: light.turn_off
     entity_id: light.office_lights

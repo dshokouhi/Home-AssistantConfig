@@ -1,4 +1,4 @@
- - platform: ring
+ #- platform: ring
 
  - platform: template
    sensors:
@@ -35,6 +35,19 @@
             or is_state('binary_sensor.living_room_right_bay_window', 'on')
             or is_state('binary_sensor.living_room_side_window', 'on')
             or is_state('binary_sensor.office_window', 'on') }}
+
+ - platform: template
+   sensors:
+     plex_playing:
+       friendly_name: Plex Playing Status
+       value_template: >-
+        {% if (states('sensor.tautulli') |int >= 1) %}
+          {% for playing in states.sensor.tautulli.attributes %}
+            {% if state_attr('sensor.tautulli', playing)['Activity'] in ['playing','buffering'] %}
+              true
+            {% endif %}
+          {% endfor %}
+        {% endif %}
 
  - platform: bayesian
    prior: 0.6
@@ -90,8 +103,6 @@
 
  - platform: workday
    country: US
-
-# - platform: rachio
 
  - platform: mqtt
    name: Patio Offline

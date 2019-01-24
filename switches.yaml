@@ -185,3 +185,8 @@
  - platform: zoneminder
    command_on: Record
    command_off: None
+
+ - platform: wake_on_lan
+   mac_address: !secret tosh_w10_mac
+   name: Tosh W10
+   host: 192.168.1.24

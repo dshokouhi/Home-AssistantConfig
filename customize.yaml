@@ -262,7 +262,7 @@ binary_sensor.den_window:
 sensor.den_window:
   friendly_name: Den Window
 
-sensor.den_window_batter:
+sensor.den_window_battery:
   device_class: battery
 
 binary_sensor.den_sliding_door:
