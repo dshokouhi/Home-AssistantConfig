@@ -190,3 +190,18 @@
    mac_address: !secret tosh_w10_mac
    name: Tosh W10
    host: 192.168.1.24
+
+ - platform: wake_on_lan
+   mac_address: !secret blueiris_mac
+   name: Blue Iris
+   host: 192.168.1.107
+
+ - platform: wake_on_lan
+   mac_address: !secret vostros_mac
+   name: Vostros
+   host: 192.168.1.30
+
+ - platform: wake_on_lan
+   mac_address: !secret plex_mac
+   name: Plex
+   host: 192.168.1.60

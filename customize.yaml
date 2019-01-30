@@ -418,7 +418,7 @@ binary_sensor.bedroom_door:
 binary_sensor.bathroom_door:
   device_class: door
   
-sensor.bbq1temperature:
+sensor.bbq1_temperature:
   friendly_name: BBQ Probe 1 Temperature
   icon: mdi:thermometer
   

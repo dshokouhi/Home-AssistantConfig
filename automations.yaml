@@ -3237,7 +3237,7 @@
 
 - alias: Battery Alert Clear
   trigger:
-    - platform: time
+    - platform: time_pattern
       minutes: '/30'
       seconds: 00
   condition:
@@ -3344,7 +3344,7 @@
 
 ################################################
 #
-#      Speed Test Automations
+#      Download Automations
 #
 ################################################
 
@@ -3365,7 +3365,27 @@
       value_template: "{{ states('sensor.sabnzbd_speed')|int == 0 }}"
   action:
     - service: sensor.update_speedtest
-    
+
+- alias: Notify Tosh PC off
+  trigger:
+    platform: state
+    entity_id: switch.tosh_w10
+    to: 'off'
+    for:
+      minutes: 10
+  action:
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_danny
+      message:
+      - text: "Downloader offline"
+  - service: notify.discord
+    data_template:
+      message: "Downloader offline"
+      target:
+      - !secret discord_danny
+
 ################################################
 #
 #      Numeric automations
@@ -3645,7 +3665,7 @@
     condition: and
     conditions:
     - condition: time
-      after: "10:00:00"
+      after: "09:30:00"
       before: "06:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
@@ -3656,6 +3676,12 @@
     - condition: state
       entity_id: group.tracked_users
       state: 'home'
+    - condition: state
+      entity_id: switch.kitchen_tv
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.cleaning_mode
+      state: 'off'
   action:
     service: light.turn_off
     entity_id: light.living_room_lights_level
@@ -3671,7 +3697,7 @@
     condition: and
     conditions:
     - condition: time
-      after: "10:00:00"
+      after: "09:30:00"
       before: "06:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
@@ -3679,6 +3705,12 @@
     - condition: state
       entity_id: group.tracked_users
       state: 'home'
+    - condition: state
+      entity_id: switch.kitchen_tv
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.cleaning_mode
+      state: 'off'
     - condition: or
       conditions:
       - condition: state
@@ -3704,7 +3736,7 @@
     condition: and
     conditions:
     - condition: time
-      after: "10:00:00"
+      after: "09:30:00"
       before: "06:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
@@ -3731,7 +3763,7 @@
     condition: and
     conditions:
     - condition: time
-      after: "10:00:00"
+      after: "09:30:00"
       before: "06:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
@@ -4540,13 +4572,13 @@
 
 - alias: Rocket Launch
   trigger:
-    platform: time
+    platform: time_pattern
     minutes: '/60'
     seconds: 00
   condition:
     condition: template
-    value_template: >
-          {% if (as_timestamp(now()) > (as_timestamp(states.sensor.next_launch.attributes.launch_time) | int - 3600 ) ) %}
+    value_template: >-
+          {% if ((as_timestamp(now()) > (as_timestamp(states.sensor.next_launch.attributes.launch_time) | int - 3600 ) ) ) and ((as_timestamp(states.sensor.next_launch.attributes.launch_time) > (as_timestamp(now()) )))%}
             true
           {% else %}
             false
@@ -4679,7 +4711,7 @@
       entity_id: switch.island_lights_switch
       state: 'off'
     - condition: time
-      after: "10:00:00"
+      after: "09:30:00"
       before: "06:00:00"
     - condition: state
       entity_id: input_boolean.movie_mode

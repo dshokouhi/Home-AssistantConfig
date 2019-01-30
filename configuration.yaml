@@ -450,10 +450,10 @@ notify:
    name: Outdoor
    host: 192.168.1.44
 
- - platform: html5
-   name: chrome
-   gcm_api_key: !secret gcm_api_key
-   gcm_sender_id: !secret gcm_sender_id
+ # - platform: html5
+   # name: chrome
+   # gcm_api_key: !secret gcm_api_key
+   # gcm_sender_id: !secret gcm_sender_id
 
  - platform: slack
    name: slack
@@ -465,12 +465,12 @@ notify:
    token: !secret discord
 
  - platform: group
-   name: group_alerts
+   name: discord_alerts
    services:
-   - service: chrome
-     data:
-       target: ["danny_pixel", "tosh_phone"]
-       title: Shokabow Zoo
+   # - service: chrome
+     # data:
+       # target: ["danny_pixel", "tosh_phone"]
+       # title: Shokabow Zoo
    - service: discord
      data:
        target:
@@ -489,8 +489,8 @@ alert:
     repeat: 5
     skip_first: true
     notifiers:
+    - discord_alerts
     - hangouts
-    - group_alerts
 
 # ring:
    # username: !secret ringuser

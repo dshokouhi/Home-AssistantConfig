@@ -243,6 +243,9 @@ views:
           - entity: binary_sensor.office_motion
             name: Office Motion
             secondary_info: last-changed
+          - entity: switch.tosh_w10
+            secondary_info: last-changed
+            icon: mdi:desktop-classic
       - type: horizontal-stack
         id: power
         cards:
@@ -297,6 +300,7 @@ views:
         title: House Settings
         show_header_toggle: false
         entities:
+          - input_boolean.cleaning_mode
           - input_boolean.guest_mode
           - input_boolean.movie_mode
           - input_boolean.night_mode
@@ -321,6 +325,7 @@ views:
       - sensor.frontyard_side_gate_camera_power
       - sensor.garage_side_gate_camera_power
       - sensor.tautulli
+      #- binary_sensor.plex_playing
     cards:
       - type: horizontal-stack
         id: pc
@@ -727,6 +732,9 @@ views:
           - sensor.pws_weather_2n
           - sensor.pws_weather_3d
           - sensor.pws_weather_3n
+      - type: iframe
+        aspect_ratio: 90%
+        url: https://embed.windy.com/embed2.html?wind,34.198,-118.522,5
       # - type: weather-forecast
         # entity: weather.home
         # id: yahoo
