@@ -129,6 +129,19 @@ views:
         state_filter:
           - 'on'
         show_empty: false
+      - type: entity-filter
+        id: wol
+        card:
+          title: PC Offline
+          type: entities
+        entities:
+          - switch.blue_iris
+          - switch.plex
+          - switch.tosh_w10
+          - switch.vostros
+        state_filter:
+          - 'off'
+        show_empty: false
       - type: entities
         id: den
         title: Den

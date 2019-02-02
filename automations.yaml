@@ -2891,18 +2891,6 @@
   - platform: numeric_state
     entity_id: sensor.thermostat_temperature
     below: 63
-  - platform: state
-    entity_id: alarm_control_panel.home
-    to: 'armed_away'
-  condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: alarm_control_panel.home
-      state: 'armed_away'
-    - condition: numeric_state
-      entity_id: sensor.thermostat_temperature
-      below: 63
   action:
   - service: climate.set_operation_mode
     data:
