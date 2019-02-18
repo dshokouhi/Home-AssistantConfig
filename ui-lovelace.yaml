@@ -683,8 +683,6 @@ views:
         entity: media_player.sony_bravia_tv
       - type: media-control
         entity: media_player.stream_unlimited9639
-      - type: media-control
-        entity: media_player.xbox_den
   - title: Calendar
     path: calendar
     icon: mdi:calendar
@@ -748,6 +746,9 @@ views:
       - type: iframe
         aspect_ratio: 90%
         url: https://embed.windy.com/embed2.html?wind,34.198,-118.522,5
+      - type: iframe
+        aspect_ratio: 90%
+        url: https://embed.windy.com/embed2.html?rain,34.198,-118.522,5
       # - type: weather-forecast
         # entity: weather.home
         # id: yahoo

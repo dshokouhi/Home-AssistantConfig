@@ -1021,7 +1021,7 @@
     entity_id: sensor.front_door_lock_alarm_type
     to: '19'
     for:
-      seconds: 2
+      seconds: 1
   condition:
     condition: and
     conditions:
@@ -1047,7 +1047,7 @@
     entity_id: sensor.front_door_lock_alarm_type
     to: '19'
     for:
-      seconds: 2
+      seconds: 1
   condition:
     condition: state
     entity_id: sensor.front_door_code
@@ -2774,11 +2774,21 @@
       entity_id: switch.tasker_sleep_tosh
       state: 'on'
     - condition: state
-      entity_id: input_boolean.night_mode
-      state: 'off'
+      entity_id: sun.sun
+      state: 'above_horizon'
   action:
-    service: switch.turn_off
-    entity_id: switch.tasker_sleep_tosh
+  - service: switch.turn_on
+    entity_id: switch.tasker_awake_tosh
+  - delay: "00:01:00"
+  - service: switch.turn_off
+    entity_id: switch.tasker_awake_tosh, switch.tasker_sleep_tosh
+  - delay: "00:01:00"
+  - condition: state
+    entity_id: group.tracked_users
+    state: not_home
+  - service: alarm_control_panel.alarm_arm_away
+    data:
+      entity_id: alarm_control_panel.home
 
 ################################################
 #
@@ -3680,7 +3690,7 @@
     entity_id: sensor.baby_monitor_motion_detected
     to: 'False'
     for:
-      minutes: 5
+      minutes: 4
   condition:
     condition: and
     conditions:
@@ -4527,8 +4537,9 @@
     - sensor.office_speaker_timer
   condition:
     condition: template
-    value_template: "{{ trigger.from_state.state != 'unavailable' }}"
+    value_template: "{{ trigger.to_state.state != 'unavailable' }}"
   action:
+  - wait_template: "{{ (as_timestamp(trigger.to_state.state) | int) == (as_timestamp(now()) | int) }}"
   - service: notify.den
     data_template:
       data:
@@ -4709,13 +4720,48 @@
     data:
       entity_id: image_processing.tensorflow_baby_monitor
 
-- alias: Turn on kitchen lights when person detected
+- alias: Image processing in living room on motion when someone is home and awake
   trigger:
     platform: state
-    entity_id: image_processing.tensorflow_baby_monitor
+    entity_id: sensor.living_room_camera_motion_detected
+    to: 'True'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: group.tracked_users
+      state: 'home'
+    - condition: state
+      entity_id: light.living_room_lights_level
+      state: 'off'
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
+    - condition: time
+      after: "09:30:00"
+      before: "06:00:00"
+    - condition: state
+      entity_id: input_boolean.movie_mode
+      state: 'off'
+  action:
+  - service: image_processing.scan
+    data:
+      entity_id: image_processing.tensorflow_living_room_camera
+
+- alias: Turn on lights when person detected
+  trigger:
+    platform: state
+    entity_id: image_processing.tensorflow_baby_monitor, image_processing.tensorflow_living_room_camera
   condition:
     condition: template
     value_template: '{{ trigger.to_state.state |int > 0 }}'
   action:
   - service: light.turn_on
-    entity_id: light.kitchen_lights_level
+    data_template:
+      entity_id: >
+             {% if trigger.entity_id == 'image_processing.tensorflow_baby_monitor' %}
+               light.kitchen_lights_level
+             {% elif trigger.entity_id == 'image_processing.tensorflow_living_room_camera' %}
+               light.living_room_lights_level
+             {% else %}
+             {% endif %}

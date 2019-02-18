@@ -16,89 +16,135 @@ homeassistant:
   # custom_ui: local
 
 frontend:
- themes:
-  material_dark_green:
-   light_green: "#08a8a5"
-   dark_green: "#017775"
-   dark_grey: "#232326"
-   light_grey: "#344249"
+  themes:
+    material_dark_green:
+      light_green: "#08a8a5"
+      dark_green: "#017775"
+      dark_grey: "#232326"
+      light_grey: "#344249"
 
-   red: "#d10404"
-   yellow: "#fffa0c"
-   white: "#f7f7f7"
-   pink: "#ff0090"
+      red: "#d10404"
+      yellow: "#fffa0c"
+      white: "#f7f7f7"
+      pink: "#ff0090"
 
 #Top bar, activate text on script, selected icon on home assistant menu, top panel of media players, text in config page, text on developer tools states page, mqtt publish text, logbook text
-   primary-color: "var(--light_green)"
+      primary-color: "var(--light_green)"
 # divider on dev tools info page
-   light-primary-color: "var(--red)"
+      light-primary-color: "var(--red)"
 # some hyperlinked text
-   dark-primary-color: "var(--red)"
+      dark-primary-color: "var(--red)"
 # color of heading text when item selected from home screen ex: light
-   text-primary-color: "var(--white)"
+      text-primary-color: "var(--white)"
 # main background, top of side panel
-   primary-background-color: "var(--dark_grey)"
+      primary-background-color: "var(--dark_grey)"
 # not sure where used 
-   sidebar-text_-_background: "var(--pink)"
+      sidebar-text_-_background: "var(--pink)"
 # card background colour, part of media player background
-   paper-card-background-color: "var(--light_grey)"
+      paper-card-background-color: "var(--light_grey)"
 # mqtt pubish header and thats it 
-   paper-card-header-color: "var(--white)"
+      paper-card-header-color: "var(--white)"
 # main background colour of states page
-   secondary-background-color: "var(--dark_grey)"
+      secondary-background-color: "var(--dark_grey)"
 # most of the text used
-   primary-text-color: "var(--white)"
+      primary-text-color: "var(--white)"
 #secondary pieces of text 
-   secondary-text-color: "var(--white)"
+      secondary-text-color: "var(--white)"
 #main background of side panel 
-   paper-listbox-background-color: "var(--light_grey)"
+      paper-listbox-background-color: "var(--light_grey)"
 #not sure where used
-   paper-toggle-button-checked-ink-color: "var(--pink)"
+      paper-toggle-button-checked-ink-color: "var(--pink)"
 #switch colour when on
-   paper-toggle-button-checked-button-color: "var(--yellow)"
+      paper-toggle-button-checked-button-color: "var(--yellow)"
 #Backgroud of switch/toggle when on
-   paper-toggle-button-checked-bar-color: "var(--yellow)"
+      paper-toggle-button-checked-bar-color: "var(--yellow)"
 #slide knob on brightness/volumes when not 0
-   paper-slider-knob-color: "var(--yellow)"
+      paper-slider-knob-color: "var(--yellow)"
 #slide knob on brightness/volumes when 0
-   paper-slider-knob-start-color: "var(--red)"
+      paper-slider-knob-start-color: "var(--red)"
 #don't know where used
-   paper-slider-pin-color: "var(--pink)"
+      paper-slider-pin-color: "var(--pink)"
 #colour of brightness/volume slider line in used portion 
-   paper-slider-active-color: "var(--yellow)"
+      paper-slider-active-color: "var(--yellow)"
 #not sure where used
-   paper-slider-secondary-color: "var(--pink)"
+      paper-slider-secondary-color: "var(--pink)"
 # background of brightness/volume slider line not used portion 
-   paper-slider-container-color: "var(--red)"
+      paper-slider-container-color: "var(--red)"
 #not sure where used
-   paper-progress-secondary-color: "var(--pink)"
+      paper-progress-secondary-color: "var(--pink)"
 #background of theme selection toggle tiny use 
-   paper-item-selected_-_background-color: "var(--light_green)"
+      paper-item-selected_-_background-color: "var(--light_green)"
 #text, not sure which one "var(--white)"
-   paper-item-icon_-_color: "var(--pink)"
+      paper-item-icon_-_color: "var(--pink)"
 # icon on state page when off
-   paper-item-icon-color: "var(--dark_green)"
+      paper-item-icon-color: "var(--dark_green)"
 #states icon when active 
-   paper-item-icon-active-color: "var(--yellow)"
+      paper-item-icon-active-color: "var(--yellow)"
 #colour of switch toggle when off, icon on selected page of menu 
-   paper-grey-50: "var(--light_green)"
+      paper-grey-50: "var(--light_green)"
 #background of selected screen on menu "var(--light_green)"
-   paper-grey-200: "var(--dark_green)"
+      paper-grey-200: "var(--dark_green)"
 #Backgound of label icon
-   label-badge-background-color: "var(--light_grey)"
+      label-badge-background-color: "var(--light_grey)"
 #colour of text in label icon 
-   label-badge-text-color: "var(--white)"
+      label-badge-text-color: "var(--white)"
 #colour of edge of sensor labels
-   label-badge-red: "var(--red)"
+      label-badge-red: "var(--red)"
 #not sure where used
-   label-badge-blue: "var(--pink)"
-   label-badge-green: "var(--pink)"
-   label-badge-yellow: "var(--pink)"
-   label-badge-grey: "var(--pink)"
+      label-badge-blue: "var(--pink)"
+      label-badge-green: "var(--pink)"
+      label-badge-yellow: "var(--pink)"
+      label-badge-grey: "var(--pink)"
 # Row 1 on entities page
-   table-row-background-color: "var(--light_grey)"
+      table-row-background-color: "var(--light_grey)"
 # row 2 on entities page
-   table-row-alternative-background-color: "var(--dark_grey)"
+      table-row-alternative-background-color: "var(--dark_grey)"
+    oled:
+      primary-color: 'black'
+      accent-color: '#03A9F4'
+      dark-primary-color: 'var(--accent-color)'
+      light-primary-color: 'var(--accent-color)'
+      primary-text-color: '#FFFFFF'
+      text-primary-color: 'var(--primary-text-color)'
+      secondary-text-color: '#03A9F4'
+      disabled-text-color: 'white'
+      label-badge-border-color: 'green'
+      sidebar-icon-color: 'black'
+      primary-background-color: 'black'
+      secondary-background-color: '#222222'
+      divider-color: 'black'
+      table-row-background-color: '#292929'
+      table-row-alternative-background-color: '#292929'
+      paper-listbox-color: 'black'
+      paper-listbox-background-color: '#03A9F4'
+      paper-grey-50: 'black'
+      paper-grey-200: 'black'
+      paper-card-header-color: 'red'
+      paper-card-background-color: 'black'
+      paper-dialog-background-color: 'black'
+      paper-item-icon-color: 'var(--primary-text-color)'
+      paper-item-icon-active-color: '#03A9F4'
+      paper-item-icon_-_color: 'green'
+      paper-item-selected_-_background-color: '#292929'
+      paper-tabs-selection-bar-color: 'green'
+      label-badge-red: 'var(--accent-color)'
+      label-badge-text-color: 'var(--primary-text-color)'
+      label-badge-background-color: '#222222'
+      paper-toggle-button-checked-button-color: 'var(--accent-color)'
+      paper-toggle-button-checked-bar-color: 'var(--accent-color)'
+      paper-toggle-button-checked-ink-color: 'var(--accent-color)'
+      paper-toggle-button-unchecked-button-color: 'var(--disabled-text-color)'
+      paper-toggle-button-unchecked-bar-color: 'var(--disabled-text-color)'
+      paper-toggle-button-unchecked-ink-color: 'var(--disabled-text-color)'
+      paper-slider-knob-color: 'var(--accent-color)'
+      paper-slider-knob-start-color: 'var(--accent-color)'
+      paper-slider-pin-color: 'var(--accent-color)'
+      paper-slider-active-color: 'var(--accent-color)'
+      paper-slider-container-color: 'linear-gradient(var(--primary-background-color), var(--secondary-background-color)) no-repeat'
+      paper-slider-secondary-color: 'var(--secondary-background-color)'
+      paper-slider-disabled-active-color: 'var(--disabled-text-color)'
+      google-red-500: '#b58e31'
+      google-green-500: '#2980b9'
 
 config:
 
@@ -108,6 +154,8 @@ config:
 cloud:
 
 map:
+
+system_health:
 
 browser:
 
@@ -195,7 +243,6 @@ device_tracker:
     consider_home: 60
     hosts:
     - 192.168.1.5
-    - 192.168.1.16
     - 192.168.1.88
     
   - platform: bluetooth_tracker
@@ -304,11 +351,11 @@ media_player 9:
    # client_id: !secret spotify_client_id
    # client_secret: !secret spotify_client_secret
 
-media_player 10:
-  - platform: xboxone
-    device: !secret xbox_device
-    host: 192.168.1.47
-    name: Xbox Den
+# media_player 10:
+  # - platform: xboxone
+    # device: !secret xbox_device
+    # host: 192.168.1.47
+    # name: Xbox Den
 
 amcrest:
  - host: 192.168.1.42
@@ -1012,6 +1059,7 @@ image_processing:
       - entity_id: camera.frontyard_side_gate
       - entity_id: camera.garage_side_gate
       - entity_id: camera.kitchen_side_gate
+      - entity_id: camera.living_room_camera
       - entity_id: camera.patio
     scan_interval: 604800
     file_out:
@@ -1026,7 +1074,6 @@ image_processing:
     source:
       - entity_id: camera.den_camera
       - entity_id: camera.kitchen_camera
-      - entity_id: camera.living_room_camera
       - entity_id: camera.office_camera
       - entity_id: camera.outdoor_camera
     scan_interval: 604800
