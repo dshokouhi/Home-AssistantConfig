@@ -157,6 +157,8 @@ map:
 
 system_health:
 
+default_config:
+
 browser:
 
 automation: !include automations.yaml
@@ -1082,3 +1084,6 @@ image_processing:
       #- "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
     model:
       graph: /home/homeassistant/.homeassistant/tensorflow/frozen_inference_graph.pb
+
+speedtestdotnet:
+  manual: true

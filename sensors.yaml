@@ -486,12 +486,12 @@
    host: 192.168.1.60
    token: !secret plex_token
    
- - platform: speedtest
-   monitored_conditions:
-   - ping
-   - download
-   - upload
-   manual: true
+ # - platform: speedtest
+   # monitored_conditions:
+   # - ping
+   # - download
+   # - upload
+   # manual: true
    #server_id: 7456 #quadranet
    #server_id: 2953 #atlantic metro
    #server_id: 5861 #webnx

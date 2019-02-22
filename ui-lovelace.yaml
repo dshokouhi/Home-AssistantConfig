@@ -428,9 +428,7 @@ views:
             name: Run Test
             tap_action:
               action: call-service
-              service: automation.trigger
-              service_data:
-                entity_id: automation.speed_test
+              service: speedtestdotnet.speedtest
       - type: entities
         id: zm
         title: ZoneMinder

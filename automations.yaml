@@ -1705,6 +1705,12 @@
     data:
       entity_id: climate.thermostat_heating_1
       operation_mode: 'heat'
+  - wait_template: "{{ state_attr('climate.thermostat_heating_1', 'temperature') == states('sensor.thermostat_temperature') | int }}"
+  - delay: "00:01:00"
+  - service: climate.set_operation_mode
+    data:
+      entity_id: climate.thermostat_heating_1
+      operation_mode: 'off'
 
 - alias: Den lights on between 4 and 8am
   trigger:
@@ -2590,7 +2596,7 @@
     platform: template
     value_template: >
       {%- for state in states.zha -%}
-        {%- if state.state == "offline" -%}
+        {%- if state.state == "unavailable" -%}
           true
         {%- endif -%}
       {%- endfor -%}
@@ -2604,7 +2610,7 @@
   - condition: template
     value_template: >
       {%- for state in states.zha -%}
-        {%- if state.state == "offline" -%}
+        {%- if state.state == "unavailable" -%}
           true
         {%- endif -%}
       {%- endfor -%}
@@ -2760,7 +2766,7 @@
       target:
       - !secret discord_house
 
-- alias: Turn off tasker_sleep_tosh
+- alias: Tosh awake and left
   trigger:
     platform: state
     entity_id: device_tracker.google_maps_104359830266586918986
@@ -2911,6 +2917,7 @@
       entity_id: climate.thermostat_heating_1
       temperature: 67
   - wait_template: "{{ state_attr('climate.thermostat_heating_1', 'temperature') == states('sensor.thermostat_temperature') | int }}"
+  - delay: "00:01:00"
   - service: climate.set_operation_mode
     data:
       entity_id: climate.thermostat_heating_1
@@ -3362,7 +3369,7 @@
     - condition: template
       value_template: "{{ states('sensor.sabnzbd_speed')|int == 0 }}"
   action:
-    - service: sensor.update_speedtest
+    - service: speedtestdotnet.speedtest
 
 - alias: Notify Tosh PC off
   trigger:
