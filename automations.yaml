@@ -3671,7 +3671,7 @@
     conditions:
     - condition: time
       after: "09:30:00"
-      before: "06:00:00"
+      before: "05:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -3703,7 +3703,7 @@
     conditions:
     - condition: time
       after: "09:30:00"
-      before: "06:00:00"
+      before: "05:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -3742,7 +3742,7 @@
     conditions:
     - condition: time
       after: "09:30:00"
-      before: "06:00:00"
+      before: "05:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -3769,7 +3769,7 @@
     conditions:
     - condition: time
       after: "09:30:00"
-      before: "06:00:00"
+      before: "05:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -4544,9 +4544,9 @@
     - sensor.office_speaker_timer
   condition:
     condition: template
-    value_template: "{{ trigger.to_state.state != 'unavailable' }}"
+    value_template: "{{ trigger.from_state.state != 'unavailable' }}"
   action:
-  - wait_template: "{{ (as_timestamp(trigger.to_state.state) | int) == (as_timestamp(now()) | int) }}"
+  #- wait_template: "{{ (as_timestamp(trigger.to_state.state) | int) == (as_timestamp(now()) | int) }}"
   - service: notify.den
     data_template:
       data:
@@ -4718,7 +4718,7 @@
       state: 'off'
     - condition: time
       after: "09:30:00"
-      before: "06:00:00"
+      before: "05:00:00"
     - condition: state
       entity_id: input_boolean.movie_mode
       state: 'off'
@@ -4746,7 +4746,7 @@
       state: 'disarmed'
     - condition: time
       after: "09:30:00"
-      before: "06:00:00"
+      before: "05:00:00"
     - condition: state
       entity_id: input_boolean.movie_mode
       state: 'off'

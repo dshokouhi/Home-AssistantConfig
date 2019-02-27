@@ -444,6 +444,12 @@
      harmony_bed_activity:
        value_template: "{{ state_attr('remote.harmony_hub_bedroom', 'current_activity') }}"
        friendly_name: Harmony Bed Input
+     house_vacuum_status:
+       value_template: "{{ state_attr('vacuum.mrs_neato', 'status') }}"
+       friendly_name: House Vacuum Status
+     den_vacuum_status:
+       value_template: "{{ state_attr('vacuum.mr_neato', 'status') }}"
+       friendly_name: Den Vacuum Status
 
  - platform: template
    sensors:
