@@ -514,3 +514,11 @@ light.hallway_light:
   
 light.bathroom_night_light:
   icon: mdi:weather-night
+
+sensor.den_vacuum_battery:
+  device_class: battery
+  unit_of_measurement: '%'
+
+sensor.house_vacuum_battery:
+  device_class: battery
+  unit_of_measurement: '%'

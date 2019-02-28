@@ -510,6 +510,9 @@
   - platform: state
     entity_id: binary_sensor.front_door
     to: 'off'
+  condition:
+    condition: template
+    value_template: "{{ trigger.from_state.state != 'unavailable' }}"
   action:
   - service: tts.google_say
     entity_id: media_player.living_room_home
@@ -569,7 +572,7 @@
     state: 'off'
   action:
   - service: tts.google_say
-    entity_id: media_player.den_home
+    entity_id: media_player.den_home_hub
     data:
       message: 'Please close the den sliding door'
   # - service: notify.chrome
@@ -2584,7 +2587,7 @@
       target:
       - id: !secret hangouts_danny
       message:
-      - text: "node {{ trigger.entity_id }} has died"
+      - text: "node {{ trigger.to_state.attributes.friendly_name }} has died"
   - service: notify.discord
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} has died"

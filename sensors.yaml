@@ -1,10 +1,6 @@
- # - platform: crimereports
-   # name: Crime Reports
-   # radius: 1000
-
- # - platform: ring
-   # monitored_conditions:
-   # - 'battery'
+ - platform: ring
+   monitored_conditions:
+   - 'battery'
 
  # - platform: ups
    # username: !secret upsuser
@@ -29,14 +25,8 @@
    sensors:
      washer_running:
        value_template: "{{ states('sensor.washer_power_2') | int > 5 }}"
-
- - platform: template
-   sensors:
      dryer_running:
        value_template: "{{ states('sensor.dryer_power_2') | int > 5}}"
-
- - platform: template
-   sensors:
      dishwasher_running:
        value_template: "{{ states('sensor.dishwasher') | int > 5}}"
 
@@ -54,8 +44,6 @@
        unit_of_measurement: '%'
        device_class: battery
 
- - platform: template
-   sensors:
      den_smoke_battery:
        friendly_name: "Den Smoke Sensor"
        value_template: "{{ state_attr('zwave.den_smoke', 'battery_level') }}"
@@ -68,16 +56,10 @@
        friendly_name: Frontyard Driveway Camera Power
        value_template: "{{ state_attr('switch.camera3', 'power') }}"
        unit_of_measurement: "W"
-
- - platform: template
-   sensors:
      garage_side_gate_camera_power:
        friendly_name: Garage Side Gate Camera Power
        value_template: "{{ state_attr('switch.camera1', 'power') }}"
        unit_of_measurement: "W"
-
- - platform: template
-   sensors:
      frontyard_side_gate_camera_power:
        friendly_name: Frontyard Side Gate Camera Power
        value_template: "{{ state_attr('switch.frontyard', 'power') }}"
@@ -147,8 +129,6 @@
            mdi:message
          {% endif %}
 
- - platform: template
-   sensors:
      danny_next_meeting:
        friendly_name: Dannys Next Meeting
        value_template: >-
@@ -163,8 +143,6 @@
            mdi:message
          {% endif %}
 
- - platform: template
-   sensors:
      tosh_next_event:
        friendly_name: Toshs Next Event
        value_template: >-
@@ -179,8 +157,6 @@
            mdi:message
          {% endif %}
 
- - platform: template
-   sensors:
      next_us_holiday:
        friendly_name: Next US Holiday
        value_template: >-
@@ -193,8 +169,6 @@
            mdi:domain
          {% endif %}
 
- - platform: template
-   sensors:
      next_jewish_holiday:
        friendly_name: Next Jewish Holiday
        value_template: >-
@@ -227,8 +201,6 @@
                          {%endif%}'
        friendly_name: 'Den Smoke'
 
- - platform: template
-   sensors:
      bedroom_smoke_status:
        value_template: '{%- if is_state("sensor.bedroom_smoke_alarm_type", "0") %}
                          Idle
@@ -247,8 +219,6 @@
                          {%endif%}'
        friendly_name: 'Bedroom Smoke'
 
- - platform: template
-   sensors:
      office_smoke_status:
        value_template: '{%- if is_state("sensor.office_smoke_alarm_type", "0") %}
                          Idle
@@ -274,86 +244,64 @@
        friendly_name: Den Air Purifier Temperature
        unit_of_measurement: "F"
        device_class: temperature
-       
- - platform: template
-   sensors:
+
      den_air_purifier_humidity:
        value_template: "{{ states.fan.den_air_purifier.attributes.humidity }}"
        friendly_name: Den Air Purifier Humidity
        unit_of_measurement: "%"
        device_class: humidity
-       
- - platform: template
-   sensors:
+
      den_air_purifier_aqi:
        value_template: "{{ states.fan.den_air_purifier.attributes.aqi }}"
        friendly_name: Den Air Purifier AQI
        unit_of_measurement: AQI
-       
- - platform: template
-   sensors:
+
      bedroom_air_purifier_temp:
        value_template: "{{ ((states.fan.bedroom_air_purifier.attributes.temperature * 9)/5 + 32)|round}}"
        friendly_name: Bedroom Air Purifier Temperature
        unit_of_measurement: "F"
        device_class: temperature
-       
- - platform: template
-   sensors:
+
      bedroom_air_purifier_humidity:
        value_template: "{{ states.fan.bedroom_air_purifier.attributes.humidity }}"
        friendly_name: Bedroom Air Purifier Humidity
        unit_of_measurement: "%"
        device_class: humidity
-       
- - platform: template
-   sensors:
+
      bedroom_air_purifier_aqi:
        value_template: "{{ states.fan.bedroom_air_purifier.attributes.aqi }}"
        friendly_name: Bedroom Air Purifier AQI
        unit_of_measurement: AQI
-       
- - platform: template
-   sensors:
+
      living_room_air_purifier_temp:
        value_template: "{{ ((states.fan.living_room_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
        friendly_name: Living Room Air Purifier Temperature
        unit_of_measurement: "F"
        device_class: temperature
-       
- - platform: template
-   sensors:
+
      living_room_air_purifier_humidity:
        value_template: "{{ states.fan.living_room_air_purifier.attributes.humidity }}"
        friendly_name: Living Room Air Purifier Humidity
        unit_of_measurement: "%"
        device_class: humidity
-       
- - platform: template
-   sensors:
+
      living_room_air_purifier_aqi:
        value_template: "{{ states.fan.living_room_air_purifier.attributes.aqi }}"
        friendly_name: Living Room Air Purifier AQI
        unit_of_measurement: AQI
-       
- - platform: template
-   sensors:
+
      office_air_purifier_temp:
        value_template: "{{ ((states.fan.office_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
        friendly_name: Office Air Purifier Temperature
        unit_of_measurement: "F"
        device_class: temperature
-       
- - platform: template
-   sensors:
+
      office_air_purifier_humidity:
        value_template: "{{ states.fan.office_air_purifier.attributes.humidity }}"
        friendly_name: Office Air Purifier Humidity
        unit_of_measurement: "%"
        device_class: humidity
-       
- - platform: template
-   sensors:
+
      office_air_purifier_aqi:
        value_template: "{{ states.fan.office_air_purifier.attributes.aqi }}"
        friendly_name: Office Air Purifier AQI
@@ -414,8 +362,6 @@
            Other
          {% endif %}
 
- - platform: template
-   sensors:
      front_door_code:
        friendly_name: 'Front Door Code'
        value_template: >
@@ -438,21 +384,23 @@
      harmony_den_activity:
        value_template: "{{ state_attr('remote.harmony_hub_den', 'current_activity') }}"
        friendly_name: Harmony Den Input
-
- - platform: template
-   sensors:
      harmony_bed_activity:
        value_template: "{{ state_attr('remote.harmony_hub_bedroom', 'current_activity') }}"
        friendly_name: Harmony Bed Input
+
      house_vacuum_status:
        value_template: "{{ state_attr('vacuum.mrs_neato', 'status') }}"
        friendly_name: House Vacuum Status
      den_vacuum_status:
        value_template: "{{ state_attr('vacuum.mr_neato', 'status') }}"
        friendly_name: Den Vacuum Status
+     house_vacuum_battery:
+       value_template: "{{ state_attr('vacuum.mrs_neato', 'battery_level') }}"
+       friendly_name: House Vacuum Battery
+     den_vacuum_battery:
+       value_template: "{{ state_attr('vacuum.mr_neato', 'battery_level') }}"
+       friendly_name: Den Vacuum Battery
 
- - platform: template
-   sensors:
      inside_outside_temp:
        friendly_name: Inside vs Outside Temperature
        value_template: >-
@@ -491,45 +439,13 @@
  - platform: plex
    host: 192.168.1.60
    token: !secret plex_token
-   
- # - platform: speedtest
-   # monitored_conditions:
-   # - ping
-   # - download
-   # - upload
-   # manual: true
-   #server_id: 7456 #quadranet
-   #server_id: 2953 #atlantic metro
-   #server_id: 5861 #webnx
-   #server_id: 5827 #twc
-   #server_id: 10564 #speedtest
-   
+
  - platform: cert_expiry
    host: !secret cert_expiry_host
-   
+
  - platform: filesize
    file_paths:
    - /home/homeassistant/.homeassistant/home-assistant_v2.db
-   
- # - platform: darksky
-   # api_key: !secret darksky_api
-   # units: us
-   # update_interval: "00:05"
-   # monitored_conditions:
-   # - summary
-   # - icon
-   # - apparent_temperature
-   # - temperature
-   # - humidity
-   # - precip_probability
-   # - precip_intensity
-   # - wind_speed
-   # - pressure
-   # - wind_bearing
-   # - precip_type
-   # - nearest_storm_distance
-   # - cloud_cover
-   # - visibility
 
  - platform: zestimate
    api_key: !secret zillow_api
@@ -559,100 +475,6 @@
    value_template: '{{ value_json.confidence }}'
    unit_of_measurement: '%'
    name: 'Tosh Den'
-
- # - platform: rest
-   # resource: !secret plantlink_arti
-   # scan_interval: 6000
-   # method: GET
-   # authentication: basic
-   # headers:
-     # Authorization: !secret plantlink_key
-   # verify_ssl: false
-   # name: Artichoke Status
-   # value_template: >-
-                # {% if value_json.status == '0' %}
-                  # Needs Water
-                # {% elif value_json.status == '1' %}
-                  # Dry
-                # {% elif value_json.status == '2' %}
-                  # Good
-                # {% elif value_json.status == '3' %}
-                  # Good
-                # {% elif value_json.status == '4' %}
-                  # Too Wet
-                # {% else %}
-                  # value_json.status
-                # {% endif %}
-
- # - platform: rest
-   # resource: !secret plantlink_arti
-   # scan_interval: 6000
-   # method: GET
-   # authentication: basic
-   # headers:
-     # Authorization: !secret plantlink_key
-   # verify_ssl: false
-   # name: Artichoke Moisture
-   # sensor_class: moisture
-   # unit_of_measurement: '%'
-   # value_template: '{{ (value_json.last_measurements[0]["moisture"]) | round(3) * 100 }}'
-   
- # - platform: rest
-   # resource: !secret plantlink_arti
-   # scan_interval: 6000
-   # method: GET
-   # authentication: basic
-   # headers:
-     # Authorization: !secret plantlink_key
-   # verify_ssl: false
-   # name: Artichoke Fuel
-   # value_template: '{{ value_json.last_measurements[0]["plant_fuel_level"] | round(3) }}'
-   
- # - platform: rest
-   # resource: !secret plantlink_arti
-   # scan_interval: 6000
-   # method: GET
-   # authentication: basic
-   # headers:
-     # Authorization: !secret plantlink_key
-   # verify_ssl: false
-   # name: Artichoke Signal
-   # unit_of_measurement: '%'
-   # value_template: '{{ float(value_json.last_measurements[0]["signal"]) * 100 | round(3) }}'
-   
- # - platform: rest
-   # resource: !secret plantlink_arti
-   # scan_interval: 6000
-   # method: GET
-   # authentication: basic
-   # headers:
-     # Authorization: !secret plantlink_key
-   # verify_ssl: false
-   # name: Artichoke Battery
-   # unit_of_measurement: '%'
-   # value_template: '{{ float(value_json.last_measurements[0]["battery"]) * 100 | round(3) }}'
-   
- # - platform: rest
-   # resource: !secret plantlink_arti
-   # scan_interval: 6000
-   # method: GET
-   # authentication: basic
-   # headers:
-     # Authorization: !secret plantlink_key
-   # verify_ssl: false
-   # name: Artichoke Last Updated
-   # value_template: '{{ value_json.last_measurements[0]["updated"] | timestamp_local }}'
-   
- # - platform: rest
-   # resource: !secret plantlink_arti
-   # scan_interval: 6000
-   # method: GET
-   # authentication: basic
-   # headers:
-     # Authorization: !secret plantlink_key
-   # verify_ssl: false
-   # name: Artichoke Next Water
-   # value_template: '{{ value_json.last_measurements[0]["predicted_water_needed"] | timestamp_local }}'
 
  # - platform: geo_rss_events
    # name: USGS All Earthquakes

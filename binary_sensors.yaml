@@ -1,4 +1,4 @@
- #- platform: ring
+ - platform: ring
 
  - platform: template
    sensors:
@@ -7,22 +7,15 @@
        device_class: garage_door
        value_template: "{{ is_state('sensor.garage_door_frontyard_alarm_level', '255') }}"
 
- - platform: template
-   sensors:
      danny_home:
        friendly_name: "Danny Home"
        device_class: presence
        value_template: "{{ states('sensor.danny_bedroom') |int > 50 or states('sensor.danny_den') | int > 50 }}"
-
- - platform: template
-   sensors:
      tosh_home:
        friendly_name: "Tosh Home"
        device_class: presence
        value_template: "{{ states('sensor.tosh_bedroom') |int > 50 or states('sensor.tosh_den') | int > 50 }}"
 
- - platform: template
-   sensors:
      windows:
        friendly_name: "Windows"
        device_class: window

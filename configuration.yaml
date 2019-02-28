@@ -474,7 +474,7 @@ camera:
 
  #- platform: amcrest
 
- #- platform: ring
+ - platform: ring
  
  - platform: yi
    host: '192.168.1.33'
@@ -541,9 +541,9 @@ alert:
     - discord_alerts
     - hangouts
 
-# ring:
-   # username: !secret ringuser
-   # password: !secret ringpass
+ring:
+   username: !secret ringuser
+   password: !secret ringpass
 
 google:
    client_id: !secret google_client_id
@@ -562,7 +562,6 @@ google_assistant:
   - script
   - scene
   - climate
-  - fan
   - vacuum
   entity_config:
     script.on_bedroom_fan:

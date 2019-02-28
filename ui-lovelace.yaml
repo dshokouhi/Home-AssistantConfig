@@ -193,9 +193,11 @@ views:
           - entity: vacuum.mr_neato
             name: Den Vacuum
             secondary_info: last-changed
+          - entity: sensor.den_vacuum_status
           - entity: vacuum.mrs_neato
             name: House Vacuum
             secondary_info: last-changed
+          - entity: sensor.house_vacuum_status
       - type: conditional
         id: bbqcond
         conditions:
@@ -388,18 +390,18 @@ views:
             name: Speed
           - entity: sensor.sabnzbd_status
             name: Status
-      # - type: glance
-        # id: ring
-        # title: Ring
-        # entities:
-          # - entity: sensor.ring_front_door_battery
-            # name: Door Battery
-          # - entity: binary_sensor.ring_front_door_ding
-            # name: Door Ding
-          # - entity: binary_sensor.ring_front_door_motion
-            # name: Door Motion
-          # - entity: binary_sensor.ring_side_gate_motion
-            # name: Gate Motion
+      - type: glance
+        id: ring
+        title: Ring
+        entities:
+          - entity: sensor.ring_front_door_battery
+            name: Door Battery
+          - entity: binary_sensor.ring_front_door_ding
+            name: Door Ding
+          - entity: binary_sensor.ring_front_door_motion
+            name: Door Motion
+          - entity: binary_sensor.ring_side_gate_motion
+            name: Gate Motion
       - type: glance
         id: printer
         title: Epson Printer Info
@@ -504,8 +506,8 @@ views:
         entity: camera.baby_monitor
       - type: picture-entity
         entity: camera.den_camera
-      # - type: picture-entity
-        # entity: camera.front_door
+      - type: picture-entity
+        entity: camera.front_door
       - type: picture-entity
         entity: camera.frontyard_driveway
       - type: picture-entity
@@ -526,8 +528,8 @@ views:
         entity: camera.patio
       - type: picture-entity
         entity: camera.shokabow_weather
-      # - type: picture-entity
-        # entity: camera.side_gate
+      - type: picture-entity
+        entity: camera.side_gate
       - type: picture-entity
         entity: camera.mr_neato_cleaning_map
       - type: picture-entity
