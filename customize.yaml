@@ -64,6 +64,51 @@ switch.garage_state:
 switch.office_state:
   emulated_hue_hidden: true
 
+switch.blue_iris:
+  emulated_hue_hidden: true
+
+switch.vostros:
+  emulated_hue_hidden: true
+
+switch.plex:
+  emulated_hue_hidden: true
+
+switch.frontyard_driveway_state:
+  emulated_hue_hidden: true
+
+switch.frontyard_side_gate_state:
+  emulated_hue_hidden: true
+
+switch.tosh_w10:
+  emulated_hue_hidden: true
+
+switch.garage_side_gate:
+  emulated_hue_hidden: true
+
+switch.baby_monitor_state:
+  emulated_hue_hidden: true
+
+switch.frontyard_side_gate:
+  emulated_hue_hidden: true
+
+switch.den_shield:
+  emulated_hue_hidden: true
+
+switch.kitchen_side_gate_state:
+  emulated_hue_hidden: true
+
+switch.frontyard_driveway:
+  emulated_hue_hidden: true
+
+switch.tasker_awake_tosh:
+  emulated_hue_hidden: true
+
+switch.patio_state:
+  emulated_hue_hidden: true
+
+switch.bedroom_shield:
+  emulated_hue_hidden: true
+
 script.fire_tv:
   friendly_name: Fire TV
 

@@ -878,6 +878,9 @@ views:
         filter:
           include:
             - entity_id: "*humidity"
+          exclude:
+            - entity_id: sensor.dryer_relative_humidity
+            - entity_id: sensor.washer_relative_humidity
       - type: custom:monster-card
         id: aqi
         card:

@@ -2775,7 +2775,7 @@
     entity_id: device_tracker.google_maps_104359830266586918986
     to: 'not_home'
     for:
-      minutes: 10
+      minutes: 5
   condition:
     condition: and
     conditions:
