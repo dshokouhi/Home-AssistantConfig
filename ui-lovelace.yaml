@@ -646,9 +646,13 @@ views:
       - type: media-control
         entity: media_player.bedroom_shield
       - type: media-control
+        entity: media_player.bedroom_shield_tv
+      - type: media-control
         entity: media_player.bedroom_home
       - type: media-control
         entity: media_player.den_shield
+      - type: media-control
+        entity: media_player.den_shield_tv
       - type: media-control
         entity: media_player.den_home_hub
       - type: media-control
@@ -659,6 +663,8 @@ views:
         entity: media_player.house
       - type: media-control
         entity: media_player.kitchen_home
+      - type: media-control
+        entity: media_player.kitchen_fire_stick
       - type: media-control
         entity: media_player.kodi_bedroom
       - type: media-control

@@ -348,16 +348,37 @@ media_player 9:
    password: !secret kodi
    name: "Kodi Shield"
 
-# media_player 9:
- # - platform: spotify
-   # client_id: !secret spotify_client_id
-   # client_secret: !secret spotify_client_secret
+ - platform: androidtv
+   host: 192.168.1.72
+   name: Den Shield TV
+   adb_server_ip: localhost
+   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
+   apps:
+     com.google.android.youtube.tv: "Youtube"
+     org.xbmc.kodi: "Kodi"
+     com.netflix.ninja: "Netflix"
+     tv.vaders.apk: "Vaders"
+     com.google.android.tvlauncher: "Homescreen"
+     com.plexapp.android: "Plex"
 
-# media_player 10:
-  # - platform: xboxone
-    # device: !secret xbox_device
-    # host: 192.168.1.47
-    # name: Xbox Den
+ - platform: androidtv
+   host: 192.168.1.92
+   name: Bedroom Shield TV
+   adb_server_ip: localhost
+   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
+   apps:
+     com.google.android.youtube.tv: "Youtube"
+     org.xbmc.kodi: "Kodi"
+     com.netflix.ninja: "Netflix"
+     tv.vaders.apk: "Vaders"
+     com.google.android.tvlauncher: "Homescreen"
+     com.plexapp.android: "Plex"
+
+ - platform: firetv
+   host: 192.168.1.52
+   name: Kitchen Fire Stick
+   adb_server_ip: localhost
+   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
 
 amcrest:
  - host: 192.168.1.42
@@ -1020,7 +1041,8 @@ shell_command:
   blueiris_night: !secret blueiris_night
   blueiris_vacation: !secret blueiris_vacation
   blueiris_dnd: !secret blueiris_dnd
-  
+  adb_connect: '/usr/bin/adb connect {{ ip_adb }}'
+
 rachio:
   api_key: !secret rachiokey
   
@@ -1086,3 +1108,24 @@ image_processing:
 
 speedtestdotnet:
   manual: true
+
+googlehome:
+  devices:
+  - host: 192.168.1.89
+    track_devices: False
+    track_alarms: True
+  - host: 192.168.1.13
+    track_devices: False
+    track_alarms: True
+  - host: 192.168.1.50
+    track_devices: False
+    track_alarms: True
+  - host: 192.168.1.43
+    track_devices: False
+    track_alarms: True
+  - host: 192.168.1.49
+    track_devices: False
+    track_alarms: True
+  - host: 192.168.1.45
+    track_devices: False
+    track_alarms: True

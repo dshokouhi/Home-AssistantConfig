@@ -4,10 +4,8 @@
 !arduino/mqtt-smoker-probe-template
 !arduino/mqtt-smoker-probe-template/*
 !custom_components
-!custom_components/google_home_alarm
-!custom_components/google_home_alarm/*
-!custom_components/media_player
-!custom_components/media_player/*
+!custom_components/androidtv
+!custom_components/androidtv/*
 !.gitignore
 secrets.yaml
 known_devices.yaml

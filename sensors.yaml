@@ -410,6 +410,11 @@
            False
          {% endif %}
 
+     den_shield_app:
+       value_template: "{{ state_attr('media_player.den_shield_tv', 'app_name') }}"
+     bedroom_shield_app:
+       value_template: "{{ state_attr('media_player.bedroom_shield_tv', 'app_name') }}"
+
  - platform: uptime
  
  - platform: waqi
@@ -487,24 +492,6 @@
    # name: NSW Fire Service
    # url: http://www.fire.ca.gov/rss/rss.xml
    # unit_of_measurement: 'Incidents'
-
- - platform: google_home_alarm
-   host: 192.168.1.89
-
- - platform: google_home_alarm
-   host: 192.168.1.13
-
- - platform: google_home_alarm
-   host: 192.168.1.50
-
- - platform: google_home_alarm
-   host: 192.168.1.43
-
- - platform: google_home_alarm
-   host: 192.168.1.49
-
- - platform: google_home_alarm
-   host: 192.168.1.45
 
  - platform: launch_library
 

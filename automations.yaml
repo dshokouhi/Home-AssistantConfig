@@ -4775,3 +4775,45 @@
                light.living_room_lights_level
              {% else %}
              {% endif %}
+
+################################################
+#
+#      Neato Zone Webhook Automations
+#
+################################################
+
+- alias: Vacuum Hallway
+  trigger:
+    platform: webhook
+    webhook_id: !secret neato_hallway
+  action:
+  - service: vacuum.neato_custom_cleaning
+    data:
+      entity_id: vacuum.mrs_neato
+      zone: Hallway
+
+################################################
+#
+#      ADB Automations
+#
+################################################
+
+- alias: ADB reconnect
+  trigger:
+    platform: state
+    entity_id: media_player.den_shield_tv, media_player.bedroom_shield_tv, media_player.kitchen_fire_stick
+    to: 'unavailable'
+    for:
+      minutes: 1
+  action:
+    - service: shell_command.adb_connect
+      data_template:
+        ip_adb: >-
+            {% if trigger.entity_id == 'media_player.den_shield_tv' %}
+              192.168.1.72
+            {% elif trigger.entity_id == 'media_player.bedroom_shield_tv' %}
+              192.168.1.92
+            {% elif trigger.entity_id == 'media_player.kitchen_fire_stick' %}
+              192.168.1.52
+            {% else %}
+            {% endif %}
