@@ -2905,7 +2905,7 @@
       target:
       - !secret discord_house
 
-- alias: Heat up house if below 63 and away
+- alias: Heat up house if below 63
   trigger:
   - platform: numeric_state
     entity_id: sensor.thermostat_temperature
