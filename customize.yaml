@@ -57,6 +57,9 @@ switch.den_state:
   
 switch.kitchen_state:
   emulated_hue_hidden: true
+
+switch.garage_side_gate_state:
+  emulated_hue_hidden: true
   
 switch.garage_state:
   emulated_hue_hidden: true
@@ -82,13 +85,13 @@ switch.frontyard_side_gate_state:
 switch.tosh_w10:
   emulated_hue_hidden: true
 
-switch.garage_side_gate:
+switch.camera1:
   emulated_hue_hidden: true
 
 switch.baby_monitor_state:
   emulated_hue_hidden: true
 
-switch.frontyard_side_gate:
+switch.camera3:
   emulated_hue_hidden: true
 
 switch.den_shield:
@@ -97,7 +100,7 @@ switch.den_shield:
 switch.kitchen_side_gate_state:
   emulated_hue_hidden: true
 
-switch.frontyard_driveway:
+switch.frontyard:
   emulated_hue_hidden: true
 
 switch.tasker_awake_tosh:
@@ -212,6 +215,9 @@ light.centralite_3210l_0b0383b4_1:
 
 binary_sensor.bedroom_closet_door:
   friendly_name: Bedroom Closet Door
+  device_class: door
+
+binary_sensor.office_door:
   device_class: door
 
 sensor.bedroom_closet_door:

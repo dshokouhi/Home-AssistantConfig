@@ -57,6 +57,7 @@ views:
           - binary_sensor.living_room_side_window
           - binary_sensor.mailbox
           - binary_sensor.office_closet_door
+          - binary_sensor.office_door
           - binary_sensor.office_window
         state_filter:
           - 'on'

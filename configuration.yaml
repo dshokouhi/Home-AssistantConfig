@@ -247,8 +247,8 @@ device_tracker:
     - 192.168.1.5
     - 192.168.1.88
     
-  - platform: bluetooth_tracker
-    request_rssi: true
+  # - platform: bluetooth_tracker
+    # request_rssi: true
 
   - platform: google_maps
     username: !secret gmap_user
@@ -736,6 +736,8 @@ google_assistant:
       expose: false
     script.kitchen_alarm:
       expose: false
+    script.baby_monitor_alarm:
+      expose: false
     script.lr_alarm:
       expose: false
     script.christmas_off:
@@ -769,6 +771,26 @@ google_assistant:
     switch.garage_state:
       expose: false
     switch.camera3:
+      expose: false
+    switch.blue_iris:
+      expose: false
+    switch.frontyard_side_gate:
+      expose: false
+    switch.frontyard_side_gate_state:
+      expose: false
+    script.frontyard_side_gate_snapshot:
+      expose: false
+    switch.garage_side_gate_state:
+      expose: false
+    script.garage_side_gate_snapshot:
+      expose: false
+    switch.tasker_awake_tosh:
+      expose: false
+    switch.tosh_w10:
+      expose: false
+    switch.vostros:
+      expose: false
+    switch.plex:
       expose: false
     light.den_lights_level:
       room: Den

@@ -569,3 +569,25 @@ christmas_off:
     entity_id: switch.christmas_tree_switch, switch.little_christmas_trees_switch
   - service: light.turn_off
     entity_id: light.centralite_3210l_0b0383b4_1
+    
+house_deep_cleaning:
+  sequence:
+  - service: vacuum.neato_custom_cleaning
+    data:
+      entity_id: vacuum.mrs_neato
+      navigation: "3"
+
+den_deep_cleaning:
+  sequence:
+  - service: vacuum.neato_custom_cleaning
+    data:
+      entity_id: vacuum.mr_neato
+      navigation: "3"
+
+kitchen_deep_cleaning:
+  sequence:
+  - service: vacuum.neato_custom_cleaning
+    data:
+      entity_id: vacuum.mrs_neato
+      navigation: "3"
+      zone: "Kitchen"
