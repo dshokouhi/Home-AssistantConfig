@@ -215,15 +215,26 @@ views:
             - sensor.bbq1_temperature
             - entity: binary_sensor.bbq1
               secondary_info: last-changed
-      - type: entities
-        title: Thermostat
-        id: thermostat
-        show_header_toggle: false
+      # - type: entities
+        # title: Thermostat
+        # id: thermostat
+        # show_header_toggle: false
+        # entities:
+          # - entity: climate.thermostat_cooling_1
+            # secondary_info: last-changed
+          # - entity: climate.thermostat_heating_1
+            # secondary_info: last-changed
+      - type: custom:dual-thermostat
+        name: Thermostat
+        id: dtstat
         entities:
           - entity: climate.thermostat_cooling_1
-            secondary_info: last-changed
+            type: cool
           - entity: climate.thermostat_heating_1
-            secondary_info: last-changed
+            type: heat
+        #fan_control: true
+        min_slider: 60
+        max_slider: 80
   - title: Room
     path: room
     icon: mdi:home-modern
@@ -929,4 +940,6 @@ views:
           - sensor.front_door_code
 resources:
   - url: /local/monster-card.js?v=0.2.3
+    type: js
+  - url: /local/dual-thermostat.js?v=1.1
     type: js

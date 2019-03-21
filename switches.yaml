@@ -1,5 +1,3 @@
-# - platform: rachio
-
  - platform: template
    switches:
      den_fan:
@@ -17,9 +15,7 @@
         - service: input_boolean.turn_off
           data:
             entity_id: input_boolean.den_fan
-            
- - platform: template
-   switches:
+
      living_room_fan:
        friendly_name: Living Room Fan
        value_template: "{% if is_state('input_boolean.living_room_fan', 'on') %}on{% else %}off{% endif %}"
@@ -36,8 +32,6 @@
           data:
             entity_id: input_boolean.living_room_fan
 
- - platform: template
-   switches:
      fireplace:
        friendly_name: Fireplace
        value_template: "{% if is_state('input_boolean.fireplace', 'on') %}on{% else %}off{% endif %}"
@@ -54,8 +48,6 @@
           data:
             entity_id: input_boolean.fireplace
 
- - platform: template
-   switches:
      bedroom_fan:
        friendly_name: Bedroom Fan
        value_template: "{% if is_state('input_boolean.bedroom_fan', 'on') %}on{% else %}off{% endif %}"
@@ -72,8 +64,6 @@
           data:
             entity_id: input_boolean.bedroom_fan
 
- - platform: template
-   switches:
      kitchen_tv:
        friendly_name: Kitchen TV
        value_template: "{% if is_state('input_boolean.kitchen_tv', 'on') %}on{% else %}off{% endif %}"
@@ -89,30 +79,6 @@
         - service: input_boolean.turn_off
           data:
             entity_id: input_boolean.kitchen_tv
-
- # - platform: template
-   # switches:
-     # den_vacuum:
-       # friendly_name: Den Vacuum
-       # value_template: "{{ is_state('vacuum.mr_neato', 'cleaning') }}"
-       # turn_on:
-       # - service: vacuum.start
-         # entity_id: vacuum.mr_neato
-       # turn_off:
-       # - service: vacuum.return_to_base
-         # entity_id: vacuum.mr_neato
-         
- # - platform: template
-   # switches:
-     # house_vacuum:
-       # friendly_name: House Vacuum
-       # value_template: "{{ is_state('vacuum.mrs_neato', 'cleaning') }}"
-       # turn_on:
-       # - service: vacuum.start
-         # entity_id: vacuum.mrs_neato
-       # turn_off:
-       # - service: vacuum.return_to_base
-         # entity_id: vacuum.mrs_neato
 
  - platform: template
    switches:
@@ -142,8 +108,6 @@
          service: remote.turn_off
          entity_id: remote.harmony_hub_bedroom
 
- - platform: template
-   switches:
      den_shield:
        friendly_name: Den Shield
        value_template: "{{ is_state_attr('remote.harmony_hub_den', 'current_activity', 'SHIELD TV') }}"
@@ -156,8 +120,6 @@
          service: remote.turn_off
          entity_id: remote.harmony_hub_den
 
- - platform: template
-   switches:
      house_fan:
        friendly_name: House Fan
        value_template: "{{ is_state_attr('climate.thermostat_cooling_1', 'fan_mode', 'On Low') }}"

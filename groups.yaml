@@ -283,9 +283,9 @@ tracked_users:
   entities:
   - device_tracker.10f1f2822f12
   #- device_tracker.androidc4ba94519e6666f2
-  - device_tracker.pixel_2_xl
+  #- device_tracker.pixel_2_xl
   #- device_tracker.pixel_xl
-  - device_tracker.pixel_3_xl
+  #- device_tracker.pixel_3_xl
   - device_tracker.3c286d0536a7
   
 auto:

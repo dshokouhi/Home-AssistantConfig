@@ -323,10 +323,6 @@ media_player 5:
    password: !secret kodi
    name: "Kodi Kitchen"
 
-# media_player 6:
- # - platform: cast
-   # scan_interval: 1234567890
-
 media_player 7:
  - platform: onkyo
    host: 192.168.1.27
@@ -374,7 +370,7 @@ media_player 9:
      com.google.android.tvlauncher: "Homescreen"
      com.plexapp.android: "Plex"
 
- - platform: firetv
+ - platform: androidtv
    host: 192.168.1.52
    name: Kitchen Fire Stick
    adb_server_ip: localhost
@@ -477,23 +473,6 @@ camera:
  - platform: local_file
    name: Garage Scan
    file_path: /home/homeassistant/.homeassistant/snapshot/outdoor_camera_latest.jpg
- # - platform: mjpeg
-   # mjpeg_url: !secret den_camera_videofeed
-   # name: "Den Camera Video Feed"
-
- # - platform: generic
-   # still_image_url: !secret den_camera_snapshot
-   # name: "Den Camera Still Image"
-
- # - platform: mjpeg
-   # mjpeg_url: !secret living_room_camera_videofeed
-   # name: "Living Room Camera Video Feed"
-
- # - platform: generic
-   # still_image_url: !secret living_room_camera_snapshot
-   # name: "Living Room Camera Still Image"
-
- #- platform: amcrest
 
  - platform: ring
  
