@@ -225,6 +225,8 @@ sun:
 
 ffmpeg:
 
+stream:
+
 script: !include scripts.yaml
 
 tts:
@@ -418,24 +420,29 @@ camera:
    mjpeg_url: !secret kitchen_camera
    name: "Kitchen Camera"
 
- - platform: mjpeg
-   mjpeg_url: !secret garage_side_gate_mjpg
+ - platform: generic
+   still_image_url: !secret garage_side_gate_image
+   stream_source: !secret garage_side_gate_h264
    name: Garage Side Gate
 
- - platform: mjpeg
-   mjpeg_url: !secret kitchen_side_gate_mjpg
+ - platform: generic
+   still_image_url: !secret kitchen_side_gate_image
+   stream_source: !secret kitchen_side_gate_h264
    name: Kitchen Side Gate
 
- - platform: mjpeg
-   mjpeg_url: !secret patio_mjpg
+ - platform: generic
+   still_image_url: !secret patio_image
+   stream_source: !secret patio_h264
    name: Patio
 
- - platform: mjpeg
-   mjpeg_url: !secret frontyard_driveway_mjpg
+ - platform: generic
+   still_image_url: !secret frontyard_driveway_image
+   stream_source: !secret frontyard_driveway_h264
    name: Frontyard Driveway
 
- - platform: mjpeg
-   mjpeg_url: !secret frontyard_side_gate_mjpg
+ - platform: generic
+   still_image_url: !secret frontyard_side_gate_image
+   stream_source: !secret frontyard_side_gate_h264
    name: Frontyard Side Gate
 
  - platform: local_file
