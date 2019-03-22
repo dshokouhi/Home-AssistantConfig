@@ -591,3 +591,10 @@ kitchen_deep_cleaning:
       entity_id: vacuum.mrs_neato
       navigation: "3"
       zone: "Kitchen"
+
+cast_baby_monitor_hub:
+  sequence:
+  - service: camera.play_stream
+    data:
+      entity_id: camera.baby_monitor
+      media_player: media_player.den_home_hub

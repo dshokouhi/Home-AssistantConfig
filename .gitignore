@@ -13,3 +13,4 @@ google_calendars.yaml
 !st.old
 entity_registry.yaml
 !README.md
+!.HA_VERSION
