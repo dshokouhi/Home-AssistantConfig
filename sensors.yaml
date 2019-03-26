@@ -91,27 +91,27 @@
    monitored_conditions:
    - upcoming
 
- - platform: wunderground
-   api_key: !secret wunderground
-   monitored_conditions:
-   - alerts
-   - feelslike_f
-   - heat_index_f
-   - relative_humidity
-   - station_id
-   - temperature_string
-   - temp_f
-   - UV
-   - weather
-   - wind_gust_mph
-   - wind_mph
-   - wind_string
-   - weather_1d
-   - weather_1n
-   - weather_2d
-   - weather_2n
-   - weather_3d
-   - weather_3n
+ # - platform: wunderground
+   # api_key: !secret wunderground
+   # monitored_conditions:
+   # - alerts
+   # - feelslike_f
+   # - heat_index_f
+   # - relative_humidity
+   # - station_id
+   # - temperature_string
+   # - temp_f
+   # - UV
+   # - weather
+   # - wind_gust_mph
+   # - wind_mph
+   # - wind_string
+   # - weather_1d
+   # - weather_1n
+   # - weather_2d
+   # - weather_2n
+   # - weather_3d
+   # - weather_3n
 
  - platform: template
    sensors:
@@ -430,6 +430,7 @@
      arg: "/home"
    - type: memory_use_percent
    - type: processor_use
+   - type: last_boot
    
  # - platform: gearbest
    # currency: USD

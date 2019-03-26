@@ -3967,6 +3967,9 @@
   - platform: state
     entity_id: binary_sensor.tsxpresence
     to: 'off'
+  condition:
+    condition: template
+    value_template: "{{ (is_state('binary_sensor.tsxpresence', 'off') and is_state('device_tracker.tsx', 'home')) or (is_state('binary_sensor.tsxpresence', 'on') and is_state('device_tracker.tsx', 'not_home')) }}"
   action:
   # - service: notify.chrome
     # data_template:
@@ -3983,9 +3986,9 @@
     data_template:
       message: >
            {% if is_state("binary_sensor.tsxpresence", "on") %}
-             TSX turned on or arrived home
+             TSX arrived home
            {% elif is_state("binary_sensor.tsxpresence", "off") %}
-             TSX turned off or left home
+             TSX left home
            {% else %}
            {% endif %}
       target:
@@ -4461,13 +4464,13 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.living_room_air_purifier_temp
-    above: 78
+    above: 77
   - platform: numeric_state
     entity_id: sensor.living_room_air_purifier_temp
     below: 74
   action:
     service_template: >
-        {% if states('sensor.living_room_air_purifier_temp')|int > 78 %}
+        {% if states('sensor.living_room_air_purifier_temp')|int > 77 %}
           switch.turn_on
         {% elif states('sensor.living_room_air_purifier_temp')|int < 74 %}
           switch.turn_off

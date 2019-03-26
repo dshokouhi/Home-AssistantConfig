@@ -745,31 +745,15 @@ views:
             name: UV Index
           - entity: sensor.shokabow_weather_voltage
             name: Voltage
-      - type: entities
-        id: pws
-        title: Forecast
-        show_header_toggle: false
-        entities:
-          - sensor.pws_weather
-          - sensor.pws_alerts
-          - sensor.pws_feelslike_f
-          - sensor.pws_relative_humidity
-          - sensor.pws_wind_string
-          - sensor.pws_weather_1d
-          - sensor.pws_weather_1n
-          - sensor.pws_weather_2d
-          - sensor.pws_weather_2n
-          - sensor.pws_weather_3d
-          - sensor.pws_weather_3n
+      - type: weather-forecast
+        entity: weather.dark_sky
+        id: darksky
       - type: iframe
         aspect_ratio: 90%
-        url: https://embed.windy.com/embed2.html?wind,34.198,-118.522,5
+        url: https://embed.windy.com/embed2.html?wind,34.198,-118.522,10
       - type: iframe
         aspect_ratio: 90%
-        url: https://embed.windy.com/embed2.html?rain,34.198,-118.522,5
-      # - type: weather-forecast
-        # entity: weather.home
-        # id: yahoo
+        url: https://embed.windy.com/embed2.html?rain,34.198,-118.522,10
   - title: Automations
     icon: mdi:home-automation
     path: auto
