@@ -2443,21 +2443,21 @@
   - service: media_player.turn_off
     data_template:
       entity_id: >
-              {% if is_state("input_select.streaming_audio", "Living Room") %}
+              {% if is_state("input_select.cast_devices", "Living Room") %}
                 media_player.living_room_home
-              {%-elif is_state("input_select.streaming_audio", "Whole House") %}
+              {%-elif is_state("input_select.cast_devices", "Whole House") %}
                 media_player.house
-              {%-elif is_state("input_select.streaming_audio", "Outside") %}
+              {%-elif is_state("input_select.cast_devices", "Outside") %}
                 media_player.outside_speakers
-              {%-elif is_state("input_select.streaming_audio", "Den") %}
+              {%-elif is_state("input_select.cast_devices", "Den") %}
                 media_player.den_home_hub
-              {%-elif is_state("input_select.streaming_audio", "Office") %}
+              {%-elif is_state("input_select.cast_devices", "Office") %}
                 media_player.office_speaker
-              {%-elif is_state("input_select.streaming_audio", "Kitchen") %}
+              {%-elif is_state("input_select.cast_devices", "Kitchen") %}
                 media_player.kitchen_home
-              {%-elif is_state("input_select.streaming_audio", "Bathroom") %}
+              {%-elif is_state("input_select.cast_devices", "Bathroom") %}
                 media_player.bathroom_speaker
-              {%-elif is_state("input_select.streaming_audio", "Bedroom") %}
+              {%-elif is_state("input_select.cast_devices", "Bedroom") %}
                 media_player.bedroom_home
               {% else %}
                 "None"
@@ -2471,21 +2471,21 @@
   - service: media_player.play_media
     data_template:
       entity_id: >
-            {% if is_state("input_select.streaming_audio", "Living Room") %}
+            {% if is_state("input_select.cast_devices", "Living Room") %}
               media_player.living_room_home
-            {%-elif is_state("input_select.streaming_audio", "Whole House") %}
+            {%-elif is_state("input_select.cast_devices", "Whole House") %}
               media_player.house
-            {%-elif is_state("input_select.streaming_audio", "Outside") %}
+            {%-elif is_state("input_select.cast_devices", "Outside") %}
               media_player.outdoor_speakers
-            {%-elif is_state("input_select.streaming_audio", "Den") %}
+            {%-elif is_state("input_select.cast_devices", "Den") %}
               media_player.den_home_hub
-            {%-elif is_state("input_select.streaming_audio", "Office") %}
+            {%-elif is_state("input_select.cast_devices", "Office") %}
               media_player.office_speaker
-            {%-elif is_state("input_select.streaming_audio", "Kitchen") %}
+            {%-elif is_state("input_select.cast_devices", "Kitchen") %}
               media_player.kitchen_home
-            {%-elif is_state("input_select.streaming_audio", "Bathroom") %}
+            {%-elif is_state("input_select.cast_devices", "Bathroom") %}
               media_player.bathroom_speaker
-            {%-elif is_state("input_select.streaming_audio", "Bedroom") %}
+            {%-elif is_state("input_select.cast_devices", "Bedroom") %}
               media_player.bedroom_home
             {% else %}
               "None"
