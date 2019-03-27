@@ -573,3 +573,12 @@ sensor.den_vacuum_battery:
 sensor.house_vacuum_battery:
   device_class: battery
   unit_of_measurement: '%'
+
+cover.den_curtains:
+  device_class: curtains
+
+cover.bay_window_curtains:
+  device_class: curtains
+
+cover.bedroom_curtains:
+  device_class: curtains

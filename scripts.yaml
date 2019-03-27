@@ -65,7 +65,23 @@ stop_den_curtains:
       command: Stop
       device: 44914489
       entity_id: remote.harmony_hub_den
-      
+
+stop_bay_window_curtains:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Stop
+      device: 44931881
+      entity_id: remote.harmony_hub_den
+
+stop_bedroom_curtains:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: Stop
+      device: 44919307
+      entity_id: remote.harmony_hub_bedroom
+
 on_bedroom_fan:
   sequence:
   - service: remote.send_command

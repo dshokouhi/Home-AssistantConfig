@@ -166,7 +166,7 @@ automation: !include automations.yaml
 scene: !include scenes.yaml
 
 http:
-   api_password: !secret http_password
+   #api_password: !secret http_password
    base_url: !secret baseurl
    ssl_certificate: !secret sslcert
    ssl_key: !secret sslkey
@@ -888,7 +888,7 @@ input_select:
     initial: "None"
     icon: mdi:radio
 
-  streaming_audio:
+  cast_devices:
     name: Casting Group
     options:
     - Whole House
@@ -913,7 +913,7 @@ input_select:
     - Watch Smart TV
     - Xbox
     - Power Off
-    
+
   harmony_bed:
     name: Harmony Bedroom Activities
     options:
@@ -923,7 +923,7 @@ input_select:
     - Bedroom Shield
     - Watch Fire TV
     - Power Off
-    
+
   bbq_probe1:
     name: BBQ Probe 1
     options:
@@ -943,6 +943,22 @@ input_select:
     - Disarmed
     - Armed Away
     - Armed Night
+
+  cameras:
+    name: Cameras to Cast
+    options:
+    - Baby Monitor
+    - Den
+    - Driveway
+    - Frontyard Side Gate
+    - Garage Side Gate
+    - Kitchen
+    - Kitchen Side Gate
+    - Living Room
+    - Patio
+    - Select Input
+    initial: "Select Input"
+    icon: mdi:camera
     
 input_number:
   bbq1_override:
@@ -981,6 +997,9 @@ cover:
         close_cover:
           - service: script.turn_on
             entity_id: script.close_bedroom_curtains
+        stop_cover:
+          - service: script.turn_on
+            entity_id: script.stop_bedroom_curtains
       bay_window_curtains:
         friendly_name: Bay Window Curtains
         value_template: "{{ is_state('input_boolean.bay_window_curtains', 'on' ) }}"
@@ -990,6 +1009,9 @@ cover:
         close_cover:
           - service: script.turn_on
             entity_id: script.close_bay_window_curtains
+        stop_cover:
+          - service: script.turn_on
+            entity_id: script.stop_bay_window_curtains
 
 xiaomi_aqara:
   discovery_retry: 5

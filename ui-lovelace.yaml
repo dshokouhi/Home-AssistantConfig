@@ -351,6 +351,7 @@ views:
       - sensor.frontyard_driveway_camera_power
       - sensor.frontyard_side_gate_camera_power
       - sensor.garage_side_gate_camera_power
+      - sensor.last_boot
       - sensor.tautulli
       #- binary_sensor.plex_playing
     cards:

@@ -4666,29 +4666,19 @@
       data:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
-          # {% if trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway' %}
-            # /home/homeassistant/.homeassistant/snapshot/frontyard_driveway_latest.jpg
-          # {% elif trigger.entity_id == 'image_processing.tensorflow_frontyard_side_gate' %}
-            # /home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_latest.jpg
-          # {% elif trigger.entity_id == 'image_processing.tensorflow_patio' %}
-            # /home/homeassistant/.homeassistant/snapshot/patio_latest.jpg
-          # {% elif trigger.entity_id == 'image_processing.tensorflow_garage_side_gate' %}
-            # /home/homeassistant/.homeassistant/snapshot/garage_side_gate_latest.jpg
-          # {% elif trigger.entity_id == 'image_processing.tensorflow_kitchen_side_gate' %}
-            # /home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_latest.jpg
-          # {% elif trigger.entity_id == 'image_processing.tensorflow_den_camera' %}
-            # /home/homeassistant/.homeassistant/snapshot/den_camera_latest.jpg
-          # {% elif trigger.entity_id == 'image_processing.tensorflow_kitchen_camera' %}
-            # /home/homeassistant/.homeassistant/snapshot/kitchen_camera_latest.jpg
-          # {% elif trigger.entity_id == 'image_processing.tensorflow_baby_monitor' %}
-            # /home/homeassistant/.homeassistant/snapshot/baby_monitor_latest.jpg
-          # {% elif trigger.entity_id == 'image_processing.tensorflow_living_room_camera' %}
-            # /home/homeassistant/.homeassistant/snapshot/living_room_camera_latest.jpg
-          # {% elif trigger.entity_id == 'image_processing.tensorflow_office_camera' %}
-            # /home/homeassistant/.homeassistant/snapshot/office_camera_latest.jpg
-          # {% else %}
-            # /home/homeassistant/.homeassistant/snapshot/outdoor_camera_latest.jpg
-          # {% endif %}
+  - condition: template
+    value_template: "{{ (trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway') or (trigger.entity_id == 'image_processing.tensorflow_frontyard_side_gate') }}"
+  - service: notify.den
+    data_template:
+      data:
+        color: red
+        duration: 10
+        position: center
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
+      message: >
+            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }}.
+      title: Shokabow Zoo
 
 - alias: Image Processing When Away
   trigger:
@@ -4871,7 +4861,7 @@
   - service: script.turn_on
     entity_id: script.close_bedroom_curtains
 
-- alias: Open bw curtains gh
+- alias: Open bedroom curtains gh
   trigger:
     platform: webhook
     webhook_id: !secret open_bedroom_curtains

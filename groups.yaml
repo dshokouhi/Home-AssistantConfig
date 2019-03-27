@@ -142,25 +142,6 @@ outside_sensors:
   - sensor.pool_pump_power
   - sensor.washer_power_2
 
-weather_sensors:
-  name: Weather Station Sensors
-  control: hidden
-  entities:
-  - binary_sensor.shokabow_weather_night
-  - binary_sensor.shokabow_weather_rain
-  - sensor.shokabow_weather_humidity
-  - sensor.shokabow_weather_luminance
-  - sensor.shokabow_weather_pressure
-  - sensor.shokabow_weather_temperature
-  - sensor.shokabow_weather_uvindex
-  - sensor.shokabow_weather_voltage
-
-weather:
-  name: Weather Station
-  control: hidden
-  entities:
-  - group.weather_sensors
-
 sab_sensors:
   name: SABnzbd Sensors
   control: hidden
@@ -213,7 +194,6 @@ hallway_sensors:
   - sensor.office_smoke_status
   - sensor.office_window
 
-
 sprinklers:
   name: Sprinklers
   control: hidden
@@ -261,23 +241,6 @@ rooms:
   - group.outside
   - group.house_settings
 
-cameras:
-  name: Cameras
-  view: yes
-  icon: mdi:camera
-  entities:
-  - camera.den_camera
-  - camera.living_room_camera
-  - camera.kitchen_camera
-  - camera.office_camera
-  - camera.shokabow_weather
-  - camera.outdoor_camera
-  - camera.front_door
-  - camera.side_gate
-  - camera.mr_neato_cleaning_map
-  - camera.mrs_neato_cleaning_map
-  #- camera.usps_mail
-
 tracked_users:
   name: Tracked Users
   entities:
@@ -295,21 +258,6 @@ auto:
   entities:
   - group.all_automations
   - group.all_scripts
-  
-ring_sensor:
-  name: Ring Sensors
-  control: hidden
-  entities:
-  - binary_sensor.ring_front_door_ding
-  - binary_sensor.ring_front_door_motion
-  - binary_sensor.ring_side_gate_motion
-  - sensor.ring_front_door_battery
-
-ring:
-  name: Ring
-  control: hidden
-  entities:
-  - group.ring_sensor
 
 services:
   name: Services
@@ -337,22 +285,6 @@ services:
    - group.zoneminder
    - group.artichoke
    #- group.disaster
-
-zoneminder:
-  name: ZoneMinder
-  icon: mdi:record-rec
-  entities:
-  - switch.den_state
-  - switch.garage_state
-  - switch.kitchen_state
-  - switch.living_room_state
-  
-speedtest:
-  name: Speed Test
-  entities:
-  - sensor.speedtest_ping
-  - sensor.speedtest_download
-  - sensor.speedtest_upload
   
 media_players:
   name: Media Players
@@ -385,55 +317,6 @@ media_players:
   #- media_player.spotify
   - media_player.xbox_den
 
-forecast:
- name: Forecast
- entities:
-  - sensor.pws_weather
-  - sensor.pws_alerts
-  - sensor.pws_feelslike_f
-  - sensor.pws_weather_1d
-  - sensor.pws_weather_1n
-  - sensor.pws_weather_2d
-  - sensor.pws_weather_2n
-  - sensor.pws_weather_3d
-  - sensor.pws_weather_3n
-
-calendar_sensors:
-  name: Calendar Sensors
-  icon: mdi:calendar
-  entities:
-  - sensor.danny_next_event
-  - sensor.tosh_next_event
-  - sensor.danny_next_meeting
-  - sensor.next_us_holiday
-  - sensor.next_jewish_holiday
-
-calendar:
-  name: Calendar
-  icon: mdi:calendar
-  view: yes
-  entities:
-  - group.calendar_sensors
-
-pihole_status:
-  name: "Pi-Hole"
-  entities:
-   - sensor.pihole_ads_blocked_today
-   - sensor.pihole_dns_queries_today
-   - sensor.pihole_ads_percentage_blocked_today
-   - sensor.pihole_domains_blocked
-
-house_settings:
-  name: House Settings
-  control: hidden
-  entities:
-  - alarm_control_panel.home
-  - input_boolean.guest_mode
-  - input_boolean.movie_mode
-  - input_boolean.night_mode
-  - input_boolean.shower_mode
-  - input_boolean.vacation_mode
-
 colorful:
   name: Colorful
   entities:
@@ -445,42 +328,6 @@ colorful:
   - light.spot
   - light.bathroom_night_light
 
-neato:
-  name: 'Vacuums'
-  control: hidden
-  entities:
-  - vacuum.mr_neato
-  - vacuum.mrs_neato
-
-epson_printer:
-  name: Epson Printer Info
-  control: hidden
-  entities:
-  - sensor.epson_ink_level_black
-  - sensor.epson_ink_level_cyan
-  - sensor.epson_ink_level_magenta
-  - sensor.epson_ink_level_yellow
-  - sensor.epson_ink_level_photo_black
-  
-artichoke:
-  name: PlantLink Artichoke
-  entities:
-  - sensor.artichoke_status
-  - sensor.artichoke_last_updated
-  - sensor.artichoke_next_water
-  - sensor.artichoke_fuel
-  - sensor.artichoke_moisture
-  - sensor.artichoke_signal
-  - sensor.artichoke_battery
-  
-bbq:
-  name: BBQ
-  entities:
-  - input_select.bbq_probe1
-  - input_number.bbq1_override
-  - sensor.bbq1temperature
-  - binary_sensor.bbq1
-  
 all_windows:
   name: All Windows
   entities:
@@ -523,9 +370,3 @@ zha:
   - zha.den_sliding_door
   - zha.office_closet_door
   - zha.office_window
-# disaster:
-  # name: Earthquakes and Fires
-  # entities:
-  # - sensor.usgs_all_earthquakes_past_hour
-  # - sensor.usgs_all_earthquakes_past_day
-  # - sensor.nsw_fire_service_any
