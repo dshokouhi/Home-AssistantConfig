@@ -608,9 +608,30 @@ kitchen_deep_cleaning:
       navigation: "3"
       zone: "Kitchen"
 
-cast_baby_monitor_hub:
+cast_cameras:
   sequence:
   - service: camera.play_stream
-    data:
-      entity_id: camera.baby_monitor
+    data_template:
+      entity_id: >
+            {% if is_state("input_select.cameras", "Baby Monitor") %}
+              camera.baby_monitor
+            {% elif is_state("input_select.cameras", "Den") %}
+              camera.den_camera
+            {% elif is_state("input_select.cameras", "Driveway") %}
+              camera.frontyard_driveway
+            {% elif is_state("input_select.cameras", "Frontyard Side Gate") %}
+              camera.frontyard_side_gate
+            {% elif is_state("input_select.cameras", "Garage Side Gate") %}
+              camera.garage_side_gate
+            {% elif is_state("input_select.cameras", "Kitchen") %}
+              camera.kitchen_camera
+            {% elif is_state("input_select.cameras", "Kitchen Side Gate") %}
+              camera.kitchen_side_gate
+            {% elif is_state("input_select.cameras", "Living Room") %}
+              camera.living_room_camera
+            {% elif is_state("input_select.cameras", "Patio") %}
+              camera.patio
+            {% else %}
+              camera.baby_monitor
+            {% endif %}
       media_player: media_player.den_home_hub
