@@ -558,39 +558,6 @@
     state: 'off'
   - service: shell_command.front_door_jammed
 
-- alias: Speak close den sliding door
-  trigger:
-    platform: state
-    entity_id: binary_sensor.den_sliding_door
-    to: 'on'
-    for:
-      minutes: 5
-  condition:
-    condition: state
-    entity_id: binary_sensor.den_window
-    state: 'off'
-  action:
-  - service: tts.google_say
-    entity_id: media_player.den_home_hub
-    data:
-      message: 'Please close the den sliding door'
-  # - service: notify.chrome
-    # data:
-      # message: "Please close the den sliding door"
-      # target: ["danny_pixel", "tosh_phone"]
-      # title: Shokabow Zoo
-  - service: notify.discord
-    data_template:
-      message: "Please close the den sliding door."
-      target:
-      - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Please close the den sliding door."
-
 - alias: Check dishwasher
   trigger:
     platform: state
@@ -4000,9 +3967,9 @@
       message:
       - text: >
            {% if is_state("binary_sensor.tsxpresence", "on") %}
-             TSX turned on or arrived home
+             TSX arrived home
            {% elif is_state("binary_sensor.tsxpresence", "off") %}
-             TSX turned off or left home
+             TSX left home
            {% else %}
            {% endif %}
 
