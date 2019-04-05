@@ -336,8 +336,6 @@ views:
       - type: alarm-panel
         id: alarm
         entity: alarm_control_panel.home
-        #name: House Alarm
-        #style: '--alarm-color-disarmed: var(--label-badge-green);'
         states:
           - arm_away
           - arm_night
@@ -348,12 +346,7 @@ views:
       - sensor.zestimate
       - sensor.uptime
       - sensor.home_assistant_v2_db
-      - sensor.frontyard_driveway_camera_power
-      - sensor.frontyard_side_gate_camera_power
-      - sensor.garage_side_gate_camera_power
-      - sensor.last_boot
       - sensor.tautulli
-      #- binary_sensor.plex_playing
     cards:
       - type: horizontal-stack
         id: pc

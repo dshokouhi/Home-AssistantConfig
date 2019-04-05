@@ -570,6 +570,8 @@ google_assistant:
   - scene
   - climate
   - vacuum
+  - camera
+  - cover
   entity_config:
     script.on_bedroom_fan:
       expose: false
@@ -760,7 +762,7 @@ google_assistant:
       expose: false
     switch.blue_iris:
       expose: false
-    switch.frontyard_side_gate:
+    switch.frontyard:
       expose: false
     switch.frontyard_side_gate_state:
       expose: false
@@ -834,6 +836,54 @@ google_assistant:
       room: Kitchen
       aliases:
       - House Vacuum
+    camera.den_camera:
+      room: Den
+    camera.baby_monitor:
+      room: Kitchen
+    camera.living_room_camera:
+      room: "Living Room"
+    cover.den_curtains:
+      room: Den
+    cover.bedroom_curtains:
+      room: Bedroom
+    cover.bay_window_curtains:
+      room: "Living Room"
+    camera.baby_monitor_scan:
+      expose: false
+    camera.de_scan:
+      expose: false
+    camera.living_room_scan:
+      expose: false
+    camera.frontyard_driveway_scan:
+      expose: false
+    camera.frontyard_side_gate_scan:
+      expose: false
+    camera.garage_scan:
+      expose: false
+    camera.garage_side_gate_scan:
+      expose: false
+    camera.patio_scan:
+      expose: false
+    camera.kitchen_side_gate_scan:
+      expose: false
+    camera.mr_neato_cleaning_map:
+      expose: false
+    camera.mrs_neato_cleaning_map:
+      expose: false
+    camera.shokabow_weather:
+      expose: false
+    script.cast_cameras:
+      expose: false
+    script.den_deep_cleaning:
+      expose: false
+    script.house_deep_cleaning:
+      expose: false
+    script.kitchen_deep_cleaning:
+      expose: false
+    script.stop_bay_window_curtains:
+      expose: false
+    script.stop_bedroom_curtains:
+      expose: false
 
 namecheapdns:
   host: plex
