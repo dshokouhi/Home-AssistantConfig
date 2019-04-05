@@ -59,7 +59,7 @@
 ### Other Devices
 - Rachio 8 zone (1st gen)
 - Bloomsky weather station
-- Neato Botvac
+- Neato Botvac D7
 - 3 Google Homes
 - 3 Google Home Minis
 - 2 Harmony Hubs
@@ -76,7 +76,7 @@
 - 1 Ring floodlight camera
 - 1 Yi Dome 1080p
 - 1 Amcrest 4mp PTZ
-- 4 Reolink RLC-420-5MP
+- 5 Reolink RLC-420-5MP
 
 ### DIY
 - 1 ESP8266 for MQTTCarPresence project
@@ -98,7 +98,7 @@
 - Turn on the lights when the alarm turns off
 - Turn on lights when door unlocked and alarm off
 - Notify the keypad locked for too many attempts
-- Arm the alarm when we go to bed
+- Arm the alarm when we go to bed and announce which windows are open
 - Disarm when the first person wakes up
 
 ### Harmony
@@ -112,7 +112,6 @@
 ### TTS
 - Front door open/close
 - Front door lock jammed
-- Close den sliding door if window is not open
 
 ### Laundry Notifications
 - Washer, dryer and dishwasher notifications
@@ -155,7 +154,10 @@
 - Turn on/off Garage lights when the backyard door is open/closed
 - Turn on/off Garage lights when the frontyard is open/closed
 - Turn off Bedroom/Office closet or Garage lights when left on for 15 minutes
-- Turn on bedroom lights when door opens or motion is detected, turn off lights when door is closed and no motion detected
+- Turn on bedroom lights when door opens or motion is detected, turn off lights when door is closed and no motion detected after 5 minutes
+- Turn on office lights when motion detected and turn off after 5 minutes
+- Turn off living room and/or kitchen lights if no motion for 4-5 minutes
+- Turn on hallway light at night if motion in hallway
 
 ### Windows Open
 - Notify if a window is open and it is raining outside
@@ -176,6 +178,7 @@
 - Cool down house if thermostat is off and above 80
 - Set thermostat cooling if left on and we are away
 - Set thermostat heating if left on and we are away
+- Heat up house to 67 if thermostat is off and house drops below 63
 
 ### Movie Mode
 - Movie mode turned on turns on the TV lights, turns off all other lights but the Den, turns on fireplace if it is not already on
@@ -214,6 +217,36 @@
 
 ### Sink leaking automations
 - Notify me if any of the sinks are leaking
+
+### Hallway switch automations
+- Single click turns on hallway bright white
+- Hold click turns on hallway light green
+- Double click turns off hallway light
+
+### Car presence notifications
+- Notify if either car leaves or comes home
+
+### BBQ
+- Notify when close to 10 minutes of desired cooking temperature, then notify once desired temperature is reached
+
+### Pool pump
+- Notify when pool pump goes offline during summer
+
+### Vacation lights
+- Randomly turn on some lights for a random set of time with a random delay to mimic someone home at night
+
+### Fans
+- Automate the fans when temperature is above/below desired temperature
+- Notify when air purifier filters need to be cleaned/replaced
+
+### Additional
+- Notify when google home timers are completed
+- Notify when next rocket launch is within the hour, provide streaming link
+- Process images in the frontyard upon motion 24/7
+- Process images in kitchen, living room when someone is home and awake to turn on the lights for people only
+- Process images in all outside cameras when not home
+- Some webhook automations for custom IFTTT commands and tasker
+- ADB reconnection
 
 ## Screenshots
 ![home1](https://user-images.githubusercontent.com/1634145/35309383-102d3826-0061-11e8-9392-eaf853efe7ea.JPG)

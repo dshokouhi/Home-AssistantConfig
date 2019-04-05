@@ -884,6 +884,13 @@ google_assistant:
       expose: false
     script.stop_bedroom_curtains:
       expose: false
+    camera.frontyard_driveway:
+      aliases:
+      - front yard driveway
+      - driveway
+    camera.frontyard_side_gate:
+      aliases:
+      - front yard side gate
 
 namecheapdns:
   host: plex
