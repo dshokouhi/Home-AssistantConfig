@@ -582,3 +582,6 @@ cover.bay_window_curtains:
 
 cover.bedroom_curtains:
   device_class: curtains
+
+binary_sensor.cat_litter_motion_sensor:
+  device_class: motion

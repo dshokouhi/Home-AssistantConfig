@@ -3935,8 +3935,22 @@
     entity_id: binary_sensor.tsxpresence
     to: 'off'
   condition:
-    condition: template
-    value_template: "{{ (is_state('binary_sensor.tsxpresence', 'off') and is_state('device_tracker.tsx', 'home')) or (is_state('binary_sensor.tsxpresence', 'on') and is_state('device_tracker.tsx', 'not_home')) }}"
+  - condition: and
+    conditions:
+    - condition: template
+      value_template: "{{ (is_state('binary_sensor.tsxpresence', 'off') and is_state('device_tracker.tsx', 'home')) or (is_state('binary_sensor.tsxpresence', 'on') and is_state('device_tracker.tsx', 'not_home')) }}"
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: device_tracker.tsx
+        state: 'home'
+        for:
+          minutes: 1
+      - condition: state
+        entity_id: device_tracker.tsx
+        state: 'not_home'
+        for:
+          minutes: 1
   action:
   # - service: notify.chrome
     # data_template:
@@ -3981,6 +3995,23 @@
   - platform: state
     entity_id: binary_sensor.rdxpresence
     to: 'off'
+  condition:
+  - condition: and
+    conditions:
+    - condition: template
+      value_template: "{{ (is_state('binary_sensor.rdxpresence', 'off') and is_state('device_tracker.rdx', 'home')) or (is_state('binary_sensor.rdxpresence', 'on') and is_state('device_tracker.rdx', 'not_home')) }}"
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: device_tracker.rdx
+        state: 'home'
+        for:
+          minutes: 1
+      - condition: state
+        entity_id: device_tracker.rdx
+        state: 'not_home'
+        for:
+          minutes: 1
   action:
   # - service: notify.chrome
     # data_template:
@@ -3997,9 +4028,9 @@
     data_template:
       message: >
            {% if is_state("binary_sensor.rdxpresence", "on") %}
-             RDX turned on or arrived home
+             RDX arrived home
            {% elif is_state("binary_sensor.rdxpresence", "off") %}
-             RDX turned off or left home
+             RDX left home
            {% else %}
            {% endif %}
       target:
@@ -4011,9 +4042,9 @@
       message:
       - text: >
            {% if is_state("binary_sensor.rdxpresence", "on") %}
-             RDX turned on or arrived home
+             RDX arrived home
            {% elif is_state("binary_sensor.rdxpresence", "off") %}
-             RDX turned off or left home
+             RDX left home
            {% else %}
            {% endif %}
 
@@ -4601,11 +4632,6 @@
   - service: image_processing.scan
     data_template:
       entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
-        # {% if trigger.entity_id == 'binary_sensor.frontyard_driveway_motion' %}
-          # image_processing.tensorflow_frontyard_driveway
-        # {% else %}
-          # image_processing.tensorflow_frontyard_side_gate
-        # {% endif %}
 
 - alias: Notify image processing
   trigger:
@@ -4829,3 +4855,27 @@
               192.168.1.52
             {% else %}
             {% endif %}
+
+################################################
+#
+#      Cat Litter Automations
+#
+################################################
+
+- alias: Increase Cat Motion Counter
+  trigger:
+    platform: state
+    entity_id: binary_sensor.cat_litter_motion_sensor
+    to: 'on'
+  action:
+    service: counter.increment
+    entity_id: counter.cat_litter_motion
+
+- alias: Reset Cat Motion Counter
+  trigger:
+    platform: state
+    entity_id: input_boolean.cat_litter_cleaned
+    to: 'on'
+  action:
+    service: counter.reset
+    entity_id: counter.cat_litter_motion

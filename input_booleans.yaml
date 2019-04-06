@@ -70,7 +70,12 @@ living_room_fan:
 
 gardener:
   name: Gardener
+  icon: mdi:sprout
 
 cleaning_mode:
   name: Cleaning Mode
   icon: mdi:spray-bottle
+
+cat_litter_cleaned:
+  name: Cat Litter Cleaned
+  icon: mdi:cat

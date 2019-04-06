@@ -328,6 +328,7 @@ views:
         show_header_toggle: false
         entities:
           - input_boolean.cleaning_mode
+          - input_boolean.gardener
           - input_boolean.guest_mode
           - input_boolean.movie_mode
           - input_boolean.night_mode
@@ -339,6 +340,15 @@ views:
         states:
           - arm_away
           - arm_night
+      - type: entities
+        id: catlitter
+        title: Cat Litter
+        show_header_toggle: false
+        entities:
+          - entity: binary_sensor.cat_litter_motion_sensor
+            secondary_info: last-changed
+          - counter.cat_litter_motion
+          - sensor.cat_litter_temperature
   - title: Services
     path: services
     icon: mdi:home-circle

@@ -30,12 +30,6 @@
      dishwasher_running:
        value_template: "{{ states('sensor.dishwasher') | int > 5}}"
 
- # - platform: template
-   # sensors:
-     # den_motion_battery:
-       # value_template: "{{ states.zwave.den_motion_sensor.attributes.battery_level }}"
-       # unit_of_measurement: '%'
-
  - platform: template
    sensors:
      front_door_lock_battery:
@@ -500,3 +494,39 @@
    api_key: !secret tautulli_api
    host: 192.168.1.60
    port: 8181/stats
+
+ - platform: glances
+   host: 192.168.1.30
+   name: Vostros
+   version: 3
+   resources:
+   - disk_use_percent
+   - memory_use_percent
+   - cpu_use_percent
+
+ - platform: glances
+   host: 192.168.1.24
+   name: Tosh W10
+   version: 3
+   resources:
+   - disk_use_percent
+   - memory_use_percent
+   - cpu_use_percent
+
+ - platform: glances
+   host: 192.168.1.107
+   name: Blue Iris
+   version: 3
+   resources:
+   - disk_use_percent
+   - memory_use_percent
+   - cpu_use_percent
+
+ - platform: glances
+   host: 192.168.1.60
+   name: Media Server
+   version: 3
+   resources:
+   - disk_use_percent
+   - memory_use_percent
+   - cpu_use_percent

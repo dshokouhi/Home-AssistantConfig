@@ -720,6 +720,9 @@ google_assistant:
     input_boolean.shower_mode:
       expose: true
       room: "no group"
+    input_boolean.gardener:
+      expose: true
+      room: "no group"
     script.den_alarm:
       expose: false
     script.kitchen_alarm:
@@ -1234,3 +1237,8 @@ weather:
   - platform: darksky
     api_key: !secret darksky_api
     mode: daily
+
+counter:
+  cat_litter_motion:
+    icon: mdi:cat
+    name: Cat Litter Motion Count
