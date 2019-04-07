@@ -4879,3 +4879,22 @@
   action:
     service: counter.reset
     entity_id: counter.cat_litter_motion
+
+- alias: Notify when 20 visits to cat box
+  trigger:
+    platform: numeric_state
+    entity_id: counter.cat_litter_motion
+    above: 19
+  condition:
+    condition: state
+    entity_id: input_boolean.cat_litter_cleaned
+    state: 'on'
+  action:
+  - wait_template: "{{ is_state('alarm_control_panel.home', 'disarmed') }}"
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.cat_litter_cleaned
+  - service: notify.discord
+    data_template:
+      message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat box, time to clean."
+      target:
+      - !secret discord_house

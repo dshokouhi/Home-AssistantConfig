@@ -723,6 +723,9 @@ google_assistant:
     input_boolean.gardener:
       expose: true
       room: "no group"
+    input_boolean.cat_litter_cleaned:
+      expose: true
+      room: "no group"
     script.den_alarm:
       expose: false
     script.kitchen_alarm:
@@ -894,6 +897,10 @@ google_assistant:
     camera.frontyard_side_gate:
       aliases:
       - front yard side gate
+    light.front_door_lamp:
+      room: "no group"
+    light.nook_lamp:
+      room: "no group"
 
 namecheapdns:
   host: plex

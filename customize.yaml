@@ -585,3 +585,6 @@ cover.bedroom_curtains:
 
 binary_sensor.cat_litter_motion_sensor:
   device_class: motion
+
+counter.cat_litter_motion:
+  unit_of_measurement: visits

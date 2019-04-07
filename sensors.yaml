@@ -530,3 +530,21 @@
    - disk_use_percent
    - memory_use_percent
    - cpu_use_percent
+
+ - platform: glances
+   host: 192.168.1.91
+   name: Den Pi
+   version: 2
+   resources:
+   - disk_use_percent
+   - memory_use_percent
+   - cpu_use_percent
+
+ - platform: glances
+   host: 192.168.1.47
+   name: Pi Hole
+   version: 2
+   resources:
+   - disk_use_percent
+   - memory_use_percent
+   - cpu_use_percent
