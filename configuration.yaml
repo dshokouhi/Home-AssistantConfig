@@ -275,8 +275,8 @@ mqtt:
 alarm_control_panel:
   platform: manual
   name: "Home"
-  pending_time: 60
-  delay_time: 60
+  pending_time: 30
+  delay_time: 30
   disarmed:
     trigger_time: 0
 
