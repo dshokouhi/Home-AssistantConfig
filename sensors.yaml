@@ -373,6 +373,10 @@
             Locked
           {% endif %}
 
+     front_door_lock_status:
+       friendly_name: 'Front Door Lock Status'
+       value_template: "{{ state_attr('lock.front_door_lock_locked', 'lock_status') }}"
+
  - platform: template
    sensors:
      harmony_den_activity:

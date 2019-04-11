@@ -11,11 +11,11 @@
     offset: '-00:30:00'
   condition:
     condition: state
-    entity_id: input_boolean.bedroom_curtains
-    state: 'on'
+    entity_id: cover.bedroom_curtains
+    state: 'open'
   action:
-  - service: script.turn_on
-    entity_id: script.close_bedroom_curtains
+  - service: cover.close_cover
+    entity_id: cover.bedroom_curtains
     
 - alias: Close Bay Window Curtains At Sunset
   trigger:
@@ -24,11 +24,11 @@
     offset: '-00:30:00'
   condition:
     condition: state
-    entity_id: input_boolean.bay_window_curtains
-    state: 'on'
+    entity_id: cover.bay_window_curtains
+    state: 'open'
   action:
-  - service: script.turn_on
-    entity_id: script.close_bay_window_curtains
+  - service: cover.close_cover
+    entity_id: cover.bay_window_curtains
 
 - alias: Outside Speakers CC
   trigger:
@@ -139,27 +139,6 @@
     data:
       brightness_pct: 100
       kelvin: 6500
-
-# - alias: Curtain booleans hass restart
-  # trigger:
-    # platform: homeassistant
-    # event: start
-  # condition: 
-    # condition: sun
-    # before: sunset
-  # action:
-  # - service: input_boolean.turn_on
-    # entity_id: input_boolean.bedroom_curtains
-  # - service: input_boolean.turn_on
-    # entity_id: input_boolean.bay_window_curtains
-
-# - alias: Den Curtains hass restart
-  # trigger:
-    # platform: homeassistant
-    # event: start
-  # action:
-  # - service: input_boolean.turn_on
-    # entity_id: input_boolean.den_curtains
 
 - alias: Harmony Den activity start
   trigger:
@@ -1503,8 +1482,8 @@
     entity_id: light.kitchen_lights_level, light.living_room_lights_level, light.den_lights_level
   - service: light.turn_on
     entity_id: light.bedroom_lights_level
-  - service: script.turn_on
-    entity_id: script.open_bedroom_curtains
+  - service: cover.open_cover
+    entity_id: cover.bedroom_curtains
   - wait_template: "{{ states.binary_sensor.natachas_bayesian_presence.state == 'off' }}"
   - service: light.turn_off
     entity_id: light.office_lights
@@ -1593,8 +1572,8 @@
       entity_id: alarm_control_panel.home
       state: 'armed_night'
   action:
-  - service: script.turn_on
-    entity_id: script.open_bay_window_curtains
+  - service: cover.open_cover
+    entity_id: cover.bay_window_curtains
   - service: switch.turn_off
     entity_id: switch.house_fan
   - service: light.turn_off
@@ -1624,8 +1603,8 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: input_boolean.bedroom_curtains
-      state: 'off'
+      entity_id: cover.bedroom_curtains
+      state: 'closed'
     - condition: time
       weekday:
       - sat
@@ -1639,8 +1618,8 @@
         entity_id: alarm_control_panel.home
         state: 'armed_night'
   action:
-  - service: script.turn_on
-    entity_id: script.open_bedroom_curtains
+  - service: cover.open_cover
+    entity_id: cover.bedroom_curtains
 
 - alias: Heat up house in morning on work days
   trigger:
@@ -1719,7 +1698,7 @@
     entity_id: light.den_lights_level
     data:
       brightness_pct: 30
-      
+
 - alias: Danny awake
   trigger:
     platform: state
@@ -1729,7 +1708,37 @@
   action:
   - service: light.turn_on
     entity_id: light.den_lights_level
-    
+
+- alias: Open bedroom curtains when we wake up
+  trigger:
+  - platform: state
+    entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
+    to: 'off'
+  - platform: state
+    entity_id: sun.sun
+    to: 'above_horizon'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'off'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'off'
+    - condition: state
+      entity_id: cover.bedroom_curtains
+      state: 'closed'
+    - condition: state
+      entity_id: sun.sun
+      state: 'above_horizon'
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
+  action:
+  - service: cover.open_cover
+    entity_id: cover.bedroom_curtains
+
 ################################################
 #
 #      Lock Automations
@@ -2950,8 +2959,8 @@
     entity_id: sun.sun
     state: above_horizon
   action:
-  - service: script.turn_on
-    entity_id: script.close_den_curtains
+  - service: cover.close_cover
+    entity_id: cover.den_curtains
     
 - alias: Turn off lights when movie plays
   trigger:
@@ -3002,8 +3011,8 @@
     entity_id: input_boolean.den_curtains
     state: 'off'
   action:
-  - service: script.turn_on
-    entity_id: script.open_den_curtains
+  - service: cover.open_cover
+    entity_id: cover.den_curtains
     
 - alias: Movie mode off when harmony hub turns off
   trigger:
@@ -3648,7 +3657,7 @@
     condition: and
     conditions:
     - condition: time
-      after: "09:30:00"
+      after: "09:00:00"
       before: "05:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
@@ -3680,7 +3689,7 @@
     condition: and
     conditions:
     - condition: time
-      after: "09:30:00"
+      after: "09:00:00"
       before: "05:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
@@ -3719,7 +3728,7 @@
     condition: and
     conditions:
     - condition: time
-      after: "09:30:00"
+      after: "09:00:00"
       before: "05:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
@@ -3746,7 +3755,7 @@
     condition: and
     conditions:
     - condition: time
-      after: "09:30:00"
+      after: "09:00:00"
       before: "05:00:00"
     - condition: state
       entity_id: alarm_control_panel.home
@@ -4685,13 +4694,6 @@
   - service: image_processing.scan
     data_template:
       entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
-        # {% if trigger.entity_id == 'binary_sensor.patio_motion' %}
-          # image_processing.tensorflow_patio
-        # {% elif trigger.entity_id == 'binary_sensor.kitchen_side_gate_motion' %}
-          # image_processing.tensorflow_kitchen_side_gate
-        # {% else %}
-          # image_processing.tensorflow_garage_side_gate
-        # {% endif %}
 
 - alias: Image processing in kitchen on motion when someone is home and awake
   trigger:
@@ -4714,7 +4716,7 @@
       entity_id: switch.island_lights_switch
       state: 'off'
     - condition: time
-      after: "09:30:00"
+      after: "09:00:00"
       before: "05:00:00"
     - condition: state
       entity_id: input_boolean.movie_mode
@@ -4742,7 +4744,7 @@
       entity_id: alarm_control_panel.home
       state: 'disarmed'
     - condition: time
-      after: "09:30:00"
+      after: "09:00:00"
       before: "05:00:00"
     - condition: state
       entity_id: input_boolean.movie_mode
@@ -4880,11 +4882,11 @@
     service: counter.reset
     entity_id: counter.cat_litter_motion
 
-- alias: Notify when 20 visits to cat box
+- alias: Clean the cat litter
   trigger:
     platform: numeric_state
     entity_id: counter.cat_litter_motion
-    above: 19
+    above: 29
   condition:
     condition: state
     entity_id: input_boolean.cat_litter_cleaned
