@@ -34,6 +34,9 @@ switch.bedroom_fan:
 switch.kitchen_tv:
   icon: mdi:television
 
+switch.nursery_tv:
+  icon: mdi:television
+
 sensor.fedex:
   friendly_name: FedEx
 

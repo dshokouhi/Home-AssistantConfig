@@ -265,6 +265,7 @@ views:
             name: Hallway Motion
             secondary_info: last-changed
           - switch.house_fan
+          - switch.nursery_tv
           - light.office_closet
           - light.office_lights
           - entity: binary_sensor.office_motion
@@ -992,6 +993,7 @@ views:
         entities:
           - entity: lock.front_door_lock_locked
             secondary_info: last-changed
+          - sensor.front_door_lock_status
           - sensor.front_door_action
           - sensor.front_door_code
 resources:

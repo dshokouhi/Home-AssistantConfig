@@ -22,6 +22,10 @@ kitchen_tv:
   name: Kitchen TV
   icon: mdi:television
 
+nursery_tv:
+  name: Nursery TV
+  icon: mdi:television
+
 dishwasher_status:
   name: Dishwasher
 

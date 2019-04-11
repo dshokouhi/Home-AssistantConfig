@@ -609,6 +609,8 @@ google_assistant:
       expose: false
     script.kitchen_tv_off:
       expose: false
+    script.nursery_tv:
+      expose: false
     script.fire_tv:
       expose: false
     script.bedroom_shield:
@@ -901,6 +903,8 @@ google_assistant:
       room: "no group"
     light.nook_lamp:
       room: "no group"
+    switch.nursery_tv:
+      room: Office
 
 namecheapdns:
   host: plex
