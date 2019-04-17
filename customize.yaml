@@ -586,8 +586,11 @@ cover.bay_window_curtains:
 cover.bedroom_curtains:
   device_class: curtains
 
-binary_sensor.cat_litter_motion_sensor:
-  device_class: motion
-
 counter.cat_litter_motion:
   unit_of_measurement: visits
+
+sensor.cat_litter_humidity:
+  device_class: humidity
+
+sensor.cat_litter_luminance:
+  device_class: illuminance

@@ -7,6 +7,11 @@
        device_class: garage_door
        value_template: "{{ is_state('sensor.garage_door_frontyard_alarm_level', '255') }}"
 
+     cat_litter_motion:
+       friendly_name: "Cat Litter Motion"
+       device_class: motion
+       value_template: "{{ is_state('sensor.cat_litter_alarm_level', '255') }}"
+
      danny_home:
        friendly_name: "Danny Home"
        device_class: presence
@@ -15,6 +20,15 @@
        friendly_name: "Tosh Home"
        device_class: presence
        value_template: "{{ states('sensor.tosh_bedroom') |int > 50 or states('sensor.tosh_den') | int > 50 }}"
+
+     danny_phone_charging:
+       value_template: "{{ is_state_attr('device_tracker.google_maps_100707363427265474344', 'battery_charging', true) }}"
+       friendly_name: "Danny Phone Charging"
+       device_class: plug
+     tosh_phone_charging:
+       value_template: "{{ is_state_attr('device_tracker.google_maps_104359830266586918986', 'battery_charging', true) }}"
+       friendly_name: "Tosh Phone Charging"
+       device_class: plug
 
      windows:
        friendly_name: "Windows"

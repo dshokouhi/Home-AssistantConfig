@@ -919,23 +919,15 @@ zwave:
     light.den_lights_level:
       refresh_value: true
       delay: 3
-      #polling_intensity: 1
     light.kitchen_lights_level:
       refresh_value: true
       delay: 3
-      #polling_intensity: 1
     light.living_room_lights_level:
       refresh_value: true
       delay: 3
-      #polling_intensity: 1
     light.bedroom_lights_level:
       refresh_value: true
       delay: 3
-      #polling_intensity: 1
-    # sensor.dryer_power_2:
-      # polling_intensity: 1
-    # sensor.washer_power_2:
-      # polling_intensity: 1
 
 zha:
   usb_path: /dev/zigbee

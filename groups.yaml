@@ -369,4 +369,8 @@ zha:
   - zha.den_window
   - zha.den_sliding_door
   - zha.office_closet_door
+  - zha.office_door
   - zha.office_window
+  - zha.dishwasher
+  - zha.smart_plug
+  - zha.pool_pump

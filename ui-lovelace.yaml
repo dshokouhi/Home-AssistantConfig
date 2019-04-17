@@ -335,22 +335,24 @@ views:
           - input_boolean.night_mode
           - input_boolean.shower_mode
           - input_boolean.vacation_mode
-      - type: alarm-panel
-        id: alarm
-        entity: alarm_control_panel.home
-        states:
-          - arm_away
-          - arm_night
+      # - type: alarm-panel
+        # id: alarm
+        # entity: alarm_control_panel.home
+        # states:
+          # - arm_away
+          # - arm_night
       - type: entities
         id: catlitter
         title: Cat Litter
         show_header_toggle: false
         entities:
-          - entity: binary_sensor.cat_litter_motion_sensor
+          - entity: binary_sensor.cat_litter_motion
             secondary_info: last-changed
           - counter.cat_litter_motion
           - entity: input_boolean.cat_litter_cleaned
             secondary_info: last-changed
+          - sensor.cat_litter_humidity
+          - sensor.cat_litter_luminance
           - sensor.cat_litter_temperature
   - title: Services
     path: services
@@ -359,6 +361,9 @@ views:
       - sensor.zestimate
       - sensor.uptime
       - sensor.home_assistant_v2_db
+      - sensor.load_1m
+      - sensor.load_5m
+      - sensor.load_15m
       - sensor.tautulli
     cards:
       - type: horizontal-stack

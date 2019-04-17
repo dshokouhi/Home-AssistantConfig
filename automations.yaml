@@ -46,6 +46,8 @@
   trigger:
     platform: state
     entity_id: remote.harmony_hub_den
+    from: 'on'
+    to: 'off'
   condition:
     condition: template
     value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
@@ -64,6 +66,8 @@
   trigger:
     platform: state
     entity_id: remote.harmony_hub_bedroom
+    from: 'on'
+    to: 'off'
   condition:
     condition: template
     value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
@@ -75,6 +79,7 @@
   trigger:
   - platform: state
     entity_id: remote.harmony_hub_den
+    from: 'off'
     to: 'on'
   - platform: sun
     event: sunset
@@ -123,6 +128,8 @@
   trigger:
   - platform: state
     entity_id: remote.harmony_hub_bedroom
+    from: 'off'
+    to: 'on'
   - platform: sun
     event: sunset
   condition:
@@ -537,17 +544,6 @@
     state: 'off'
   - service: shell_command.front_door_jammed
 
-- alias: Check dishwasher
-  trigger:
-    platform: state
-    entity_id: input_boolean.dishes_clean
-    to: 'off'
-  action:
-  - service: tts.google_say
-    entity_id: media_player.kitchen_home
-    data:
-      message: 'Dont forget to check the dishwasher in case the cleaner got off track'
-
 ################################################
 #
 #      Alarm automations and notifications
@@ -572,9 +568,9 @@
     condition: state
     entity_id: alarm_control_panel.home
     state: 'armed_away'
+    for:
+      minutes: 1
   action:
-  - service: switch.turn_on
-    entity_id: switch.living_room_state
   - service: camera.snapshot
     data:
       entity_id: camera.living_room_camera
@@ -606,6 +602,8 @@
       - text: "Living room camera triggered snapshot"
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+  - service: switch.turn_on
+    entity_id: switch.living_room_state
   - delay: "00:00:30"
   - service: switch.turn_off
     entity_id: switch.living_room_state
@@ -622,9 +620,9 @@
     condition: state
     entity_id: alarm_control_panel.home
     state: 'armed_away'
+    for:
+      minutes: 1
   action:
-  - service: switch.turn_on
-    entity_id: switch.den_state
   - service: camera.snapshot
     data:
       entity_id: camera.den_camera
@@ -656,6 +654,8 @@
       - text: "Den camera triggered snapshot"
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+  - service: switch.turn_on
+    entity_id: switch.den_state
   - delay: "00:00:30"
   - service: switch.turn_off
     entity_id: switch.den_state
@@ -669,9 +669,9 @@
     condition: state
     entity_id: alarm_control_panel.home
     state: 'armed_away'
+    for:
+      minutes: 1
   action:
-  - service: switch.turn_on
-    entity_id: switch.baby_monitor_state
   - service: camera.snapshot
     data:
       entity_id: camera.baby_monitor
@@ -703,6 +703,8 @@
       - text: "Kitchen camera triggered snapshot"
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/baby_monitor.jpg"
+  - service: switch.turn_on
+    entity_id: switch.baby_monitor_state
   - delay: "00:00:30"
   - service: switch.turn_off
     entity_id: switch.baby_monitor_state
@@ -786,16 +788,29 @@
     condition: state
     entity_id: alarm_control_panel.home
     state: 'armed_away'
+    for:
+      minutes: 1
   action:
+  - delay: "00:00:02"
+  - condition: state
+    entity_id: alarm_control_panel.home
+    state: 'armed_away'
   - service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.home
-  # - service: notify.chrome
-    # data:
-      # data:
-        # url: !secret living_room_camera_snapshot
-      # message: "Alarm Tripped, open to see picture!! {% if is_state('binary_sensor.den_window', 'on') %}Den Window Open{% endif %} {% if is_state('binary_sensor.den_sliding_door', 'on') %}Den Sliding Door Open{% endif %} {% if is_state('binary_sensor.kitchen_window', 'on') %}Kitchen Window Open{% endif %} {% if is_state('binary_sensor.living_room_side_window', 'on') %}Living Room Side Window Open{% endif %} {% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}Living Room Right Bay Window Open{% endif %} {% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}Living Room Left Bay Window Open{% endif %} {% if is_state('binary_sensor.bedroom_window', 'on') %}Bedroom Window Open{% endif %} {% if is_state('binary_sensor.office_window', 'on') %}Office Window Open{% endif %} {% if is_state('binary_sensor.bathroom_window', 'on') %}Bathroom Window Open{% endif %} {% if is_state('binary_sensor.front_door', 'on') %}Front Door Open{% endif %} {% if is_state('binary_sensor.garage_door_frontyard', 'on') %}Garage Door Frontyard Open{% endif %}"
-      # target: ["danny_pixel", "tosh_phone"]
-      # title: Shokabow Zoo
+  - service: notify.slack
+    data_template:
+      message: "The alarm has been tripped from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+  - service: notify.discord
+    data_template:
+      message: "The alarm has been tripped from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      target:
+      - !secret discord_alarm
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "The alarm has been tripped from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
 
 - alias: Goodbye on Alarm
   trigger:
@@ -1351,7 +1366,27 @@
         {% else %}
         {% endif %}
 
-    
+- alias: Notify alarm recording started
+  trigger:
+    platform: state
+    entity_id: switch.den_state, switch.baby_monitor_state, switch.living_room_state, switch.frontyard_driveway_state, switch.frontyard_side_gate_state, switch.garage_side_gate_state, switch.garage_state, switch.kitchen_side_gate_state, switch.kitchen_state, switch.patio_state
+    to: 'on'
+  action:
+  - service: notify.slack
+    data_template:
+      message: "Alarm recording started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
+  - service: notify.discord
+    data_template:
+      message: "Alarm recording started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
+      target:
+      - !secret discord_alarm
+  - service: hangouts.send_message
+    data_template:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Alarm recording started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
+
 ################################################
 #
 #      Office automation
@@ -1477,20 +1512,10 @@
         state: 'armed_night'
   action:
   - service: light.turn_on
-    entity_id: light.office_lights
-  - service: light.turn_on
-    entity_id: light.kitchen_lights_level, light.living_room_lights_level, light.den_lights_level
-  - service: light.turn_on
     entity_id: light.bedroom_lights_level
   - service: cover.open_cover
     entity_id: cover.bedroom_curtains
   - wait_template: "{{ states.binary_sensor.natachas_bayesian_presence.state == 'off' }}"
-  - service: light.turn_off
-    entity_id: light.office_lights
-  - service: light.turn_off
-    entity_id: light.kitchen_lights_level
-  - service: light.turn_off
-    entity_id: light.living_room_lights_level
   - service: light.turn_off
     entity_id: light.bedroom_lights_level
   - service: switch.turn_off
@@ -1709,7 +1734,7 @@
   - service: light.turn_on
     entity_id: light.den_lights_level
 
-- alias: Open bedroom curtains when we wake up
+- alias: Open bedroom curtains and turn off the fan when we wake up
   trigger:
   - platform: state
     entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
@@ -1738,6 +1763,8 @@
   action:
   - service: cover.open_cover
     entity_id: cover.bedroom_curtains
+  - service: switch.turn_off
+    entity_id: switch.bedroom_fan
 
 ################################################
 #
@@ -3656,9 +3683,12 @@
   condition:
     condition: and
     conditions:
-    - condition: time
-      after: "09:00:00"
-      before: "05:00:00"
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'off'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'off'
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -3688,9 +3718,12 @@
   condition:
     condition: and
     conditions:
-    - condition: time
-      after: "09:00:00"
-      before: "05:00:00"
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'off'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'off'
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -3727,9 +3760,12 @@
   condition:
     condition: and
     conditions:
-    - condition: time
-      after: "09:00:00"
-      before: "05:00:00"
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'off'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'off'
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -3754,9 +3790,12 @@
   condition:
     condition: and
     conditions:
-    - condition: time
-      after: "09:00:00"
-      before: "05:00:00"
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'off'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'off'
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -4715,9 +4754,12 @@
     - condition: state
       entity_id: switch.island_lights_switch
       state: 'off'
-    - condition: time
-      after: "09:00:00"
-      before: "05:00:00"
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'off'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'off'
     - condition: state
       entity_id: input_boolean.movie_mode
       state: 'off'
@@ -4743,9 +4785,12 @@
     - condition: state
       entity_id: alarm_control_panel.home
       state: 'disarmed'
-    - condition: time
-      after: "09:00:00"
-      before: "05:00:00"
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'off'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'off'
     - condition: state
       entity_id: input_boolean.movie_mode
       state: 'off'
@@ -4867,7 +4912,7 @@
 - alias: Increase Cat Motion Counter
   trigger:
     platform: state
-    entity_id: binary_sensor.cat_litter_motion_sensor
+    entity_id: binary_sensor.cat_litter_motion
     to: 'on'
   action:
     service: counter.increment
@@ -4879,8 +4924,17 @@
     entity_id: input_boolean.cat_litter_cleaned
     to: 'on'
   action:
-    service: counter.reset
+  - service: counter.reset
     entity_id: counter.cat_litter_motion
+
+- alias: Cat Litter Cleaned When Opened
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.cat_litter_luminance
+    above: 80
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.cat_litter_cleaned
 
 - alias: Clean the cat litter
   trigger:

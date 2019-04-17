@@ -413,6 +413,15 @@
      bedroom_shield_app:
        value_template: "{{ state_attr('media_player.bedroom_shield_tv', 'app_name') }}"
 
+     danny_phone_battery:
+       value_template: "{{ state_attr('device_tracker.google_maps_100707363427265474344', 'battery_level') }}"
+       device_class: battery
+       friendly_name: "Danny Phone Battery"
+     tosh_phone_battery:
+       value_template: "{{ state_attr('device_tracker.google_maps_104359830266586918986', 'battery_level') }}"
+       device_class: battery
+       friendly_name: "Tosh Phone Battery"
+
  - platform: uptime
  
  - platform: waqi
@@ -429,6 +438,9 @@
    - type: memory_use_percent
    - type: processor_use
    - type: last_boot
+   - type: load_1m
+   - type: load_5m
+   - type: load_15m
    
  # - platform: gearbest
    # currency: USD
