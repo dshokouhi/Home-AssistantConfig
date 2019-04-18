@@ -358,36 +358,6 @@ outdoor_camera_snapshot:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"
 
-office_camera_snapshot:
-  sequence:
-  - service: camera.snapshot
-    data:
-      entity_id: camera.office_camera
-      filename: '/home/homeassistant/.homeassistant/snapshot/office_camera.jpg'
-  - service: notify.slack
-    data:
-      message: "Office camera snapshot, may be false alarm"
-      title: "Shokabow Zoo - Alarm Tripped"
-      data:
-        file:
-          path: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
-  - service: hangouts.send_message
-    data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Office camera snapshot, may be false alarm"
-      data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
-  - service: notify.discord
-    data_template:
-      message: "Office camera snapshot, may be false alarm"
-      target:
-      - !secret discord_house
-      data:
-        images:
-        - "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
-
 garage_side_gate_snapshot:
   sequence:
   - service: camera.snapshot

@@ -1203,7 +1203,6 @@ image_processing:
     source:
       - entity_id: camera.den_camera
       - entity_id: camera.kitchen_camera
-      - entity_id: camera.office_camera
       - entity_id: camera.outdoor_camera
     scan_interval: 604800
     file_out:

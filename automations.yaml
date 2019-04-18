@@ -708,41 +708,7 @@
   - delay: "00:00:30"
   - service: switch.turn_off
     entity_id: switch.baby_monitor_state
-    
-# - alias: Office Alarm Pic
-  # trigger:
-    # platform: state
-    # entity_id: binary_sensor.office_window
-    # to: 'on'
-  # condition:
-    # condition: state
-    # entity_id: alarm_control_panel.home
-    # state: 'armed_away'
-  # action:
-  # - service: camera.snapshot
-    # data:
-      # entity_id: camera.office_camera
-      # filename: '/home/homeassistant/.homeassistant/snapshot/office_camera.jpg'
-  # - service: notify.chrome
-    # data:
-      # message: "Alarm Tripped!! Check Slack for Office snapshot"
-      # target: ["danny_pixel", "tosh_phone"]
-      # title: Shokabow Zoo
-  # - service: notify.slack
-    # data:
-      # message: "Office camera snapshot"
-      # data:
-        # file:
-          # path: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
-  # - service: hangouts.send_message
-    # data:
-      # target:
-      # - id: !secret hangouts_group
-      # message:
-      # - text: "Office camera snapshot"
-      # data:
-        # image_file: "/home/homeassistant/.homeassistant/snapshot/office_camera.jpg"
-    
+
 - alias: Alarm Tripped
   trigger:
   - platform: state
@@ -1165,7 +1131,7 @@
   - service: script.turn_on
     entity_id: script.living_room_camera_snapshot
   - service: script.turn_on
-    entity_id: script.kitchen_camera_snapshot, script.office_camera_snapshot
+    entity_id: script.kitchen_camera_snapshot
   - service: script.turn_on
     entity_id: script.outdoor_camera_snapshot
   - service: script.turn_on
@@ -4684,7 +4650,7 @@
 - alias: Notify image processing
   trigger:
     platform: state
-    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_kitchen_camera, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_office_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_kitchen_side_gate
+    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_kitchen_camera, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_kitchen_side_gate
   condition:
     condition: template
     value_template: '{{ trigger.to_state.state |int > 0 }}'
