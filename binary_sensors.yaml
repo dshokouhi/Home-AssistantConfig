@@ -180,3 +180,10 @@
    payload_on: 'on'
    payload_off: 'off'
    device_class: motion
+
+ - platform: mqtt
+   name: Ferret Camera Motion
+   state_topic: ferret_cam/binary_sensor/motion
+   payload_on: 'on'
+   payload_off: 'off'
+   device_class: motion

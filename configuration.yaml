@@ -483,11 +483,9 @@ camera:
 
  - platform: ring
  
- - platform: yi
-   host: '192.168.1.33'
-   name: Office Camera
-   password: !secret office_camera
-   ffmpeg_arguments: '-vf scale=800:450'
+ - platform: ffmpeg
+   name: Ferret Cage
+   input: -rtsp_transport tcp -i rtsp://192.168.1.33/ch0_0.h264
 
 notify:
  - platform: nfandroidtv

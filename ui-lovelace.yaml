@@ -47,6 +47,8 @@ views:
           - binary_sensor.bedroom_closet_door
           - binary_sensor.bedroom_door
           - binary_sensor.bedroom_window
+          - binary_sensor.catio_firepit_door
+          - binary_sensor.catio_pool_door
           - binary_sensor.den_sliding_door
           - binary_sensor.den_window
           - binary_sensor.front_door
@@ -271,9 +273,6 @@ views:
           - entity: binary_sensor.office_motion
             name: Office Motion
             secondary_info: last-changed
-          - entity: switch.tosh_w10
-            secondary_info: last-changed
-            icon: mdi:desktop-classic
       - type: horizontal-stack
         id: power
         cards:
@@ -467,6 +466,32 @@ views:
             name: Vostros CPU Used
             entity: sensor.vostros_cpu_used
       - type: glance
+        id: speed
+        title: Speed Test
+        entities:
+          - entity: sensor.speedtest_ping
+            name: Ping
+          - entity: sensor.speedtest_download
+            name: Download
+          - entity: sensor.speedtest_upload
+            name: Upload
+          - entity: automation.speed_test
+            name: Run Test
+            tap_action:
+              action: call-service
+              service: speedtestdotnet.speedtest
+      - type: glance
+        id: servercloset
+        title: Server Closet
+        show_header_toggle: false
+        entities:
+          - entity: binary_sensor.server_room_sensor
+            name: Sensor
+          - entity: sensor.server_room_temperature
+            name: Temperature
+          - entity: sensor.server_room_humidity
+            name: Humidity
+      - type: glance
         id: sabnzbd
         title: SABnzbd
         entities:
@@ -506,21 +531,6 @@ views:
             name: Photo
           - entity: sensor.epson_ink_level_yellow
             name: Yellow
-      - type: glance
-        id: speed
-        title: Speed Test
-        entities:
-          - entity: sensor.speedtest_ping
-            name: Ping
-          - entity: sensor.speedtest_download
-            name: Download
-          - entity: sensor.speedtest_upload
-            name: Upload
-          - entity: automation.speed_test
-            name: Run Test
-            tap_action:
-              action: call-service
-              service: speedtestdotnet.speedtest
       - type: entities
         id: zm
         title: ZoneMinder

@@ -600,3 +600,9 @@ sensor.tosh_phone_battery:
 
 sensor.danny_phone_battery:
   unit_of_measurement: '%'
+
+binary_sensor.catio_firepit_door:
+  device_class: door
+
+binary_sensor.catio_pool_door:
+  device_class: door

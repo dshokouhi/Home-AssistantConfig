@@ -345,6 +345,8 @@ monitored_contacts:
   entities:
   - binary_sensor.bathroom_window
   - binary_sensor.bedroom_window
+  - binary_sensor.catio_firepit_door
+  - binary_sensor.catio_pool_door
   - binary_sensor.den_sliding_door
   - binary_sensor.den_window
   - binary_sensor.front_door
