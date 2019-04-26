@@ -1136,8 +1136,8 @@
     entity_id: script.den_camera_snapshot
   - service: script.turn_on
     entity_id: script.living_room_camera_snapshot
-  - service: script.turn_on
-    entity_id: script.kitchen_camera_snapshot
+  # - service: script.turn_on
+    # entity_id: script.kitchen_camera_snapshot
   - service: script.turn_on
     entity_id: script.outdoor_camera_snapshot
   - service: script.turn_on
@@ -1240,7 +1240,7 @@
   - service: tts.google_say
     entity_id: media_player.bedroom_home
     data_template:
-      message: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
+      message: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
 
 - alias: Windows open while going to bed
   trigger:
@@ -2460,66 +2460,6 @@
 #
 ################################################
 
-# - alias: Notify dryer died
-  # trigger:
-    # platform: state
-    # entity_id: zwave.dryer
-    # to: 'dead'
-  # action:
-  # - service: zwave.test_node
-    # data:
-      # node_id: 11
-  # - service: notify.chrome
-    # data:
-      # message: "Dryer zwave died"
-      # target: danny_pixel
-      # title: Shokabow Zoo
-
-# - alias: Notify washer died
-  # trigger:
-    # platform: state
-    # entity_id: zwave.washer
-    # to: 'dead'
-  # action:
-  # - service: zwave.test_node
-    # data:
-      # node_id: 10
-  # - service: notify.chrome
-    # data:
-      # message: "Washer zwave died"
-      # target: danny_pixel
-      # title: Shokabow Zoo
-
-# - alias: Notify bedroom lights died
-  # trigger:
-    # platform: state
-    # entity_id: zwave.bedroom_lights
-    # to: 'dead'
-  # action:
-  # - service: zwave.test_node
-    # data:
-      # node_id: 2
-  # - service: notify.chrome
-    # data:
-      # message: "bedroom lights zwave died"
-      # target: danny_pixel
-      # title: Shokabow Zoo
-
-# - alias: Notify lock died
-  # trigger:
-    # platform: state
-    # entity_id: zwave.front_door_lock
-    # to: 'dead'
-  # action:
-  # - service: zwave.test_node
-    # data:
-      # node_id: 23
-  # - service: notify.chrome
-    # data:
-      # message: "front door lock zwave died"
-      # target: danny_pixel
-      # title: Shokabow Zoo
-      
 - alias: Notify zwave device died
   trigger:
     platform: template
@@ -2918,8 +2858,8 @@
     condition: template
     value_template: "{{ states.remote.harmony_hub_den.attributes.current_activity == PowerOff }}"
   action:
-    service: script.turn_on
-    entity_id: script.shield
+    service: switch.turn_on
+    entity_id: switch.den_shield
     
 - alias: Movie mode curtains if sun is above horizon
   trigger:
@@ -3698,19 +3638,13 @@
 - alias: Turn off office lights when no motion
   trigger:
     platform: state
-    entity_id: binary_sensor.office_motion
+    entity_id: binary_sensor.office_motion, binary_sensor.office_door
     to: 'off'
     for:
       minutes: 5
   condition:
     condition: and
     conditions:
-    - condition: state
-      entity_id: switch.tasker_sleep_danny
-      state: 'off'
-    - condition: state
-      entity_id: switch.tasker_sleep_tosh
-      state: 'off'
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -3726,6 +3660,9 @@
     - condition: state
       entity_id: binary_sensor.office_door
       state: 'off'
+    - condition: state
+      entity_id: binary_sensor.office_motion
+      state: 'off'
   action:
     service: light.turn_off
     entity_id: light.office_lights
@@ -3739,17 +3676,14 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: switch.tasker_sleep_danny
-      state: 'off'
-    - condition: state
-      entity_id: switch.tasker_sleep_tosh
-      state: 'off'
-    - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
       entity_id: light.office_lights
       state: 'off'
+    - condition: state
+      entity_id: group.tracked_users
+      state: 'home'
   action:
     service: light.turn_on
     entity_id: light.office_lights
@@ -3810,18 +3744,10 @@
     entity_id: alarm_control_panel.home
     state: disarmed
   action:
-  - service: camera.snapshot
-    data:
-      entity_id: camera.kitchen_camera
-      filename: '/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg'
   - service: notify.den
     data:
       data:
-       color: red
-       duration: 10
-       position: center
-       file:
-         path: '/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg'
+       color: teal
       message: Someone is at the front door
       title: Shokabow Zoo
       
@@ -4432,7 +4358,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.den_air_purifier_temp
-    above: 77
+    above: 76
   condition:
     condition: state
     entity_id: switch.den_fan
@@ -4458,13 +4384,13 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.living_room_air_purifier_temp
-    above: 77
+    above: 76
   - platform: numeric_state
     entity_id: sensor.living_room_air_purifier_temp
     below: 74
   action:
     service_template: >
-        {% if states('sensor.living_room_air_purifier_temp')|int > 77 %}
+        {% if states('sensor.living_room_air_purifier_temp')|int > 76 %}
           switch.turn_on
         {% elif states('sensor.living_room_air_purifier_temp')|int < 74 %}
           switch.turn_off
@@ -4632,7 +4558,7 @@
 - alias: Notify image processing
   trigger:
     platform: state
-    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_kitchen_camera, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_kitchen_side_gate
+    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_kitchen_side_gate
   condition:
     condition: template
     value_template: '{{ trigger.to_state.state |int > 0 }}'
@@ -4703,12 +4629,6 @@
       entity_id: switch.island_lights_switch
       state: 'off'
     - condition: state
-      entity_id: switch.tasker_sleep_danny
-      state: 'off'
-    - condition: state
-      entity_id: switch.tasker_sleep_tosh
-      state: 'off'
-    - condition: state
       entity_id: input_boolean.movie_mode
       state: 'off'
   action:
@@ -4733,12 +4653,6 @@
     - condition: state
       entity_id: alarm_control_panel.home
       state: 'disarmed'
-    - condition: state
-      entity_id: switch.tasker_sleep_danny
-      state: 'off'
-    - condition: state
-      entity_id: switch.tasker_sleep_tosh
-      state: 'off'
     - condition: state
       entity_id: input_boolean.movie_mode
       state: 'off'
@@ -4902,3 +4816,28 @@
       message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat box, time to clean."
       target:
       - !secret discord_house
+
+################################################
+#
+#      Cube Automations
+#
+################################################
+
+# - alias: Mute den on double tap
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.cube_action
+    # event_data:
+      # entity_id: binary_sensor.cube
+      # action_type: tap_twice
+  # condition:
+    # condition: state
+    # entity_id: remote.harmony_hub_den
+    # state: 'on'
+  # action:
+    # service: remote.send_command
+    # data:
+      # entity_id: remote.harmony_hub_den
+      # device: 55196241
+      # command: 'VolumeDown'
+      # num_repeats: 5

@@ -291,35 +291,35 @@ living_room_camera_snapshot:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
 
-kitchen_camera_snapshot:
-  sequence:
-  - service: camera.snapshot
-    data:
-      entity_id: camera.kitchen_camera
-      filename: '/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg'
-  - service: notify.slack
-    data:
-      message: "Kitchen camera snapshot, may be false alarm"
-      title: "Shokabow Zoo - Alarm Tripped"
-      data:
-        file:
-          path: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
-  - service: hangouts.send_message
-    data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Kitchen camera snapshot, may be false alarm"
-      data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
-  - service: notify.discord
-    data_template:
-      message: "Kitchen camera snapshot, may be false alarm"
-      target:
-      - !secret discord_house
-      data:
-        images:
-        - "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+# kitchen_camera_snapshot:
+  # sequence:
+  # - service: camera.snapshot
+    # data:
+      # entity_id: camera.kitchen_camera
+      # filename: '/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg'
+  # - service: notify.slack
+    # data:
+      # message: "Kitchen camera snapshot, may be false alarm"
+      # title: "Shokabow Zoo - Alarm Tripped"
+      # data:
+        # file:
+          # path: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+  # - service: hangouts.send_message
+    # data:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Kitchen camera snapshot, may be false alarm"
+      # data:
+        # image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+  # - service: notify.discord
+    # data_template:
+      # message: "Kitchen camera snapshot, may be false alarm"
+      # target:
+      # - !secret discord_house
+      # data:
+        # images:
+        # - "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
 
 outdoor_camera_snapshot:
   sequence:

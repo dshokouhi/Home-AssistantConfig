@@ -44,20 +44,20 @@
        unit_of_measurement: '%'
        device_class: battery
 
- - platform: template
-   sensors:
-     frontyard_driveway_camera_power:
-       friendly_name: Frontyard Driveway Camera Power
-       value_template: "{{ state_attr('switch.camera3', 'power') }}"
-       unit_of_measurement: "W"
-     garage_side_gate_camera_power:
-       friendly_name: Garage Side Gate Camera Power
-       value_template: "{{ state_attr('switch.camera1', 'power') }}"
-       unit_of_measurement: "W"
-     frontyard_side_gate_camera_power:
-       friendly_name: Frontyard Side Gate Camera Power
-       value_template: "{{ state_attr('switch.frontyard', 'power') }}"
-       unit_of_measurement: "W"
+ # - platform: template
+   # sensors:
+     # frontyard_driveway_camera_power:
+       # friendly_name: Frontyard Driveway Camera Power
+       # value_template: "{{ state_attr('switch.camera3', 'power') }}"
+       # unit_of_measurement: "W"
+     # garage_side_gate_camera_power:
+       # friendly_name: Garage Side Gate Camera Power
+       # value_template: "{{ state_attr('switch.camera1', 'power') }}"
+       # unit_of_measurement: "W"
+     # frontyard_side_gate_camera_power:
+       # friendly_name: Frontyard Side Gate Camera Power
+       # value_template: "{{ state_attr('switch.frontyard', 'power') }}"
+       # unit_of_measurement: "W"
 
  - platform: pi_hole
    host: 192.168.1.47

@@ -416,10 +416,6 @@ amcrest:
    - motion_detector
 
 camera:
- - platform: mjpeg
-   mjpeg_url: !secret kitchen_camera
-   name: "Kitchen Camera"
-
  - platform: generic
    still_image_url: !secret garage_side_gate_image
    stream_source: !secret garage_side_gate_h264
@@ -1200,7 +1196,6 @@ image_processing:
   - platform: tensorflow
     source:
       - entity_id: camera.den_camera
-      - entity_id: camera.kitchen_camera
       - entity_id: camera.outdoor_camera
     scan_interval: 604800
     file_out:
