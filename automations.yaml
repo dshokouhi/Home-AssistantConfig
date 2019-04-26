@@ -3561,8 +3561,8 @@
 - alias: Turn off living room lights when no motion
   trigger:
     platform: state
-    entity_id: sensor.living_room_camera_motion_detected
-    to: 'False'
+    entity_id: binary_sensor.living_room_camera_motion_detected
+    to: 'off'
     for:
       minutes: 5
   condition:
@@ -3596,8 +3596,8 @@
 - alias: Turn off kitchen lights when no motion
   trigger:
     platform: state
-    entity_id: sensor.baby_monitor_motion_detected
-    to: 'False'
+    entity_id: binary_sensor.baby_monitor_motion_detected
+    to: 'off'
     for:
       minutes: 4
   condition:
@@ -4611,8 +4611,8 @@
 - alias: Image processing in kitchen on motion when someone is home and awake
   trigger:
     platform: state
-    entity_id: sensor.baby_monitor_motion_detected
-    to: 'True'
+    entity_id: binary_sensor.baby_monitor_motion_detected
+    to: 'on'
   condition:
     condition: and
     conditions:
@@ -4639,8 +4639,8 @@
 - alias: Image processing in living room on motion when someone is home and awake
   trigger:
     platform: state
-    entity_id: sensor.living_room_camera_motion_detected
-    to: 'True'
+    entity_id: binary_sensor.living_room_camera_motion_detected
+    to: 'on'
   condition:
     condition: and
     conditions:

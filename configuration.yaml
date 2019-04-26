@@ -230,7 +230,8 @@ stream:
 script: !include scripts.yaml
 
 tts:
-  platform: google
+  - platform: google_translate
+    service_name: google_say
 
 group: !include groups.yaml
 
@@ -386,8 +387,8 @@ amcrest:
    name: "Den Camera"
    resolution: high
    stream_source: rtsp
-   sensors:
-   - motion_detector
+   binary_sensors:
+   - motion_detected
 
  - host: 192.168.1.41
    port: 1026
@@ -396,8 +397,8 @@ amcrest:
    name: "Living Room Camera"
    resolution: high
    stream_source: rtsp
-   sensors:
-   - motion_detector
+   binary_sensors:
+   - motion_detected
 
  - host: 192.168.1.36
    port: 1027
@@ -412,8 +413,8 @@ amcrest:
    username: !secret amcrest_user
    password: !secret amcrest_pass
    name: "Baby Monitor"
-   sensors:
-   - motion_detector
+   binary_sensors:
+   - motion_detected
 
 camera:
  - platform: generic
@@ -566,6 +567,7 @@ google_assistant:
   - vacuum
   - camera
   - cover
+  - binary_sensor
   entity_config:
     script.on_bedroom_fan:
       expose: false

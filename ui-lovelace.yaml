@@ -153,7 +153,7 @@ views:
           - light.corner_lamp
           - switch.den_fan
           - light.den_lights_level
-          - entity: sensor.den_camera_motion_detected
+          - entity: binary_sensor.den_camera_motion_detected
             name: Den Motion
             secondary_info: last-changed
           - switch.fireplace
@@ -169,7 +169,7 @@ views:
           - light.counter_lights
           - switch.island_lights_switch
           - light.kitchen_lights_level
-          - entity: sensor.baby_monitor_motion_detected
+          - entity: binary_sensor.baby_monitor_motion_detected
             name: Kitchen Motion
             secondary_info: last-changed
           - switch.kitchen_tv
@@ -184,7 +184,7 @@ views:
             secondary_info: last-changed
           - switch.living_room_fan
           - light.living_room_lights_level
-          - entity: sensor.living_room_camera_motion_detected
+          - entity: binary_sensor.living_room_camera_motion_detected
             name: Living Room Motion
             secondary_info: last-changed
           - light.nook_lamp
