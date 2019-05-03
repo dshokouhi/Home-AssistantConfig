@@ -2,6 +2,10 @@ den_fan:
   name: Den Fan
   icon: mdi:fan
 
+nursery_fan:
+  name: Nursery Fan
+  icon: mdi:fan
+
 fireplace:
   name: Fireplace
   icon: mdi:fire
@@ -57,16 +61,13 @@ night_mode:
 movie_mode:
   name: Movie Mode
   icon: mdi:movie
-  
+
 dishes_clean:
   name: Dishes clean
-  
+
 shower_mode:
   name: Shower Mode
   icon: mdi:water
-  
-rachio:
-  name: Rachio
 
 living_room_fan:
   name: Living Room Fan
@@ -83,3 +84,7 @@ cleaning_mode:
 cat_litter_cleaned:
   name: Cat Litter Cleaned
   icon: mdi:cat
+
+sleeping:
+  name: Sleeping
+  icon: mdi:sleep

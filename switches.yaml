@@ -16,6 +16,22 @@
           data:
             entity_id: input_boolean.den_fan
 
+     nursery_fan:
+       friendly_name: Nursery Fan
+       value_template: "{% if is_state('input_boolean.nursery_fan', 'on') %}on{% else %}off{% endif %}"
+       turn_on:
+        - service: script.turn_on
+          entity_id: script.nursery_fan_toggle
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.nursery_fan
+       turn_off:
+        - service: script.turn_on
+          entity_id: script.nursery_fan_toggle
+        - service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.nursery_fan
+
      living_room_fan:
        friendly_name: Living Room Fan
        value_template: "{% if is_state('input_boolean.living_room_fan', 'on') %}on{% else %}off{% endif %}"

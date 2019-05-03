@@ -52,6 +52,7 @@ views:
           - binary_sensor.den_sliding_door
           - binary_sensor.den_window
           - binary_sensor.front_door
+          - binary_sensor.garage_backyard_door
           - binary_sensor.garage_frontyard
           - binary_sensor.kitchen_window
           - binary_sensor.living_room_left_bay_window
@@ -217,15 +218,6 @@ views:
             - sensor.bbq1_temperature
             - entity: binary_sensor.bbq1
               secondary_info: last-changed
-      # - type: entities
-        # title: Thermostat
-        # id: thermostat
-        # show_header_toggle: false
-        # entities:
-          # - entity: climate.thermostat_cooling_1
-            # secondary_info: last-changed
-          # - entity: climate.thermostat_heating_1
-            # secondary_info: last-changed
       - type: custom:dual-thermostat
         name: Thermostat
         id: dtstat
@@ -267,6 +259,7 @@ views:
             name: Hallway Motion
             secondary_info: last-changed
           - switch.house_fan
+          - switch.nursery_fan
           - switch.nursery_tv
           - light.office_closet
           - light.office_lights
@@ -333,6 +326,7 @@ views:
           - input_boolean.movie_mode
           - input_boolean.night_mode
           - input_boolean.shower_mode
+          - input_boolean.sleeping
           - input_boolean.vacation_mode
       # - type: alarm-panel
         # id: alarm
@@ -959,6 +953,7 @@ views:
             - domain: camera
             - domain: media_player
             - domain: zha
+            - entity_id: sensor.dryer_temperature
       - type: custom:monster-card
         id: humidity
         card:

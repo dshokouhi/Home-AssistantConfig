@@ -166,7 +166,6 @@ automation: !include automations.yaml
 scene: !include scenes.yaml
 
 http:
-   #api_password: !secret http_password
    base_url: !secret baseurl
    ssl_certificate: !secret sslcert
    ssl_key: !secret sslkey
@@ -405,8 +404,6 @@ amcrest:
    username: !secret amcrest_user
    password: !secret boogie1
    name: "Outdoor Camera"
-   # sensors:
-   # - motion_detector
 
  - host: 192.168.1.97
    port: 1028
@@ -607,7 +604,7 @@ google_assistant:
       expose: false
     script.nursery_tv:
       expose: false
-    script.fire_tv:
+    script.nursery_fan_toggle:
       expose: false
     script.bedroom_shield:
       expose: false
@@ -724,6 +721,9 @@ google_assistant:
     input_boolean.cat_litter_cleaned:
       expose: true
       room: "no group"
+    input_boolean.sleeping:
+      expose: true
+      room: "no group"
     script.den_alarm:
       expose: false
     script.kitchen_alarm:
@@ -820,6 +820,8 @@ google_assistant:
       room: Outside
     switch.den_fan:
       room: Den
+    switch.nursery_fan:
+      room: Nursery
     light.living_room_lights_level:
       room: "Living Room"
     switch.living_room_fan:
@@ -901,6 +903,8 @@ google_assistant:
       room: "no group"
     switch.nursery_tv:
       room: Office
+    binary_sensor.windows:
+      expose: false
 
 namecheapdns:
   host: plex

@@ -3510,12 +3510,6 @@
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
-    - condition: state
-      entity_id: switch.tasker_sleep_danny
-      state: 'off'
-    - condition: state
-      entity_id: switch.tasker_sleep_tosh
-      state: 'off'
   action:
   - service: light.turn_on
     data_template:
@@ -3546,12 +3540,6 @@
       entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
-      entity_id: switch.tasker_sleep_danny
-      state: 'off'
-    - condition: state
-      entity_id: switch.tasker_sleep_tosh
-      state: 'off'
-    - condition: state
       entity_id: binary_sensor.bedroom_door
       state: 'off'
   action:
@@ -3568,12 +3556,6 @@
   condition:
     condition: and
     conditions:
-    - condition: state
-      entity_id: switch.tasker_sleep_danny
-      state: 'off'
-    - condition: state
-      entity_id: switch.tasker_sleep_tosh
-      state: 'off'
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -3603,12 +3585,6 @@
   condition:
     condition: and
     conditions:
-    - condition: state
-      entity_id: switch.tasker_sleep_danny
-      state: 'off'
-    - condition: state
-      entity_id: switch.tasker_sleep_tosh
-      state: 'off'
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
@@ -4800,9 +4776,12 @@
 
 - alias: Clean the cat litter
   trigger:
-    platform: numeric_state
+  - platform: numeric_state
     entity_id: counter.cat_litter_motion
     above: 39
+  - platform: numeric_state
+    entity_id: counter.cat_litter_motion
+    above: 49
   condition:
     condition: state
     entity_id: input_boolean.cat_litter_cleaned
@@ -4823,21 +4802,102 @@
 #
 ################################################
 
-# - alias: Mute den on double tap
-  # trigger:
-    # platform: event
-    # event_type: xiaomi_aqara.cube_action
-    # event_data:
-      # entity_id: binary_sensor.cube
-      # action_type: tap_twice
-  # condition:
-    # condition: state
-    # entity_id: remote.harmony_hub_den
-    # state: 'on'
-  # action:
-    # service: remote.send_command
-    # data:
-      # entity_id: remote.harmony_hub_den
-      # device: 55196241
-      # command: 'VolumeDown'
-      # num_repeats: 5
+- alias: Mute den on double tap
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.cube
+      action_type: tap_twice
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: remote.harmony_hub_den
+      state: 'on'
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
+  action:
+    service: remote.send_command
+    data:
+      entity_id: remote.harmony_hub_den
+      device: 55196241
+      command: 'Mute'
+
+- alias: Toggle patio lights on flip 90
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.cube
+      action_type: flip90
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
+  action:
+    service: light.toggle
+    entity_id: light.patio
+
+- alias: Notify rotate cube degrees
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.cube
+      action_type: rotate
+  action:
+  - service: notify.discord
+    data_template:
+      message: "Cube rotated {{ trigger.event.data.action_value }} degrees."
+      target:
+      - !secret discord_danny
+
+- alias: Pause or Play on flip 180
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.cube
+      action_type: flip180
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: media_player.den_shield_tv
+      state: 'playing'
+    - condition: state
+      entity_id: media_player.den_shield_tv
+      state: 'paused'
+  action:
+  - service: media_player.media_play_pause
+    entity_id: media_player.den_shield_tv
+  - condition: state
+    entity_id: sensor.den_shield_app
+    state: 'Vaders'
+  - condition: state
+    entity_id: media_player.den_shield_tv
+    state: 'playing'
+  - service: media_player.media_play_pause
+    entity_id: media_player.den_shield_tv
+
+- alias: Toggle den fan on shake
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.cube_action
+    event_data:
+      entity_id: binary_sensor.cube
+      action_type: shake_air
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.home
+    state: 'disarmed'
+  action:
+    service: switch.toggle
+    entity_id: switch.den_fan

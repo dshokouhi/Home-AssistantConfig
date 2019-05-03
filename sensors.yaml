@@ -44,21 +44,6 @@
        unit_of_measurement: '%'
        device_class: battery
 
- # - platform: template
-   # sensors:
-     # frontyard_driveway_camera_power:
-       # friendly_name: Frontyard Driveway Camera Power
-       # value_template: "{{ state_attr('switch.camera3', 'power') }}"
-       # unit_of_measurement: "W"
-     # garage_side_gate_camera_power:
-       # friendly_name: Garage Side Gate Camera Power
-       # value_template: "{{ state_attr('switch.camera1', 'power') }}"
-       # unit_of_measurement: "W"
-     # frontyard_side_gate_camera_power:
-       # friendly_name: Frontyard Side Gate Camera Power
-       # value_template: "{{ state_attr('switch.frontyard', 'power') }}"
-       # unit_of_measurement: "W"
-
  - platform: pi_hole
    host: 192.168.1.47
    monitored_conditions:
@@ -430,7 +415,7 @@
    - losangeles
    stations:
    - "Reseda, Los Angeles"
-   
+
  - platform: systemmonitor
    resources:
    - type: disk_use_percent
@@ -441,17 +426,7 @@
    - type: load_1m
    - type: load_5m
    - type: load_15m
-   
- # - platform: gearbest
-   # currency: USD
-   # items:
-   # - url: https://www.gearbest.com/home-smart-improvements/pp_268522.html
-     # name: Xiaomi Air Purifier 2
-   # - url: https://www.gearbest.com/home-smart-improvements/pp_668897.html
-     # name: Xiaomi Leak Sensor
-   # - url: https://www.gearbest.com/access-control/pp_626703.html
-     # name: Xiaomi Contact Sensor
-     
+
  - platform: plex
    host: 192.168.1.60
    token: !secret plex_token

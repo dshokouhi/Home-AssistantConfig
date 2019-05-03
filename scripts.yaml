@@ -113,7 +113,7 @@ lr_fan_off:
       command: 'No'
       device: '36480637'
       entity_id: remote.harmony_hub_den
-      
+
 den_fan_toggle:
   sequence:
   - service: remote.send_command
@@ -121,6 +121,14 @@ den_fan_toggle:
       command: 'PowerToggle'
       device: 55283138
       entity_id: remote.harmony_hub_den
+
+nursery_fan_toggle:
+  sequence:
+  - service: remote.send_command
+    data:
+      command: 'PowerToggle'
+      device: 62844120
+      entity_id: remote.harmony_hub_bedroom
 
 off_fireplace:
   sequence:
