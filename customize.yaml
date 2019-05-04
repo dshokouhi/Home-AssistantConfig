@@ -586,6 +586,9 @@ cover.bay_window_curtains:
 cover.bedroom_curtains:
   device_class: curtains
 
+cover.nursery_curtains:
+  device_class: curtains
+
 counter.cat_litter_motion:
   unit_of_measurement: visits
 

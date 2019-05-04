@@ -358,6 +358,7 @@ media_player 9:
      tv.vaders.apk: "Vaders"
      com.google.android.tvlauncher: "Homescreen"
      com.plexapp.android: "Plex"
+     com.livetvonline.livetvonlineiptvbox: "Sportz"
 
  - platform: androidtv
    host: 192.168.1.92
@@ -371,6 +372,7 @@ media_player 9:
      tv.vaders.apk: "Vaders"
      com.google.android.tvlauncher: "Homescreen"
      com.plexapp.android: "Plex"
+     com.livetvonline.livetvonlineiptvbox: "Sportz"
 
  - platform: androidtv
    host: 192.168.1.52
@@ -854,6 +856,8 @@ google_assistant:
       room: Bedroom
     cover.bay_window_curtains:
       room: "Living Room"
+    cover.nursery_curtains:
+      room: Nursery
     camera.baby_monitor_scan:
       expose: false
     camera.de_scan:
@@ -1075,6 +1079,18 @@ cover:
         stop_cover:
           - service: script.turn_on
             entity_id: script.stop_bay_window_curtains
+      nursery_curtains:
+        friendly_name: Nursery Curtains
+        value_template: "{{ is_state('input_boolean.nursery_curtains', 'on' ) }}"
+        open_cover:
+          - service: script.turn_on
+            entity_id: script.open_nursery_curtains
+        close_cover:
+          - service: script.turn_on
+            entity_id: script.close_nursery_curtains
+        stop_cover:
+          - service: script.turn_on
+            entity_id: script.stop_nursery_curtains
 
 xiaomi_aqara:
   discovery_retry: 5

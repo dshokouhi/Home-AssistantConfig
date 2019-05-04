@@ -50,6 +50,9 @@ bay_window_curtains:
 bedroom_curtains:
   name: Bedroom Curtains
 
+nursery_curtains:
+  name: Nursery Curtains
+
 mailbox:
   name: Mailbox
   icon: mdi:mailbox
