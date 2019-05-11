@@ -997,10 +997,10 @@
       # title: Shokabow Zoo
   - service: notify.slack
     data:
-      message: "The alarm has been deactivated by dad"
+      message: "The front door has been unlocked by dad"
   - service: notify.discord
     data_template:
-      message: "The alarm has been deactivated by dad"
+      message: "The front door has been unlocked by dad"
       target:
       - !secret discord_alarm
   - service: hangouts.send_message
@@ -1008,7 +1008,7 @@
       target:
       - id: !secret hangouts_group
       message:
-      - text: "The alarm has been deactivated by dad"
+      - text: "The front door has been unlocked by dad"
   - service: tts.google_say
     entity_id: media_player.kitchen_home, media_player.den_home, media_player.office_speaker
     data:
@@ -1035,10 +1035,10 @@
       # title: Shokabow Zoo
   - service: notify.slack
     data:
-      message: "The alarm has been deactivated by zoo keeper"
+      message: "The front door has been unlocked by zoo keeper"
   - service: notify.discord
     data_template:
-      message: "The alarm has been deactivated by zoo keeper"
+      message: "The front door has been unlocked by zoo keeper"
       target:
       - !secret discord_alarm
   - service: hangouts.send_message
@@ -1046,7 +1046,7 @@
       target:
       - id: !secret hangouts_group
       message:
-      - text: "The alarm has been deactivated by zoo keeper"
+      - text: "The front door has been unlocked by zoo keeper"
 
 - alias: Warn Alarm On But Window Open
   trigger:
@@ -1213,9 +1213,14 @@
     entity_id: sensor.bay_window_shock_burglar
     to: '2'
   condition:
-    condition: state
-    entity_id: alarm_control_panel.home
-    state: 'armed_night'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'armed_night'
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: 'off'
   action:
   # - service: notify.chrome
     # data:
@@ -1343,6 +1348,15 @@
     platform: state
     entity_id: light.office_lights
     to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.sleeping
+      state: 'off'
   action:
   - service: light.turn_on
     entity_id: light.o1
@@ -1542,12 +1556,13 @@
       entity_id: alarm_control_panel.home
       state: 'armed_night'
   action:
-  - service: cover.open_cover
-    entity_id: cover.bay_window_curtains
   - service: switch.turn_off
     entity_id: switch.house_fan
   - service: light.turn_off
-    entity_id: light.bathroom_night_light, light.kitchen_lights_level, light.bedroom_lights_level
+    entity_id: light.bathroom_night_light, light.kitchen_lights_level, light.bedroom_lights_level, light.toshs
+  - wait_template: "{{ is_state('input_boolean.sleeping', 'off') }}"
+  - service: cover.open_cover
+    entity_id: cover.bay_window_curtains
 
 - alias: Hallway light above horizon
   trigger:
@@ -1675,6 +1690,10 @@
     entity_id: switch.tasker_sleep_danny
     from: 'on'
     to: 'off'
+  condition:
+    condition: state
+    entity_id: input_boolean.guest_mode
+    state: 'off'
   action:
   - service: light.turn_on
     entity_id: light.den_lights_level
@@ -3571,6 +3590,9 @@
     - condition: state
       entity_id: input_boolean.cleaning_mode
       state: 'off'
+    - condition: state
+      entity_id: input_boolean.sleeping
+      state: 'off'
   action:
     service: light.turn_off
     entity_id: light.living_room_lights_level
@@ -3596,6 +3618,9 @@
       state: 'off'
     - condition: state
       entity_id: input_boolean.cleaning_mode
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.sleeping
       state: 'off'
     - condition: or
       conditions:
@@ -3639,6 +3664,9 @@
     - condition: state
       entity_id: binary_sensor.office_motion
       state: 'off'
+    - condition: state
+      entity_id: input_boolean.sleeping
+      state: 'off'
   action:
     service: light.turn_off
     entity_id: light.office_lights
@@ -3660,6 +3688,9 @@
     - condition: state
       entity_id: group.tracked_users
       state: 'home'
+    - condition: state
+      entity_id: input_boolean.sleeping
+      state: 'off'
   action:
     service: light.turn_on
     entity_id: light.office_lights
@@ -4607,6 +4638,9 @@
     - condition: state
       entity_id: input_boolean.movie_mode
       state: 'off'
+    - condition: state
+      entity_id: input_boolean.sleeping
+      state: 'off'
   action:
   - service: image_processing.scan
     data:
@@ -4631,6 +4665,9 @@
       state: 'disarmed'
     - condition: state
       entity_id: input_boolean.movie_mode
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.sleeping
       state: 'off'
   action:
   - service: image_processing.scan
@@ -4698,6 +4735,9 @@
   action:
   - service: scene.turn_on
     entity_id: scene.goodnight
+  - delay: "00:00:05"
+  - service: light.turn_on
+    entity_id: light.toshs
 
 - alias: Danny tasker awake webhook
   trigger:
@@ -4769,16 +4809,13 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.cat_litter_luminance
-    above: 80
+    above: 50
   action:
     service: input_boolean.turn_on
     entity_id: input_boolean.cat_litter_cleaned
 
 - alias: Clean the cat litter
   trigger:
-  - platform: numeric_state
-    entity_id: counter.cat_litter_motion
-    above: 39
   - platform: numeric_state
     entity_id: counter.cat_litter_motion
     above: 49

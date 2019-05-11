@@ -744,6 +744,8 @@ views:
       - type: media-control
         entity: media_player.bedroom_home
       - type: media-control
+        entity: media_player.danny_spotify
+      - type: media-control
         entity: media_player.den_shield
       - type: media-control
         entity: media_player.den_shield_tv
@@ -766,11 +768,15 @@ views:
       - type: media-control
         entity: media_player.kodi_kitchen
       - type: media-control
+        entity: media_player.kodi_nursery
+      - type: media-control
         entity: media_player.kodi_outdoor
       - type: media-control
         entity: media_player.kodi_shield
       - type: media-control
         entity: media_player.living_room_home
+      - type: media-control
+        entity: media_player.nursery_fire_stick
       - type: media-control
         entity: media_player.office_speaker
       - type: media-control

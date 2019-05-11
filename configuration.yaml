@@ -338,6 +338,13 @@ media_player 8:
    password: !secret kodi
    name: "Kodi Outdoor"
 
+ - platform: kodi
+   host: 192.168.1.18
+   port: 8080
+   username: kodi
+   password: !secret kodi
+   name: "Kodi Nursery"
+
 media_player 9:
  - platform: kodi
    host: 192.168.1.72
@@ -359,6 +366,7 @@ media_player 9:
      com.google.android.tvlauncher: "Homescreen"
      com.plexapp.android: "Plex"
      com.livetvonline.livetvonlineiptvbox: "Sportz"
+     ar.tvplayer.tv: "TiviMate"
 
  - platform: androidtv
    host: 192.168.1.92
@@ -373,12 +381,24 @@ media_player 9:
      com.google.android.tvlauncher: "Homescreen"
      com.plexapp.android: "Plex"
      com.livetvonline.livetvonlineiptvbox: "Sportz"
+     ar.tvplayer.tv: "TiviMate"
 
  - platform: androidtv
    host: 192.168.1.52
    name: Kitchen Fire Stick
    adb_server_ip: localhost
    adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
+
+ - platform: androidtv
+   host: 192.168.1.18
+   name: Nursery Fire Stick
+   adb_server_ip: localhost
+   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
+
+ - platform: spotify
+   name: Danny Spotify
+   client_id: !secret spotify_client_id_danny
+   client_secret: !secret spotify_client_secret_danny
 
 amcrest:
  - host: 192.168.1.42
@@ -806,6 +826,8 @@ google_assistant:
       room: Hallway
     light.office_lights:
       room: Office
+      aliases:
+      - Nursery Lights
     light.bathroom_night_light:
       room: Bathroom
     switch.kitchen_tv:
