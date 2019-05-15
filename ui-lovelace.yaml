@@ -229,6 +229,15 @@ views:
         #fan_control: true
         min_slider: 60
         max_slider: 80
+      - type: entities
+        title: Sous Vide
+        id: sousvide
+        show_header_toggle: false
+        entities:
+          - entity: climate.sous_vide
+            secondary_info: last-changed
+          - entity: sensor.sous_vide_timer
+          - entity: switch.sous_vide_timer
   - title: Room
     path: room
     icon: mdi:home-modern
@@ -609,13 +618,9 @@ views:
       - type: picture-entity
         entity: camera.garage_side_gate
       - type: picture-entity
-        entity: camera.kitchen_camera
-      - type: picture-entity
         entity: camera.kitchen_side_gate
       - type: picture-entity
         entity: camera.living_room_camera
-      - type: picture-entity
-        entity: camera.office_camera
       - type: picture-entity
         entity: camera.outdoor_camera
       - type: picture-entity
@@ -696,13 +701,6 @@ views:
               service: image_processing.scan
               service_data:
                 entity_id: image_processing.tensorflow_garage_side_gate
-          - entity: image_processing.tensorflow_kitchen_camera
-            name: Kitchen
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_kitchen_camera
           - entity: image_processing.tensorflow_kitchen_side_gate
             name: Kitchen Side
             hold_action:
@@ -717,13 +715,6 @@ views:
               service: image_processing.scan
               service_data:
                 entity_id: image_processing.tensorflow_living_room_camera
-          - entity: image_processing.tensorflow_office_camera
-            name: Office
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_office_camera
           - entity: image_processing.tensorflow_patio
             name: Patio
             hold_action:

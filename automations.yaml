@@ -4035,7 +4035,7 @@
           {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
             Beef Ribs are almost done
           {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-            Briket is almost done
+            Brisket is almost done
           {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
             Chicken is almost done
           {% elif is_state("input_select.bbq_probe1", "Fish") -%}
@@ -4059,7 +4059,7 @@
           {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
             Beef Ribs are almost done
           {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-            Briket is almost done
+            Brisket is almost done
           {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
             Chicken is almost done
           {% elif is_state("input_select.bbq_probe1", "Fish") -%}
@@ -4135,7 +4135,7 @@
           {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
             Beef Ribs are done
           {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-            Briket is done
+            Brisket is done
           {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
             Chicken is done
           {% elif is_state("input_select.bbq_probe1", "Fish") -%}
@@ -4159,7 +4159,7 @@
           {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
             Beef Ribs are done
           {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-            Briket is done
+            Brisket is done
           {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
             Chicken is done
           {% elif is_state("input_select.bbq_probe1", "Fish") -%}
@@ -4203,7 +4203,7 @@
        {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
          Beef Ribs are done
        {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-         Briket is done
+         Brisket is done
        {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
          Chicken is done
        {% elif is_state("input_select.bbq_probe1", "Fish") -%}
