@@ -1546,6 +1546,7 @@
   trigger:
   - platform: sun
     event: sunrise
+    offset: "00:30:00"
   condition:
     condition: or
     conditions:
@@ -3848,7 +3849,46 @@
   action:
   - service: light.turn_off
     entity_id: light.hallway_light
-    
+
+- alias: Toggle patio lights
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.patio_switch
+      click_type: single
+  action:
+    service: light.toggle
+    entity_id: light.patio
+
+- alias: Open or Close Den Curtains
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.patio_switch
+      click_type: double
+  action:
+    service_template: >
+        {% if is_state('cover.den_curtains', 'opened') %}
+          cover.close_cover
+        {% elif is_state('cover.den_curtains', 'closed') %}
+          cover.open_cover
+        {% else %}
+        {% endif %}
+    entity_id: cover.den_curtains
+
+- alias: Toggle Backyard Lights
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.patio_switch
+      click_type: long_click_press
+  action:
+    service: switch.toggle
+    entity_id: switch.backyard_lights_switch
+
 ################################################
 #
 #      Car Presence Automations
@@ -4764,7 +4804,7 @@
 - alias: ADB reconnect
   trigger:
     platform: state
-    entity_id: media_player.den_shield_tv, media_player.bedroom_shield_tv, media_player.kitchen_fire_stick
+    entity_id: media_player.den_shield_tv, media_player.bedroom_shield_tv, media_player.kitchen_fire_stick, media_player.nursery_fire_stick
     to: 'unavailable'
     for:
       minutes: 1
@@ -4778,6 +4818,8 @@
               192.168.1.92
             {% elif trigger.entity_id == 'media_player.kitchen_fire_stick' %}
               192.168.1.52
+            {% elif trigger.entity_id == 'media_player.nursery_fire_stick' %}
+              192.168.1.18
             {% else %}
             {% endif %}
 
@@ -4938,3 +4980,36 @@
   action:
     service: switch.toggle
     entity_id: switch.den_fan
+
+################################################
+#
+#      Sous Vide Automations
+#
+################################################
+
+- alias: Notify when Sous Vide is ready
+  trigger:
+    platform: state
+    entity_id: climate.sous_vide
+    to: 'running'
+    for:
+      minutes: 1
+  action:
+  - wait_template: "{{ state_attr('climate.sous_vide', 'current_temperature') == state_attr('climate.sous_vide', 'temperature') }}"
+  - service: notify.discord
+    data_template:
+      message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }}"
+      target:
+      - !secret discord_house
+  - service: notify.den
+    data_template:
+      data:
+        color: red
+        duration: 10
+        position: center
+      message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }}"
+      title: Shokabow Zoo
+  - condition: state
+    entity_id: input_boolean.night_mode
+    state: 'off'
+  - service: shell_command.sous_vide_temp_ready

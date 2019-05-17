@@ -27,6 +27,8 @@
        value_template: "{{ states('sensor.washer_power_2') | int > 5 }}"
      dryer_running:
        value_template: "{{ states('sensor.dryer_power_2') | int > 5}}"
+     dryer2_running:
+       value_template: "{{ states('sensor.dryer_power') | int > 5}}"
      dishwasher_running:
        value_template: "{{ states('sensor.dishwasher') | int > 5}}"
 

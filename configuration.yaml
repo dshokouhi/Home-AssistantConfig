@@ -662,15 +662,15 @@ google_assistant:
       expose: false
     light.bedroom_closet:
       expose: false
-    light.centralite_3210l_0b0383b4_1:
+    light.outdoor_plug:
       expose: false
-    light.centralite_3210l_0a932dbf_1:
+    light.dishwasher:
       expose: false
     light.office_closet:
       expose: false
     switch.living_room_camera_plug_switch:
       expose: false
-    light.centralite_3210l_0b2d4417_1:
+    light.bottle_warmer:
       expose: false
     switch.dryer_switch:
       expose: false
@@ -1191,6 +1191,7 @@ shell_command:
   blueiris_vacation: !secret blueiris_vacation
   blueiris_dnd: !secret blueiris_dnd
   adb_connect: '/usr/bin/adb connect {{ ip_adb }}'
+  sous_vide_temp_ready: curl -X POST http://192.168.1.47:3000/customBroadcast?text=sous+vide+is+ready+at+{{ state_attr('climate.sous_vide', 'current_temperature') }}&user=hass-broadcast
 
 rachio:
   api_key: !secret rachiokey
@@ -1297,3 +1298,5 @@ climate:
     mode_state_template: "{{ value_json.state }}"
     mode_command_topic: anova/command/run
     temperature_command_topic: anova/command/temp
+    min_temp: 77
+    max_temp: 210

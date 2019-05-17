@@ -296,6 +296,21 @@ views:
             #scale: 30px
             min: 0
             max: 1500
+      - type: horizontal-stack
+        id: power
+        cards:
+          - type: gauge
+            name: Bottle Warmer Power
+            entity: sensor.bottle_warmer
+            #scale: 30px
+            min: 0
+            max: 1500
+          - type: gauge
+            name: Dishwasher Power
+            entity: sensor.dishwasher
+            #scale: 30px
+            min: 0
+            max: 1500
       - type: entities
         id: outside
         title: Backyard & Garage
@@ -571,6 +586,8 @@ views:
             - entity_id: "*timer"
           exclude:
             - domain: automation
+            - entity_id: sensor.sous_vide_timer
+            - entity_id: switch.sous_vide_timer
       - type: entities
         id: launches
         title: Launches
@@ -899,9 +916,9 @@ views:
             - entity_id: switch.little_christmas_trees_switch
             - entity_id: switch.siren_switch
           exclude:
-            - entity_id: light.centralite_3210l_0a932dbf_1
-            - entity_id: light.centralite_3210l_0b0383b4_1
-            - entity_id: light.centralite_3210l_0b2d4417_1
+            - entity_id: light.outdoor_plug
+            - entity_id: light.dishwasher
+            - entity_id: light.bottle_warmer
             - entity_id: light.o1
             - entity_id: light.o2
             - entity_id: light.o3
