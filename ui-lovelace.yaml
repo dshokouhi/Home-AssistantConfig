@@ -539,15 +539,17 @@ views:
         id: printer
         title: Epson Printer Info
         entities:
-          - entity: sensor.epson_ink_level_black
+          - entity: sensor.ink_level_black
             name: Black
-          - entity: sensor.epson_ink_level_cyan
+          - entity: sensor.cleaning_level
+            name: Clean
+          - entity: sensor.ink_level_cyan
             name: Cyan
-          - entity: sensor.epson_ink_level_magenta
+          - entity: sensor.ink_level_magenta
             name: Magenta
-          - entity: sensor.epson_ink_level_photo_black
+          - entity: sensor.ink_level_photoblack
             name: Photo
-          - entity: sensor.epson_ink_level_yellow
+          - entity: sensor.ink_level_yellow
             name: Yellow
       - type: entities
         id: zm
