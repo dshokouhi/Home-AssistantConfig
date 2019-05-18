@@ -559,7 +559,6 @@ views:
           - switch.frontyard_side_gate_state
           - switch.garage_state
           - switch.garage_side_gate_state
-          - switch.kitchen_state
           - switch.kitchen_side_gate_state
           - switch.living_room_state
           - switch.patio_state
@@ -932,6 +931,7 @@ views:
           show_header_toggle: false
         filter:
           include:
+            - entity_id: "*charging"
             - entity_id: "*battery"
       - type: custom:monster-card
         id: contact

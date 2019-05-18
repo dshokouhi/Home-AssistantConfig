@@ -219,6 +219,88 @@ logger:
 recorder:
   purge_interval: 1
   purge_keep_days: 5
+  exclude:
+    domains:
+    - automation
+    - script
+    - updater
+    - weather
+    - sun
+    - calendar
+    - zha
+    - zwave
+    - camera
+    - group
+    - scene
+    entities:
+    - sensor.last_boot
+    - sensor.dryer_exporting
+    - sensor.washer_exporting
+    - sensor.uptime
+    - sensor.ssl_certificate_expiry
+    - sensor.pi_hole_domains_blocked
+    - sensor.pi_hole_dns_queries_today
+    - sensor.pi_hole_ads_blocked_today
+    - binary_sensor.den_camera_motion_detected
+    - switch.camera1
+    - switch.camera3
+    - switch.blue_iris
+    - switch.baby_monitor_state
+    - switch.den_state
+    - switch.frontyard
+    - switch.frontyard_driveway_state
+    - switch.frontyard_side_gate_state
+    - switch.garage_state
+    - switch.kitchen_side_gate_state
+    - switch.living_room_state
+    - switch.mr_neato_schedule
+    - switch.mrs_neato_schedule
+    - switch.patio_state
+    - switch.plex
+    - switch.vostros
+    - switch.sprinklers_in_standby_mode
+    - switch.tosh_w10
+    - binary_sensor.192_168_1_48_80
+    - sensor.moon
+    - sensor.season
+    - binary_sensor.sprinklers_online
+    - binary_sensor.vision_security_zp3111_multisensor_4in1_sensor
+    - sensor.dryer_dew_point
+    - sensor.dryer_distance
+    - sensor.dryer_fat_mass
+    - sensor.dryer_formaldehyde_ch20_level
+    - sensor.dryer_interval
+    - sensor.dryer_interval_2
+    - sensor.dryer_methane_ch4_density
+    - sensor.dryer_muscle_mass
+    - sensor.dryer_rain_rate
+    - sensor.dryer_relative_humidity
+    - sensor.dryer_rf_signal_strength
+    - sensor.dryer_temperature
+    - sensor.dryer_tide_level
+    - sensor.dryer_time
+    - sensor.dryer_velocity
+    - sensor.dryer_voltage
+    - sensor.dryer_water_oxidation
+    - sensor.dryer_water_pressure
+    - sensor.dryer_weight
+    - sensor.next_launch
+    - sensor.radarr_upcoming
+    - sensor.ring_side_gate_battery
+    - sensor.sabnzbd_disk_free
+    - sensor.sabnzbd_disk
+    - sensor.sabnzbd_left
+    - sensor.sonarr_upcoming
+    - sensor.waqi_reseda_los_angeles
+    - sensor.washer_formaldehyde_ch20_level
+    - sensor.washer_interval
+    - sensor.washer_interval_2
+    - sensor.washer_relative_humidity
+    - sensor.washer_velocity
+    - sensor.yr_symbol
+    - switch.dryer_switch
+    - switch.washer_switch
+    - timer.door_lock
 
 sun:
 
