@@ -5013,3 +5013,29 @@
     entity_id: input_boolean.night_mode
     state: 'off'
   - service: shell_command.sous_vide_temp_ready
+
+################################################
+#
+#      Bottle Warmer Automations
+#
+################################################
+
+- alias: Notify bottle warmer completed
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.bottle_warmer
+    below: 5
+  action:
+  - service: notify.discord
+    data_template:
+      message: "Bottle warmer is done"
+      target:
+      - !secret discord_house
+  - service: notify.den
+    data_template:
+      data:
+        color: red
+        duration: 10
+        position: center
+      message: "Bottle warmer is done"
+      title: Shokabow Zoo

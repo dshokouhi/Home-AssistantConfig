@@ -1274,6 +1274,7 @@ shell_command:
   blueiris_dnd: !secret blueiris_dnd
   adb_connect: '/usr/bin/adb connect {{ ip_adb }}'
   sous_vide_temp_ready: curl -X POST http://192.168.1.47:3000/customBroadcast?text=sous+vide+is+ready+at+{{ state_attr('climate.sous_vide', 'current_temperature') }}&user=hass-broadcast
+  bottle_warmer_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=bottle+warmer+completed&user=hass-broadcast
 
 rachio:
   api_key: !secret rachiokey

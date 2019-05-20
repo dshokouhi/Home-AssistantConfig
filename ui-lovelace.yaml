@@ -229,15 +229,21 @@ views:
         #fan_control: true
         min_slider: 60
         max_slider: 80
-      - type: entities
-        title: Sous Vide
-        id: sousvide
-        show_header_toggle: false
-        entities:
+      - type: conditional
+        id: sousvidecond
+        conditions:
           - entity: climate.sous_vide
-            secondary_info: last-changed
-          - entity: sensor.sous_vide_timer
-          - entity: switch.sous_vide_timer
+            state_not: 'disconnected'
+        card:
+          type: entities
+          title: Sous Vide
+          id: sousvide
+          show_header_toggle: false
+          entities:
+            - entity: climate.sous_vide
+              secondary_info: last-changed
+            - entity: sensor.sous_vide_timer
+            - entity: switch.sous_vide_timer
   - title: Room
     path: room
     icon: mdi:home-modern
