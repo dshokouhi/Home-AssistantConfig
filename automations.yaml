@@ -544,6 +544,33 @@
     state: 'off'
   - service: shell_command.front_door_jammed
 
+- alias: Notify Catio Door Left Open
+  trigger:
+    platform: state
+    entity_id: binary_sensor.catio_firepit_door, binary_sensor.catio_pool_door
+    to: 'on'
+    for:
+      seconds: 30
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
+    - condition: state
+      entity_id: input_boolean.gardener
+      state: 'off'
+  action:
+  - service: notify.discord
+    data_template:
+      message: "{{ trigger.to_state.attributes.friendly_name }} has been left open for 30 seconds"
+      target:
+      - !secret discord_house
+  - service: tts.google_say
+    entity_id: media_player.den_home_hub
+    data_template:
+      message: "{{ trigger.to_state.attributes.friendly_name }} has been left open, please close it"
+
 ################################################
 #
 #      Alarm automations and notifications
@@ -4853,7 +4880,17 @@
     entity_id: sensor.cat_litter_luminance
     above: 50
   action:
-    service: input_boolean.turn_on
+  - service_template: >-
+            {% if is_state('input_boolean.cat_litter_cleaned', 'off') %}
+              input_boolean.turn_on
+            {% else %}
+              input_boolean.turn_off
+            {% endif %}
+    entity_id: input_boolean.cat_litter_cleaned
+  - condition: state
+    entity_id: input_boolean.cat_litter_cleaned
+    state: 'off'
+  - service: input_boolean.turn_on
     entity_id: input_boolean.cat_litter_cleaned
 
 - alias: Clean the cat litter
@@ -5039,3 +5076,7 @@
         position: center
       message: "Bottle warmer is done"
       title: Shokabow Zoo
+  - condition: state
+    entity_id: input_boolean.night_mode
+    state: 'off'
+  - service: shell_command.bottle_warmer_completed
