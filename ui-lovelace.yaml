@@ -100,6 +100,7 @@ views:
             - entity_id: sensor.bbq1_temperature
             - entity_id: sensor.pws_temp_f
             - entity_id: sensor.shokabow_weather_temperature
+            - entity_id: "*octoprint*"
         show_empty: false
       - type: entity-filter
         id: people
