@@ -1383,3 +1383,10 @@ climate:
     temperature_command_topic: anova/command/temp
     min_temp: 77
     max_temp: 210
+
+octoprint:
+  host: 192.168.1.91
+  api_key: !secret octoprint_api
+  port: 5000
+  bed: true
+  number_of_tools: 1
