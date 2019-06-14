@@ -702,6 +702,12 @@ google_assistant:
       expose: false
     script.stop_den_curtains:
       expose: false
+    script.close_nursery_curtains:
+      expose: false
+    script.open_nursery_curtains:
+      expose: false
+    script.stop_nursery_curtains:
+      expose: false
     script.kitchen_tv_on:
       expose: false
     script.kitchen_tv_off:
@@ -1013,6 +1019,41 @@ google_assistant:
       room: Office
     binary_sensor.windows:
       expose: false
+    sensor.den_air_purifier_temp:
+      expose: true
+      room: Den
+    sensor.bedroom_air_purifier_temp:
+      expose: true
+      room: Bedroom
+    sensor.office_air_purifier_temp:
+      expose: true
+      aliases:
+      - Nursery Air Purifier
+      room: Office
+    sensor.living_room_air_purifier_temp:
+      expose: true
+      room: "Living Room"
+    sensor.bathroom_temperature:
+      expose: true
+      room: Bathroom
+    sensor.kitchen_window:
+      expose: true
+      room: Kitchen
+    sensor.shokabow_weather_temperature:
+      expose: true
+      aliases:
+      - Weather Station
+      room: Patio
+    sensor.bbq1_temperature:
+      expose: true
+      aliases:
+      - Smoker
+      - BBQ
+      room: Patio
+    climate.sous_vide:
+      expose: false
+    switch.sous_vide_timer:
+      expose: false
 
 namecheapdns:
   host: plex
@@ -1275,6 +1316,7 @@ shell_command:
   adb_connect: '/usr/bin/adb connect {{ ip_adb }}'
   sous_vide_temp_ready: curl -X POST http://192.168.1.47:3000/customBroadcast?text=sous+vide+is+ready+at+{{ state_attr('climate.sous_vide', 'current_temperature') }}&user=hass-broadcast
   bottle_warmer_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=bottle+warmer+completed&user=hass-broadcast
+  printing_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=printing+completed&user=hass-broadcast
 
 rachio:
   api_key: !secret rachiokey
