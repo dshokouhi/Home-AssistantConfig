@@ -8,6 +8,16 @@ views:
       - sun.sun
       - sensor.yr_symbol
     cards:
+      - type: "custom:monster-card"
+        id: weight
+        card:
+          type: glance
+          title: Weight sensor
+        filter:
+          include:
+            - entity_id: sensor.hx711_value
+              state: '> 2'
+        show_empty: false
       - type: entity-filter
         id: leaks
         card:
@@ -152,6 +162,7 @@ views:
         title: Den
         show_header_toggle: false
         entities:
+          - light.bookshelf_left
           - light.corner_lamp
           - switch.den_fan
           - light.den_lights_level

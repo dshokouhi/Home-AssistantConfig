@@ -5080,3 +5080,30 @@
     entity_id: input_boolean.night_mode
     state: 'off'
   - service: shell_command.bottle_warmer_completed
+
+################################################
+#
+#      Weight Sensor Automations
+#
+################################################
+
+- alias: Weight Sensor
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.hx711_value
+    above: 2
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: disarmed
+  action:
+  - service: light.turn_on
+    entity_id: light.bookshelf_left
+  - wait_template: "{{ is_state('sensor.hx711_value', '0') }}"
+  - service: light.turn_off
+    entity_id: light.bookshelf_left
