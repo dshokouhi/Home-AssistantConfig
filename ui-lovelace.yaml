@@ -434,10 +434,10 @@ views:
         cards:
           - type: gauge
             name: BI RAM Used
-            entity: sensor.blue_iris_ram_used
+            entity: sensor.blue_iris_ram_used_percent
           - type: gauge
             name: BI Disk Used
-            entity: sensor.blue_iris_disk_used
+            entity: sensor.blue_iris_disk_used_percent
           - type: gauge
             name: BI CPU Used
             entity: sensor.blue_iris_cpu_used
@@ -446,10 +446,10 @@ views:
         cards:
           - type: gauge
             name: Den Pi RAM Used
-            entity: sensor.den_pi_ram_used
+            entity: sensor.den_pi_ram_used_percent
           - type: gauge
             name: Den Pi Disk Used
-            entity: sensor.den_pi_disk_used
+            entity: sensor.den_pi_disk_used_percent
           - type: gauge
             name: Den Pi CPU Used
             entity: sensor.den_pi_cpu_used
@@ -458,10 +458,10 @@ views:
         cards:
           - type: gauge
             name: Plex RAM Used
-            entity: sensor.media_server_ram_used
+            entity: sensor.media_server_ram_used_percent
           - type: gauge
             name: Plex Disk Used
-            entity: sensor.media_server_disk_used
+            entity: sensor.media_server_disk_used_percent
           - type: gauge
             name: Plex CPU Used
             entity: sensor.media_server_cpu_used
@@ -470,10 +470,10 @@ views:
         cards:
           - type: gauge
             name: Pi Hole RAM Used
-            entity: sensor.pi_hole_ram_used
+            entity: sensor.pi_hole_ram_used_percent
           - type: gauge
             name: Pi Hole Disk Used
-            entity: sensor.pi_hole_disk_used
+            entity: sensor.pi_hole_disk_used_percent
           - type: gauge
             name: Pi Hole CPU Used
             entity: sensor.pi_hole_cpu_used
@@ -482,10 +482,10 @@ views:
         cards:
           - type: gauge
             name: Sab RAM Used
-            entity: sensor.tosh_w10_ram_used
+            entity: sensor.tosh_w10_ram_used_percent
           - type: gauge
             name: Sab Disk Used
-            entity: sensor.tosh_w10_disk_used
+            entity: sensor.tosh_w10_disk_used_percent
           - type: gauge
             name: Sab CPU Used
             entity: sensor.tosh_w10_cpu_used
@@ -494,10 +494,10 @@ views:
         cards:
           - type: gauge
             name: Vostros RAM Used
-            entity: sensor.vostros_ram_used
+            entity: sensor.vostros_ram_used_percent
           - type: gauge
             name: Vostros Disk Used
-            entity: sensor.vostros_disk_used
+            entity: sensor.vostros_disk_used_percent
           - type: gauge
             name: Vostros CPU Used
             entity: sensor.vostros_cpu_used
@@ -879,6 +879,9 @@ views:
       - type: weather-forecast
         entity: weather.dark_sky
         id: darksky
+      - type: weather-forecast
+        entity: weather.home
+        id: metno
       - type: iframe
         aspect_ratio: 90%
         url: https://embed.windy.com/embed2.html?wind,34.198,-118.522,10
