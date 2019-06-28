@@ -5063,8 +5063,9 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.bottle_warmer
-    below: 5
+    above: 5
   action:
+  - wait_template: "{{ states('sensor.bottle_warmer') | int < 5 }}"
   - service: notify.discord
     data_template:
       message: "Bottle warmer is done"

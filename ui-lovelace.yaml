@@ -579,8 +579,8 @@ views:
           - entity: sensor.octoprint_current_state
             secondary_info: last-changed
           - sensor.octoprint_job_percentage
-          - sensor.octoprint_time_remaining
-          - sensor.octoprint_time_elapsed
+          - sensor.octoprint_time_remaining_format
+          - sensor.octoprint_time_elapsed_format
           - sensor.octoprint_actual_bed_temp
           - sensor.octoprint_target_bed_temp
           - sensor.octoprint_actual_tool0_temp

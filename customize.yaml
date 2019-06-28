@@ -610,3 +610,9 @@ binary_sensor.catio_firepit_door:
 
 binary_sensor.catio_pool_door:
   device_class: door
+
+sensor.octoprint_time_remaining_format:
+  icon: mdi:timer
+
+sensor.octoprint_time_elapsed_format:
+  icon: mdi:timer
