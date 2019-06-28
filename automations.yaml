@@ -5029,9 +5029,11 @@
     platform: state
     entity_id: climate.sous_vide
     to: 'running'
-    for:
-      minutes: 1
+  condition:
+    condition: template
+    value_template: "{{ state_attr('climate.sous_vide', 'current_temperature') != state_attr('climate.sous_vide', 'temperature') }}"
   action:
+  - delay: "00:02:00"
   - wait_template: "{{ state_attr('climate.sous_vide', 'current_temperature') == state_attr('climate.sous_vide', 'temperature') }}"
   - service: notify.discord
     data_template:
