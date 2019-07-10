@@ -301,6 +301,16 @@ recorder:
     - switch.dryer_switch
     - switch.washer_switch
     - timer.door_lock
+    - sensor.octoprint_actual_bed_temp
+    - sensor.octoprint_actual_tool0_temp
+    - sensor.octoprint_current_state
+    - sensor.octoprint_job_percentage
+    - sensor.octoprint_target_bed_temp
+    - sensor.octoprint_target_tool0_temp
+    - sensor.octoprint_time_elapsed
+    - sensor.octoprint_time_elapsed_format
+    - sensor.octoprint_time_remaining
+    - sensor.octoprint_time_remaining_format
 
 sun:
 
@@ -1376,27 +1386,6 @@ image_processing:
 
 speedtestdotnet:
   manual: true
-
-googlehome:
-  devices:
-  - host: 192.168.1.89
-    track_devices: False
-    track_alarms: True
-  - host: 192.168.1.13
-    track_devices: False
-    track_alarms: True
-  - host: 192.168.1.50
-    track_devices: False
-    track_alarms: True
-  - host: 192.168.1.43
-    track_devices: False
-    track_alarms: True
-  - host: 192.168.1.49
-    track_devices: False
-    track_alarms: True
-  - host: 192.168.1.45
-    track_devices: False
-    track_alarms: True
 
 weather:
   - platform: darksky

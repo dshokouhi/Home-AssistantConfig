@@ -2256,6 +2256,20 @@
   - service: switch.turn_on
     entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
     
+- alias: Goodnight from google home
+  trigger:
+    platform: event
+    event_type: call_service
+    event_data:
+      service_data:
+        entity_id: scene.goodnight
+      domain: scene
+      service: turn_on
+  action:
+  - delay: "00:00:05"
+  - service: light.turn_on
+    entity_id: light.toshs
+    
 - alias: Turn off thermostat if left on during night mode
   trigger:
   - platform: state
