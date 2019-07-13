@@ -4126,7 +4126,7 @@
           {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
             Turkey is almost done
           {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-            Tritip is almost done
+            Tri-tip is almost done
           {%- else -%}
           {%- endif %}
       target:
@@ -4150,7 +4150,7 @@
           {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
             Turkey is almost done
           {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-            Tritip is almost done
+            Tri-tip is almost done
           {%- else -%}
           {%- endif %}
   - service: shell_command.bbq_almost
@@ -4226,7 +4226,7 @@
           {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
             Turkey is done
           {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-            Tritip is done
+            Tri-tip is done
           {%- else -%}
           {%- endif %}
       target:
@@ -4250,7 +4250,7 @@
           {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
             Turkey is done
           {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-            Tritip is done
+            Tri-tip is done
           {%- else -%}
           {%- endif %}
   - service: shell_command.bbq_done
@@ -4294,7 +4294,7 @@
        {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
          Turkey is done
        {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-         Tritip is done
+         Tri-tip is done
        {%- else -%}
        {%- endif %}
       title: Shokabow Zoo

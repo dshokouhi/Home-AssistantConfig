@@ -1316,8 +1316,8 @@ shell_command:
   boogie_help: curl -X POST http://192.168.1.47:3000/customBroadcast?text=boogie+i+need+help+outside&user=hass-broadcast
   water_heater_leak: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+water+heater+is+leaking&user=hass-broadcast
   rain_water_heater: curl -X POST http://192.168.1.47:3000/customBroadcast?text=there+is+rain+getting+into+the+water+heater&user=hass-broadcast
-  bbq_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}brisket+is+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+done{% elif is_state("input_select.bbq_probe1", "Turkey") -%}turkey+is+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+done{%- else -%}{%- endif %}&user=hass-broadcast
-  bbq_almost: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+almost+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}brisket+is+almost+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+almost+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+almost+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+almost+done{% elif is_state("input_select.bbq_probe1", "Turkey") -%}turkey+is+almost+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tritip+is+almost+done{%- else -%}{%- endif %}&user=hass-broadcast
+  bbq_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}brisket+is+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+done{% elif is_state("input_select.bbq_probe1", "Turkey") -%}turkey+is+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tri-tip+is+done{%- else -%}{%- endif %}&user=hass-broadcast
+  bbq_almost: curl -X POST http://192.168.1.47:3000/customBroadcast?text={% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}beef+ribs+are+almost+done{% elif is_state("input_select.bbq_probe1", "Brisket") -%}brisket+is+almost+done{% elif is_state("input_select.bbq_probe1", "Chicken") -%}chicken+is+almost+done{% elif is_state("input_select.bbq_probe1", "Fish") -%}fish+is+almost+done{% elif is_state("input_select.bbq_probe1", "Steak") -%}steak+is+almost+done{% elif is_state("input_select.bbq_probe1", "Turkey") -%}turkey+is+almost+done{% elif is_state("input_select.bbq_probe1", "Tritip") -%}tri-tip+is+almost+done{%- else -%}{%- endif %}&user=hass-broadcast
   timer_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text={{ friendly_name }}+completed&user=hass-broadcast
   blueiris_home: !secret blueiris_home
   blueiris_night: !secret blueiris_night
@@ -1421,3 +1421,6 @@ octoprint:
   port: 5000
   bed: true
   number_of_tools: 1
+
+hacs:
+  token: !secret github_api
