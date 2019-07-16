@@ -531,14 +531,14 @@
    host: 192.168.1.60
    port: 8181/stats
 
- - platform: glances
-   host: 192.168.1.30
-   name: Vostros
-   version: 3
-   resources:
-   - disk_use_percent
-   - memory_use_percent
-   - cpu_use_percent
+ # - platform: glances
+   # host: 192.168.1.30
+   # name: Vostros
+   # version: 3
+   # resources:
+   # - disk_use_percent
+   # - memory_use_percent
+   # - cpu_use_percent
 
  - platform: glances
    host: 192.168.1.24

@@ -153,7 +153,7 @@ views:
           - switch.blue_iris
           - switch.plex
           - switch.tosh_w10
-          - switch.vostros
+          #- switch.vostros
         state_filter:
           - 'off'
         show_empty: false
@@ -489,18 +489,18 @@ views:
           - type: gauge
             name: Sab CPU Used
             entity: sensor.tosh_w10_cpu_used
-      - type: horizontal-stack
-        id: vostros-pc
-        cards:
-          - type: gauge
-            name: Vostros RAM Used
-            entity: sensor.vostros_ram_used_percent
-          - type: gauge
-            name: Vostros Disk Used
-            entity: sensor.vostros_disk_used_percent
-          - type: gauge
-            name: Vostros CPU Used
-            entity: sensor.vostros_cpu_used
+      # - type: horizontal-stack
+        # id: vostros-pc
+        # cards:
+          # - type: gauge
+            # name: Vostros RAM Used
+            # entity: sensor.vostros_ram_used_percent
+          # - type: gauge
+            # name: Vostros Disk Used
+            # entity: sensor.vostros_disk_used_percent
+          # - type: gauge
+            # name: Vostros CPU Used
+            # entity: sensor.vostros_cpu_used
       - type: glance
         id: speed
         title: Speed Test
