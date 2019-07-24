@@ -777,12 +777,12 @@
   - platform: state
     entity_id: binary_sensor.garage_frontyard
     to: 'on'
-  - platform: state
-    entity_id: sensor.bay_window_shock_alarm_level
-    to: '255'
-  - platform: state
-    entity_id: sensor.bay_window_shock_burglar
-    to: '2'
+  # - platform: state
+    # entity_id: sensor.bay_window_shock_alarm_level
+    # to: '255'
+  # - platform: state
+    # entity_id: sensor.bay_window_shock_burglar
+    # to: '2'
   condition:
     condition: state
     entity_id: alarm_control_panel.home
@@ -1233,12 +1233,12 @@
   - platform: state
     entity_id: binary_sensor.garage_frontyard
     to: 'on'
-  - platform: state
-    entity_id: sensor.bay_window_shock_alarm_level
-    to: '255'
-  - platform: state
-    entity_id: sensor.bay_window_shock_burglar
-    to: '2'
+  # - platform: state
+    # entity_id: sensor.bay_window_shock_alarm_level
+    # to: '255'
+  # - platform: state
+    # entity_id: sensor.bay_window_shock_burglar
+    # to: '2'
   condition:
     condition: and
     conditions:
@@ -2850,6 +2850,9 @@
   - condition: state
     entity_id: sensor.inside_outside_temp
     state: 'True'
+  - condition: state
+    entity_id: input_boolean.night_mode
+    state: 'off'
   - service: notify.discord
     data_template:
       message: "Please open a window and turn off the thermostat.  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ states('sensor.shokabow_weather_temperature') }} {{ state_attr('sensor.shokabow_weather_temperature', 'unit_of_measurement') }} outside."
