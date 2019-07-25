@@ -369,7 +369,7 @@
      inside_outside_temp:
        friendly_name: Inside vs Outside Temperature
        value_template: >-
-         {% if states('sensor.thermostat_temperature') > states('sensor.shokabow_weather_temperature') %}
+         {% if states('sensor.thermostat_temperature') | int > states('sensor.shokabow_weather_temperature') | int %}
            True
          {% else %}
            False

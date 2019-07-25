@@ -631,7 +631,7 @@ cast_cameras:
             {% elif is_state("input_select.cameras", "Garage Side Gate") %}
               camera.garage_side_gate
             {% elif is_state("input_select.cameras", "Kitchen") %}
-              camera.kitchen_camera
+              camera.kitchen
             {% elif is_state("input_select.cameras", "Kitchen Side Gate") %}
               camera.kitchen_side_gate
             {% elif is_state("input_select.cameras", "Living Room") %}

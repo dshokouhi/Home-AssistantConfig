@@ -701,8 +701,8 @@
   action:
   - service: camera.snapshot
     data:
-      entity_id: camera.baby_monitor
-      filename: '/home/homeassistant/.homeassistant/snapshot/baby_monitor.jpg'
+      entity_id: camera.kitchen
+      filename: '/home/homeassistant/.homeassistant/snapshot/kitchen.jpg'
   # - service: notify.chrome
     # data:
       # message: "Alarm Tripped!! Check Slack for kitchen snapshot"
@@ -713,7 +713,7 @@
       message: "Kitchen camera triggered snapshot"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/baby_monitor.jpg"
+          path: "/home/homeassistant/.homeassistant/snapshot/kitchen.jpg"
   - service: notify.discord
     data_template:
       message: "Kitchen camera triggered snapshot"
@@ -721,7 +721,7 @@
       - !secret discord_alarm
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/baby_monitor.jpg"
+        - "/home/homeassistant/.homeassistant/snapshot/kitchen.jpg"
   - service: hangouts.send_message
     data:
       target:
@@ -729,12 +729,12 @@
       message:
       - text: "Kitchen camera triggered snapshot"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/baby_monitor.jpg"
+        image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen.jpg"
   - service: switch.turn_on
-    entity_id: switch.baby_monitor_state
+    entity_id: switch.kitchen_state
   - delay: "00:00:30"
   - service: switch.turn_off
-    entity_id: switch.baby_monitor_state
+    entity_id: switch.kitchen_state
 
 - alias: Alarm Tripped
   trigger:
@@ -1382,7 +1382,7 @@
       entity_id: input_boolean.night_mode
       state: 'off'
     - condition: state
-      entity_id: input_boolean.sleeping
+      entity_id: input_boolean.baby_sleeping
       state: 'off'
   action:
   - service: light.turn_on
@@ -3645,7 +3645,7 @@
 - alias: Turn off kitchen lights when no motion
   trigger:
     platform: state
-    entity_id: binary_sensor.baby_monitor_motion_detected
+    entity_id: binary_sensor.kitchen_motion_detected
     to: 'off'
     for:
       minutes: 4
@@ -3710,7 +3710,7 @@
       entity_id: binary_sensor.office_motion
       state: 'off'
     - condition: state
-      entity_id: input_boolean.sleeping
+      entity_id: input_boolean.baby_sleeping
       state: 'off'
   action:
     service: light.turn_off
@@ -3734,7 +3734,7 @@
       entity_id: group.tracked_users
       state: 'home'
     - condition: state
-      entity_id: input_boolean.sleeping
+      entity_id: input_boolean.baby_sleeping
       state: 'off'
   action:
     service: light.turn_on
@@ -4649,7 +4649,7 @@
 - alias: Notify image processing
   trigger:
     platform: state
-    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_kitchen_side_gate
+    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_kitchen_side_gate, image_processing.tensorflow_kitchen
   condition:
     condition: template
     value_template: '{{ trigger.to_state.state |int > 0 }}'
@@ -4702,7 +4702,7 @@
 - alias: Image processing in kitchen on motion when someone is home and awake
   trigger:
     platform: state
-    entity_id: binary_sensor.baby_monitor_motion_detected
+    entity_id: binary_sensor.kitchen_motion_detected
     to: 'on'
   condition:
     condition: and
@@ -4728,7 +4728,7 @@
   action:
   - service: image_processing.scan
     data:
-      entity_id: image_processing.tensorflow_baby_monitor
+      entity_id: image_processing.tensorflow_kitchen
 
 - alias: Image processing in living room on motion when someone is home and awake
   trigger:
@@ -4761,7 +4761,7 @@
 - alias: Turn on lights when person detected
   trigger:
     platform: state
-    entity_id: image_processing.tensorflow_baby_monitor, image_processing.tensorflow_living_room_camera
+    entity_id: image_processing.tensorflow_kitchen, image_processing.tensorflow_living_room_camera
   condition:
     condition: template
     value_template: '{{ trigger.to_state.state |int > 0 }}'
@@ -4769,7 +4769,7 @@
   - service: light.turn_on
     data_template:
       entity_id: >
-             {% if trigger.entity_id == 'image_processing.tensorflow_baby_monitor' %}
+             {% if trigger.entity_id == 'image_processing.tensorflow_kitchen' %}
                light.kitchen_lights_level
              {% elif trigger.entity_id == 'image_processing.tensorflow_living_room_camera' %}
                light.living_room_lights_level

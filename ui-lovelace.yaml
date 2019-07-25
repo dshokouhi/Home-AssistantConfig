@@ -164,6 +164,7 @@ views:
         entities:
           - light.bookshelf_left
           - light.corner_lamp
+          - cover.den_curtains
           - switch.den_fan
           - light.den_lights_level
           - entity: binary_sensor.den_camera_motion_detected
@@ -182,7 +183,7 @@ views:
           - light.counter_lights
           - switch.island_lights_switch
           - light.kitchen_lights_level
-          - entity: binary_sensor.baby_monitor_motion_detected
+          - entity: binary_sensor.kitchen_motion_detected
             name: Kitchen Motion
             secondary_info: last-changed
           - switch.kitchen_tv
@@ -192,6 +193,7 @@ views:
         id: lr
         show_header_toggle: false
         entities:
+          - cover.bay_window_curtains
           - light.front_door_lamp
           - entity: lock.front_door_lock_locked
             secondary_info: last-changed
@@ -266,6 +268,7 @@ views:
         show_header_toggle: false
         entities:
           - light.bedroom_closet
+          - cover.bedroom_curtains
           - switch.bedroom_fan
           - light.bedroom_lights_level
           - entity: binary_sensor.bedroom_motion_sensor
@@ -276,7 +279,7 @@ views:
           - remote.harmony_hub_bedroom
           - light.toshs
       - type: entities
-        title: Bathroom, Hallway & Office
+        title: Bathroom & Hallway
         id: bathoffice
         show_header_toggle: false
         entities:
@@ -286,13 +289,24 @@ views:
             name: Hallway Motion
             secondary_info: last-changed
           - switch.house_fan
-          - switch.nursery_fan
-          - switch.nursery_tv
-          - light.office_closet
-          - light.office_lights
-          - entity: binary_sensor.office_motion
-            name: Office Motion
+      - type: entities
+        title: Nursery
+        id: nursery
+        show_header_toggle: false
+        entities:
+          - entity: binary_sensor.baby_monitor_motion_detected
+            name: Baby Monitor Motion
             secondary_info: last-changed
+          - entity: light.office_closet
+            name: Nursery Closet
+          - cover.nursery_curtains
+          - switch.nursery_fan
+          - entity: light.office_lights
+            name: Nursery Lights
+          - entity: binary_sensor.office_motion
+            name: Nursery Motion
+            secondary_info: last-changed
+          - switch.nursery_tv
       - type: horizontal-stack
         id: power
         cards:
@@ -362,6 +376,7 @@ views:
         title: House Settings
         show_header_toggle: false
         entities:
+          - input_boolean.baby_sleeping
           - input_boolean.cleaning_mode
           - input_boolean.gardener
           - input_boolean.guest_mode
@@ -595,6 +610,7 @@ views:
           - switch.frontyard_side_gate_state
           - switch.garage_state
           - switch.garage_side_gate_state
+          - switch.kitchen_state
           - switch.kitchen_side_gate_state
           - switch.living_room_state
           - switch.patio_state
@@ -670,6 +686,8 @@ views:
       - type: picture-entity
         entity: camera.garage_side_gate
       - type: picture-entity
+        entity: camera.kitchen
+      - type: picture-entity
         entity: camera.kitchen_side_gate
       - type: picture-entity
         entity: camera.living_room_camera
@@ -704,6 +722,8 @@ views:
       - type: picture-entity
         entity: camera.baby_monitor_scan
       - type: picture-entity
+        entity: camera.kitchen_scan
+      - type: picture-entity
         entity: camera.living_room_scan
       - type: picture-entity
         entity: camera.garage_scan
@@ -725,6 +745,13 @@ views:
               service: image_processing.scan
               service_data:
                 entity_id: image_processing.tensorflow_den_camera
+          - entity: image_processing.tensorflow_kitchen
+            name: Kitchen
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_kitchen
           - entity: image_processing.tensorflow_frontyard_driveway
             name: Driveway
             hold_action:

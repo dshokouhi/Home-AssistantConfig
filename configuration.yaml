@@ -251,6 +251,7 @@ recorder:
     - switch.frontyard_driveway_state
     - switch.frontyard_side_gate_state
     - switch.garage_state
+    - switch.kitchen_state
     - switch.kitchen_side_gate_state
     - switch.living_room_state
     - switch.mr_neato_schedule
@@ -527,6 +528,16 @@ amcrest:
    binary_sensors:
    - motion_detected
 
+ - host: 192.168.1.162
+   port: 1029
+   username: !secret amcrest_user
+   password: !secret amcrest_pass
+   name: "Kitchen"
+   resolution: high
+   stream_source: rtsp
+   binary_sensors:
+   - motion_detected
+
 camera:
  - platform: generic
    still_image_url: !secret garage_side_gate_image
@@ -580,6 +591,10 @@ camera:
  - platform: local_file
    name: Baby Monitor Scan
    file_path: /home/homeassistant/.homeassistant/snapshot/baby_monitor_latest.jpg
+
+ - platform: local_file
+   name: Kitchen Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/kitchen_latest.jpg
 
  - platform: local_file
    name: Living Room Scan
@@ -844,6 +859,9 @@ google_assistant:
     input_boolean.sleeping:
       expose: true
       room: "no group"
+    input_boolean.baby_sleeping:
+      expose: true
+      room: Nursery
     script.den_alarm:
       expose: false
     script.kitchen_alarm:
@@ -967,6 +985,8 @@ google_assistant:
     camera.den_camera:
       room: Den
     camera.baby_monitor:
+      room: Nursery
+    camera.kitchen:
       room: Kitchen
     camera.living_room_camera:
       room: "Living Room"
@@ -979,6 +999,8 @@ google_assistant:
     cover.nursery_curtains:
       room: Nursery
     camera.baby_monitor_scan:
+      expose: false
+    camera.kitchen_scan:
       expose: false
     camera.de_scan:
       expose: false
@@ -1364,6 +1386,7 @@ image_processing:
       - entity_id: camera.kitchen_side_gate
       - entity_id: camera.living_room_camera
       - entity_id: camera.patio
+      - entity_id: camera.kitchen
     scan_interval: 604800
     file_out:
       - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"

@@ -91,3 +91,7 @@ cat_litter_cleaned:
 sleeping:
   name: Sleeping
   icon: mdi:sleep
+
+baby_sleeping:
+  name: Baby Sleeping
+  icon: mdi:sleep

@@ -374,5 +374,5 @@ zha:
   - zha.office_door
   - zha.office_window
   - zha.dishwasher
-  - zha.smart_plug
+  - zha.bottle_warmer
   - zha.pool_pump
