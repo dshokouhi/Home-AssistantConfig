@@ -951,16 +951,6 @@ views:
           type: entities
           title: All Z-wave Devices
           show_header_toggle: false
-      - type: "custom:monster-card"
-        title: All ZHA Devices
-        id: automations
-        filter:
-          include:
-            - domain: zha
-        card:
-          type: entities
-          title: All ZHA Devices
-          show_header_toggle: false
   - icon: mdi:settings
     title: Settings
     path: settings
@@ -1089,5 +1079,5 @@ views:
 resources:
   - url: /local/monster-card.js?v=0.2.3
     type: js
-  - url: /local/dual-thermostat.js?v=1.1
+  - url: /local/dual-thermostat.js?v=1.2
     type: js

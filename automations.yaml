@@ -1666,18 +1666,18 @@
   - service: climate.set_temperature
     data:
       entity_id: climate.thermostat_heating_1
-      #operation_mode: Heat
+      #hvac_mode: Heat
       temperature: 70
-  - service: climate.set_operation_mode
+  - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat_heating_1
-      operation_mode: 'heat'
+      hvac_mode: 'heat'
   - wait_template: "{{ state_attr('climate.thermostat_heating_1', 'temperature') == states('sensor.thermostat_temperature') | int }}"
   - delay: "00:01:00"
-  - service: climate.set_operation_mode
+  - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat_heating_1
-      operation_mode: 'off'
+      hvac_mode: 'off'
 
 - alias: Den lights on between 4 and 8am
   trigger:
@@ -2153,7 +2153,7 @@
     entity_id: binary_sensor.bathroom_window
     to: 'on'
   - platform: template
-    value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode != 'off' }}"
+    value_template: "{{ states.climate.thermostat_heating_1.attributes.hvac_mode != 'off' }}"
   condition:
     condition: and
     conditions:
@@ -2161,7 +2161,7 @@
       entity_id: binary_sensor.windows
       state: 'on'
     - condition: template
-      value_template: "{{ states.climate.thermostat_heating_1.attributes.operation_mode != 'off' }}"
+      value_template: "{{ states.climate.thermostat_heating_1.attributes.hvac_mode != 'off' }}"
     - condition: state
       entity_id: input_boolean.night_mode
       state: 'off'
@@ -2290,10 +2290,10 @@
   action:
   - delay: "00:01:00"
   - wait_template: "{{ states('sensor.thermostat_temperature')|int <= state_attr('climate.thermostat_cooling_1', 'temperature') }}"
-  - service: climate.set_operation_mode
+  - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat_cooling_1
-      operation_mode: 'off'
+      hvac_mode: 'off'
 
 - alias: Cool down house while sleeping
   trigger:
@@ -2317,10 +2317,10 @@
     data:
       entity_id: climate.thermostat_cooling_1
       temperature: 74
-  - service: climate.set_operation_mode
+  - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat_cooling_1
-      operation_mode: 'cool'
+      hvac_mode: 'cool'
 
 ##################################################
 #
@@ -2553,13 +2553,24 @@
 
 - alias: Notify zha device died
   trigger:
-    platform: template
-    value_template: >
-      {%- for state in states.zha -%}
-        {%- if state.state == "unavailable" -%}
-          true
-        {%- endif -%}
-      {%- endfor -%}
+    platform: state
+    entity_id:
+    - sensor.bathroom_window
+    - sensor.bedroom_window
+    - sensor.bedroom_closet_door
+    - sensor.kitchen_window
+    - sensor.living_room_left_bay_window
+    - sensor.living_room_right_bay_window
+    - sensor.front_door
+    - sensor.living_room_side_window
+    - sensor.den_window
+    - sensor.den_sliding_door
+    - sensor.office_closet_door
+    - sensor.office_door
+    - sensor.office_window
+    - sensor.dishwasher
+    - sensor.bottle_warmer
+    - sensor.pool_pump
   action:
   # - service: notify.chrome
     # data_template:
@@ -2771,12 +2782,12 @@
   - service: climate.set_temperature
     data:
       entity_id: climate.thermostat_cooling_1
-      #operation_mode: 'Cool'
+      #hvac_mode: 'Cool'
       temperature: 78
-  - service: climate.set_operation_mode
+  - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat_cooling_1
-      operation_mode: 'cool'
+      hvac_mode: 'cool'
 
 - alias: Set thermostat cooling if on and house is armed
   trigger:
@@ -2871,20 +2882,20 @@
     entity_id: sensor.thermostat_temperature
     below: 63
   action:
-  - service: climate.set_operation_mode
+  - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat_heating_1
-      operation_mode: 'heat'
+      hvac_mode: 'heat'
   - service: climate.set_temperature
     data:
       entity_id: climate.thermostat_heating_1
       temperature: 67
   - wait_template: "{{ state_attr('climate.thermostat_heating_1', 'temperature') == states('sensor.thermostat_temperature') | int }}"
   - delay: "00:01:00"
-  - service: climate.set_operation_mode
+  - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat_heating_1
-      operation_mode: 'off'
+      hvac_mode: 'off'
 
 ################################################
 #

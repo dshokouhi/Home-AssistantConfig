@@ -360,19 +360,19 @@ monitored_contacts:
 zha:
   name: zha
   entities:
-  - zha.bathroom_window
-  - zha.bedroom_window
-  - zha.bedroom_closet_door
-  - zha.kitchen_window
-  - zha.living_room_left_bay_window
-  - zha.living_room_right_bay_window
-  - zha.front_door
-  - zha.living_room_side_window
-  - zha.den_window
-  - zha.den_sliding_door
-  - zha.office_closet_door
-  - zha.office_door
-  - zha.office_window
-  - zha.dishwasher
-  - zha.bottle_warmer
-  - zha.pool_pump
+  - sensor.bathroom_window
+  - sensor.bedroom_window
+  - sensor.bedroom_closet_door
+  - sensor.kitchen_window
+  - sensor.living_room_left_bay_window
+  - sensor.living_room_right_bay_window
+  - sensor.front_door
+  - sensor.living_room_side_window
+  - sensor.den_window
+  - sensor.den_sliding_door
+  - sensor.office_closet_door
+  - sensor.office_door
+  - sensor.office_window
+  - sensor.dishwasher
+  - sensor.bottle_warmer
+  - sensor.pool_pump
