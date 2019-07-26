@@ -88,9 +88,9 @@ cat_litter_cleaned:
   name: Cat Litter Cleaned
   icon: mdi:cat
 
-sleeping:
-  name: Sleeping
-  icon: mdi:sleep
+guest_sleeping:
+  name: Guest Sleeping
+  icon: mdi:bell-sleep
 
 baby_sleeping:
   name: Baby Sleeping

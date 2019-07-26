@@ -781,6 +781,8 @@ google_assistant:
       expose: false
     light.office_closet:
       expose: false
+    light.nursery_speaker_plug:
+      expose: false
     switch.living_room_camera_plug_switch:
       expose: false
     light.bottle_warmer:
@@ -1349,6 +1351,7 @@ shell_command:
   sous_vide_temp_ready: curl -X POST http://192.168.1.47:3000/customBroadcast?text=sous+vide+is+ready+at+{{ state_attr('climate.sous_vide', 'current_temperature') }}&user=hass-broadcast
   bottle_warmer_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=bottle+warmer+completed&user=hass-broadcast
   printing_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=printing+completed&user=hass-broadcast
+  baby_motion_detected: curl -X POST http://192.168.1.47:3000/customBroadcast?text=baby+motion+detected&user=hass-broadcast
 
 rachio:
   api_key: !secret rachiokey

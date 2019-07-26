@@ -1588,7 +1588,7 @@
     entity_id: switch.house_fan
   - service: light.turn_off
     entity_id: light.bathroom_night_light, light.kitchen_lights_level, light.bedroom_lights_level, light.toshs
-  - wait_template: "{{ is_state('input_boolean.sleeping', 'off') }}"
+  - wait_template: "{{ is_state('input_boolean.guest_sleeping', 'off') }}"
   - service: cover.open_cover
     entity_id: cover.bay_window_curtains
 
@@ -2571,20 +2571,15 @@
     - sensor.dishwasher
     - sensor.bottle_warmer
     - sensor.pool_pump
+    to: 'unavailable'
+    for:
+      minutes: 15
   action:
   # - service: notify.chrome
     # data_template:
       # message: "node {{ trigger.entity_id }} has died"
       # target: danny_pixel
       # title: Shokabow Zoo
-  - delay: '00:30:00'
-  - condition: template
-    value_template: >
-      {%- for state in states.zha -%}
-        {%- if state.state == "unavailable" -%}
-          true
-        {%- endif -%}
-      {%- endfor -%}
   - service: notify.discord
     data_template:
       message: "The following ZHA devices have died: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.zha', 'entity_id'))|list)|groupby('state'))['offline']|map(attribute='name')|list|join(', ') }}"
@@ -3647,7 +3642,7 @@
       entity_id: input_boolean.cleaning_mode
       state: 'off'
     - condition: state
-      entity_id: input_boolean.sleeping
+      entity_id: input_boolean.guest_sleeping
       state: 'off'
   action:
     service: light.turn_off
@@ -3676,7 +3671,7 @@
       entity_id: input_boolean.cleaning_mode
       state: 'off'
     - condition: state
-      entity_id: input_boolean.sleeping
+      entity_id: input_boolean.guest_sleeping
       state: 'off'
     - condition: or
       conditions:
@@ -4734,7 +4729,7 @@
       entity_id: input_boolean.movie_mode
       state: 'off'
     - condition: state
-      entity_id: input_boolean.sleeping
+      entity_id: input_boolean.guest_sleeping
       state: 'off'
   action:
   - service: image_processing.scan
@@ -4762,7 +4757,7 @@
       entity_id: input_boolean.movie_mode
       state: 'off'
     - condition: state
-      entity_id: input_boolean.sleeping
+      entity_id: input_boolean.guest_sleeping
       state: 'off'
   action:
   - service: image_processing.scan
@@ -5083,7 +5078,7 @@
 
 ################################################
 #
-#      Bottle Warmer Automations
+#      Baby Automations
 #
 ################################################
 
@@ -5111,6 +5106,39 @@
     entity_id: input_boolean.night_mode
     state: 'off'
   - service: shell_command.bottle_warmer_completed
+
+- alias: Nursery speaker when baby sleeping
+  trigger:
+    platform: state
+    entity_id: input_boolean.baby_sleeping
+  action:
+    service_template: >-
+      {% if trigger.to_state.state == 'on' %}
+        light.turn_off
+      {% elif trigger.to_state.state == 'off' %}
+        light.turn_on
+      {% else %}
+      {% endif %}
+    entity_id: light.nursery_speaker_plug
+
+- alias: Announce baby motion while sleeping
+  trigger:
+    platform: state
+    entity_id: binary_sensor.baby_monitor_motion_detected
+    to: 'on'
+    for:
+      seconds: 30
+  condition:
+    condition: state
+    entity_id: input_boolean.baby_sleeping
+    state: 'on'
+  action:
+  - service: shell_command.baby_motion_detected
+  - service: notify.discord
+    data_template:
+      message: "Baby motion detected"
+      target:
+      - !secret discord_house
 
 ################################################
 #

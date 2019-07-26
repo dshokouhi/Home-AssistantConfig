@@ -642,3 +642,39 @@ cast_cameras:
               camera.baby_monitor
             {% endif %}
       media_player: media_player.den_home_hub
+
+cast_kitchen:
+  sequence:
+  - service: switch.turn_on
+    entity_id: switch.kitchen_tv
+  - delay: "00:00:10"
+  - service: remote.send_command
+    data:
+      command: 'InputHdmi1'
+      device: '34582686'
+      entity_id: remote.harmony_hub_den
+  - service: camera.play_stream
+    data_template:
+      entity_id: >
+            {% if is_state("input_select.cameras", "Baby Monitor") %}
+              camera.baby_monitor
+            {% elif is_state("input_select.cameras", "Den") %}
+              camera.den_camera
+            {% elif is_state("input_select.cameras", "Driveway") %}
+              camera.frontyard_driveway
+            {% elif is_state("input_select.cameras", "Frontyard Side Gate") %}
+              camera.frontyard_side_gate
+            {% elif is_state("input_select.cameras", "Garage Side Gate") %}
+              camera.garage_side_gate
+            {% elif is_state("input_select.cameras", "Kitchen") %}
+              camera.kitchen
+            {% elif is_state("input_select.cameras", "Kitchen Side Gate") %}
+              camera.kitchen_side_gate
+            {% elif is_state("input_select.cameras", "Living Room") %}
+              camera.living_room_camera
+            {% elif is_state("input_select.cameras", "Patio") %}
+              camera.patio
+            {% else %}
+              camera.baby_monitor
+            {% endif %}
+      media_player: media_player.kitchen_tv

@@ -290,7 +290,7 @@ views:
             secondary_info: last-changed
           - switch.house_fan
       - type: entities
-        title: Nursery
+        title: Peanuts Nursery
         id: nursery
         show_header_toggle: false
         entities:
@@ -301,11 +301,17 @@ views:
             name: Nursery Closet
           - cover.nursery_curtains
           - switch.nursery_fan
+          - entity: sensor.office_air_purifier_humidity
+            name: Nursery Humidity
           - entity: light.office_lights
             name: Nursery Lights
           - entity: binary_sensor.office_motion
             name: Nursery Motion
             secondary_info: last-changed
+          - entity: light.nursery_speaker_plug
+            secondary_info: last-changed
+          - entity: sensor.office_air_purifier_temp
+            name: Nursery Temperature
           - switch.nursery_tv
       - type: horizontal-stack
         id: power
@@ -380,10 +386,10 @@ views:
           - input_boolean.cleaning_mode
           - input_boolean.gardener
           - input_boolean.guest_mode
+          - input_boolean.guest_sleeping
           - input_boolean.movie_mode
           - input_boolean.night_mode
           - input_boolean.shower_mode
-          - input_boolean.sleeping
           - input_boolean.vacation_mode
       # - type: alarm-panel
         # id: alarm
