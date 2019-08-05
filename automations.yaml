@@ -608,25 +608,25 @@
       # target: ["danny_pixel", "tosh_phone"]
       # title: Shokabow Zoo
   - service: notify.slack
-    data:
-      message: "Living room camera triggered snapshot"
+    data_template:
+      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
   - service: notify.discord
     data_template:
-      message: "Living room camera triggered snapshot"
+      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
       target:
       - !secret discord_alarm
       data:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
   - service: hangouts.send_message
-    data:
+    data_template:
       target:
       - id: !secret hangouts_group
       message:
-      - text: "Living room camera triggered snapshot"
+      - text: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
   - service: switch.turn_on
@@ -660,25 +660,25 @@
       # target: ["danny_pixel", "tosh_phone"]
       # title: Shokabow Zoo
   - service: notify.slack
-    data:
-      message: "Den camera triggered snapshot"
+    data_template:
+      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
   - service: notify.discord
     data_template:
-      message: "Den camera triggered snapshot."
+      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot."
       target:
       - !secret discord_alarm
       data:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
   - service: hangouts.send_message
-    data:
+    data_template:
       target:
       - id: !secret hangouts_group
       message:
-      - text: "Den camera triggered snapshot"
+      - text: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
   - service: switch.turn_on
@@ -2153,7 +2153,7 @@
     entity_id: binary_sensor.bathroom_window
     to: 'on'
   - platform: template
-    value_template: "{{ states.climate.thermostat_heating_1.attributes.hvac_mode != 'off' }}"
+    value_template: "{{ states.climate.thermostat_heating_1.state != 'off' }}"
   condition:
     condition: and
     conditions:
@@ -2161,7 +2161,7 @@
       entity_id: binary_sensor.windows
       state: 'on'
     - condition: template
-      value_template: "{{ states.climate.thermostat_heating_1.attributes.hvac_mode != 'off' }}"
+      value_template: "{{ states.climate.thermostat_heating_1.state != 'off' }}"
     - condition: state
       entity_id: input_boolean.night_mode
       state: 'off'
@@ -2534,11 +2534,6 @@
     condition: template
     value_template: "{{ trigger.to_state.attributes.friendly_name != 'Notify zwave device died' }}"
   action:
-  # - service: notify.chrome
-    # data_template:
-      # message: "node {{ trigger.entity_id }} has died"
-      # target: danny_pixel
-      # title: Shokabow Zoo
   - service: notify.discord
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} has died"
@@ -2575,14 +2570,9 @@
     for:
       minutes: 15
   action:
-  # - service: notify.chrome
-    # data_template:
-      # message: "node {{ trigger.entity_id }} has died"
-      # target: danny_pixel
-      # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "The following ZHA devices have died: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.zha', 'entity_id'))|list)|groupby('state'))['offline']|map(attribute='name')|list|join(', ') }}"
+      message: "{{ trigger.to_state.attributes.friendly_name }} has died"
       target:
       - !secret discord_danny
   - service: hangouts.send_message
@@ -2590,17 +2580,8 @@
       target:
       - id: !secret hangouts_danny
       message:
-      - text: "The following ZHA devices have died: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.zha', 'entity_id'))|list)|groupby('state'))['offline']|map(attribute='name')|list|join(', ') }}"
+      - text: "{{ trigger.to_state.attributes.friendly_name }} has died"
 
-# - alias: Notify zwave network ready
-  # trigger:
-    # platform: event
-    # event_type: zwave.network_ready
-  # action:
-  # - service: notify.slack
-    # data:
-      # message: "The Z-Wave network is now ready"
-      
 ################################################
 #
 #      Bayesian Automations
@@ -5107,7 +5088,7 @@
     state: 'off'
   - service: shell_command.bottle_warmer_completed
 
-- alias: Nursery speaker when baby sleeping
+- alias: Nursery speaker and lights when baby sleeping
   trigger:
     platform: state
     entity_id: input_boolean.baby_sleeping
@@ -5119,7 +5100,7 @@
         light.turn_on
       {% else %}
       {% endif %}
-    entity_id: light.nursery_speaker_plug
+    entity_id: light.nursery_speaker_plug, light.office_lights
 
 - alias: Announce baby motion while sleeping
   trigger:
@@ -5129,9 +5110,14 @@
     for:
       seconds: 30
   condition:
-    condition: state
-    entity_id: input_boolean.baby_sleeping
-    state: 'on'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.baby_sleeping
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.office_door
+      state: 'off'
   action:
   - service: shell_command.baby_motion_detected
   - service: notify.discord
@@ -5139,6 +5125,32 @@
       message: "Baby motion detected"
       target:
       - !secret discord_house
+
+- alias: Baby monitor on den shield
+  trigger:
+    platform: state
+    entity_id: input_boolean.baby_sleeping
+  condition:
+    condition: state
+    entity_id: remote.harmony_hub_den
+    state: 'on'
+  action:
+  - service: mqtt.publish
+    data_template:
+      topic: >-
+        {% if trigger.to_state.state == 'on' %}
+          denshield/babysleepon
+        {% elif trigger.to_state.state == 'off' %}
+          denshield/babysleepoff
+        {% else %}
+        {% endif %}
+      payload: >-
+        {% if trigger.to_state.state == 'on' %}
+          on
+        {% elif trigger.to_state.state == 'off' %}
+          off
+        {% else %}
+        {% endif %}
 
 ################################################
 #

@@ -858,7 +858,7 @@ google_assistant:
     input_boolean.cat_litter_cleaned:
       expose: true
       room: "no group"
-    input_boolean.sleeping:
+    input_boolean.guest_sleeping:
       expose: true
       room: "no group"
     input_boolean.baby_sleeping:

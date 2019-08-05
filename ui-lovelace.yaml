@@ -289,30 +289,6 @@ views:
             name: Hallway Motion
             secondary_info: last-changed
           - switch.house_fan
-      - type: entities
-        title: Peanuts Nursery
-        id: nursery
-        show_header_toggle: false
-        entities:
-          - entity: binary_sensor.baby_monitor_motion_detected
-            name: Baby Monitor Motion
-            secondary_info: last-changed
-          - entity: light.office_closet
-            name: Nursery Closet
-          - cover.nursery_curtains
-          - switch.nursery_fan
-          - entity: sensor.office_air_purifier_humidity
-            name: Nursery Humidity
-          - entity: light.office_lights
-            name: Nursery Lights
-          - entity: binary_sensor.office_motion
-            name: Nursery Motion
-            secondary_info: last-changed
-          - entity: light.nursery_speaker_plug
-            secondary_info: last-changed
-          - entity: sensor.office_air_purifier_temp
-            name: Nursery Temperature
-          - switch.nursery_tv
       - type: horizontal-stack
         id: power
         cards:
@@ -382,7 +358,6 @@ views:
         title: House Settings
         show_header_toggle: false
         entities:
-          - input_boolean.baby_sleeping
           - input_boolean.cleaning_mode
           - input_boolean.gardener
           - input_boolean.guest_mode
@@ -410,6 +385,36 @@ views:
           - sensor.cat_litter_humidity
           - sensor.cat_litter_luminance
           - sensor.cat_litter_temperature
+  - title: Peanuts Nursery
+    path: nursery
+    icon: mdi:baby-face
+    cards:
+      - type: entities
+        title: Peanuts Nursery
+        id: nursery
+        show_header_toggle: false
+        entities:
+          - entity: binary_sensor.baby_monitor_motion_detected
+            name: Baby Monitor Motion
+            secondary_info: last-changed
+          - entity: input_boolean.baby_sleeping
+            secondary_info: last-changed
+          - entity: light.office_closet
+            name: Nursery Closet
+          - cover.nursery_curtains
+          - switch.nursery_fan
+          - entity: sensor.office_air_purifier_humidity
+            name: Nursery Humidity
+          - entity: light.office_lights
+            name: Nursery Lights
+          - entity: binary_sensor.office_motion
+            name: Nursery Motion
+            secondary_info: last-changed
+          - entity: light.nursery_speaker_plug
+            secondary_info: last-changed
+          - entity: sensor.office_air_purifier_temp
+            name: Nursery Temperature
+          - switch.nursery_tv
   - title: Services
     path: services
     icon: mdi:home-circle
@@ -566,12 +571,18 @@ views:
         id: ring
         title: Ring
         entities:
+          - entity: sensor.ring_door_view_battery
+            name: Door View Battery
           - entity: sensor.ring_front_door_battery
-            name: Door Battery
+            name: Doorbell Battery
+          - entity: binary_sensor.ring_door_view_ding
+            name: Door View Ding
           - entity: binary_sensor.ring_front_door_ding
-            name: Door Ding
+            name: Doorbell Ding
+          - entity: binary_sensor.ring_door_view_motion
+            name: Door View Motion
           - entity: binary_sensor.ring_front_door_motion
-            name: Door Motion
+            name: Doorbell Motion
           - entity: binary_sensor.ring_side_gate_motion
             name: Gate Motion
       - type: glance
@@ -683,6 +694,8 @@ views:
         entity: camera.baby_monitor
       - type: picture-entity
         entity: camera.den_camera
+      - type: picture-entity
+        entity: camera.door_view
       - type: picture-entity
         entity: camera.front_door
       - type: picture-entity
