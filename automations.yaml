@@ -2833,6 +2833,7 @@
       entity_id: alarm_control_panel.home
       state: 'disarmed'
   action:
+  - delay: "00:01:00"
   - wait_template: "{{ state_attr('climate.thermostat_cooling_1', 'temperature') == states('sensor.thermostat_temperature') | int }}"
   - condition: state
     entity_id: sensor.inside_outside_temp
@@ -3420,7 +3421,7 @@
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_speaker
-      media_content_id: "http://15363.live.streamtheworld.com:80/KROQFMDIALUP_SC"
+      media_content_id: "https://19213.live.streamtheworld.com/KROQFMAAC.aac?SRC=CBS&DIST=CBS&TGT=cbslocalplayer&tdsdk=js-2.9&pname=TDSdk&pversion=2.9&banners=none&sbmid=75476a0e-e311-49bb-d6e5-eb6d47354b9e"
       media_content_type: "audio/mp4"
       
 - alias: Shower Mode Turned Off
@@ -3465,7 +3466,7 @@
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_speaker
-      media_content_id: "http://15363.live.streamtheworld.com:80/KROQFMDIALUP_SC"
+      media_content_id: "https://19213.live.streamtheworld.com/KROQFMAAC.aac?SRC=CBS&DIST=CBS&TGT=cbslocalplayer&tdsdk=js-2.9&pname=TDSdk&pversion=2.9&banners=none&sbmid=75476a0e-e311-49bb-d6e5-eb6d47354b9e"
       media_content_type: "audio/mp4"
     
 - alias: Shower mode off if bathroom speaker not playing or humidity drops below 60
@@ -3519,11 +3520,6 @@
     to: 'idle'
     for:
       seconds: 20
-  - platform: state
-    entity_id: media_player.home_notification
-    to: 'idle'
-    for:
-      seconds: 20
   condition:
     condition: state
     entity_id: input_boolean.shower_mode
@@ -3532,7 +3528,7 @@
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_speaker
-      media_content_id: "http://15363.live.streamtheworld.com:80/KROQFMDIALUP_SC"
+      media_content_id: "https://19213.live.streamtheworld.com/KROQFMAAC.aac?SRC=CBS&DIST=CBS&TGT=cbslocalplayer&tdsdk=js-2.9&pname=TDSdk&pversion=2.9&banners=none&sbmid=75476a0e-e311-49bb-d6e5-eb6d47354b9e"
       media_content_type: "audio/mp4"
       
 ################################################
