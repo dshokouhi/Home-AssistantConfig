@@ -347,7 +347,7 @@ device_tracker:
 
   - platform: google_maps
     username: !secret gmap_user
-    password: !secret gmap_pass
+    #password: !secret gmap_pass
 
 remote:
  - platform: harmony
