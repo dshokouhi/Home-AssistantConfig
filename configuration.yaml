@@ -627,6 +627,10 @@ notify:
    name: Outdoor
    host: 192.168.1.44
 
+ - platform: nfandroidtv
+   name: Nursery
+   host: 192.168.1.18
+
  # - platform: html5
    # name: chrome
    # gcm_api_key: !secret gcm_api_key
@@ -1352,6 +1356,7 @@ shell_command:
   bottle_warmer_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=bottle+warmer+completed&user=hass-broadcast
   printing_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=printing+completed&user=hass-broadcast
   baby_motion_detected: curl -X POST http://192.168.1.47:3000/customBroadcast?text=baby+motion+detected&user=hass-broadcast
+  cool_windows: curl -X POST http://192.168.1.47:3000/customBroadcast?text=its+getting+hot+close+the+following+windows+so+the+cooler+turns+on+{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window{% endif %}{% if is_state('binary_sensor.den_window', 'on') %}+den+window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %}+office+window{% endif %}&user=hass-broadcast
 
 rachio:
   api_key: !secret rachiokey

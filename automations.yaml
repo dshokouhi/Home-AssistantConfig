@@ -2749,12 +2749,45 @@
 #
 ################################################
 
-- alias: Cool down house if thermostat gets above 80
+- alias: Cool down house if thermostat gets above 80 and nobody is home
   trigger:
   - platform: numeric_state
     entity_id: sensor.thermostat_temperature
     above: 79
+  condition:
+    condition: state
+    entity_id: group.tracked_users
+    state: 'not_home'
   action:
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.thermostat_cooling_1
+      #hvac_mode: 'Cool'
+      temperature: 78
+  - service: climate.set_hvac_mode
+    data:
+      entity_id: climate.thermostat_cooling_1
+      hvac_mode: 'cool'
+
+- alias: Cool down house if thermostat gets above 80 and someone is home
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.thermostat_temperature
+    above: 79
+  condition:
+    condition: state
+    entity_id: group.tracked_users
+    state: 'home'
+  action:
+  - service: notify.discord
+    data_template:
+      message: "Its getting hot, close all the window so the cooler turns on."
+      target:
+      - !secret discord_house
+  - wait_template: "{{ is_state('binary_sensor.windows', 'off') }}"
+  - condition: numeric_state
+    entity_id: sensor.thermostat_temperature
+    above: 79
   - service: climate.set_temperature
     data:
       entity_id: climate.thermostat_cooling_1
