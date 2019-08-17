@@ -1037,7 +1037,7 @@
       message:
       - text: "The front door has been unlocked by dad"
   - service: tts.google_say
-    entity_id: media_player.kitchen_home, media_player.den_home, media_player.office_speaker
+    entity_id: media_player.kitchen_home, media_player.den_home_hub, media_player.office_speaker
     data:
       message: 'Hello just a friendly reminder to make sure the water bowls in the den, living room and also the ferret cage are refilled.  Dont forget to feed the ferrets and cats.  Please clean up the ferrets and cat litter. Thank you so much have a great day.'
 
@@ -1534,7 +1534,7 @@
       message:
       - text: "Bedroom door left open and boogie has left for work, go close it!"
   - service: tts.google_say
-    entity_id: media_player.den_home
+    entity_id: media_player.den_home_hub
     data:
       message: "Bedroom door left open and boogie has left for work, go close it!"
 
@@ -2775,15 +2775,46 @@
     entity_id: sensor.thermostat_temperature
     above: 79
   condition:
-    condition: state
-    entity_id: group.tracked_users
-    state: 'home'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: group.tracked_users
+      state: 'home'
+    - condition: state
+      entity_id: binary_sensor.windows
+      state: 'off'
+  action:
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.thermostat_cooling_1
+      #hvac_mode: 'Cool'
+      temperature: 78
+  - service: climate.set_hvac_mode
+    data:
+      entity_id: climate.thermostat_cooling_1
+      hvac_mode: 'cool'
+
+- alias: Cool down house if thermostat gets above 80 and someone is home but window is open
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.thermostat_temperature
+    above: 79
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: group.tracked_users
+      state: 'home'
+    - condition: state
+      entity_id: binary_sensor.windows
+      state: 'on'
   action:
   - service: notify.discord
     data_template:
       message: "Its getting hot, close all the window so the cooler turns on."
       target:
       - !secret discord_house
+  - service: shell_command.cool_windows
   - wait_template: "{{ is_state('binary_sensor.windows', 'off') }}"
   - condition: numeric_state
     entity_id: sensor.thermostat_temperature
@@ -3163,24 +3194,24 @@
           {% endmacro %}
           {{ battery_level() |trim != "" }}
   action:
-    - service: persistent_notification.create
-      data_template:
-        title: "Low Battery levels"
-        notification_id: low-battery-alert
-        message: >
-          {%- set threshold = 25 -%}
-          {% macro battery_level(domain) %}
-          {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
-          {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
-          {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{%- endif -%}
-          {%- if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
-          {{ item.name }} ({{ item.state }}){% if not loop.last %}, {% endif %}{% endif -%}
-          {%- endfor -%}
-          {% endmacro %}
-          {%- set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] -%}
-          {%- for domain in domains if battery_level(domain) |trim != ""-%}
-          {{ battery_level(domain) }}{%- if not loop.last %}, {% endif -%}
-          {%- endfor -%}
+    # - service: persistent_notification.create
+      # data_template:
+        # title: "Low Battery levels"
+        # notification_id: low-battery-alert
+        # message: >
+          # {%- set threshold = 25 -%}
+          # {% macro battery_level(domain) %}
+          # {%- for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+          # {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
+          # {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{%- endif -%}
+          # {%- if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
+          # {{ item.name }} ({{ item.state }}){% if not loop.last %}, {% endif %}{% endif -%}
+          # {%- endfor -%}
+          # {% endmacro %}
+          # {%- set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] -%}
+          # {%- for domain in domains if battery_level(domain) |trim != ""-%}
+          # {{ battery_level(domain) }}{%- if not loop.last %}, {% endif -%}
+          # {%- endfor -%}
     # - service: notify.chrome
       # data_template:
         # title: "Battery status"
@@ -3224,31 +3255,31 @@
              {% endmacro %}
              {{ battery_level()}}
 
-- alias: Battery Alert Clear
-  trigger:
-    - platform: time_pattern
-      minutes: '/30'
-      seconds: 00
-  condition:
-    - condition: template
-      value_template: >
-        {%- set threshold = 25 -%}
-        {% macro battery_level() %}
-        {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
-        {% for domain in domains -%}
-        {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
-        {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
-        {{ item.name }}{% endif -%}
-        {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
-        {{ item.name }}{% endif -%}
-        {% endfor %}
-        {%- endfor %}
-        {% endmacro %}
-        {{ battery_level() |trim == "" }}
-  action:
-    - service: persistent_notification.dismiss
-      data:
-        notification_id: low-battery-alert
+# - alias: Battery Alert Clear
+  # trigger:
+    # - platform: time_pattern
+      # minutes: '/30'
+      # seconds: 00
+  # condition:
+    # - condition: template
+      # value_template: >
+        # {%- set threshold = 25 -%}
+        # {% macro battery_level() %}
+        # {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
+        # {% for domain in domains -%}
+        # {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+        # {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
+        # {{ item.name }}{% endif -%}
+        # {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
+        # {{ item.name }}{% endif -%}
+        # {% endfor %}
+        # {%- endfor %}
+        # {% endmacro %}
+        # {{ battery_level() |trim == "" }}
+  # action:
+    # - service: persistent_notification.dismiss
+      # data:
+        # notification_id: low-battery-alert
         
 ################################################
 #
@@ -4539,13 +4570,13 @@
     data_template:
       message: >-
          {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean den air purifier filter
+           Clean den air purifier filter, filter level {{ state_attr('fan.den_air_purifier', 'filter_life_remaining') }}
          {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean living room air purifier filter
+           Clean living room air purifier filter, filter level {{ state_attr('fan.living_room_air_purifier', 'filter_life_remaining') }}
          {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean bedroom air purifier filter
+           Clean bedroom air purifier filter, filter level {{ state_attr('fan.bedroom_air_purifier', 'filter_life_remaining') }}
          {% elif state_attr('fan.office_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean office air purifier filter
+           Clean office air purifier filter, filter level {{ state_attr('fan.office_air_purifier', 'filter_life_remaining') }}
          {% else %}
          {% endif %}
       target:
@@ -4557,13 +4588,13 @@
       message:
       - text: >-
          {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean den air purifier filter
+           Clean den air purifier filter, filter level {{ state_attr('fan.den_air_purifier', 'filter_life_remaining') }}
          {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean living room air purifier filter
+           Clean living room air purifier filter, filter level {{ state_attr('fan.living_room_air_purifier', 'filter_life_remaining') }}
          {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean bedroom air purifier filter
+           Clean bedroom air purifier filter, filter level {{ state_attr('fan.bedroom_air_purifier', 'filter_life_remaining') }}
          {% elif state_attr('fan.office_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean office air purifier filter
+           Clean office air purifier filter, filter level {{ state_attr('fan.office_air_purifier', 'filter_life_remaining') }}
          {% else %}
          {% endif %}
 
@@ -4573,43 +4604,43 @@
 #
 ################################################
 
-- alias: Google Home Timer Notification
-  trigger:
-    platform: state
-    entity_id:
-    - sensor.bathroom_speaker_timer
-    - sensor.bedroom_home_timer
-    - sensor.den_home_hub_timer
-    - sensor.kitchen_home_timer
-    - sensor.living_room_home_timer
-    - sensor.office_speaker_timer
-  condition:
-    condition: template
-    value_template: "{{ trigger.from_state.state != 'unavailable' }}"
-  action:
-  #- wait_template: "{{ (as_timestamp(trigger.to_state.state) | int) == (as_timestamp(now()) | int) }}"
-  - service: notify.den
-    data_template:
-      data:
-        color: red
-        duration: 10
-        position: center
-      message: "{{ trigger.to_state.attributes.friendly_name }} completed!"
-      title: Shokabow Zoo
-  - service: shell_command.timer_completed
-    data_template:
-      friendly_name: "{{ trigger.to_state.attributes.friendly_name | replace(' ', '+') }}"
-  - service: notify.discord
-    data_template:
-      message: "{{ trigger.to_state.attributes.friendly_name }} completed!"
-      target:
-      - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "{{ trigger.to_state.attributes.friendly_name }} completed!"
+# - alias: Google Home Timer Notification
+  # trigger:
+    # platform: state
+    # entity_id:
+    # - sensor.bathroom_speaker_timer
+    # - sensor.bedroom_home_timer
+    # - sensor.den_home_hub_timer
+    # - sensor.kitchen_home_timer
+    # - sensor.living_room_home_timer
+    # - sensor.office_speaker_timer
+  # condition:
+    # condition: template
+    # value_template: "{{ trigger.from_state.state != 'unavailable' }}"
+  # action:
+  # - wait_template: "{{ (as_timestamp(trigger.to_state.state) | int) == (as_timestamp(now()) | int) }}"
+  # - service: notify.den
+    # data_template:
+      # data:
+        # color: red
+        # duration: 10
+        # position: center
+      # message: "{{ trigger.to_state.attributes.friendly_name }} completed!"
+      # title: Shokabow Zoo
+  # - service: shell_command.timer_completed
+    # data_template:
+      # friendly_name: "{{ trigger.to_state.attributes.friendly_name | replace(' ', '+') }}"
+  # - service: notify.discord
+    # data_template:
+      # message: "{{ trigger.to_state.attributes.friendly_name }} completed!"
+      # target:
+      # - !secret discord_house
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "{{ trigger.to_state.attributes.friendly_name }} completed!"
 
 ################################################
 #
