@@ -316,12 +316,12 @@
       message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes{% endif %}"
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes{% endif %}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes{% endif %}"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
@@ -369,12 +369,12 @@
       message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry{% endif %}"
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry{% endif %}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry{% endif %}"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
@@ -422,12 +422,12 @@
       message: "The dishes are done."
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The dishes are done."
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The dishes are done."
   - service: input_boolean.turn_on
     entity_id: input_boolean.dishes_clean
   - condition: state
@@ -533,12 +533,12 @@
       message: "The front door lock is jammed."
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The front door lock is jammed."
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The front door lock is jammed."
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
@@ -1527,12 +1527,12 @@
       message: "Bedroom door left open and boogie has left for work, go close it!"
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "Bedroom door left open and boogie has left for work, go close it!"
+  # - service: hangouts.send_message
+    # data:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: "Bedroom door left open and boogie has left for work, go close it!"
   - service: tts.google_say
     entity_id: media_player.den_home_hub
     data:
@@ -1854,12 +1854,12 @@
       message: "You got mail"
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "You got mail"
+  # - service: hangouts.send_message
+    # data:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: "You got mail"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -2105,12 +2105,12 @@
       message: "Its raining and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Its raining and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Its raining and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -2180,12 +2180,12 @@
       message: "The thermostat is on and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The thermostat is on and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The thermostat is on and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -2811,7 +2811,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "Its getting hot, close all the window so the cooler turns on."
+      message: "Its getting hot, close the following windows so the cooler turns on: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_house
   - service: shell_command.cool_windows
@@ -2819,6 +2819,9 @@
   - condition: numeric_state
     entity_id: sensor.thermostat_temperature
     above: 79
+  - condition: state
+    entity_id: binary_sensor.windows
+    state: 'off'
   - service: climate.set_temperature
     data:
       entity_id: climate.thermostat_cooling_1
@@ -2910,12 +2913,12 @@
       message: "Please open a window and turn off the thermostat.  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ states('sensor.shokabow_weather_temperature') }} {{ state_attr('sensor.shokabow_weather_temperature', 'unit_of_measurement') }} outside."
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Please open a window and turn off the thermostat.  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ states('sensor.shokabow_weather_temperature') }} {{ state_attr('sensor.shokabow_weather_temperature', 'unit_of_measurement') }} outside."
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Please open a window and turn off the thermostat.  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ states('sensor.shokabow_weather_temperature') }} {{ state_attr('sensor.shokabow_weather_temperature', 'unit_of_measurement') }} outside."
 
 - alias: Heat up house if below 63
   trigger:
@@ -3103,12 +3106,12 @@
       message: "The water heater is leaking."
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The water heater is leaking."
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The water heater is leaking."
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -3144,12 +3147,12 @@
       message: "There is rain getting into the water heater."
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "There is rain getting into the water heater."
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "There is rain getting into the water heater."
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -3235,25 +3238,25 @@
              {{ battery_level()}}
         target:
         - !secret discord_house
-    - service: hangouts.send_message
-      data_template:
-        target:
-        - id: !secret hangouts_group
-        message:
-        - text: >
-             {% macro battery_level() %}
-             {%- set threshold = 25 -%}
-             {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
-             {% for domain in domains -%}
-             {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
-             {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
-             {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{% endif -%}
-             {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
-             {{ item.name }} ({{ item.state }}){% if not loop.last %}, {%- endif %} {% endif -%}
-             {% endfor %}
-             {%- endfor %}
-             {% endmacro %}
-             {{ battery_level()}}
+    # - service: hangouts.send_message
+      # data_template:
+        # target:
+        # - id: !secret hangouts_group
+        # message:
+        # - text: >
+             # {% macro battery_level() %}
+             # {%- set threshold = 25 -%}
+             # {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
+             # {% for domain in domains -%}
+             # {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+             # {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
+             # {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{% endif -%}
+             # {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
+             # {{ item.name }} ({{ item.state }}){% if not loop.last %}, {%- endif %} {% endif -%}
+             # {% endfor %}
+             # {%- endfor %}
+             # {% endmacro %}
+             # {{ battery_level()}}
 
 # - alias: Battery Alert Clear
   # trigger:
@@ -3355,12 +3358,12 @@
       message: "Timer out of sync."
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "Timer out of sync"
+  # - service: hangouts.send_message
+    # data:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: "Timer out of sync"
 
 ################################################
 #
@@ -3399,12 +3402,12 @@
       message: "{{ trigger.to_state.attributes.friendly_name }} offline"
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "{{ trigger.to_state.attributes.friendly_name }} offline"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: "{{ trigger.to_state.attributes.friendly_name }} offline"
 
 ################################################
 #
@@ -3433,12 +3436,12 @@
       message: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days!"
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days!"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days!"
 
 - alias: Disk Getting Full
   trigger:
@@ -3461,12 +3464,12 @@
       message: "Home assistant drive getting full, over 50%! Check journal and zoneminder."
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "Home assistant drive getting full, over 50%! Check journal and zoneminder."
+  # - service: hangouts.send_message
+    # data:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: "Home assistant drive getting full, over 50%! Check journal and zoneminder."
 
 ################################################
 #
@@ -3814,7 +3817,7 @@
 - alias: Motion at front door
   trigger:
     platform: state
-    entity_id: binary_sensor.ring_front_door_motion
+    entity_id: binary_sensor.ring_front_door_motion, binary_sensor.ring_door_view_motion
     to: 'on'
   condition:
     condition: and
@@ -3836,7 +3839,7 @@
 - alias: Ding Dong at front door
   trigger:
     platform: state
-    entity_id: binary_sensor.ring_front_door_ding
+    entity_id: binary_sensor.ring_front_door_ding, binary_sensor.ring_door_view_ding
     to: 'on'
   condition:
     condition: state
@@ -3889,12 +3892,12 @@
       message: "Leak detected at home {{ trigger.to_state.attributes.friendly_name }}"
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Leak Detected {{ trigger.to_state.attributes.friendly_name }}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Leak Detected {{ trigger.to_state.attributes.friendly_name }}"
 
 ################################################
 #
@@ -4034,18 +4037,18 @@
            {% endif %}
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: >
-           {% if is_state("binary_sensor.tsxpresence", "on") %}
-             TSX arrived home
-           {% elif is_state("binary_sensor.tsxpresence", "off") %}
-             TSX left home
-           {% else %}
-           {% endif %}
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: >
+           # {% if is_state("binary_sensor.tsxpresence", "on") %}
+             # TSX arrived home
+           # {% elif is_state("binary_sensor.tsxpresence", "off") %}
+             # TSX left home
+           # {% else %}
+           # {% endif %}
 
 - alias: Tosh car
   trigger:
@@ -4095,18 +4098,18 @@
            {% endif %}
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: >
-           {% if is_state("binary_sensor.rdxpresence", "on") %}
-             RDX arrived home
-           {% elif is_state("binary_sensor.rdxpresence", "off") %}
-             RDX left home
-           {% else %}
-           {% endif %}
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: >
+           # {% if is_state("binary_sensor.rdxpresence", "on") %}
+             # RDX arrived home
+           # {% elif is_state("binary_sensor.rdxpresence", "off") %}
+             # RDX left home
+           # {% else %}
+           # {% endif %}
 
 ################################################
 #
@@ -4181,28 +4184,28 @@
           {%- endif %}
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: >-
-          {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
-            Beef Ribs are almost done
-          {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-            Brisket is almost done
-          {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-            Chicken is almost done
-          {% elif is_state("input_select.bbq_probe1", "Fish") -%}
-            Fish is almost done
-          {% elif is_state("input_select.bbq_probe1", "Steak") -%}
-            Steak is almost done
-          {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
-            Turkey is almost done
-          {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-            Tri-tip is almost done
-          {%- else -%}
-          {%- endif %}
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: >-
+          # {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+            # Beef Ribs are almost done
+          # {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+            # Brisket is almost done
+          # {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+            # Chicken is almost done
+          # {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+            # Fish is almost done
+          # {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+            # Steak is almost done
+          # {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
+            # Turkey is almost done
+          # {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+            # Tri-tip is almost done
+          # {%- else -%}
+          # {%- endif %}
   - service: shell_command.bbq_almost
     #entity_id: media_player.home_notification
     #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
@@ -4281,28 +4284,28 @@
           {%- endif %}
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: >
-          {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
-            Beef Ribs are done
-          {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-            Brisket is done
-          {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-            Chicken is done
-          {% elif is_state("input_select.bbq_probe1", "Fish") -%}
-            Fish is done
-          {% elif is_state("input_select.bbq_probe1", "Steak") -%}
-            Steak is done
-          {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
-            Turkey is done
-          {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-            Tri-tip is done
-          {%- else -%}
-          {%- endif %}
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: >
+          # {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+            # Beef Ribs are done
+          # {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+            # Brisket is done
+          # {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+            # Chicken is done
+          # {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+            # Fish is done
+          # {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+            # Steak is done
+          # {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
+            # Turkey is done
+          # {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+            # Tri-tip is done
+          # {%- else -%}
+          # {%- endif %}
   - service: shell_command.bbq_done
     #entity_id: media_player.home_notification
     #entity_id: media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
@@ -4428,12 +4431,12 @@
       message: "Pool pump is offline, go outside and hit reset"
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "Pool pump is offline, go outside and hit reset"
+  # - service: hangouts.send_message
+    # data:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: "Pool pump is offline, go outside and hit reset"
 
 ################################################
 #
@@ -4581,22 +4584,22 @@
          {% endif %}
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: >-
-         {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean den air purifier filter, filter level {{ state_attr('fan.den_air_purifier', 'filter_life_remaining') }}
-         {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean living room air purifier filter, filter level {{ state_attr('fan.living_room_air_purifier', 'filter_life_remaining') }}
-         {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean bedroom air purifier filter, filter level {{ state_attr('fan.bedroom_air_purifier', 'filter_life_remaining') }}
-         {% elif state_attr('fan.office_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean office air purifier filter, filter level {{ state_attr('fan.office_air_purifier', 'filter_life_remaining') }}
-         {% else %}
-         {% endif %}
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: >-
+         # {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3 %}
+           # Clean den air purifier filter, filter level {{ state_attr('fan.den_air_purifier', 'filter_life_remaining') }}
+         # {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3 %}
+           # Clean living room air purifier filter, filter level {{ state_attr('fan.living_room_air_purifier', 'filter_life_remaining') }}
+         # {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3 %}
+           # Clean bedroom air purifier filter, filter level {{ state_attr('fan.bedroom_air_purifier', 'filter_life_remaining') }}
+         # {% elif state_attr('fan.office_air_purifier', 'filter_life_remaining')| int <= 3 %}
+           # Clean office air purifier filter, filter level {{ state_attr('fan.office_air_purifier', 'filter_life_remaining') }}
+         # {% else %}
+         # {% endif %}
 
 ################################################
 #
@@ -4654,25 +4657,29 @@
     minutes: '/60'
     seconds: 00
   condition:
-    condition: template
-    value_template: >-
+    condition: and
+    conditions:
+    - condition: template
+      value_template: >-
           {% if ((as_timestamp(now()) > (as_timestamp(states.sensor.next_launch.attributes.launch_time) | int - 3600 ) ) ) and ((as_timestamp(states.sensor.next_launch.attributes.launch_time) > (as_timestamp(now()) )))%}
             true
           {% else %}
             false
           {% endif %}
+    - condition: template
+      value_template: "{{ state_attr('sensor.next_launch', 'stream') != 'None' }}"
   action:
   - service: notify.discord
     data_template:
       message: "Rocket launch within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }}"
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Rocket launch within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Rocket launch within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }}"
 
 ################################################
 #
