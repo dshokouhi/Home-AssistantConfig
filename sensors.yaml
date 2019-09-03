@@ -380,6 +380,9 @@
      bedroom_shield_app:
        value_template: "{{ state_attr('media_player.bedroom_shield_tv', 'app_name') }}"
 
+     hvac_action:
+       value_template: "{{ state_attr('climate.thermostat_cooling_1', 'hvac_action') }}"
+
      danny_phone_battery:
        value_template: "{{ state_attr('device_tracker.google_maps_100707363427265474344', 'battery_level') }}"
        device_class: battery

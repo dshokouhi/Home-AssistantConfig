@@ -455,10 +455,8 @@ media_player 9:
      com.google.android.youtube.tv: "Youtube"
      org.xbmc.kodi: "Kodi"
      com.netflix.ninja: "Netflix"
-     tv.vaders.apk: "Vaders"
      com.google.android.tvlauncher: "Homescreen"
      com.plexapp.android: "Plex"
-     com.livetvonline.livetvonlineiptvbox: "Sportz"
      ar.tvplayer.tv: "TiviMate"
 
  - platform: androidtv
@@ -470,10 +468,8 @@ media_player 9:
      com.google.android.youtube.tv: "Youtube"
      org.xbmc.kodi: "Kodi"
      com.netflix.ninja: "Netflix"
-     tv.vaders.apk: "Vaders"
      com.google.android.tvlauncher: "Homescreen"
      com.plexapp.android: "Plex"
-     com.livetvonline.livetvonlineiptvbox: "Sportz"
      ar.tvplayer.tv: "TiviMate"
 
  - platform: androidtv

@@ -269,7 +269,7 @@
     condition: and
     conditions:
     - condition: template
-      value_template: "{{ is_state('media_player.kodi_bedroom', 'playing') or is_state('sensor.bedroom_shield_app', 'Vaders') or is_state('media_player.bedroom_shield_tv', 'playing') }}"
+      value_template: "{{ is_state('media_player.kodi_bedroom', 'playing') or is_state('media_player.bedroom_shield_tv', 'playing') }}"
     - condition: state
       entity_id: input_boolean.night_mode
       state: 'on'
@@ -2788,7 +2788,7 @@
     data:
       entity_id: climate.thermostat_cooling_1
       #hvac_mode: 'Cool'
-      temperature: 78
+      temperature: 76
   - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat_cooling_1
@@ -2815,10 +2815,9 @@
       target:
       - !secret discord_house
   - service: shell_command.cool_windows
-  - wait_template: "{{ is_state('binary_sensor.windows', 'off') }}"
-  - condition: numeric_state
-    entity_id: sensor.thermostat_temperature
-    above: 79
+  - wait_template: "{{ states.binary_sensor.windows.state == 'off' }}"
+  - condition: template
+    value_template: "{{ states('sensor.thermostat_temperature') | int > 79 }}"
   - condition: state
     entity_id: binary_sensor.windows
     state: 'off'
@@ -2826,7 +2825,7 @@
     data:
       entity_id: climate.thermostat_cooling_1
       #hvac_mode: 'Cool'
-      temperature: 78
+      temperature: 76
   - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat_cooling_1
@@ -4667,7 +4666,7 @@
             false
           {% endif %}
     - condition: template
-      value_template: "{{ state_attr('sensor.next_launch', 'stream') != 'None' }}"
+      value_template: "{{ state_attr('sensor.next_launch', 'stream') != None }}"
   action:
   - service: notify.discord
     data_template:
