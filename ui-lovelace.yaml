@@ -585,6 +585,16 @@ views:
             name: Doorbell Motion
           - entity: binary_sensor.ring_side_gate_motion
             name: Gate Motion
+          - binary_sensor.floodlight_light
+          - binary_sensor.floodlight_motion
+          - binary_sensor.pathlight_left_light
+          - binary_sensor.pathlight_left_motion
+          - binary_sensor.pathlight_right_light
+          - binary_sensor.pathlight_right_motion
+          - binary_sensor.spotlight_light
+          - binary_sensor.spotlight_motion
+          - binary_sensor.spotlight_light_2
+          - binary_sensor.spotlight_motion_2
       - type: glance
         id: printer
         title: Epson Printer Info
@@ -988,6 +998,7 @@ views:
             - entity_id: switch.island_lights_switch
             - entity_id: switch.garage_lights_switch
             - entity_id: switch.little_christmas_trees_switch
+            - entity_id: switch.ring_side_gate_siren
             - entity_id: switch.siren_switch
           exclude:
             - entity_id: light.outdoor_plug

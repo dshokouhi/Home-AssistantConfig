@@ -3623,6 +3623,12 @@
     - condition: state
       entity_id: alarm_control_panel.home
       state: disarmed
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'off'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'off'
   action:
   - service: light.turn_on
     data_template:

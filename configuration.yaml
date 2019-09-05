@@ -1137,14 +1137,24 @@ input_select:
   cast_devices:
     name: Casting Group
     options:
-    - Whole House
-    - Outside
-    - Office
-    - Living Room
-    - Kitchen
-    - Den
     - Bathroom
     - Bedroom
+    - Den
+    - Kitchen
+    - Living Room
+    - Office
+    - Outside
+    - Whole House
+    - "None"
+    initial: "None"
+    icon: mdi:cast
+
+  cast_display:
+    name: Casting Display Group
+    options:
+    - Bedroom
+    - Den
+    - Kitchen
     - "None"
     initial: "None"
     icon: mdi:cast
