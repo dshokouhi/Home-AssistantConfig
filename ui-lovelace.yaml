@@ -571,6 +571,8 @@ views:
         id: ring
         title: Ring
         entities:
+          - sensor.ring_catio_battery
+          - binary_sensor.ring_catio_motion
           - entity: sensor.ring_door_view_battery
             name: Door View Battery
           - entity: sensor.ring_front_door_battery
@@ -702,6 +704,8 @@ views:
     cards:
       - type: picture-entity
         entity: camera.baby_monitor
+      - type: picture-entity
+        entity: camera.catio
       - type: picture-entity
         entity: camera.den_camera
       - type: picture-entity
@@ -963,10 +967,21 @@ views:
         card:
           type: entities
           title: All Scripts
+          show_header_toggle: false
         filter:
           include:
             - domain: script
-  - title: Zwave and ZHA
+      - type: "custom:monster-card"
+        id: scenes
+        title: All Scenes
+        card:
+          type: entities
+          title: All Scenes
+          show_header_toggle: false
+        filter:
+          include:
+            - domain: scene
+  - title: Zwave
     icon: mdi:z-wave
     path: devices
     cards:

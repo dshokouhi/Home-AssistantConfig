@@ -1839,16 +1839,8 @@
   - platform: state
     entity_id: input_boolean.mailbox
     to: 'off'
-  condition:
-    condition: state
-    entity_id: alarm_control_panel.home
-    state: 'disarmed'
   action:
-  # - service: notify.chrome
-    # data:
-      # message: "You got mail"
-      # target: danny_pixel
-      # title: Shokabow Zoo
+  - wait_template: "{{ is_state('alarm_control_panel.home', 'disarmed') }}"
   - service: notify.discord
     data_template:
       message: "You got mail"
@@ -1880,17 +1872,6 @@
         color: teal
       message: You got mail!
       title: Shokabow Zoo
-
-# - alias: Mailbox boolean hass restart
-  # trigger:
-    # platform: homeassistant
-    # event: start
-  # condition:
-    # condition: time
-    # before: '11:00:00'
-  # action:
-  # - service: input_boolean.turn_on
-    # entity_id: input_boolean.mailbox
 
 ################################################
 #
@@ -2255,7 +2236,45 @@
   action:
   - service: switch.turn_on
     entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
-    
+
+- alias: Turn off sleep tracking
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.danny_phone_charging
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 5
+  - platform: state
+    entity_id: binary_sensor.tosh_phone_charging
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 5
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: switch.tasker_sleep_danny
+      state: 'on'
+    - condition: state
+      entity_id: switch.tasker_sleep_tosh
+      state: 'on'
+  action:
+  - service: switch.turn_off
+    data_template:
+      entity_id: >-
+          {% if trigger.entity_id == 'binary_sensor.danny_phone_charging' %}
+            switch.tasker_sleep_danny
+          {% else %}
+            switch.tasker_sleep_tosh
+          {% endif %}
+  - condition: state
+    entity_id: device_tracker.google_maps_104359830266586918986
+    state: 'not_home'
+  - service: automation.trigger
+    entity_id: automation.tosh_awake_and_left
+
 - alias: Goodnight from google home
   trigger:
     platform: event
@@ -2288,8 +2307,11 @@
       entity_id: climate.thermostat_cooling_1
       state: 'cool'
   action:
-  - delay: "00:01:00"
+  - delay: "00:30:00"
   - wait_template: "{{ states('sensor.thermostat_temperature')|int <= state_attr('climate.thermostat_cooling_1', 'temperature') }}"
+  - condition: state
+    entity_id: input_boolean.night_mode
+    state: 'on'
   - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat_cooling_1
@@ -2815,9 +2837,9 @@
       target:
       - !secret discord_house
   - service: shell_command.cool_windows
-  - wait_template: "{{ states.binary_sensor.windows.state == 'off' }}"
+  - wait_template: "{{ is_state('binary_sensor.windows', 'off') }}"
   - condition: template
-    value_template: "{{ states('sensor.thermostat_temperature') | int > 79 }}"
+    value_template: "{{ states('sensor.thermostat_temperature') | int >= 79 }}"
   - condition: state
     entity_id: binary_sensor.windows
     state: 'off'
@@ -3184,7 +3206,7 @@
       value_template: >
           {%- set threshold = 25 -%}
           {% macro battery_level() %}
-          {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
+          {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock', 'binary_sensor'] %}
           {% for domain in domains -%}
           {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
           {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
@@ -3224,7 +3246,7 @@
         message: >
              {% macro battery_level() %}
              {%- set threshold = 25 -%}
-             {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock'] %}
+             {% set domains = ['light', 'switch', 'sensor', 'zwave', 'lock', 'binary_sensor'] %}
              {% for domain in domains -%}
              {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
              {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
@@ -5107,10 +5129,10 @@
     to: 'running'
   condition:
     condition: template
-    value_template: "{{ state_attr('climate.sous_vide', 'current_temperature') != state_attr('climate.sous_vide', 'temperature') }}"
+    value_template: "{{ state_attr('climate.sous_vide', 'current_temperature') | int != state_attr('climate.sous_vide', 'temperature') | int }}"
   action:
   - delay: "00:02:00"
-  - wait_template: "{{ state_attr('climate.sous_vide', 'current_temperature') == state_attr('climate.sous_vide', 'temperature') }}"
+  - wait_template: "{{ state_attr('climate.sous_vide', 'current_temperature') | int == state_attr('climate.sous_vide', 'temperature') | int }}"
   - service: notify.discord
     data_template:
       message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }}"
