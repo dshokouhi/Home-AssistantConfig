@@ -585,7 +585,7 @@ views:
             name: Door View Motion
           - entity: binary_sensor.ring_front_door_motion
             name: Doorbell Motion
-          - entity: binary_sensor.ring_side_gate_motion
+          - entity: binary_sensor.ring_side_gate_motion_2
             name: Gate Motion
           - binary_sensor.floodlight_light
           - binary_sensor.floodlight_motion
@@ -1013,7 +1013,7 @@ views:
             - entity_id: switch.island_lights_switch
             - entity_id: switch.garage_lights_switch
             - entity_id: switch.little_christmas_trees_switch
-            - entity_id: switch.ring_side_gate_siren
+            - entity_id: switch.ring_side_gate_siren_2
             - entity_id: switch.siren_switch
           exclude:
             - entity_id: light.outdoor_plug

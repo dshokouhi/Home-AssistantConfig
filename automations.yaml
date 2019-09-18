@@ -462,7 +462,7 @@
     entity_id: sensor.dryer_running
     to: 'True'
     for:
-      minutes: 3
+      minutes: 10
   action:
     service: input_boolean.turn_on
     entity_id: input_boolean.dryer_status
@@ -2654,7 +2654,7 @@
         # {% else %}
           # media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
         # {%endif %}
-        
+
 - alias: Notify bayesian off
   trigger:
     platform: state
@@ -2675,13 +2675,7 @@
       message: "You are not home, did you forget anything?"
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "You are not home, did you forget anything?"
-      
+
 - alias: Notify bayesian on tosh
   trigger:
     platform: state
