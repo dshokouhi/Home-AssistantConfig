@@ -283,6 +283,7 @@ views:
         id: bathoffice
         show_header_toggle: false
         entities:
+          - light.bathroom_lights
           - light.bathroom_night_light
           - light.hallway_light
           - entity: binary_sensor.hallway_motion_sensor
@@ -613,6 +614,17 @@ views:
             name: Photo
           - entity: sensor.ink_level_yellow
             name: Yellow
+      - type: entities
+        id: obihai
+        title: Home Phone
+        show_header_toggle: false
+        entities:
+          - sensor.obihai_last_reboot
+          - sensor.obihai_obitalk_service_status
+          - sensor.obihai_phone1_port
+          - sensor.obihai_phone1_port_last_caller_info
+          - sensor.obihai_reboot_required
+          - sensor.obihai_sp1_service_status
       - type: entities
         id: octoprint
         title: OctoPrint

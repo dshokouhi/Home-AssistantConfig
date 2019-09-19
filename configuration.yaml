@@ -399,9 +399,6 @@ media_player 2:
  - platform: braviatv
    host: 192.168.1.29
 
-media_player 3:
- - platform: plex
-
 media_player 4:
  - platform: kodi
    host: 192.168.1.92
@@ -1111,6 +1108,9 @@ zwave:
     light.bedroom_lights_level:
       refresh_value: true
       delay: 3
+    light.bathroom_lights:
+      refresh_value: true
+      delay: 3
 
 zha:
   usb_path: /dev/zigbee
@@ -1461,3 +1461,8 @@ octoprint:
 
 hacs:
   token: !secret github_api
+
+plex:
+  token: !secret plex_token
+
+pi_hole:

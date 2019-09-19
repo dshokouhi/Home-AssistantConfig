@@ -2,19 +2,6 @@
    monitored_conditions:
    - 'battery'
 
- # - platform: ups
-   # username: !secret upsuser
-   # password: !secret upspass
-
- # - platform: fedex
-   # username: !secret fedexuser
-   # password: !secret fedexpass
-
- # - platform: fitbit
-   # clock_format: 12H
-   # monitored_resources:
-    # - "sleep/startTime"
-
  - platform: moon
 
  - platform: yr
@@ -46,13 +33,9 @@
        unit_of_measurement: '%'
        device_class: battery
 
- - platform: pi_hole
-   host: 192.168.1.47
-   monitored_conditions:
-   - ads_blocked_today
-   - dns_queries_today
-   - ads_percentage_today
-   - domains_being_blocked
+ - platform: obihai
+   host: 192.168.1.126
+   password: !secret obihai_password
 
  - platform: radarr
    api_key: !secret radarr
@@ -71,28 +54,6 @@
    port: 443
    monitored_conditions:
    - upcoming
-
- # - platform: wunderground
-   # api_key: !secret wunderground
-   # monitored_conditions:
-   # - alerts
-   # - feelslike_f
-   # - heat_index_f
-   # - relative_humidity
-   # - station_id
-   # - temperature_string
-   # - temp_f
-   # - UV
-   # - weather
-   # - wind_gust_mph
-   # - wind_mph
-   # - wind_string
-   # - weather_1d
-   # - weather_1n
-   # - weather_2d
-   # - weather_2n
-   # - weather_3d
-   # - weather_3n
 
  - platform: template
    sensors:
@@ -474,10 +435,6 @@
    - type: load_1m
    - type: load_5m
    - type: load_15m
-
- - platform: plex
-   host: 192.168.1.60
-   token: !secret plex_token
 
  - platform: cert_expiry
    host: !secret cert_expiry_host

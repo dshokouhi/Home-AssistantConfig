@@ -2244,13 +2244,13 @@
     from: 'on'
     to: 'off'
     for:
-      minutes: 5
+      minutes: 10
   - platform: state
     entity_id: binary_sensor.tosh_phone_charging
     from: 'on'
     to: 'off'
     for:
-      minutes: 5
+      minutes: 10
   condition:
     condition: or
     conditions:
