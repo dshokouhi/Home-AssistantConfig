@@ -42,6 +42,7 @@ frontend:
       sidebar-text_-_background: "var(--pink)"
 # card background colour, part of media player background
       paper-card-background-color: "var(--light_grey)"
+      card-background-color: "var(--paper-card-background-color)"
 # mqtt pubish header and thats it 
       paper-card-header-color: "var(--white)"
 # main background colour of states page
@@ -145,6 +146,79 @@ frontend:
       paper-slider-disabled-active-color: 'var(--disabled-text-color)'
       google-red-500: '#b58e31'
       google-green-500: '#2980b9'
+    material_dark_theme_2:
+      # Accent Colour (Edit this to change the accent) #
+      accent: "#08a8a5"
+
+      # Background
+      primary-background-color: "#121212"
+
+      # Text
+      primary-text-color: "#FFFFFF"
+      secondary-text-color: "#FFFFFF"
+      disabled-text-color: "#8C8C8C"
+      sidebar-selected-text-color: "var(--accent)"
+
+      # Card
+      card-background-color: "#1D1D1D"
+      paper-card-background-color: "#1D1D1D"
+
+      # Colours
+      primary-color: "var(--accent)"
+      secondary-background-color: "#1D1D1D"
+      accent-color: "var(--accent)"
+      dark-primary-color: "var(--accent)"
+      light-primary-color: "var(--accent)"
+
+      # Controls
+      toggle-button-color: "var(--accent)"
+      paper-toggle-button-checked-button-color: "var(--accent)"
+      paper-toggle-button-checked-bar-color: "var(--accent)"
+      paper-toggle-button-checked-ink-color: "var(--accent)"
+      paper-toggle-button-unchecked-button-color: "#e30f0f"
+      paper-toggle-button-unchecked-bar-color: "#787878"
+      paper-checkbox-checked-color: "var(--accent)"
+      paper-checkbox-checked-ink-color: "var(--accent)"
+      paper-radio-button-checked-color: "var(--accent)"
+      paper-input-container-focus-color: "var(--accent)"
+      paper-dropdown-menu-focus-color: "var(--accent)"
+      slider-color: "var(--accent)"
+      mdc-theme-primary: "var(--accent)"
+
+      # Icons
+      state-icon-color: "#A0A0A0"
+      state-icon-active-color: "var(--accent)"
+      sidebar-selected-icon-color: "var(--accent)"
+      sidebar-icon-color: "#A0A0A0"
+
+      # Badges
+      ha-label-badge-color: "var(--accent)"
+      label-badge-background-color: "#121212"
+      label-badge-text-color: "var(--secondary-text-color)"
+
+      # Tabs
+      paper-tab-ink: "var(--accent)"
+
+      # Divider
+      divider-color: "#2D2D2D"
+
+      # Lumo
+      lumo-base-color: "#2D2D2D"
+      lumo-tint-5pct: "none"
+      lumo-shade-5pct: "#272727"
+      paper-grey-200: "#272727"
+      lumo-primary-color-10pct: "#2D2D2D"
+      lumo-primary-color-50pct: "none"
+      lumo-box-shadow-m: "none"
+      lumo-primary-color: "var(--accent)"
+      lumo-header-text-color: "var(--primary-text-color)"
+      lumo-body-text-color: "var(--primary-text-color)"
+      lumo-tertiary-text-color: "var(--secondary-text-color)"
+      lumo-primary-contrast-color: "var(--primary-text-color)"
+
+      # Cards
+      ha-card-border-radius: "10px"
+      ha-card-box-shadow: "0px 5px 5px rgba(0,0,0,0.3)"
 
 config:
 
@@ -194,6 +268,7 @@ logbook:
     entities:
     - sensor.dryer_exporting
     - sensor.washer_exporting
+    - sensor.obihai_last_reboot
     # - sensor.pws_weather
     # - sensor.pws_heat_index_f
     # - sensor.pws_alerts
@@ -312,6 +387,7 @@ recorder:
     - sensor.octoprint_time_elapsed_format
     - sensor.octoprint_time_remaining
     - sensor.octoprint_time_remaining_format
+    - sensor.obihai_last_reboot
 
 sun:
 

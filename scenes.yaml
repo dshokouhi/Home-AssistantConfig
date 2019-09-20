@@ -25,6 +25,7 @@
     input_boolean.night_mode: on
     light.front_door_lamp: off
     light.spot: off
+    light.bathroom_lights: off
 
 - name: Colorful
   entities:
@@ -73,6 +74,7 @@
     light.nook_lamp: off
     light.spot: off
     light.bathroom_night_light: off
+    light.bathroom_lights: off
     
 - name: Cleaning Mode
   entities:

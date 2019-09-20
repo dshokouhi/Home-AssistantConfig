@@ -965,6 +965,16 @@ views:
     path: auto
     cards:
       - type: "custom:monster-card"
+        id: scenes
+        title: All Scenes
+        card:
+          type: entities
+          title: All Scenes
+          show_header_toggle: false
+        filter:
+          include:
+            - domain: scene
+      - type: "custom:monster-card"
         title: All Automations
         id: automations
         filter:
@@ -983,16 +993,6 @@ views:
         filter:
           include:
             - domain: script
-      - type: "custom:monster-card"
-        id: scenes
-        title: All Scenes
-        card:
-          type: entities
-          title: All Scenes
-          show_header_toggle: false
-        filter:
-          include:
-            - domain: scene
   - title: Zwave
     icon: mdi:z-wave
     path: devices
@@ -1021,11 +1021,13 @@ views:
           include:
             - domain: light
             - entity_id: switch.backyard_lights_switch
+            - entity_id: switch.catio_siren
             - entity_id: switch.christmas_tree_switch
             - entity_id: switch.island_lights_switch
             - entity_id: switch.garage_lights_switch
             - entity_id: switch.little_christmas_trees_switch
-            - entity_id: switch.ring_side_gate_siren_2
+            - entity_id: switch.ring_side_gate_siren
+            - entity_id: switch.side_gate_siren
             - entity_id: switch.siren_switch
           exclude:
             - entity_id: light.outdoor_plug
