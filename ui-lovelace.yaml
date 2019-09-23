@@ -586,7 +586,7 @@ views:
             name: Door View Motion
           - entity: binary_sensor.ring_front_door_motion
             name: Doorbell Motion
-          - entity: binary_sensor.ring_side_gate_motion_2
+          - entity: binary_sensor.ring_side_gate_motion
             name: Gate Motion
           - binary_sensor.floodlight_light
           - binary_sensor.floodlight_motion
@@ -595,9 +595,10 @@ views:
           - binary_sensor.pathlight_right_light
           - binary_sensor.pathlight_right_motion
           - binary_sensor.spotlight_light
-          - binary_sensor.spotlight_motion
+          - binary_sensor.spotlight_driveway_motion
           - binary_sensor.spotlight_light_2
-          - binary_sensor.spotlight_motion_2
+          - binary_sensor.spotlight_side_gate_motion
+          - binary_sensor.walkway_motion_sensor
       - type: glance
         id: printer
         title: Epson Printer Info

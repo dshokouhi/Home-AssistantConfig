@@ -2021,11 +2021,14 @@
 
 - alias: Turn off bathroom lights when door closes for 15 minutes
   trigger:
-    platform: state
+  - platform: state
     entity_id: binary_sensor.bathroom_door
     to: 'off'
     for:
       minutes: 15
+  - platform: state
+    entity_id: input_boolean.shower_mode
+    to: 'off'
   condition:
     condition: and
     conditions:
@@ -2034,6 +2037,9 @@
       state: 'off'
     - condition: state
       entity_id: input_boolean.shower_mode
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.bathroom_door
       state: 'off'
   action:
     service: light.turn_off

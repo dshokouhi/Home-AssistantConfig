@@ -175,7 +175,7 @@ frontend:
       paper-toggle-button-checked-button-color: "var(--accent)"
       paper-toggle-button-checked-bar-color: "var(--accent)"
       paper-toggle-button-checked-ink-color: "var(--accent)"
-      paper-toggle-button-unchecked-button-color: "#e30f0f"
+      paper-toggle-button-unchecked-button-color: "#001a4d"
       paper-toggle-button-unchecked-bar-color: "#787878"
       paper-checkbox-checked-color: "var(--accent)"
       paper-checkbox-checked-ink-color: "var(--accent)"
@@ -1020,6 +1020,8 @@ google_assistant:
       aliases:
       - Nursery Lights
     light.bathroom_night_light:
+      room: "no group"
+    light.bathroom_lights:
       room: Bathroom
     switch.kitchen_tv:
       room: Kitchen
