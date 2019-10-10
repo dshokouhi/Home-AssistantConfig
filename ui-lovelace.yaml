@@ -202,7 +202,6 @@ views:
           - entity: binary_sensor.living_room_camera_motion_detected
             name: Living Room Motion
             secondary_info: last-changed
-          - light.nook_lamp
       - type: entities
         title: Vacuums
         id: vacuum
@@ -400,6 +399,8 @@ views:
             secondary_info: last-changed
           - entity: input_boolean.baby_sleeping
             secondary_info: last-changed
+          - entity: light.nook_lamp
+            name: Nursery Lamp
           - entity: light.office_closet
             name: Nursery Closet
           - cover.nursery_curtains
@@ -854,7 +855,7 @@ views:
       - type: media-control
         entity: media_player.bathroom_speaker
       - type: media-control
-        entity: media_player.bedroom_shield
+        entity: media_player.bedroom_android_tv
       - type: media-control
         entity: media_player.bedroom_shield_tv
       - type: media-control
@@ -862,7 +863,7 @@ views:
       - type: media-control
         entity: media_player.danny_spotify
       - type: media-control
-        entity: media_player.den_shield
+        entity: media_player.den_android_tv
       - type: media-control
         entity: media_player.den_shield_tv
       - type: media-control

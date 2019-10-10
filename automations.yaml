@@ -1587,7 +1587,7 @@
   - service: switch.turn_off
     entity_id: switch.house_fan
   - service: light.turn_off
-    entity_id: light.bathroom_night_light, light.kitchen_lights_level, light.bedroom_lights_level, light.toshs
+    entity_id: light.bathroom_night_light, light.toshs
   - wait_template: "{{ is_state('input_boolean.guest_sleeping', 'off') }}"
   - service: cover.open_cover
     entity_id: cover.bay_window_curtains
@@ -2314,19 +2314,19 @@
   - service: automation.trigger
     entity_id: automation.tosh_awake_and_left
 
-- alias: Goodnight from google home
-  trigger:
-    platform: event
-    event_type: call_service
-    event_data:
-      service_data:
-        entity_id: scene.goodnight
-      domain: scene
-      service: turn_on
-  action:
-  - delay: "00:00:05"
-  - service: light.turn_on
-    entity_id: light.toshs
+# - alias: Goodnight from google home
+  # trigger:
+    # platform: event
+    # event_type: call_service
+    # event_data:
+      # service_data:
+        # entity_id: scene.goodnight
+      # domain: scene
+      # service: turn_on
+  # action:
+  # - delay: "00:00:05"
+  # - service: light.turn_on
+    # entity_id: light.toshs
     
 - alias: Turn off thermostat if left on during night mode
   trigger:
@@ -4933,9 +4933,9 @@
   action:
   - service: scene.turn_on
     entity_id: scene.goodnight
-  - delay: "00:00:05"
-  - service: light.turn_on
-    entity_id: light.toshs
+  # - delay: "00:00:05"
+  # - service: light.turn_on
+    # entity_id: light.toshs
 
 - alias: Danny tasker awake webhook
   trigger:
@@ -5166,6 +5166,9 @@
   action:
   - delay: "00:02:00"
   - wait_template: "{{ state_attr('climate.sous_vide', 'current_temperature') | int == state_attr('climate.sous_vide', 'temperature') | int }}"
+  - delay: "00:00:05"
+  - condition: template
+    value_template: "{{ (state_attr('climate.sous_vide', 'current_temperature') | int == state_attr('climate.sous_vide', 'temperature') | int) and (is_state('climate.sous_vide', 'running')) }}"
   - service: notify.discord
     data_template:
       message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }}"
@@ -5227,7 +5230,7 @@
         light.turn_on
       {% else %}
       {% endif %}
-    entity_id: light.nursery_speaker_plug, light.office_lights
+    entity_id: light.nursery_speaker_plug, light.office_lights, light.hallway_light
 
 - alias: Announce baby motion while sleeping
   trigger:

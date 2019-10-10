@@ -1124,6 +1124,8 @@ google_assistant:
       room: "no group"
     light.nook_lamp:
       room: "no group"
+      aliases:
+      - Nursery Lamp
     switch.nursery_tv:
       room: Office
     binary_sensor.windows:
