@@ -283,6 +283,8 @@ views:
         show_header_toggle: false
         entities:
           - light.bathroom_lights
+          - entity: binary_sensor.bathroom_motion
+            secondary_info: last-changed
           - light.bathroom_night_light
           - light.hallway_light
           - entity: binary_sensor.hallway_motion_sensor
