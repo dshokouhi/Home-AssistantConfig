@@ -19,20 +19,6 @@
      dishwasher_running:
        value_template: "{{ states('sensor.dishwasher') | int > 5}}"
 
- - platform: template
-   sensors:
-     front_door_lock_battery:
-       friendly_name: "Front Door Lock"
-       value_template: "{{ state_attr('zwave.front_door_lock', 'battery_level') }}"
-       unit_of_measurement: '%'
-       device_class: battery
-
-     den_smoke_battery:
-       friendly_name: "Den Smoke Sensor"
-       value_template: "{{ state_attr('zwave.den_smoke', 'battery_level') }}"
-       unit_of_measurement: '%'
-       device_class: battery
-
  - platform: obihai
    host: 192.168.1.126
    password: !secret obihai_password

@@ -616,3 +616,9 @@ sensor.octoprint_time_remaining_format:
 
 sensor.octoprint_time_elapsed_format:
   icon: mdi:timer
+
+sensor.changing_table_activity:
+  icon: mdi:hotel
+
+sensor.obmi_pending_requests:
+  unit_of_measurement: requests

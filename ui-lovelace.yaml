@@ -163,6 +163,8 @@ views:
         show_header_toggle: false
         entities:
           - light.bookshelf_left
+          - entity: sensor.changing_table_activity
+            secondary_info: last-changed
           - light.corner_lamp
           - cover.den_curtains
           - switch.den_fan
@@ -430,6 +432,7 @@ views:
       - sensor.load_5m
       - sensor.load_15m
       - sensor.tautulli
+      - sensor.ombi_pending_requests
     cards:
       - type: horizontal-stack
         id: stats
@@ -623,6 +626,7 @@ views:
         title: Home Phone
         show_header_toggle: false
         entities:
+          - sensor.obihai_call_direction
           - sensor.obihai_last_reboot
           - sensor.obihai_obitalk_service_status
           - sensor.obihai_phone1_port
