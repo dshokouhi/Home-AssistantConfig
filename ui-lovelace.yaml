@@ -163,8 +163,6 @@ views:
         show_header_toggle: false
         entities:
           - light.bookshelf_left
-          - entity: sensor.changing_table_activity
-            secondary_info: last-changed
           - light.corner_lamp
           - cover.den_curtains
           - switch.den_fan

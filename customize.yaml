@@ -620,5 +620,5 @@ sensor.octoprint_time_elapsed_format:
 sensor.changing_table_activity:
   icon: mdi:hotel
 
-sensor.obmi_pending_requests:
+sensor.ombi_pending_requests:
   unit_of_measurement: requests
