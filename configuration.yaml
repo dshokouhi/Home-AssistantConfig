@@ -254,6 +254,7 @@ discovery:
   - songpal
   - roku
   - google_cast
+  - plex_mediaserver
 
 conversation:
 
