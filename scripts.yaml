@@ -217,6 +217,14 @@ nursery_tv:
       device: '62464283'
       entity_id: remote.harmony_hub_bedroom
 
+nursery_heater:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: 'PowerToggle'
+      device: '65803919'
+      entity_id: remote.harmony_hub_bedroom
+
 pc:
   sequence:
   - service: remote.turn_on

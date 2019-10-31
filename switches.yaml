@@ -112,6 +112,22 @@
           data:
             entity_id: input_boolean.nursery_tv
 
+     nursery_heater:
+       friendly_name: Nursery Heater
+       value_template: "{% if is_state('input_boolean.nursery_heater', 'on') %}on{% else %}off{% endif %}"
+       turn_on:
+        - service: script.turn_on
+          entity_id: script.nursery_heater
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.nursery_heater
+       turn_off:
+        - service: script.turn_on
+          entity_id: script.nursery_heater
+        - service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.nursery_heater
+
  - platform: template
    switches:
      bedroom_shield:

@@ -622,3 +622,6 @@ sensor.changing_table_activity:
 
 sensor.ombi_pending_requests:
   unit_of_measurement: requests
+
+switch.nursery_heater:
+  icon: mdi:radiator

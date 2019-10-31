@@ -4,7 +4,8 @@ views:
     title: Home
     path: home
     badges:
-      - alarm_control_panel.home
+      - entity: alarm_control_panel.home
+        name: House Alarm
       - sun.sun
       - sensor.yr_symbol
     cards:
@@ -390,6 +391,17 @@ views:
   - title: Peanuts Nursery
     path: nursery
     icon: mdi:baby-face
+    badges:
+      - entity: sensor.office_air_purifier_temp
+        name: Nursery Air Purifier Temperature
+      - entity: sensor.office_closet_door
+        name: Nursery Closet Door
+      - entity: sensor.office_door
+        name: Nursery Door
+      - entity: sensor.office_air_purifier_humidity
+        name: Nursery Humidity
+      - entity: sensor.office_window
+        name: Nursery Window
     cards:
       - type: entities
         title: Peanuts Nursery
@@ -407,8 +419,8 @@ views:
             name: Nursery Closet
           - cover.nursery_curtains
           - switch.nursery_fan
-          - entity: sensor.office_air_purifier_humidity
-            name: Nursery Humidity
+          - entity: switch.nursery_heater
+            secondary_info: last-changed
           - entity: light.office_lights
             name: Nursery Lights
           - entity: binary_sensor.office_motion
@@ -416,21 +428,24 @@ views:
             secondary_info: last-changed
           - entity: light.nursery_speaker_plug
             secondary_info: last-changed
-          - entity: sensor.office_air_purifier_temp
-            name: Nursery Temperature
           - switch.nursery_tv
   - title: Services
     path: services
     icon: mdi:home-circle
     badges:
-      - sensor.zestimate
-      - sensor.uptime
-      - sensor.home_assistant_v2_db
+      - entity: sensor.zestimate
+        name: Zestimate
+      - entity: sensor.uptime
+        name: System Uptime
+      - entity: sensor.home_assistant_v2_db
+        name: Database
       - sensor.load_1m
       - sensor.load_5m
       - sensor.load_15m
-      - sensor.tautulli
-      - sensor.ombi_pending_requests
+      - entity: sensor.tautulli
+        name: Plex Stats
+      - entity: sensor.ombi_pending_requests
+        name: Plex Requests
     cards:
       - type: horizontal-stack
         id: stats
@@ -627,7 +642,8 @@ views:
           - sensor.obihai_call_direction
           - sensor.obihai_last_reboot
           - sensor.obihai_obitalk_service_status
-          - sensor.obihai_phone1_port
+          - entity: sensor.obihai_phone1_port
+            secondary_info: last-changed
           - sensor.obihai_phone1_port_last_caller_info
           - sensor.obihai_reboot_required
           - sensor.obihai_sp1_service_status

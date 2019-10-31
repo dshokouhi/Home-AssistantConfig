@@ -168,70 +168,82 @@
  - platform: template
    sensors:
      den_air_purifier_temp:
-       value_template: "{{ ((states.fan.den_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
+       value_template: "{{ ((state_attr('fan.den_air_purifier', 'temperature') * 9)/5 + 32)|round }}"
+       availability_template: "{{ not is_state('fan.den_air_purifier', 'unavailable') }}"
        friendly_name: Den Air Purifier Temperature
        unit_of_measurement: "F"
        device_class: temperature
 
      den_air_purifier_humidity:
-       value_template: "{{ states.fan.den_air_purifier.attributes.humidity }}"
+       value_template: "{{ state_attr('fan.den_air_purifier', 'humidity') }}"
+       availability_template: "{{ not is_state('fan.den_air_purifier', 'unavailable') }}"
        friendly_name: Den Air Purifier Humidity
        unit_of_measurement: "%"
        device_class: humidity
 
      den_air_purifier_aqi:
-       value_template: "{{ states.fan.den_air_purifier.attributes.aqi }}"
+       value_template: "{{ state_attr('fan.den_air_purifier', 'aqi') }}"
+       availability_template: "{{ not is_state('fan.den_air_purifier', 'unavailable') }}"
        friendly_name: Den Air Purifier AQI
        unit_of_measurement: AQI
 
      bedroom_air_purifier_temp:
-       value_template: "{{ ((states.fan.bedroom_air_purifier.attributes.temperature * 9)/5 + 32)|round}}"
+       value_template: "{{ ((state_attr('fan.bedroom_air_purifier', 'temperature') * 9)/5 + 32)|round}}"
+       availability_template: "{{ not is_state('fan.bedroom_air_purifier', 'unavailable') }}"
        friendly_name: Bedroom Air Purifier Temperature
        unit_of_measurement: "F"
        device_class: temperature
 
      bedroom_air_purifier_humidity:
-       value_template: "{{ states.fan.bedroom_air_purifier.attributes.humidity }}"
+       value_template: "{{ state_attr('fan.bedroom_air_purifier', 'humidity') }}"
+       availability_template: "{{ not is_state('fan.bedroom_air_purifier', 'unavailable') }}"
        friendly_name: Bedroom Air Purifier Humidity
        unit_of_measurement: "%"
        device_class: humidity
 
      bedroom_air_purifier_aqi:
-       value_template: "{{ states.fan.bedroom_air_purifier.attributes.aqi }}"
+       value_template: "{{ state_attr('fan.bedroom_air_purifier', 'aqi') }}"
+       availability_template: "{{ not is_state('fan.bedroom_air_purifier', 'unavailable') }}"
        friendly_name: Bedroom Air Purifier AQI
        unit_of_measurement: AQI
 
      living_room_air_purifier_temp:
-       value_template: "{{ ((states.fan.living_room_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
+       value_template: "{{ ((state_attr('fan.living_room_air_purifier', 'temperature') * 9)/5 + 32)|round }}"
+       availability_template: "{{ not is_state('fan.living_room_air_purifier', 'unavailable') }}"
        friendly_name: Living Room Air Purifier Temperature
        unit_of_measurement: "F"
        device_class: temperature
 
      living_room_air_purifier_humidity:
-       value_template: "{{ states.fan.living_room_air_purifier.attributes.humidity }}"
+       value_template: "{{ state_attr('fan.living_room_air_purifier', 'humidity') }}"
+       availability_template: "{{ not is_state('fan.living_room_air_purifier', 'unavailable') }}"
        friendly_name: Living Room Air Purifier Humidity
        unit_of_measurement: "%"
        device_class: humidity
 
      living_room_air_purifier_aqi:
-       value_template: "{{ states.fan.living_room_air_purifier.attributes.aqi }}"
+       value_template: "{{ state_attr('fan.living_room_air_purifier', 'aqi') }}"
+       availability_template: "{{ not is_state('fan.living_room_air_purifier', 'unavailable') }}"
        friendly_name: Living Room Air Purifier AQI
        unit_of_measurement: AQI
 
      office_air_purifier_temp:
-       value_template: "{{ ((states.fan.office_air_purifier.attributes.temperature * 9)/5 + 32)|round }}"
+       value_template: "{{ ((state_attr('fan.office_air_purifier', 'temperature') * 9)/5 + 32)|round }}"
+       availability_template: "{{ not is_state('fan.office_air_purifier', 'unavailable') }}"
        friendly_name: Office Air Purifier Temperature
        unit_of_measurement: "F"
        device_class: temperature
 
      office_air_purifier_humidity:
-       value_template: "{{ states.fan.office_air_purifier.attributes.humidity }}"
+       value_template: "{{ state_attr('fan.office_air_purifier', 'humidity') }}"
+       availability_template: "{{ not is_state('fan.office_air_purifier', 'unavailable') }}"
        friendly_name: Office Air Purifier Humidity
        unit_of_measurement: "%"
        device_class: humidity
 
      office_air_purifier_aqi:
-       value_template: "{{ states.fan.office_air_purifier.attributes.aqi }}"
+       value_template: "{{ state_attr('fan.office_air_purifier', 'aqi') }}"
+       availability_template: "{{ not is_state('fan.office_air_purifier', 'unavailable') }}"
        friendly_name: Office Air Purifier AQI
        unit_of_measurement: AQI
 
@@ -302,15 +314,19 @@
 
      house_vacuum_status:
        value_template: "{{ state_attr('vacuum.mrs_neato', 'status') }}"
+       availability_template: "{{ not is_state('vacuum.mrs_neato', 'unavailable') }}"
        friendly_name: House Vacuum Status
      den_vacuum_status:
        value_template: "{{ state_attr('vacuum.mr_neato', 'status') }}"
+       availability_template: "{{ not is_state('vacuum.mr_neato', 'unavailable') }}"
        friendly_name: Den Vacuum Status
      house_vacuum_battery:
        value_template: "{{ state_attr('vacuum.mrs_neato', 'battery_level') }}"
+       availability_template: "{{ not is_state('vacuum.mrs_neato', 'unavailable') }}"
        friendly_name: House Vacuum Battery
      den_vacuum_battery:
        value_template: "{{ state_attr('vacuum.mr_neato', 'battery_level') }}"
+       availability_template: "{{ not is_state('vacuum.mr_neato', 'unavailable') }}"
        friendly_name: Den Vacuum Battery
 
      inside_outside_temp:

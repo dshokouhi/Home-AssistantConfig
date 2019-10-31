@@ -95,3 +95,7 @@ guest_sleeping:
 baby_sleeping:
   name: Baby Sleeping
   icon: mdi:sleep
+
+nursery_heater:
+  name: Nursery Heater
+  icon: mdi:radiator

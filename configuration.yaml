@@ -787,6 +787,8 @@ google_assistant:
       expose: false
     script.zone_2_off:
       expose: false
+    script.nursery_heater:
+      expose: false
     script.open_den_curtains:
       expose: false
     script.close_den_curtains:
@@ -1166,6 +1168,8 @@ google_assistant:
       expose: false
     switch.sous_vide_timer:
       expose: false
+    switch.nursery_heater:
+      room: Nursery
 
 namecheapdns:
   host: plex
