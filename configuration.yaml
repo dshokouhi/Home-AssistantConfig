@@ -1556,3 +1556,24 @@ ombi:
   host: 192.168.1.107
   username: !secret ombi_username
   api_key: !secret ombi_api
+
+glances:
+ - host: 192.168.1.24
+   name: Tosh W10
+   version: 3
+
+ - host: 192.168.1.107
+   name: Blue Iris
+   version: 3
+
+ - host: 192.168.1.60
+   name: Media Server
+   version: 3
+
+ - host: 192.168.1.91
+   name: Den Pi
+   version: 2
+
+ - host: 192.168.1.47
+   name: Pi Hole
+   version: 2

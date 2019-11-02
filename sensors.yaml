@@ -320,14 +320,6 @@
        value_template: "{{ state_attr('vacuum.mr_neato', 'status') }}"
        availability_template: "{{ not is_state('vacuum.mr_neato', 'unavailable') }}"
        friendly_name: Den Vacuum Status
-     house_vacuum_battery:
-       value_template: "{{ state_attr('vacuum.mrs_neato', 'battery_level') }}"
-       availability_template: "{{ not is_state('vacuum.mrs_neato', 'unavailable') }}"
-       friendly_name: House Vacuum Battery
-     den_vacuum_battery:
-       value_template: "{{ state_attr('vacuum.mr_neato', 'battery_level') }}"
-       availability_template: "{{ not is_state('vacuum.mr_neato', 'unavailable') }}"
-       friendly_name: Den Vacuum Battery
 
      inside_outside_temp:
        friendly_name: Inside vs Outside Temperature
@@ -492,60 +484,6 @@
    api_key: !secret tautulli_api
    host: 192.168.1.60
    port: 8181/stats
-
- # - platform: glances
-   # host: 192.168.1.30
-   # name: Vostros
-   # version: 3
-   # resources:
-   # - disk_use_percent
-   # - memory_use_percent
-   # - cpu_use_percent
-
- - platform: glances
-   host: 192.168.1.24
-   name: Tosh W10
-   version: 3
-   resources:
-   - disk_use_percent
-   - memory_use_percent
-   - cpu_use_percent
-
- - platform: glances
-   host: 192.168.1.107
-   name: Blue Iris
-   version: 3
-   resources:
-   - disk_use_percent
-   - memory_use_percent
-   - cpu_use_percent
-
- - platform: glances
-   host: 192.168.1.60
-   name: Media Server
-   version: 3
-   resources:
-   - disk_use_percent
-   - memory_use_percent
-   - cpu_use_percent
-
- - platform: glances
-   host: 192.168.1.91
-   name: Den Pi
-   version: 2
-   resources:
-   - disk_use_percent
-   - memory_use_percent
-   - cpu_use_percent
-
- - platform: glances
-   host: 192.168.1.47
-   name: Pi Hole
-   version: 2
-   resources:
-   - disk_use_percent
-   - memory_use_percent
-   - cpu_use_percent
 
  - platform: mqtt
    name: Sous Vide Timer
