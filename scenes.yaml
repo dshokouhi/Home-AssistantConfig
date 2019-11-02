@@ -36,20 +36,20 @@
     light.hallway_light:
       state: on
       brightness: 120
-      color_name: 'green'
-      #xy_color: '0.173,0.747'
+      #color_name: 'green'
+      xy_color: [0.173,0.747]
     light.corner_lamp:
       state: on
       brightness: 50
       #color_name: 'blue'
       #hs_color: '240,100'
-      #xy_color: '0.136,0.04'
+      xy_color: [0.136,0.04]
       #rgb_color: '0,0,255'
     light.bathroom_night_light:
       state: on
       brightness: 125
-      color_name: 'yellow'
-      #xy_color: '0.444,0.517'
+      #color_name: 'yellow'
+      xy_color: [0.444,0.517]
     #switch.little_christmas_trees_switch: on
     #switch.christmas_tree_switch: on
 
@@ -88,8 +88,8 @@
     light.hallway_light:
       state: on
       brightness: 255
-      kelvin: 6500
-      #color_temp: 153
+      #kelvin: 6500
+      color_temp: 153
     light.office_lights: on
     switch.kitchen_tv: on
     light.den_lights_level:

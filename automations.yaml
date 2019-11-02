@@ -5331,6 +5331,25 @@
         {% else %}
         {% endif %}
 
+- alias: Notify temperature during sleep
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.office_air_purifier_temp
+    above: 82
+  - platform: numeric_state
+    entity_id: sensor.office_window
+    below: 66
+  condition:
+    condition: state
+    entity_id: input_boolean.baby_sleeping
+    state: 'on'
+  action:
+  - service: notify.discord
+    data_template:
+      message: "Nursery temperature is at :thermometer: {% if trigger.entity_id == 'sensor.office_air_purifier_temp' %} {{ states('sensor.office_air_purifier_temp') }} :fire: {% else %} {{states('sensor.office_window') }} {% endif %} :baby: "
+      target:
+      - !secret discord_house
+
 ################################################
 #
 #      Weight Sensor Automations
