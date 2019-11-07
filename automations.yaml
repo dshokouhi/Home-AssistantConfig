@@ -5334,11 +5334,11 @@
 - alias: Notify temperature during sleep
   trigger:
   - platform: numeric_state
-    entity_id: sensor.office_air_purifier_temp
+    entity_id: sensor.nursery_average_temperature
     above: 82
   - platform: numeric_state
-    entity_id: sensor.office_window
-    below: 66
+    entity_id: sensor.nursery_average_temperature
+    below: 70
   condition:
     condition: state
     entity_id: input_boolean.baby_sleeping
@@ -5346,7 +5346,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "Nursery temperature is at :thermometer: {% if trigger.entity_id == 'sensor.office_air_purifier_temp' %} {{ states('sensor.office_air_purifier_temp') }} :fire: {% else %} {{states('sensor.office_window') }} {% endif %} :baby: "
+      message: "Nursery temperature is at {{ states('sensor.nursery_average_temperature') }} :thermometer: {% if states('sensor.nursery_average_temperature') | int > 82 %} :fire: {% else %} {% endif %} :baby: "
       target:
       - !secret discord_house
 

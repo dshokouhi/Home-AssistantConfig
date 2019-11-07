@@ -394,6 +394,7 @@ views:
     badges:
       - entity: sensor.office_air_purifier_temp
         name: Nursery Air Purifier Temperature
+      - entity: sensor.nursery_average_temperature
       - entity: sensor.office_closet_door
         name: Nursery Closet Door
       - entity: sensor.office_door
@@ -1105,6 +1106,9 @@ views:
             - domain: media_player
             - domain: zha
             - entity_id: sensor.dryer_temperature
+            - entity_id: "*cpu*"
+            - entity_id: sensor.washer_temperature
+            - entity_id: "*octoprint*"
       - type: custom:monster-card
         id: humidity
         card:

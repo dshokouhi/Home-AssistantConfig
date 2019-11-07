@@ -247,6 +247,12 @@
        friendly_name: Office Air Purifier AQI
        unit_of_measurement: AQI
 
+     nursery_average_temperature:
+       value_template: "{{ ((states('sensor.office_air_purifier_temp') | float(2)) + (states('sensor.office_door') | float(2)) + (states('sensor.office_closet_door') | float(2)) + (states('sensor.office_window') | float(2))) / 4 | float(2) }}"
+       friendly_name: Nursery Average Temperature
+       device_class: temperature
+       unit_of_measurement: "F"
+
  - platform: epsonworkforce
    host: 192.168.1.57
    monitored_conditions:
