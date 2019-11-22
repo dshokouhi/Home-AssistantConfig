@@ -625,3 +625,9 @@ sensor.ombi_pending_requests:
 
 switch.nursery_heater:
   icon: mdi:radiator
+
+switch.nursery_power_strip_port_6:
+  icon: mdi:speaker
+
+light.3d_printer:
+  icon: mdi:printer-3d

@@ -427,8 +427,9 @@ views:
           - entity: binary_sensor.office_motion
             name: Nursery Motion
             secondary_info: last-changed
-          - entity: light.nursery_speaker_plug
+          - entity: switch.nursery_power_strip_port_6
             secondary_info: last-changed
+            name: Nursery Speaker
           - switch.nursery_tv
   - title: Services
     path: services
@@ -592,8 +593,8 @@ views:
         id: ring
         title: Ring
         entities:
-          - sensor.ring_catio_battery
-          - binary_sensor.ring_catio_motion
+          #- sensor.ring_catio_battery
+          #- binary_sensor.ring_catio_motion
           - entity: sensor.ring_door_view_battery
             name: Door View Battery
           - entity: sensor.ring_front_door_battery
@@ -653,6 +654,8 @@ views:
         title: OctoPrint
         show_header_toggle: false
         entities:
+          - entity: light.3d_printer
+            secondary_info: last-changed
           - binary_sensor.octoprint_printing
           - binary_sensor.octoprint_printing_error
           - entity: sensor.octoprint_current_state
