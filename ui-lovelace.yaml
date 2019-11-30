@@ -656,6 +656,7 @@ views:
         entities:
           - entity: light.3d_printer
             secondary_info: last-changed
+          - sensor.3d_printer
           - binary_sensor.octoprint_printing
           - binary_sensor.octoprint_printing_error
           - entity: sensor.octoprint_current_state

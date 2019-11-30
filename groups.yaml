@@ -249,7 +249,8 @@ tracked_users:
   #- device_tracker.pixel_2_xl
   #- device_tracker.pixel_xl
   #- device_tracker.pixel_3_xl
-  - device_tracker.3c286d0536a7
+  - device_tracker.3e_07_70_34_37_cc
+  - device_tracker.32_3f_1f_7a_e1_27
   
 auto:
   name: Automations

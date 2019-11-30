@@ -61,7 +61,7 @@
    name: "Dannys Bayesian Presence"
    probability_threshold: 0.82
    observations:
-   - entity_id: 'device_tracker.3c286d0536a7'
+   - entity_id: 'device_tracker.32_3f_1f_7a_e1_27'
      prob_given_true: 0.99
      prob_given_false: 0.3
      platform: 'state'
@@ -87,7 +87,7 @@
    name: "Natachas Bayesian Presence"
    probability_threshold: 0.82
    observations:
-   - entity_id: 'device_tracker.10f1f2822f12'
+   - entity_id: 'device_tracker.3e_07_70_34_37_cc'
      prob_given_true: 0.99
      prob_given_false: 0.3
      platform: 'state'

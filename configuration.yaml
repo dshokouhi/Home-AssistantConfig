@@ -420,7 +420,9 @@ device_tracker:
     consider_home: 60
     hosts:
     - 192.168.1.5
-    - 192.168.1.88
+    - 192.168.1.172
+    #- 192.168.1.88
+    - 192.168.1.173
     
   # - platform: bluetooth_tracker
     # request_rssi: true
@@ -1550,8 +1552,8 @@ octoprint:
 hacs:
   token: !secret github_api
 
-plex:
-  token: !secret plex_token
+# plex:
+  # token: !secret plex_token
 
 pi_hole:
 
