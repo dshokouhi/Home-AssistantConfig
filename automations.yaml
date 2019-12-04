@@ -2722,6 +2722,20 @@
       target:
       - !secret discord_danny
 
+- alias: Mobile app location
+  trigger:
+    platform: state
+    entity_id: device_tracker.dannys_pixel_4_xl, device_tracker.toshs_pixel_3_xl
+  condition:
+    condition: template
+    value_template: "{{ trigger.to_state.state != trigger.from_state.state }}"
+  action:
+  - service: notify.discord
+    data_template:
+      message: "{{ trigger.to_state.attributes.friendly_name }} mobile app is {{ trigger.to_state.state }}"
+      target:
+      - !secret discord_danny
+
 - alias: Notify bayesian on tosh
   trigger:
     platform: state
@@ -5393,6 +5407,18 @@
   action:
     service: switch.turn_off
     entity_id: switch.nursery_heater
+
+- alias: Notify fire hd8 low battery
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.dannys_fire_hd8_battery
+    below: 20
+  action:
+  - service: notify.discord
+    data_template:
+      message: "Low battery ({{ states('sensor.dannys_fire_hd8_battery') }}) for tablet in den, plug it in"
+      target:
+      - !secret discord_house
 
 ################################################
 #

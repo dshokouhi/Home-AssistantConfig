@@ -66,7 +66,7 @@
      prob_given_false: 0.3
      platform: 'state'
      to_state: 'home'
-   - entity_id: 'device_tracker.pixel_3_xl'
+   - entity_id: 'device_tracker.dannys_pixel_4_xl'
      prob_given_true: 0.99
      prob_given_false: 0.3
      platform: 'state'
@@ -92,7 +92,7 @@
      prob_given_false: 0.3
      platform: 'state'
      to_state: 'home'
-   - entity_id: 'device_tracker.pixel_2_xl'
+   - entity_id: 'device_tracker.toshs_pixel_3_xl'
      prob_given_true: 0.99
      prob_given_false: 0.3
      platform: 'state'

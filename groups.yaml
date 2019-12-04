@@ -245,12 +245,10 @@ tracked_users:
   name: Tracked Users
   entities:
   - device_tracker.10f1f2822f12
-  #- device_tracker.androidc4ba94519e6666f2
-  #- device_tracker.pixel_2_xl
-  #- device_tracker.pixel_xl
-  #- device_tracker.pixel_3_xl
   - device_tracker.3e_07_70_34_37_cc
   - device_tracker.32_3f_1f_7a_e1_27
+  - device_tracker.toshs_pixel_3_xl
+  - device_tracker.dannys_pixel_4_xl
   
 auto:
   name: Automations

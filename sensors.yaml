@@ -496,3 +496,9 @@
    state_topic: anova/timer
    value_template: "{{ (((value_json.timer | int) * 60) - 3600) | timestamp_custom('%H:%M') }}"
    icon: 'mdi:timer'
+
+ - platform: mqtt
+   name: Dannys Fire HD8 Battery
+   state_topic: homeassistant/sensor/danny_hd8-battery/state
+   device_class: battery
+   unit_of_measurement: '%'
