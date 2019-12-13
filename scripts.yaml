@@ -636,21 +636,21 @@ christmas_off:
     
 house_deep_cleaning:
   sequence:
-  - service: vacuum.neato_custom_cleaning
+  - service: neato.custom_cleaning
     data:
       entity_id: vacuum.mrs_neato
       navigation: "3"
 
 den_deep_cleaning:
   sequence:
-  - service: vacuum.neato_custom_cleaning
+  - service: neato.custom_cleaning
     data:
       entity_id: vacuum.mr_neato
       navigation: "3"
 
 kitchen_deep_cleaning:
   sequence:
-  - service: vacuum.neato_custom_cleaning
+  - service: neato.custom_cleaning
     data:
       entity_id: vacuum.mrs_neato
       navigation: "3"

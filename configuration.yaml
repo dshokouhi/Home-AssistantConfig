@@ -886,22 +886,6 @@ google_assistant:
       expose: false
     light.patio_pool_light:
       expose: false
-    climate.thermostat_dry_air:
-      expose: false
-    climate.thermostat_furnace:
-      expose: false
-    climate.thermostat_heating_1:
-      name: Thermostat Heating
-      aliases:
-      - Heat
-      - Heater
-      room: Hallway
-    climate.thermostat_cooling_1:
-      name: Thermostat Cooling
-      aliases:
-      - Cool
-      - Cooler
-      room: Hallway
     script.pseudo_tv:
       name: Pseudo TV
     script.den_camera_snapshot:

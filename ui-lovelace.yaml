@@ -232,17 +232,19 @@ views:
             - sensor.bbq1_temperature
             - entity: binary_sensor.bbq1
               secondary_info: last-changed
-      - type: custom:dual-thermostat
-        name: Thermostat
-        id: dtstat
-        entities:
-          - entity: climate.thermostat_cooling_1
-            type: cool
-          - entity: climate.thermostat_heating_1
-            type: heat
+      # - type: custom:dual-thermostat
+        # name: Thermostat
+        # id: dtstat
+        # entities:
+          # - entity: climate.thermostat_cooling_1
+            # type: cool
+          # - entity: climate.thermostat_heating_1
+            # type: heat
         #fan_control: true
-        min_slider: 60
-        max_slider: 80
+        # min_slider: 60
+        # max_slider: 80
+      - type: thermostat
+        entity: climate.thermostat
       - type: conditional
         id: sousvidecond
         conditions:

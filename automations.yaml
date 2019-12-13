@@ -1667,18 +1667,18 @@
   action:
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat_heating_1
+      entity_id: climate.thermostat
       #hvac_mode: Heat
       temperature: 70
   - service: climate.set_hvac_mode
     data:
-      entity_id: climate.thermostat_heating_1
+      entity_id: climate.thermostat
       hvac_mode: 'heat'
-  - wait_template: "{{ state_attr('climate.thermostat_heating_1', 'temperature') == states('sensor.thermostat_temperature') | int }}"
+  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') == states('sensor.thermostat_temperature') | int }}"
   - delay: "00:01:00"
   - service: climate.set_hvac_mode
     data:
-      entity_id: climate.thermostat_heating_1
+      entity_id: climate.thermostat
       hvac_mode: 'off'
 
 - alias: Den lights on between 4 and 8am
@@ -2180,7 +2180,7 @@
     entity_id: binary_sensor.bathroom_window
     to: 'on'
   - platform: template
-    value_template: "{{ states.climate.thermostat_heating_1.state != 'off' }}"
+    value_template: "{{ states.climate.thermostat.state != 'off' }}"
   condition:
     condition: and
     conditions:
@@ -2188,7 +2188,7 @@
       entity_id: binary_sensor.windows
       state: 'on'
     - condition: template
-      value_template: "{{ states.climate.thermostat_heating_1.state != 'off' }}"
+      value_template: "{{ states.climate.thermostat.state != 'off' }}"
     - condition: state
       entity_id: input_boolean.night_mode
       state: 'off'
@@ -2341,7 +2341,7 @@
     entity_id: input_boolean.night_mode
     to: 'on'
   - platform: state
-    entity_id: climate.thermostat_cooling_1
+    entity_id: climate.thermostat
     to: 'cool'
   condition:
     condition: and
@@ -2350,17 +2350,17 @@
       entity_id: input_boolean.night_mode
       state: 'on'
     - condition: state
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       state: 'cool'
   action:
   - delay: "00:30:00"
-  - wait_template: "{{ states('sensor.thermostat_temperature')|int <= state_attr('climate.thermostat_cooling_1', 'temperature') }}"
+  - wait_template: "{{ states('sensor.thermostat_temperature')|int <= state_attr('climate.thermostat', 'temperature') }}"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'on'
   - service: climate.set_hvac_mode
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       hvac_mode: 'off'
 
 - alias: Cool down house while sleeping
@@ -2383,11 +2383,11 @@
   action:
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       temperature: 74
   - service: climate.set_hvac_mode
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       hvac_mode: 'cool'
 
 ##################################################
@@ -2412,11 +2412,11 @@
   - service: switch.turn_off
     entity_id: switch.siren_switch
   - condition: state
-    entity_id: climate.thermostat_cooling_1
+    entity_id: climate.thermostat
     state: cool
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       temperature: 76
 
 ################################################
@@ -2842,12 +2842,12 @@
   action:
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       #hvac_mode: 'Cool'
       temperature: 78
   - service: climate.set_hvac_mode
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       hvac_mode: 'cool'
 
 - alias: Cool down house if thermostat gets above 80 and someone is home
@@ -2867,12 +2867,12 @@
   action:
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       #hvac_mode: 'Cool'
       temperature: 76
   - service: climate.set_hvac_mode
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       hvac_mode: 'cool'
 
 - alias: Cool down house if thermostat gets above 80 and someone is home but window is open
@@ -2904,12 +2904,12 @@
     state: 'off'
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       #hvac_mode: 'Cool'
       temperature: 76
   - service: climate.set_hvac_mode
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       hvac_mode: 'cool'
 
 - alias: Set thermostat cooling if on and house is armed
@@ -2921,14 +2921,14 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       state: 'cool'
     - condition: template
-      value_template: "{{ states.climate.thermostat_cooling_1.attributes.temperature < 78 }}"
+      value_template: "{{ states.climate.thermostat.attributes.temperature < 78 }}"
   action:
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       temperature: 78
 
 - alias: Set thermostat heating if on and house is armed
@@ -2940,20 +2940,20 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: climate.thermostat_heating_1
+      entity_id: climate.thermostat
       state: 'heat'
     - condition: template
-      value_template: "{{ states.climate.thermostat_heating_1.attributes.temperature > 70 }}"
+      value_template: "{{ states.climate.thermostat.attributes.temperature > 70 }}"
   action:
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat_heating_1
+      entity_id: climate.thermostat
       temperature: 70
 
 - alias: Open windows if ac is on and its cooler outside
   trigger:
   - platform: state
-    entity_id: climate.thermostat_cooling_1
+    entity_id: climate.thermostat
     to: 'cool'
   - platform: state
     entity_id: sensor.inside_outside_temp
@@ -2968,7 +2968,7 @@
       entity_id: sensor.inside_outside_temp
       state: 'True'
     - condition: state
-      entity_id: climate.thermostat_cooling_1
+      entity_id: climate.thermostat
       state: 'cool'
     - condition: state
       entity_id: input_boolean.night_mode
@@ -2981,7 +2981,7 @@
       state: 'disarmed'
   action:
   - delay: "00:01:00"
-  - wait_template: "{{ state_attr('climate.thermostat_cooling_1', 'temperature') == states('sensor.thermostat_temperature') | int }}"
+  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') == states('sensor.thermostat_temperature') | int }}"
   - condition: state
     entity_id: sensor.inside_outside_temp
     state: 'True'
@@ -3008,17 +3008,17 @@
   action:
   - service: climate.set_hvac_mode
     data:
-      entity_id: climate.thermostat_heating_1
+      entity_id: climate.thermostat
       hvac_mode: 'heat'
   - service: climate.set_temperature
     data:
-      entity_id: climate.thermostat_heating_1
+      entity_id: climate.thermostat
       temperature: 67
-  - wait_template: "{{ state_attr('climate.thermostat_heating_1', 'temperature') == states('sensor.thermostat_temperature') | int }}"
+  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') == states('sensor.thermostat_temperature') | int }}"
   - delay: "00:01:00"
   - service: climate.set_hvac_mode
     data:
-      entity_id: climate.thermostat_heating_1
+      entity_id: climate.thermostat
       hvac_mode: 'off'
 
 ################################################
@@ -4927,7 +4927,7 @@
     platform: webhook
     webhook_id: !secret neato_hallway
   action:
-  - service: vacuum.neato_custom_cleaning
+  - service: neato.custom_cleaning
     data:
       entity_id: vacuum.mrs_neato
       zone: Hallway
@@ -4937,7 +4937,7 @@
     platform: webhook
     webhook_id: !secret neato_kitchen
   action:
-  - service: vacuum.neato_custom_cleaning
+  - service: neato.custom_cleaning
     data:
       entity_id: vacuum.mrs_neato
       zone: Kitchen
@@ -4947,7 +4947,7 @@
     platform: webhook
     webhook_id: !secret neato_living_room
   action:
-  - service: vacuum.neato_custom_cleaning
+  - service: neato.custom_cleaning
     data:
       entity_id: vacuum.mrs_neato
       zone: Living room
