@@ -306,7 +306,7 @@
         color: red
         duration: 10
         position: center
-      message: "The dryer is done.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes  {% endif %}"
+      message: "The dryer is done 🎉.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running 🙈 {% else %} Time to get your clothes 👍 {% endif %}"
       title: Shokabow Zoo
   # - service: notify.chrome
     # data:
@@ -315,7 +315,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "The dryer is done :tada:.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running :see_no_evil: {% else %} Time to get your clothes :thumbsup: {% endif %}"
+      message: "The dryer is done 🎉.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running 🙈 {% else %} Time to get your clothes 👍 {% endif %}"
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -359,7 +359,7 @@
         color: red
         duration: 10
         position: center
-      message: "The washer is done.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry{% endif %}"
+      message: "The washer is done 🎉.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running 🙈 {% else %} Time to switch laundry 👍 {% endif %}"
       title: Shokabow Zoo
   # - service: notify.chrome
     # data:
@@ -368,7 +368,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "The washer is done :tada:.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running :see_no_evil: {% else %} Time to switch laundry :thumbsup: {% endif %}"
+      message: "The washer is done 🎉.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running 🙈 {% else %} Time to switch laundry 👍 {% endif %}"
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -421,7 +421,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "The dishes are done :tada:."
+      message: "The dishes are done 🎉."
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -532,7 +532,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "The front door lock is jammed :door: :lock: :no_entry:."
+      message: "The front door lock is jammed 🚪🔒⛔."
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -565,7 +565,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "{{ trigger.to_state.attributes.friendly_name }} has been left open for 30 seconds :door: :scream_cat:"
+      message: "{{ trigger.to_state.attributes.friendly_name }} has been left open for 30 seconds 🚪🙀"
       target:
       - !secret discord_house
   - service: tts.google_say
@@ -611,13 +611,13 @@
       # title: Shokabow Zoo
   - service: notify.slack
     data_template:
-      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot :camera_with_flash: "
+      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸 "
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
   - service: notify.discord
     data_template:
-      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot :camera_with_flash: "
+      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸 "
       target:
       - !secret discord_alarm
       data:
@@ -663,13 +663,13 @@
       # title: Shokabow Zoo
   - service: notify.slack
     data_template:
-      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot :camera_with_flash: "
+      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸"
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
   - service: notify.discord
     data_template:
-      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot. :camera_with_flash: "
+      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot. 📸 "
       target:
       - !secret discord_alarm
       data:
@@ -712,13 +712,13 @@
       # title: Shokabow Zoo
   - service: notify.slack
     data:
-      message: "Kitchen camera triggered snapshot :camera_with_flash: "
+      message: "Kitchen camera triggered snapshot 📸 "
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/kitchen.jpg"
   - service: notify.discord
     data_template:
-      message: "Kitchen camera triggered snapshot"
+      message: "Kitchen camera triggered snapshot 📸"
       target:
       - !secret discord_alarm
       data:
@@ -729,7 +729,7 @@
       target:
       - id: !secret hangouts_group
       message:
-      - text: "Kitchen camera triggered snapshot :camera_with_flash: "
+      - text: "Kitchen camera triggered snapshot"
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen.jpg"
   - service: switch.turn_on
@@ -800,10 +800,10 @@
     entity_id: alarm_control_panel.home
   - service: notify.slack
     data_template:
-      message: "The alarm has been tripped :warning: from the following windows/doors :door: (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "The alarm has been tripped ⚠ from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
   - service: notify.discord
     data_template:
-      message: "The alarm has been tripped :warning: from the following windows/doors :door: (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "The alarm has been tripped ⚠ from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
   - service: hangouts.send_message
@@ -1099,7 +1099,7 @@
       #{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
   - service: notify.discord
     data_template:
-      message: "The following window(s) is/are open but the alarm is turned on :no_entry: : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "The following window(s) is/are open but the alarm is turned on ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
   - service: hangouts.send_message
@@ -1107,7 +1107,7 @@
       target:
       - id: !secret hangouts_group
       message:
-      - text: "The following window(s) is/are open but the alarm is turned on :no_entry: : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      - text: "The following window(s) is/are open but the alarm is turned on ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
 
 - alias: Notify door lock keypad locked
   trigger:
@@ -1122,10 +1122,10 @@
       # title: Shokabow Zoo
   - service: notify.slack
     data:
-      message: "Too many incorrect codes used on front door. Keypad locked. :closed_lock_with_key: "
+      message: "Too many incorrect codes used on front door. Keypad locked. 🔐 "
   - service: notify.discord
     data_template:
-      message: "Too many incorrect codes used on front door. Keypad locked. :closed_lock_with_key: "
+      message: "Too many incorrect codes used on front door. Keypad locked. 🔐 "
       target:
       - !secret discord_alarm
   - service: hangouts.send_message
@@ -1145,11 +1145,11 @@
     entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.bedroom_lights_level, light.office_lights
   - service: notify.slack
     data_template:
-      message: "The alarm has been triggered since it was not disarmed for 60 seconds :cop: , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "The alarm has been triggered since it was not disarmed for 60 seconds 👮‍♀ , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       #{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
   - service: notify.discord
     data_template:
-      message: "The alarm has been triggered since it was not disarmed for 60 seconds :cop: , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "The alarm has been triggered since it was not disarmed for 60 seconds 👮‍♀‍ , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
   - service: hangouts.send_message
@@ -1258,10 +1258,10 @@
       # title: Shokabow Zoo
   - service: notify.slack
     data_template:
-      message: "Alarm is in armed night and the following windows are open: no_entry: : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "Alarm is in armed night and the following windows are open ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
   - service: notify.discord
     data_template:
-      message: "Alarm is in armed night and the following windows are open :no_entry: : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "Alarm is in armed night and the following windows are open ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
   - service: hangouts.send_message
@@ -1298,10 +1298,10 @@
       # title: Shokabow Zoo
   - service: notify.slack
     data_template:
-      message: "The alarm is arming in night mode and the following windows are open :no_entry: : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "The alarm is arming in night mode and the following windows are open ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
   - service: notify.discord
     data_template:
-      message: "The alarm is arming in night mode and the following windows are open :no_entry: : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "The alarm is arming in night mode and the following windows are open ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
   - service: hangouts.send_message
@@ -1353,10 +1353,10 @@
   action:
   - service: notify.slack
     data_template:
-      message: "Alarm recording :video_camera: started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
+      message: "Alarm recording 📹 started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
   - service: notify.discord
     data_template:
-      message: "Alarm recording :video_camera: started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
+      message: "Alarm recording 📹 started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
       target:
       - !secret discord_alarm
   - service: hangouts.send_message
@@ -1517,7 +1517,7 @@
         color: red
         duration: 10
         position: center
-      message: 'Bedroom door left open and boogie has left for work, go close it!'
+      message: "Bedroom door 🚪 left open and boogie has left 🚙 for work, go close it!"
       title: Shokabow Zoo
   # - service: notify.chrome
     # data_template:
@@ -1526,7 +1526,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "Bedroom door :door: left open and boogie has left :blue_car: for work, go close it!"
+      message: "Bedroom door 🚪 left open and boogie has left 🚙 for work, go close it!"
       target:
       - !secret discord_danny
   # - service: hangouts.send_message
@@ -1845,7 +1845,7 @@
   - wait_template: "{{ is_state('alarm_control_panel.home', 'disarmed') }}"
   - service: notify.discord
     data_template:
-      message: "You got mail :mailbox_with_mail: "
+      message: "You got mail 📬"
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -1872,7 +1872,7 @@
     data:
       data:
         color: teal
-      message: You got mail!
+      message: "You got mail! 📬"
       title: Shokabow Zoo
 
 ################################################
@@ -2129,7 +2129,7 @@
       #{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
   - service: notify.discord
     data_template:
-      message: "Its raining :cloud_rain: and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "Its raining 🌧 and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -2204,7 +2204,7 @@
       #{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
   - service: notify.discord
     data_template:
-      message: "The thermostat :thermometer: is on and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "The thermostat 🌡 is on and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -2439,14 +2439,14 @@
   action:
   - service: notify.slack
     data_template:
-      message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }} :fire: "
+      message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }} 🚒🔥 "
   - service: notify.den
     data_template:
       data:
         color: red
         duration: 10
         position: center
-      message: 'Smoke Detected! {{ trigger.to_state.attributes.friendly_name }}'
+      message: 'Smoke Detected! {{ trigger.to_state.attributes.friendly_name }} 🚒🔥'
       title: Shokabow Zoo
   # - service: notify.chrome
     # data_template:
@@ -2455,7 +2455,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }} :fire: "
+      message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }} 🚒🔥 "
       target:
       - !secret discord_house
   - service: hangouts.send_message
@@ -2479,14 +2479,14 @@
   action:
   - service: notify.slack
     data_template:
-      message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }} :fire: "
+      message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }} 🔥 "
   - service: notify.den
     data_template:
       data:
         color: red
         duration: 10
         position: center
-      message: 'CO2 Detected! {{ trigger.to_state.attributes.friendly_name }}'
+      message: 'CO2 Detected! {{ trigger.to_state.attributes.friendly_name }} 🔥'
       title: Shokabow Zoo
   # - service: notify.chrome
     # data_template:
@@ -2495,7 +2495,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }} :fire: "
+      message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }} 🔥 "
       target:
       - !secret discord_house
   - service: hangouts.send_message
@@ -2604,7 +2604,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "{{ trigger.to_state.attributes.friendly_name }} has died :negative_squared_cross_mark: "
+      message: "{{ trigger.to_state.attributes.friendly_name }} has died 💀 "
       target:
       - !secret discord_danny
   - service: hangouts.send_message
@@ -2640,7 +2640,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "{{ trigger.to_state.attributes.friendly_name }} has died :negative_squared_cross_mark: "
+      message: "{{ trigger.to_state.attributes.friendly_name }} has died 💀 "
       target:
       - !secret discord_danny
   - service: hangouts.send_message
@@ -2680,7 +2680,7 @@
       target:
       - id: !secret hangouts_danny
       message:
-      - text: "Welcome home :house: ! Do you need help? :question:  Type 'help' or 'yes' if yes."
+      - text: "Welcome home 🏠 ! Do you need help? ❓  Type 'help' or 'yes' if yes."
 
 - alias: Notify help needed at cars
   trigger:
@@ -2718,7 +2718,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "You are not home :house:, did you forget anything?"
+      message: "You are not home 🏠, did you forget anything?"
       target:
       - !secret discord_danny
 
@@ -2779,7 +2779,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "Tosh has left the zoo :dog: :cat: :rat: .  Did you forget anything?"
+      message: "Tosh has left the zoo 🐶🐱🐀 .  Did you forget anything?"
       target:
       - !secret discord_house
   - service: hangouts.send_message
@@ -2791,11 +2791,16 @@
 
 - alias: Tosh awake and left
   trigger:
-    platform: state
+  - platform: state
     entity_id: device_tracker.google_maps_104359830266586918986
     to: 'not_home'
     for:
       minutes: 5
+  - platform: state
+    entity_id: switch.tasker_sleep_tosh
+    to: 'on'
+    for:
+      hours: 8
   condition:
     condition: and
     conditions:
@@ -2887,7 +2892,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "Its getting hot :hotsprings: , close the following windows so the cooler turns on :cool: : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      message: "Its getting hot ♨, close the following windows so the cooler turns on: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_house
   - service: shell_command.cool_windows
@@ -2985,7 +2990,7 @@
     state: 'off'
   - service: notify.discord
     data_template:
-      message: "Please open a window and turn off the thermostat :thermometer: .  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ states('sensor.shokabow_weather_temperature') }} {{ state_attr('sensor.shokabow_weather_temperature', 'unit_of_measurement') }} outside."
+      message: "Please open a window and turn off the thermostat 🌡 .  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ states('sensor.shokabow_weather_temperature') }} {{ state_attr('sensor.shokabow_weather_temperature', 'unit_of_measurement') }} outside."
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -3178,7 +3183,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "The water heater is leaking. :non_potable_water: "
+      message: "The water heater is leaking. 🚱 "
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -3219,7 +3224,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "There is rain :cloud_rain: getting into the water heater."
+      message: "There is rain 🌧 getting into the water heater."
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -3306,7 +3311,7 @@
              {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
              {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{% endif -%}
              {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
-             {{ item.name }} ({{ item.state }}) :battery: :no_entry: {% if not loop.last %}, {%- endif %} {% endif -%}
+             {{ item.name }} ({{ item.state }}) 🔋⛔ {% if not loop.last %}, {%- endif %} {% endif -%}
              {% endfor %}
              {%- endfor %}
              {% endmacro %}
@@ -3430,7 +3435,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "Timer out of sync. :timer: "
+      message: "Timer out of sync. ⏲ "
       target:
       - !secret discord_danny
   # - service: hangouts.send_message
@@ -3474,7 +3479,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "{{ trigger.to_state.attributes.friendly_name }} offline :computer: :no_entry: :warning:"
+      message: "{{ trigger.to_state.attributes.friendly_name }} offline 💻⛔⚠"
       target:
       - !secret discord_danny
   # - service: hangouts.send_message
@@ -3508,7 +3513,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days! :negative_squared_cross_mark: :warning: "
+      message: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days! ❌⚠ "
       target:
       - !secret discord_danny
   # - service: hangouts.send_message
@@ -3536,7 +3541,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "Home assistant drive getting full, over 50%! Check journal and zoneminder. :negative_squared_cross_mark: :warning: "
+      message: "Home assistant drive getting full, over 50%! Check journal and zoneminder ❌⚠ "
       target:
       - !secret discord_danny
   # - service: hangouts.send_message
@@ -3954,14 +3959,14 @@
   action:
   - service: notify.slack
     data_template:
-      message: "Leak detected at home {{ trigger.to_state.attributes.friendly_name }}"
+      message: "Leak detected 🚱 at home {{ trigger.to_state.attributes.friendly_name }} 🏠 "
   - service: notify.den
     data_template:
       data:
         color: red
         duration: 10
         position: center
-      message: 'Leak Detected! {{ trigger.to_state.attributes.friendly_name }}'
+      message: 'Leak detected 🚱 at home {{ trigger.to_state.attributes.friendly_name }} 🏠 '
       title: Shokabow Zoo
   # - service: notify.chrome
     # data_template:
@@ -3970,7 +3975,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "Leak detected :non_potable_water: at home {{ trigger.to_state.attributes.friendly_name }} :house: "
+      message: "Leak detected 🚱 at home {{ trigger.to_state.attributes.friendly_name }} 🏠 "
       target:
       - !secret discord_danny
   # - service: hangouts.send_message
@@ -4111,9 +4116,9 @@
     data_template:
       message: >
            {% if is_state("binary_sensor.tsxpresence", "on") %}
-             TSX arrived home :blue_car: 
+             TSX arrived home 🚗
            {% elif is_state("binary_sensor.tsxpresence", "off") %}
-             TSX left home :blue_car: 
+             TSX left home 🚗 
            {% else %}
            {% endif %}
       target:
@@ -4172,9 +4177,9 @@
     data_template:
       message: >
            {% if is_state("binary_sensor.rdxpresence", "on") %}
-             RDX arrived home :blue_car: 
+             RDX arrived home 🚙
            {% elif is_state("binary_sensor.rdxpresence", "off") %}
-             RDX left home :blue_car: 
+             RDX left home 🚙
            {% else %}
            {% endif %}
       target:
@@ -4248,19 +4253,19 @@
     data_template:
       message: >-
           {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
-            Beef Ribs are almost done :cow: :drooling_face: 
+            Beef Ribs are almost done  🐮🤤
           {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-            Brisket is almost done :cow: :drooling_face: 
+            Brisket is almost done 🐮🤤 
           {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-            Chicken is almost done :chicken: :drooling_face: 
+            Chicken is almost done 🐤🤤
           {% elif is_state("input_select.bbq_probe1", "Fish") -%}
-            Fish is almost done :fish: :drooling_face: 
+            Fish is almost done 🐟🤤
           {% elif is_state("input_select.bbq_probe1", "Steak") -%}
-            Steak is almost done :cow: :drooling_face: 
+            Steak is almost done 🐮🤤 
           {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
-            Turkey is almost done :turkey: :drooling_face: 
+            Turkey is almost done 🦃🤤
           {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-            Tri-tip is almost done :cow: :drooling_face: 
+            Tri-tip is almost done 🐮🤤 
           {%- else -%}
           {%- endif %}
       target:
@@ -4348,19 +4353,19 @@
     data_template:
       message: >
           {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
-            Beef Ribs are done :cow: :fork_and_knife: :meat_on_bone: 
+            Beef Ribs are done 🐮 🍽 🍖
           {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-            Brisket is done :cow: :fork_and_knife: 
+            Brisket is done 🍽 🐄
           {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-            Chicken is done :chicken: :fork_and_knife: :poultry_leg:
+            Chicken is done 🐔🍗🍽
           {% elif is_state("input_select.bbq_probe1", "Fish") -%}
-            Fish is done :fish: :fork_and_knife: :fried_shrimp:
+            Fish is done 🐟 🍽 🍤
           {% elif is_state("input_select.bbq_probe1", "Steak") -%}
-            Steak is done :cow: :fork_and_knife: :meat_on_bone: 
+            Steak is done 🐮 🍴 🍖 🥩
           {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
-            Turkey is done :turkey: :fork_and_knife: 
+            Turkey is done 🦃 🍴
           {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-            Tri-tip is done :cow: :fork_and_knife: 
+            Tri-tip is done 🐮 🍽
           {%- else -%}
           {%- endif %}
       target:
@@ -4416,19 +4421,19 @@
         position: center
       message: >
        {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
-         Beef Ribs are done
+            Beef Ribs are done 🐮 🍽 🍖
        {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-         Brisket is done
+            Brisket is done 🍽 🐄
        {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-         Chicken is done
+            Chicken is done 🐔🍗🍽
        {% elif is_state("input_select.bbq_probe1", "Fish") -%}
-         Fish is done
+            Fish is done 🐟 🍽 🍤
        {% elif is_state("input_select.bbq_probe1", "Steak") -%}
-         Steak is done
+            Steak is done 🐮 🍴 🍖 🥩
        {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
-         Turkey is done
+            Turkey is done 🦃 🍴
        {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-         Tri-tip is done
+            Tri-tip is done 🐮 🍽
        {%- else -%}
        {%- endif %}
       title: Shokabow Zoo
@@ -4509,7 +4514,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "Pool pump :swimmer: is offline :no_entry, go outside and hit reset :warning: "
+      message: "Pool pump 🏊‍♀️ is offline :no_entry, go outside and hit reset ⚠ "
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -4654,13 +4659,13 @@
     data_template:
       message: >-
          {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean den air purifier filter, filter level {{ state_attr('fan.den_air_purifier', 'filter_life_remaining') }} :warning:
+           Clean den air purifier filter, filter level {{ state_attr('fan.den_air_purifier', 'filter_life_remaining') }} ⚠
          {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean living room air purifier filter, filter level {{ state_attr('fan.living_room_air_purifier', 'filter_life_remaining') }} :warning:
+           Clean living room air purifier filter, filter level {{ state_attr('fan.living_room_air_purifier', 'filter_life_remaining') }} ⚠
          {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean bedroom air purifier filter, filter level {{ state_attr('fan.bedroom_air_purifier', 'filter_life_remaining') }} :warning:
+           Clean bedroom air purifier filter, filter level {{ state_attr('fan.bedroom_air_purifier', 'filter_life_remaining') }} ⚠
          {% elif state_attr('fan.office_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean office air purifier filter, filter level {{ state_attr('fan.office_air_purifier', 'filter_life_remaining') }} :warning:
+           Clean office air purifier filter, filter level {{ state_attr('fan.office_air_purifier', 'filter_life_remaining') }} ⚠
          {% else %}
          {% endif %}
       target:
@@ -4752,7 +4757,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "Rocket launch :rocket: within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }} :movie_camera: "
+      message: "Rocket launch 🚀 within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }} 🎥 "
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -4801,7 +4806,7 @@
   - service: notify.discord
     data_template:
       message: >
-            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} :camera: detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }}.
+            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} 📷 detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }}.
       target:
       - !secret discord_images
       data:
@@ -4818,7 +4823,7 @@
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
       message: >
-            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }}.
+            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }} 📸.
       title: Shokabow Zoo
 
 - alias: Image Processing When Away
@@ -5060,7 +5065,7 @@
     entity_id: input_boolean.cat_litter_cleaned
   - service: notify.discord
     data_template:
-      message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat :cat: :cat2: box, time to clean."
+      message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
       target:
       - !secret discord_house
 
@@ -5234,7 +5239,7 @@
     value_template: "{{ (state_attr('climate.sous_vide', 'current_temperature') | int == state_attr('climate.sous_vide', 'temperature') | int) and (is_state('climate.sous_vide', 'running')) }}"
   - service: notify.discord
     data_template:
-      message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }} :cooking: "
+      message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }} 🍳 "
       target:
       - !secret discord_house
   - service: notify.den
@@ -5243,7 +5248,7 @@
         color: red
         duration: 10
         position: center
-      message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }}"
+      message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }} 🍳"
       title: Shokabow Zoo
   - condition: state
     entity_id: input_boolean.night_mode
@@ -5265,7 +5270,7 @@
   - wait_template: "{{ states('sensor.bottle_warmer') | int < 5 }}"
   - service: notify.discord
     data_template:
-      message: "Bottle warmer is done :baby_bottle: "
+      message: "Bottle warmer is done 🍼"
       target:
       - !secret discord_house
   - service: notify.den
@@ -5323,7 +5328,7 @@
   - service: shell_command.baby_motion_detected
   - service: notify.discord
     data_template:
-      message: "Baby motion detected :baby: "
+      message: "Baby motion detected 👶"
       target:
       - !secret discord_house
 
@@ -5357,10 +5362,10 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.nursery_average_temperature
-    above: 77
+    above: 76
   - platform: numeric_state
     entity_id: sensor.nursery_average_temperature
-    below: 71
+    below: 70
   condition:
     condition: state
     entity_id: input_boolean.baby_sleeping
@@ -5368,7 +5373,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "Nursery temperature is at {{ states('sensor.nursery_average_temperature') }} :thermometer: {% if states('sensor.nursery_average_temperature') | int > 78 %} :fire: {% else %} {% endif %} :baby: check the heater positioning"
+      message: "Nursery temperature is at {{ states('sensor.nursery_average_temperature') }} 🌡 {% if states('sensor.nursery_average_temperature') | int > 76%} 🔥 {% else %} {% endif %} 👶 check the heater positioning"
       target:
       - !secret discord_house
 
@@ -5376,7 +5381,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.nursery_average_temperature
-    below: 72
+    below: 71
   condition:
     condition: and
     conditions:
@@ -5394,7 +5399,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.nursery_average_temperature
-    above: 76
+    above: 74
   condition:
     condition: and
     conditions:

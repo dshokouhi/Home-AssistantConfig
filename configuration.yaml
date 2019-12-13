@@ -760,9 +760,11 @@ google_assistant:
   project_id: hass-ga-908cf
   #client_id: !secret ga_client_id
   #access_token: !secret ga_access_token
-  api_key: !secret ga_api_key
+  #api_key: !secret ga_api_key
   #agent_user_id: !secret ga_agent_id
   #expose_by_default: false
+  service_account: !include hass-ga-75cd5ac0dda2.json
+  report_state: true
   exposed_domains:
   - switch
   - light
@@ -1175,6 +1177,18 @@ google_assistant:
       expose: false
     switch.nursery_heater:
       room: Nursery
+    switch.nursery_power_strip_port_1:
+      expose: false
+    switch.nursery_power_strip_port_2:
+      expose: false
+    switch.nursery_power_strip_port_3:
+      expose: false
+    switch.nursery_power_strip_port_4:
+      expose: false
+    switch.nursery_power_strip_port_5:
+      expose: false
+    switch.nursery_power_strip_port_6:
+      expose: false
 
 namecheapdns:
   host: plex

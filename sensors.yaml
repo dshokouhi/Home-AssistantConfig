@@ -353,6 +353,11 @@
        device_class: battery
        friendly_name: "Tosh Phone Battery"
 
+     dannys_fire_hd8_battery:
+       value_template: "{{ state_attr('device_tracker.dannys_fire_hd_8', 'battery_level') }}"
+       device_class: battery
+       friendly_name: "Dannys Fire HD 8 Battery"
+      
      octoprint_time_elapsed_format:
        friendly_name: 'Printing Time Elapsed'
        value_template: >-
@@ -497,8 +502,8 @@
    value_template: "{{ (((value_json.timer | int) * 60) - 3600) | timestamp_custom('%H:%M') }}"
    icon: 'mdi:timer'
 
- - platform: mqtt
-   name: Dannys Fire HD8 Battery
-   state_topic: homeassistant/sensor/danny_hd8-battery/state
-   device_class: battery
-   unit_of_measurement: '%'
+ # - platform: mqtt
+   # name: Dannys Fire HD8 Battery
+   # state_topic: homeassistant/sensor/danny_hd8-battery/state
+   # device_class: battery
+   # unit_of_measurement: '%'

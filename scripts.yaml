@@ -319,15 +319,24 @@ baby_monitor_snapshot:
   - service: camera.snapshot
     data:
       entity_id: camera.baby_monitor
-      filename: '/home/homeassistant/.homeassistant/snapshot/baby_monitor.jpg'
-  - service: notify.discord
+      filename: '/home/homeassistant/.homeassistant/www/baby_monitor.jpg'
+  - service: notify.mobile_app_pixel_3_xl
     data_template:
-      message: "Baby monitor snapshot"
-      target:
-      - !secret discord_house
+      message: "😍👶🥰"
+      title: "Baby"
       data:
-        images:
-        - "/home/homeassistant/.homeassistant/snapshot/baby_monitor.jpg"
+        android:
+          notification:
+            image: !secret nursery_snap
+  - service: notify.mobile_app_pixel_4_xl
+    data_template:
+      message: "😍👶🥰"
+      title: "Baby"
+      data:
+        android:
+          notification:
+            image: !secret nursery_snap
+
 
 living_room_camera_snapshot:
   sequence:
