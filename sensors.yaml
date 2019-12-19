@@ -356,6 +356,7 @@
      dannys_fire_hd8_battery:
        value_template: "{{ state_attr('device_tracker.dannys_fire_hd_8', 'battery_level') }}"
        device_class: battery
+       unit_of_measurement: "%"
        friendly_name: "Dannys Fire HD 8 Battery"
       
      octoprint_time_elapsed_format:

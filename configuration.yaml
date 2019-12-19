@@ -732,6 +732,12 @@ notify:
        target:
        - !secret discord_house
 
+ - platform: group
+   name: android
+   services:
+   - service: mobile_app_pixel_3_xl
+   - service: mobile_app_pixel_4_xl
+
  - platform: hangouts
    name: hangouts
    default_conversations:

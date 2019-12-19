@@ -410,7 +410,7 @@
         color: red
         duration: 10
         position: center
-      message: The dishes are done!
+      message: "The dishes are done! 🎉"
       title: Shokabow Zoo
   - service: input_boolean.turn_off
     entity_id: input_boolean.dishwasher_status
@@ -421,7 +421,7 @@
       # title: Shokabow Zoo
   - service: notify.discord
     data_template:
-      message: "The dishes are done 🎉."
+      message: "The dishes are done! 🎉"
       target:
       - !secret discord_house
   # - service: hangouts.send_message
@@ -1665,16 +1665,16 @@
         entity_id: alarm_control_panel.home
         state: 'armed_night'
   action:
-  - service: climate.set_temperature
-    data:
-      entity_id: climate.thermostat
-      #hvac_mode: Heat
-      temperature: 70
   - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat
       hvac_mode: 'heat'
-  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') == states('sensor.thermostat_temperature') | int }}"
+  - delay: "00:00:05"
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.thermostat
+      temperature: 70
+  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') | int == states('sensor.thermostat_temperature') | int }}"
   - delay: "00:01:00"
   - service: climate.set_hvac_mode
     data:
@@ -2924,7 +2924,7 @@
       entity_id: climate.thermostat
       state: 'cool'
     - condition: template
-      value_template: "{{ states.climate.thermostat.attributes.temperature < 78 }}"
+      value_template: "{{ states.climate.thermostat.attributes.temperature | int < 78 }}"
   action:
   - service: climate.set_temperature
     data:
@@ -2943,7 +2943,7 @@
       entity_id: climate.thermostat
       state: 'heat'
     - condition: template
-      value_template: "{{ states.climate.thermostat.attributes.temperature > 70 }}"
+      value_template: "{{ states.climate.thermostat.attributes.temperature | int > 70 }}"
   action:
   - service: climate.set_temperature
     data:
@@ -3010,11 +3010,12 @@
     data:
       entity_id: climate.thermostat
       hvac_mode: 'heat'
+  - delay: "00:00:05"
   - service: climate.set_temperature
     data:
       entity_id: climate.thermostat
       temperature: 67
-  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') == states('sensor.thermostat_temperature') | int }}"
+  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') | int == states('sensor.thermostat_temperature') | int }}"
   - delay: "00:01:00"
   - service: climate.set_hvac_mode
     data:
@@ -3919,7 +3920,7 @@
     data:
       data:
         color: teal
-      message: There is motion at the front door
+      message: "There is motion at the front door🚪"
       title: Shokabow Zoo
   
 - alias: Ding Dong at front door
@@ -3936,7 +3937,7 @@
     data:
       data:
        color: teal
-      message: Someone is at the front door
+      message: "Someone is at the front door 🚪"
       title: Shokabow Zoo
       
 ################################################
@@ -5279,7 +5280,7 @@
         color: red
         duration: 10
         position: center
-      message: "Bottle warmer is done"
+      message: "Bottle warmer is done 🍼"
       title: Shokabow Zoo
   - condition: state
     entity_id: input_boolean.night_mode
@@ -5367,9 +5368,14 @@
     entity_id: sensor.nursery_average_temperature
     below: 70
   condition:
-    condition: state
-    entity_id: input_boolean.baby_sleeping
-    state: 'on'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.baby_sleeping
+      state: 'on'
+    - condition: state
+      entity_id: climate.thermostat
+      state: 'heat'
   action:
   - service: notify.discord
     data_template:
@@ -5391,6 +5397,9 @@
     - condition: state
       entity_id: input_boolean.baby_sleeping
       state: 'on'
+    - condition: state
+      entity_id: climate.thermostat
+      state: 'off'
   action:
     service: switch.turn_on
     entity_id: switch.nursery_heater
@@ -5417,13 +5426,26 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.dannys_fire_hd8_battery
-    below: 20
+    below: 30
   action:
   - service: notify.discord
     data_template:
       message: "Low battery ({{ states('sensor.dannys_fire_hd8_battery') }}) for tablet in den, plug it in"
       target:
       - !secret discord_house
+
+- alias: Turn off nursery heater if heat is on
+  trigger:
+    platform: state
+    entity_id: climate.thermostat
+    to: 'heat'
+  condition:
+    condition: state
+    entity_id: switch.nursery_heater
+    state: 'on'
+  action:
+    service: switch.turn_off
+    entity_id: switch.nursery_heater
 
 ################################################
 #
