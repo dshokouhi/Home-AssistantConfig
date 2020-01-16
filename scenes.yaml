@@ -19,7 +19,7 @@
     light.office_lights: off
     light.garden_lights: off
     #switch.little_christmas_trees_switch: off
-    switch.christmas_tree_switch: off
+    #switch.christmas_tree_switch: off
     light.den_bookshelf_left: off
     light.nook_lamp: off
     input_boolean.night_mode: on
@@ -51,7 +51,7 @@
       #color_name: 'yellow'
       xy_color: [0.444,0.517]
     #switch.little_christmas_trees_switch: on
-    switch.christmas_tree_switch: on
+    #switch.christmas_tree_switch: on
 
 - name: Goodbye
   entities:
@@ -74,7 +74,7 @@
     light.bedroom_lights_level: off
     light.garden_lights: off
     #switch.little_christmas_trees_switch: off
-    switch.christmas_tree_switch: off
+    #switch.christmas_tree_switch: off
     light.den_bookshelf_left: off
     light.nook_lamp: off
     light.spot: off

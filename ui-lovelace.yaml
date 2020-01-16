@@ -595,8 +595,7 @@ views:
         id: ring
         title: Ring
         entities:
-          #- sensor.ring_catio_battery
-          #- binary_sensor.ring_catio_motion
+          - binary_sensor.ring_catio_motion
           - entity: sensor.ring_door_view_battery
             name: Door View Battery
           - entity: sensor.ring_front_door_battery

@@ -679,7 +679,7 @@ camera:
    name: Garage Scan
    file_path: /home/homeassistant/.homeassistant/snapshot/outdoor_camera_latest.jpg
 
- - platform: ring
+ #- platform: ring
  
  - platform: ffmpeg
    name: Ferret Cage
@@ -754,9 +754,9 @@ alert:
     - discord_alerts
     - hangouts
 
-ring:
-   username: !secret ringuser
-   password: !secret ringpass
+#ring:
+ #  username: !secret ringuser
+  # password: !secret ringpass
 
 google:
    client_id: !secret google_client_id
@@ -1178,6 +1178,8 @@ google_assistant:
     switch.nursery_power_strip_port_5:
       expose: false
     switch.nursery_power_strip_port_6:
+      expose: false
+    light.3d_printer:
       expose: false
 
 namecheapdns:

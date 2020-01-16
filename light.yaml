@@ -9,4 +9,4 @@
        name: Spot
        type: rgbww
 
- - platform: ring
+# - platform: ring

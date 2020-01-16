@@ -573,6 +573,32 @@
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} has been left open, please close it"
 
+- alias: Printer paused
+  trigger:
+    platform: state
+    entity_id: sensor.octoprint_current_state
+    to: 'Paused'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.night_mode
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.shower_mode
+      state: 'off'
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: 'off'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.den_home_hub, media_player.kitchen_home
+    data_template:
+      message: "Printing paused."
+
 ################################################
 #
 #      Alarm automations and notifications
@@ -745,12 +771,6 @@
     to: 'on'
   - platform: state
     entity_id: binary_sensor.den_window
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.catio_firepit_door
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.catio_pool_door
     to: 'on'
   - platform: state
     entity_id: binary_sensor.front_door
@@ -2236,9 +2256,10 @@
 
 - alias: Colorful at night
   trigger:
-  - platform: sun
-    event: sunset
-    offset: "00:01:00"
+  - platform: numeric_state
+    entity_id: sun.sun
+    value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+    below: -5.0
   - platform: state
     entity_id: alarm_control_panel.home
     from: 'armed_away'
@@ -3988,7 +4009,7 @@
 
 ################################################
 #
-#      Hallway Switch Automations
+#      Switch Automations
 #
 ################################################
 
@@ -4069,6 +4090,17 @@
   action:
     service: switch.toggle
     entity_id: switch.backyard_lights_switch
+
+- alias: Toggle nursery lamp
+  trigger:
+    platform: event
+    event_type: xiaomi_aqara.click
+    event_data:
+      entity_id: binary_sensor.nursery_switch
+      click_type: single
+  action:
+    service: light.toggle
+    entity_id: light.nook_lamp
 
 ################################################
 #
@@ -4980,6 +5012,16 @@
   - service: switch.turn_off
     entity_id: switch.tasker_sleep_tosh
 
+# - alias: Dash webhook
+  # trigger:
+    # platform: webhook
+    # webhook_id: amazon-dash
+  # action:
+  # - service: notify.discord
+    # data_template:
+      # message: "dash button"
+      # target:
+      # - !secret discord_danny
 ################################################
 #
 #      ADB Automations
@@ -5363,23 +5405,18 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.nursery_average_temperature
-    above: 76
+    above: 75
   - platform: numeric_state
     entity_id: sensor.nursery_average_temperature
     below: 70
   condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: input_boolean.baby_sleeping
-      state: 'on'
-    - condition: state
-      entity_id: climate.thermostat
-      state: 'heat'
+    condition: state
+    entity_id: input_boolean.baby_sleeping
+    state: 'on'
   action:
   - service: notify.discord
     data_template:
-      message: "Nursery temperature is at {{ states('sensor.nursery_average_temperature') }} 🌡 {% if states('sensor.nursery_average_temperature') | int > 76%} 🔥 {% else %} {% endif %} 👶 check the heater positioning"
+      message: "Nursery temperature is at {{ states('sensor.nursery_average_temperature') }} 🌡 {% if states('sensor.nursery_average_temperature') | int > 75%} 🔥 {% else %} {% endif %} 👶 check the heater positioning"
       target:
       - !secret discord_house
 
@@ -5445,6 +5482,18 @@
     state: 'on'
   action:
     service: switch.turn_off
+    entity_id: switch.nursery_heater
+
+- alias: Turn off nursery heater if on for 1 hour
+  trigger:
+    platform: state
+    entity_id: switch.nursery_heater
+    to: 'on'
+    for:
+      hours: 1
+  action:
+  - wait_template: "{{ states('sensor.nursery_average_temperature') | int > 71 }}"
+  - service: switch.turn_off
     entity_id: switch.nursery_heater
 
 ################################################

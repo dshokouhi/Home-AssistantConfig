@@ -1,6 +1,6 @@
- - platform: ring
-   monitored_conditions:
-   - 'battery'
+# - platform: ring
+ #  monitored_conditions:
+  # - 'battery'
 
  - platform: moon
 
