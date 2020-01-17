@@ -1,7 +1,3 @@
-# - platform: ring
- #  monitored_conditions:
-  # - 'battery'
-
  - platform: moon
 
  - platform: yr
@@ -353,6 +349,17 @@
        device_class: battery
        friendly_name: "Tosh Phone Battery"
 
+     danny_mobile_battery:
+       value_template: "{{ state_attr('device_tracker.dannys_pixel_4_xl', 'battery_level') }}"
+       device_class: battery
+       unit_of_measurement: "%"
+       friendly_name: "Danny Mobile Battery"
+     tosh_mobile_battery:
+       value_template: "{{ state_attr('device_tracker.toshs_pixel_3_xl', 'battery_level') }}"
+       device_class: battery
+       unit_of_measurement: "%"
+       friendly_name: "Tosh Mobile Battery"
+
      dannys_fire_hd8_battery:
        value_template: "{{ state_attr('device_tracker.dannys_fire_hd_8', 'battery_level') }}"
        device_class: battery
@@ -478,18 +485,6 @@
    unit_of_measurement: '%'
    name: 'Tosh Den'
 
- # - platform: geo_rss_events
-   # name: USGS All Earthquakes
-   # url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.atom
-   # categories:
-     # - 'Past Hour'
-     # - 'Past Day'
-
- # - platform: geo_rss_events
-   # name: NSW Fire Service
-   # url: http://www.fire.ca.gov/rss/rss.xml
-   # unit_of_measurement: 'Incidents'
-
  - platform: launch_library
 
  - platform: tautulli
@@ -502,9 +497,3 @@
    state_topic: anova/timer
    value_template: "{{ (((value_json.timer | int) * 60) - 3600) | timestamp_custom('%H:%M') }}"
    icon: 'mdi:timer'
-
- # - platform: mqtt
-   # name: Dannys Fire HD8 Battery
-   # state_topic: homeassistant/sensor/danny_hd8-battery/state
-   # device_class: battery
-   # unit_of_measurement: '%'

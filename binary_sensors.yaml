@@ -1,5 +1,3 @@
-# - platform: ring
-
  - platform: template
    sensors:
      garage_frontyard:

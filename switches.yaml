@@ -197,11 +197,6 @@
    name: Blue Iris
    host: 192.168.1.107
 
- # - platform: wake_on_lan
-   # mac: !secret vostros_mac
-   # name: Vostros
-   # host: 192.168.1.30
-
  - platform: wake_on_lan
    mac: !secret plex_mac
    name: Plex
@@ -219,5 +214,3 @@
    retain: true
    value_template: "{{ value_json.timer_state }}"
    icon: 'mdi:timer'
-
- #- platform: ring

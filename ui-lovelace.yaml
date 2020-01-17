@@ -595,32 +595,32 @@ views:
         id: ring
         title: Ring
         entities:
-          - binary_sensor.ring_catio_motion
-          - entity: sensor.ring_door_view_battery
+          - binary_sensor.catio_motion
+          - entity: sensor.door_view_battery
             name: Door View Battery
-          - entity: sensor.ring_front_door_battery
+          - entity: sensor.front_door_battery
             name: Doorbell Battery
-          - entity: binary_sensor.ring_door_view_ding
+          - entity: binary_sensor.door_view_ding
             name: Door View Ding
-          - entity: binary_sensor.ring_front_door_ding
+          - entity: binary_sensor.front_door_ding
             name: Doorbell Ding
-          - entity: binary_sensor.ring_door_view_motion
+          - entity: binary_sensor.door_view_motion
             name: Door View Motion
-          - entity: binary_sensor.ring_front_door_motion
+          - entity: binary_sensor.front_door_motion
             name: Doorbell Motion
-          - entity: binary_sensor.ring_side_gate_motion
+          - entity: binary_sensor.side_gate_motion
             name: Gate Motion
-          - binary_sensor.floodlight_light
-          - binary_sensor.floodlight_motion
-          - binary_sensor.pathlight_left_light
-          - binary_sensor.pathlight_left_motion
-          - binary_sensor.pathlight_right_light
-          - binary_sensor.pathlight_right_motion
-          - binary_sensor.spotlight_light
-          - binary_sensor.spotlight_driveway_motion
-          - binary_sensor.spotlight_light_2
-          - binary_sensor.spotlight_side_gate_motion
-          - binary_sensor.walkway_motion_sensor
+          # - binary_sensor.floodlight_light
+          # - binary_sensor.floodlight_motion
+          # - binary_sensor.pathlight_left_light
+          # - binary_sensor.pathlight_left_motion
+          # - binary_sensor.pathlight_right_light
+          # - binary_sensor.pathlight_right_motion
+          # - binary_sensor.spotlight_light
+          # - binary_sensor.spotlight_driveway_motion
+          # - binary_sensor.spotlight_light_2
+          # - binary_sensor.spotlight_side_gate_motion
+          # - binary_sensor.walkway_motion_sensor
       - type: glance
         id: printer
         title: Epson Printer Info

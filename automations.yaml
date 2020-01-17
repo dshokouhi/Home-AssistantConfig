@@ -3925,7 +3925,7 @@
 - alias: Motion at front door
   trigger:
     platform: state
-    entity_id: binary_sensor.ring_front_door_motion, binary_sensor.ring_door_view_motion
+    entity_id: binary_sensor.front_door_motion, binary_sensor.door_view_motion
     to: 'on'
   condition:
     condition: and
@@ -3947,7 +3947,7 @@
 - alias: Ding Dong at front door
   trigger:
     platform: state
-    entity_id: binary_sensor.ring_front_door_ding, binary_sensor.ring_door_view_ding
+    entity_id: binary_sensor.front_door_ding, binary_sensor.door_view_ding
     to: 'on'
   condition:
     condition: state
@@ -5422,9 +5422,16 @@
 
 - alias: Turn on nursery heater when its cold
   trigger:
-    platform: numeric_state
+  - platform: numeric_state
     entity_id: sensor.nursery_average_temperature
     below: 71
+  - platform: state
+    entity_id: input_boolean.baby_sleeping
+    to: 'on'
+  - platform: state
+    entity_id: climate.thermostat
+    from: 'heat'
+    to: 'off'
   condition:
     condition: and
     conditions:
@@ -5437,6 +5444,9 @@
     - condition: state
       entity_id: climate.thermostat
       state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.nursery_average_temperature
+      below: 71
   action:
     service: switch.turn_on
     entity_id: switch.nursery_heater
@@ -5471,11 +5481,15 @@
       target:
       - !secret discord_house
 
-- alias: Turn off nursery heater if heat is on
+- alias: Turn off nursery heater if heat is on or baby sleeping turns off
   trigger:
-    platform: state
+  - platform: state
     entity_id: climate.thermostat
     to: 'heat'
+  - platform: state
+    entity_id: input_boolean.baby_sleeping
+    to: 'off'
+    from: 'on'
   condition:
     condition: state
     entity_id: switch.nursery_heater
