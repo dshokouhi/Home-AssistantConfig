@@ -132,6 +132,8 @@ views:
           type: glance
           show_state: false
         entities:
+        - entity: binary_sensor.den_backyard_offline
+          name: Den Backyard
         - entity: binary_sensor.frontyard_driveway_offline
           name: Front Drwy
         - entity: binary_sensor.frontyard_side_gate_offline
@@ -348,6 +350,8 @@ views:
         title: Outdoor Motion
         show_header_toggle: false
         entities:
+        - entity: binary_sensor.den_backyard_motion
+          secondary_info: last-changed
         - entity: binary_sensor.frontyard_driveway_motion
           secondary_info: last-changed
         - entity: binary_sensor.frontyard_side_gate_motion
@@ -598,7 +602,7 @@ views:
           - binary_sensor.catio_motion
           - entity: sensor.door_view_battery
             name: Door View Battery
-          - entity: sensor.front_door_battery
+          - entity: sensor.ring_front_door_battery
             name: Doorbell Battery
           - entity: binary_sensor.door_view_ding
             name: Door View Ding
@@ -747,6 +751,8 @@ views:
       - type: picture-entity
         entity: camera.catio
       - type: picture-entity
+        entity: camera.den_backyard
+      - type: picture-entity
         entity: camera.den_camera
       - type: picture-entity
         entity: camera.door_view
@@ -780,6 +786,8 @@ views:
     path: imageproc
     icon: mdi:cctv
     cards:
+      - type: picture-entity
+        entity: camera.den_backyard_scan
       - type: picture-entity
         entity: camera.frontyard_driveway_scan
       - type: picture-entity
@@ -818,6 +826,13 @@ views:
               service: image_processing.scan
               service_data:
                 entity_id: image_processing.tensorflow_den_camera
+          - entity: image_processing.tensorflow_den_backyard
+            name: Den Backyard
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_den_backyard
           - entity: image_processing.tensorflow_kitchen
             name: Kitchen
             hold_action:

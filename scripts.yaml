@@ -569,6 +569,36 @@ frontyard_side_gate_snapshot:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg"
 
+den_backyard_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.den_backyard
+      filename: '/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Den backyard camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Den backyard camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg"
+  - service: notify.discord
+    data_template:
+      message: "Den backyard camera snapshot, may be false alarm"
+      target:
+      - !secret discord_house
+      data:
+        images:
+        - "/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg"
+
 light_at_night:
   sequence:
   - service: light.turn_on
@@ -654,6 +684,8 @@ cast_cameras:
       entity_id: >
             {% if is_state("input_select.cameras", "Baby Monitor") %}
               camera.baby_monitor
+            {% elif is_state("input_select.cameras", "Backyard") %}
+              camera.den_backyard
             {% elif is_state("input_select.cameras", "Den") %}
               camera.den_camera
             {% elif is_state("input_select.cameras", "Driveway") %}
@@ -690,6 +722,8 @@ cast_kitchen:
       entity_id: >
             {% if is_state("input_select.cameras", "Baby Monitor") %}
               camera.baby_monitor
+            {% elif is_state("input_select.cameras", "Backyard") %}
+              camera.den_backyard
             {% elif is_state("input_select.cameras", "Den") %}
               camera.den_camera
             {% elif is_state("input_select.cameras", "Driveway") %}

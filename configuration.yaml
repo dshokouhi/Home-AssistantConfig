@@ -160,7 +160,7 @@ frontend:
       paper-card-background-color: "#1D1D1D"
 
       # Colours
-      primary-color: "var(--accent)"
+      primary-color: "#08a8a5"
       secondary-background-color: "#1D1D1D"
       accent-color: "var(--accent)"
       dark-primary-color: "var(--accent)"
@@ -269,7 +269,9 @@ logbook:
 
 logger:
   default: warn
-  
+  # logs:
+    # homeassistant.components.google_assistant: debug
+
 recorder:
   purge_interval: 1
   purge_keep_days: 5
@@ -367,6 +369,15 @@ recorder:
     - sensor.octoprint_time_remaining
     - sensor.octoprint_time_remaining_format
     - sensor.obihai_last_reboot
+    - sensor.dryer_angle_position
+    - sensor.dryer_atmospheric_pressure
+    - sensor.dryer_direction
+    - sensor.dryer_frequency
+    - sensor.dryer_general
+    - sensor.washer_distance
+    - sensor.washer_rain_rate
+    - sensor.washer_temperature
+    - sensor.washer_water_oxidation
 
 sun:
 
@@ -606,6 +617,11 @@ camera:
    stream_source: !secret frontyard_side_gate_h264
    name: Frontyard Side Gate
 
+ - platform: generic
+   still_image_url: !secret den_backyard_image
+   stream_source: !secret den_backyard_h264
+   name: Den Backyard
+
  - platform: local_file
    name: Frontyard Driveway Scan
    file_path: /home/homeassistant/.homeassistant/snapshot/frontyard_driveway_latest.jpg
@@ -621,6 +637,10 @@ camera:
  - platform: local_file
    name: Kitchen Side Gate Scan
    file_path: /home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_latest.jpg
+
+ - platform: local_file
+   name: Den Backyard Scan
+   file_path: /home/homeassistant/.homeassistant/snapshot/den_backyard_latest.jpg
 
  - platform: local_file
    name: Patio Scan
@@ -645,8 +665,6 @@ camera:
  - platform: local_file
    name: Garage Scan
    file_path: /home/homeassistant/.homeassistant/snapshot/outdoor_camera_latest.jpg
-
- #- platform: ring
  
  - platform: ffmpeg
    name: Ferret Cage
@@ -810,8 +828,6 @@ google_assistant:
       expose: false
     switch.sprinklers_in_standby_mode:
       expose: false
-    switch.camera1:
-      expose: false
     light.o1:
       expose: false
     light.o2:
@@ -827,8 +843,6 @@ google_assistant:
     light.dishwasher:
       expose: false
     light.office_closet:
-      expose: false
-    light.nursery_speaker_plug:
       expose: false
     switch.living_room_camera_plug_switch:
       expose: false
@@ -911,11 +925,11 @@ google_assistant:
       expose: false
     script.frontyard_driveway_snapshot:
       expose: false
+    script.den_backyard_snapshot:
+      expose: false
     switch.patio_state:
       expose: false
     script.patio_snapshot:
-      expose: false
-    switch.reolink1_state:
       expose: false
     script.kitchen_side_gate_snapshot:
       expose: false
@@ -933,11 +947,7 @@ google_assistant:
       expose: false
     switch.garage_state:
       expose: false
-    switch.camera3:
-      expose: false
     switch.blue_iris:
-      expose: false
-    switch.frontyard:
       expose: false
     switch.frontyard_side_gate_state:
       expose: false
@@ -1053,6 +1063,8 @@ google_assistant:
       expose: false
     camera.kitchen_side_gate_scan:
       expose: false
+    camera.den_backyard_scan:
+      expose: false
     camera.mr_neato_cleaning_map:
       expose: false
     camera.mrs_neato_cleaning_map:
@@ -1129,15 +1141,15 @@ google_assistant:
       expose: false
     switch.nursery_power_strip_port_2:
       expose: false
-    switch.nursery_power_strip_port_3:
-      expose: false
-    switch.nursery_power_strip_port_4:
-      expose: false
     switch.nursery_power_strip_port_5:
       expose: false
     switch.nursery_power_strip_port_6:
       expose: false
     light.3d_printer:
+      expose: false
+    switch.nursery_tv_power:
+      expose: false
+    switch.nursery_fire_stick_power:
       expose: false
 
 namecheapdns:
@@ -1258,6 +1270,7 @@ input_select:
     name: Cameras to Cast
     options:
     - Baby Monitor
+    - Backyard
     - Den
     - Driveway
     - Frontyard Side Gate
@@ -1450,6 +1463,7 @@ image_processing:
       - entity_id: camera.living_room_camera
       - entity_id: camera.patio
       - entity_id: camera.kitchen
+      - entity_id: camera.den_backyard
     scan_interval: 604800
     file_out:
       - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"

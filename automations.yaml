@@ -2537,6 +2537,9 @@
   - platform: state
     entity_id: input_select.radio_station
     to: "None"
+  condition:
+    condition: template
+    value_template: "{{ not is_state('input_select.cast_devices', 'None') }}"
   action:
   - service: media_player.turn_off
     data_template:
@@ -2565,6 +2568,9 @@
   trigger:
   - platform: state
     entity_id: input_select.radio_station
+  condition:
+    condition: template
+    value_template: "{{ not is_state('input_select.cast_devices', 'None') }}"
   action:
   - service: media_player.play_media
     data_template:
@@ -4822,7 +4828,7 @@
 - alias: Notify image processing
   trigger:
     platform: state
-    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_kitchen_side_gate, image_processing.tensorflow_kitchen
+    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_kitchen_side_gate, image_processing.tensorflow_kitchen, image_processing.tensorflow_den_backyard
   condition:
     condition: template
     value_template: '{{ trigger.to_state.state |int > 0 }}'
@@ -4862,7 +4868,7 @@
 - alias: Image Processing When Away
   trigger:
     platform: state
-    entity_id: binary_sensor.patio_motion, binary_sensor.kitchen_side_gate_motion, binary_sensor.garage_side_gate_motion
+    entity_id: binary_sensor.patio_motion, binary_sensor.kitchen_side_gate_motion, binary_sensor.garage_side_gate_motion, binary_sensor.den_backyard_motion
   condition:
   - condition: state
     entity_id: alarm_control_panel.home
@@ -5350,6 +5356,16 @@
       {% else %}
       {% endif %}
     entity_id: switch.nursery_power_strip_port_6
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.living_room_home, media_player.bedroom_home, media_player.bathroom_speaker, media_player.kitchen_home
+      volume_level: >-
+        {% if trigger.to_state.state == 'on' %}
+          0.3
+        {% elif trigger.to_state.state == 'off' %}
+          0.6
+        {% else %}
+        {% endif %}
 
 - alias: Announce baby motion while sleeping
   trigger:

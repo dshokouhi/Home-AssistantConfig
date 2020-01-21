@@ -180,6 +180,20 @@
    device_class: motion
 
  - platform: mqtt
+   name: Den Backyard Offline
+   state_topic: blue_iris/binary_sensor/den_by/connectivity
+   payload_on: 'off'
+   payload_off: 'on'
+   device_class: connectivity
+
+ - platform: mqtt
+   name: Den Backyard Motion
+   state_topic: blue_iris/binary_sensor/den_by/motion
+   payload_on: 'on'
+   payload_off: 'off'
+   device_class: motion
+
+ - platform: mqtt
    name: Ferret Camera Motion
    state_topic: ferret_cam/binary_sensor/motion
    payload_on: 'on'
