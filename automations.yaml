@@ -4815,7 +4815,7 @@
 - alias: Image processing on motion detection frontyard
   trigger:
     platform: state
-    entity_id: binary_sensor.frontyard_driveway_motion, binary_sensor.frontyard_side_gate_motion
+    entity_id: binary_sensor.frontyard_driveway_motion, binary_sensor.frontyard_side_gate_motion, binary_sensor.frontyard_cars_motion
   condition:
     condition: state
     entity_id: input_boolean.gardener
@@ -4828,7 +4828,7 @@
 - alias: Notify image processing
   trigger:
     platform: state
-    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_kitchen_side_gate, image_processing.tensorflow_kitchen, image_processing.tensorflow_den_backyard
+    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_frontyard_cars
   condition:
     condition: template
     value_template: '{{ trigger.to_state.state |int > 0 }}'

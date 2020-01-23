@@ -194,6 +194,20 @@
    device_class: motion
 
  - platform: mqtt
+   name: Frontyard Cars Offline
+   state_topic: blue_iris/binary_sensor/front_cars/connectivity
+   payload_on: 'off'
+   payload_off: 'on'
+   device_class: connectivity
+
+ - platform: mqtt
+   name: Frontyard Cars Motion
+   state_topic: blue_iris/binary_sensor/front_cars/motion
+   payload_on: 'on'
+   payload_off: 'off'
+   device_class: motion
+
+ - platform: mqtt
    name: Ferret Camera Motion
    state_topic: ferret_cam/binary_sensor/motion
    payload_on: 'on'

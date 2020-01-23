@@ -134,6 +134,8 @@ views:
         entities:
         - entity: binary_sensor.den_backyard_offline
           name: Den Backyard
+        - entity: binary_sensor.frontyard_cars_offline
+          name: Frontyard Cars
         - entity: binary_sensor.frontyard_driveway_offline
           name: Front Drwy
         - entity: binary_sensor.frontyard_side_gate_offline
@@ -351,6 +353,8 @@ views:
         show_header_toggle: false
         entities:
         - entity: binary_sensor.den_backyard_motion
+          secondary_info: last-changed
+        - entity: binary_sensor.frontyard_cars_motion
           secondary_info: last-changed
         - entity: binary_sensor.frontyard_driveway_motion
           secondary_info: last-changed
@@ -759,6 +763,8 @@ views:
       - type: picture-entity
         entity: camera.front_door
       - type: picture-entity
+        entity: camera.frontyard_cars
+      - type: picture-entity
         entity: camera.frontyard_driveway
       - type: picture-entity
         entity: camera.frontyard_side_gate
@@ -788,6 +794,8 @@ views:
     cards:
       - type: picture-entity
         entity: camera.den_backyard_scan
+      - type: picture-entity
+        entity: camera.frontyard_cars_scan
       - type: picture-entity
         entity: camera.frontyard_driveway_scan
       - type: picture-entity
@@ -833,13 +841,13 @@ views:
               service: image_processing.scan
               service_data:
                 entity_id: image_processing.tensorflow_den_backyard
-          - entity: image_processing.tensorflow_kitchen
-            name: Kitchen
+          - entity: image_processing.tensorflow_frontyard_cars
+            name: Cars
             hold_action:
               action: call-service
               service: image_processing.scan
               service_data:
-                entity_id: image_processing.tensorflow_kitchen
+                entity_id: image_processing.tensorflow_frontyard_cars
           - entity: image_processing.tensorflow_frontyard_driveway
             name: Driveway
             hold_action:
@@ -868,6 +876,13 @@ views:
               service: image_processing.scan
               service_data:
                 entity_id: image_processing.tensorflow_garage_side_gate
+          - entity: image_processing.tensorflow_kitchen
+            name: Kitchen
+            hold_action:
+              action: call-service
+              service: image_processing.scan
+              service_data:
+                entity_id: image_processing.tensorflow_kitchen
           - entity: image_processing.tensorflow_kitchen_side_gate
             name: Kitchen Side
             hold_action:

@@ -599,6 +599,36 @@ den_backyard_snapshot:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg"
 
+frontyard_cars_snapshot:
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.frontyard_cars
+      filename: '/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg'
+  - service: notify.slack
+    data:
+      message: "Frontyard Cars camera snapshot, may be false alarm"
+      title: "Shokabow Zoo - Alarm Tripped"
+      data:
+        file:
+          path: "/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg"
+  - service: hangouts.send_message
+    data:
+      target:
+      - id: !secret hangouts_group
+      message:
+      - text: "Frontyard Cars camera snapshot, may be false alarm"
+      data:
+        image_file: "/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg"
+  - service: notify.discord
+    data_template:
+      message: "Frontyard Cars camera snapshot, may be false alarm"
+      target:
+      - !secret discord_house
+      data:
+        images:
+        - "/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg"
+
 light_at_night:
   sequence:
   - service: light.turn_on
