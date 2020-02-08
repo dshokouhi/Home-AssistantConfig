@@ -2708,13 +2708,21 @@
       - id: !secret hangouts_danny
       message:
       - text: "Welcome home 🏠 ! Do you need help? ❓  Type 'help' or 'yes' if yes."
+  - service: notify.mobile_app_pixel_4_xl
+    data:
+      message: 'Welcome 🏠 ! Do you need help❓'
+      title: 'Shokouhi Zoo'
+      data:
+        data:
+          action_1_key: 'KEY_ONE'
+          action_1_title: 'Send Help'
 
 - alias: Notify help needed at cars
   trigger:
     platform: event
-    event_type: html5_notification.clicked
+    event_type: mobile_app_notification_action
     event_data:
-      action: help
+      action: KEY_ONE
   action:
   - service: shell_command.boogie_help
     #entity_id: media_player.home_notification
@@ -4828,7 +4836,7 @@
 - alias: Notify image processing
   trigger:
     platform: state
-    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_frontyard_cars
+    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_frontyard_cars, image_processing.tensorflow_kitchen, image_processing.tensorflow_den_backyard
   condition:
     condition: template
     value_template: '{{ trigger.to_state.state |int > 0 }}'
@@ -4852,7 +4860,7 @@
         images:
         - "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
   - condition: template
-    value_template: "{{ (trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway') or (trigger.entity_id == 'image_processing.tensorflow_frontyard_side_gate') }}"
+    value_template: "{{ (trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway') or (trigger.entity_id == 'image_processing.tensorflow_frontyard_side_gate') or (trigger.entity_id == 'image_processing.tensorflow_frontyard_cars') }}"
   - service: notify.den
     data_template:
       data:
@@ -5050,7 +5058,7 @@
             {% elif trigger.entity_id == 'media_player.bedroom_shield_tv' %}
               192.168.1.92
             {% elif trigger.entity_id == 'media_player.kitchen_fire_stick' %}
-              192.168.1.52
+              192.168.1.182
             {% elif trigger.entity_id == 'media_player.nursery_fire_stick' %}
               192.168.1.18
             {% else %}
@@ -5523,6 +5531,9 @@
       hours: 1
   action:
   - wait_template: "{{ states('sensor.nursery_average_temperature') | int > 71 }}"
+  - condition: state
+    entity_id: switch.nursery_heater
+    state: 'on'
   - service: switch.turn_off
     entity_id: switch.nursery_heater
 

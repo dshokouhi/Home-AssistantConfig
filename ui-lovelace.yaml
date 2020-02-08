@@ -323,8 +323,8 @@ views:
         id: power
         cards:
           - type: gauge
-            name: Bottle Warmer Power
-            entity: sensor.bottle_warmer
+            name: Nursery Heater Power
+            entity: sensor.nursery_heater_power
             #scale: 30px
             min: 0
             max: 1500
@@ -682,7 +682,9 @@ views:
         title: ZoneMinder
         entities:
           - switch.baby_monitor_state
+          - switch.den_backyard_state
           - switch.den_state
+          - switch.frontyard_cars_state
           - switch.frontyard_driveway_state
           - switch.frontyard_side_gate_state
           - switch.garage_state
@@ -703,19 +705,6 @@ views:
           - switch.zone_5_front_lawn_boogie_car
           - switch.zone_6_front_lawn_walkway
           - switch.zone_7_front_lawn_street
-      # - type: custom:monster-card
-        # id: timers
-        # card:
-          # type: entities
-          # title: Google Home Timers
-          # show_header_toggle: false
-        # filter:
-          # include:
-            # - entity_id: "*timer"
-          # exclude:
-            # - domain: automation
-            # - entity_id: sensor.sous_vide_timer
-            # - entity_id: switch.sous_vide_timer
       - type: entities
         id: launches
         title: Launches
@@ -723,29 +712,6 @@ views:
         entities:
         - entity: sensor.next_launch
           secondary_info: last-changed
-  # - type: entities
-    # title: Badges
-    # entities:
-    # - sensor.zestimate
-    # - sensor.uptime
-    # - sensor.homeassistant_v2db
-   # - type: glance
-    # title: PlantLink Artichoke
-    # entities:
-    # - entity: sensor.artichoke_status
-      # name: Status
-    # - entity: sensor.artichoke_last_updated
-      # name: Last Update
-    # - entity: sensor.artichoke_next_water
-      # name: Next Water
-    # - entity: sensor.artichoke_fuel
-      # name: Fuel
-    # - entity: sensor.artichoke_moisture
-      # name: Moisture
-    # - entity: sensor.artichoke_signal
-      # name: Signal
-    # - entity: sensor.artichoke_battery
-      # name: Battery
   - title: Cameras
     path: cameras
     icon: mdi:camera

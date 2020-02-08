@@ -271,10 +271,10 @@ logger:
   default: warn
   # logs:
     # homeassistant.components.google_assistant: debug
-#   logs:
-#     homeassistant.components.plex: debug
-#     plexapi: debug
-#     plexwebsocket: debug
+  # logs:
+    # homeassistant.components.plex: debug
+    # plexapi: debug
+    # plexwebsocket: debug
 
 recorder:
   purge_interval: 1
@@ -308,6 +308,8 @@ recorder:
     - switch.baby_monitor_state
     - switch.den_state
     - switch.frontyard
+    - switch.den_backyard_state
+    - switch.frontyard_cars_state
     - switch.frontyard_driveway_state
     - switch.frontyard_side_gate_state
     - switch.garage_state
@@ -473,7 +475,7 @@ media_player 4:
 
 media_player 5:
  - platform: kodi
-   host: 192.168.1.52
+   host: 192.168.1.182
    port: 8181
    username: kodi
    password: !secret kodi
@@ -534,7 +536,7 @@ media_player 9:
      ar.tvplayer.tv: "TiviMate"
 
  - platform: androidtv
-   host: 192.168.1.52
+   host: 192.168.1.182
    name: Kitchen Fire Stick
    adb_server_ip: localhost
    adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
@@ -687,22 +689,27 @@ notify:
  - platform: nfandroidtv
    name: Den
    host: 192.168.1.29
+   timeout: 15
 
  - platform: nfandroidtv
    name: Kitchen
-   host: 192.168.1.52
+   host: 192.168.1.182
+   timeout: 15
 
  - platform: nfandroidtv
    name: Bedroom
    host: 192.168.1.92
+   timeout: 15
    
  - platform: nfandroidtv
    name: Outdoor
    host: 192.168.1.44
+   timeout: 15
 
  - platform: nfandroidtv
    name: Nursery
    host: 192.168.1.18
+   timeout: 15
 
  # - platform: html5
    # name: chrome
@@ -859,7 +866,7 @@ google_assistant:
       expose: false
     switch.living_room_camera_plug_switch:
       expose: false
-    light.bottle_warmer:
+    light.nursery_heater_plug:
       expose: false
     switch.dryer_switch:
       expose: false
@@ -967,6 +974,10 @@ google_assistant:
     script.frontyard_side_gate_snapshot:
       expose: false
     switch.garage_side_gate_state:
+      expose: false
+    switch.den_backyard_state:
+      expose: false
+    switch.frontyard_cars_state:
       expose: false
     script.garage_side_gate_snapshot:
       expose: false
