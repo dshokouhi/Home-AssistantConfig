@@ -649,14 +649,12 @@
       data:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
+      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
   - service: switch.turn_on
     entity_id: switch.living_room_state
   - delay: "00:00:30"
@@ -701,14 +699,12 @@
       data:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
+      message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
   - service: switch.turn_on
     entity_id: switch.den_state
   - delay: "00:00:30"
@@ -750,12 +746,10 @@
       data:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/kitchen.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Kitchen camera triggered snapshot"
+      message: "Kitchen camera triggered snapshot"
+      title: "Alarm"
       data:
         image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen.jpg"
   - service: switch.turn_on
@@ -826,12 +820,10 @@
       message: "The alarm has been tripped ⚠ from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The alarm has been tripped from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+  # - service: notify.android
+    # data_template:
+      # message: "The alarm has been tripped from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      # title: "Alarm"
 
 - alias: Goodbye on Alarm
   trigger:
@@ -856,12 +848,12 @@
       message: "The alarm has been activated."
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The alarm has been activated."
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The alarm has been activated."
 
 - alias: Notify Alarm Off
   trigger:
@@ -883,12 +875,12 @@
       message: "The alarm has been deactivated."
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The alarm has been deactivated."
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The alarm has been deactivated."
 
 - alias: Arm Alarm When Nobody Home
   trigger:
@@ -926,12 +918,12 @@
       message: "The alarm has been activated since nobody is home"
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The alarm has been activated since nobody is home"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The alarm has been activated since nobody is home"
 
 - alias: Disarm alarm when someone comes home
   trigger:
@@ -959,12 +951,12 @@
       message: "The alarm has been deactivated since a tracked user is home"
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The alarm has been deactivated since a tracked user is home"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The alarm has been deactivated since a tracked user is home"
 
 - alias: Arm Alarm Front Door
   trigger:
@@ -1052,12 +1044,12 @@
       message: "The front door has been unlocked by dad"
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The front door has been unlocked by dad"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The front door has been unlocked by dad"
   - service: tts.google_say
     entity_id: media_player.kitchen_home, media_player.den_home_hub, media_player.office_speaker
     data:
@@ -1090,12 +1082,12 @@
       message: "The front door has been unlocked by zoo keeper"
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The front door has been unlocked by zoo keeper"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The front door has been unlocked by zoo keeper"
 
 - alias: Warn Alarm On But Window Open
   trigger:
@@ -1122,12 +1114,12 @@
       message: "The following window(s) is/are open but the alarm is turned on ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The following window(s) is/are open but the alarm is turned on ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The following window(s) is/are open but the alarm is turned on ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
 
 - alias: Notify door lock keypad locked
   trigger:
@@ -1148,12 +1140,12 @@
       message: "Too many incorrect codes used on front door. Keypad locked. 🔐 "
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Too many incorrect codes used on front door.  Keypad locked."
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Too many incorrect codes used on front door.  Keypad locked."
 
 - alias: Notify alarm triggered
   trigger:
@@ -1172,12 +1164,12 @@
       message: "The alarm has been triggered since it was not disarmed for 60 seconds 👮‍♀‍ , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The alarm has been triggered since it was not disarmed for 60 seconds, check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The alarm has been triggered since it was not disarmed for 60 seconds, check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       #{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
   - service: switch.turn_on
     entity_id: switch.siren_switch
@@ -1284,12 +1276,12 @@
       message: "Alarm is in armed night and the following windows are open ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Alarm is in armed night and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Alarm is in armed night and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       #{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.den_sliding_door', 'on') %} Den Sliding Door{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.front_door', 'on') %} Front Door{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
   - service: tts.google_say
     entity_id: media_player.bedroom_home
@@ -1324,12 +1316,12 @@
       message: "The alarm is arming in night mode and the following windows are open ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "The alarm is arming in night mode and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "The alarm is arming in night mode and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       #{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
   - condition: state
     entity_id: group.tracked_users
@@ -1379,12 +1371,12 @@
       message: "Alarm recording 📹 started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
       target:
       - !secret discord_alarm
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Alarm recording started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Alarm recording started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
 
 ################################################
 #
@@ -2479,12 +2471,10 @@
       message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }} 🚒🔥 "
       target:
       - !secret discord_house
-  - service: hangouts.send_message
+  - service: notify.android
     data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }}"
+      message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }}"
+      title: "Smoke Alarm ⚠"
 
 - alias: CO2 Detected
   trigger:
@@ -2519,12 +2509,10 @@
       message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }} 🔥 "
       target:
       - !secret discord_house
-  - service: hangouts.send_message
+  - service: notify.android
     data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "CO2 Detected {{ trigger.to_state.attributes.friendly_name }}"
+      message: "CO2 Detected {{ trigger.to_state.attributes.friendly_name }}"
+      title: "Smoke Alarm ⚠"
 
 ################################################
 #
@@ -2634,12 +2622,12 @@
       message: "{{ trigger.to_state.attributes.friendly_name }} has died 💀 "
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "{{ trigger.to_state.attributes.friendly_name }} has died"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: "{{ trigger.to_state.attributes.friendly_name }} has died"
 
 - alias: Notify zha device died
   trigger:
@@ -2670,12 +2658,12 @@
       message: "{{ trigger.to_state.attributes.friendly_name }} has died 💀 "
       target:
       - !secret discord_danny
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "{{ trigger.to_state.attributes.friendly_name }} has died"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: "{{ trigger.to_state.attributes.friendly_name }} has died"
 
 ################################################
 #
@@ -2702,20 +2690,20 @@
         # actions:
         # - action: "help"
           # title: "Yes"
-  - service: hangouts.send_message
-    data:
-      target:
-      - id: !secret hangouts_danny
-      message:
-      - text: "Welcome home 🏠 ! Do you need help? ❓  Type 'help' or 'yes' if yes."
+  # - service: hangouts.send_message
+    # data:
+      # target:
+      # - id: !secret hangouts_danny
+      # message:
+      # - text: "Welcome home 🏠 ! Do you need help? ❓  Type 'help' or 'yes' if yes."
   - service: notify.mobile_app_pixel_4_xl
     data:
       message: 'Welcome 🏠 ! Do you need help❓'
       title: 'Shokouhi Zoo'
       data:
-        data:
-          action_1_key: 'KEY_ONE'
-          action_1_title: 'Send Help'
+        actions:
+        - action: 'KEY_ONE'
+          title: 'Send Help'
 
 - alias: Notify help needed at cars
   trigger:
@@ -2790,12 +2778,20 @@
         # actions:
         # - action: "help"
           # title: "Yes"
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Welcome home boogie! Do you need help? Type 'help' or 'yes' if yes."
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Welcome home boogie! Do you need help? Type 'help' or 'yes' if yes."
+  - service: notify.mobile_app_pixel_3_xl
+    data:
+      message: 'Welcome 🏠 ! Do you need help❓'
+      title: 'Shokouhi Zoo'
+      data:
+        actions:
+        - action: 'KEY_ONE'
+          title: 'Send Help'
 
 - alias: Notify bayesian off tosh
   trigger:
@@ -2817,12 +2813,12 @@
       message: "Tosh has left the zoo 🐶🐱🐀 .  Did you forget anything?"
       target:
       - !secret discord_house
-  - service: hangouts.send_message
-    data_template:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Tosh has left the zoo.  Did you forget anything?"
+  # - service: hangouts.send_message
+    # data_template:
+      # target:
+      # - id: !secret hangouts_group
+      # message:
+      # - text: "Tosh has left the zoo.  Did you forget anything?"
 
 - alias: Tosh awake and left
   trigger:
@@ -5318,30 +5314,30 @@
 #
 ################################################
 
-- alias: Notify bottle warmer completed
-  trigger:
-    platform: numeric_state
-    entity_id: sensor.bottle_warmer
-    above: 5
-  action:
-  - wait_template: "{{ states('sensor.bottle_warmer') | int < 5 }}"
-  - service: notify.discord
-    data_template:
-      message: "Bottle warmer is done 🍼"
-      target:
-      - !secret discord_house
-  - service: notify.den
-    data_template:
-      data:
-        color: red
-        duration: 10
-        position: center
-      message: "Bottle warmer is done 🍼"
-      title: Shokabow Zoo
-  - condition: state
-    entity_id: input_boolean.night_mode
-    state: 'off'
-  - service: shell_command.bottle_warmer_completed
+# - alias: Notify bottle warmer completed
+  # trigger:
+    # platform: numeric_state
+    # entity_id: sensor.bottle_warmer
+    # above: 5
+  # action:
+  # - wait_template: "{{ states('sensor.bottle_warmer') | int < 5 }}"
+  # - service: notify.discord
+    # data_template:
+      # message: "Bottle warmer is done 🍼"
+      # target:
+      # - !secret discord_house
+  # - service: notify.den
+    # data_template:
+      # data:
+        # color: red
+        # duration: 10
+        # position: center
+      # message: "Bottle warmer is done 🍼"
+      # title: Shokabow Zoo
+  # - condition: state
+    # entity_id: input_boolean.night_mode
+    # state: 'off'
+  # - service: shell_command.bottle_warmer_completed
 
 - alias: Nursery speaker and lights when baby sleeping
   trigger:

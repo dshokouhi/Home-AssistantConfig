@@ -297,14 +297,12 @@ den_camera_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Den camera snapshot, may be false alarm"
+      message: "Den camera snapshot, may be false alarm"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Den camera snapshot, may be false alarm"
@@ -325,9 +323,9 @@ baby_monitor_snapshot:
       message: "😍👶🥰"
       title: "Baby"
       data:
-        android:
-          notification:
-            image: !secret nursery_snap
+        image: !secret nursery_snap
+        priority: high
+        ttl: 0
 
 living_room_camera_snapshot:
   sequence:
@@ -342,14 +340,12 @@ living_room_camera_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Living room camera snapshot, may be false alarm"
+      message: "Living room camera snapshot, may be false alarm"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Living room camera snapshot, may be false alarm"
@@ -372,14 +368,12 @@ kitchen_camera_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Kitchen camera snapshot, may be false alarm"
+      message: "Kitchen camera snapshot, may be false alarm"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Kitchen camera snapshot, may be false alarm"
@@ -402,14 +396,12 @@ outdoor_camera_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Outdoor camera snapshot, may be false alarm"
+      message: "Outdoor camera snapshot, may be false alarm"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Outdoor camera snapshot, may be false alarm"
@@ -432,14 +424,12 @@ garage_side_gate_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/garage_side_gate_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Garage Side Gate camera snapshot, may be false alarm"
+      message: "Garage Side Gate camera snapshot, may be false alarm"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/garage_side_gate_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/garage_side_gate_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Garage side gate camera snapshot, may be false alarm"
@@ -462,14 +452,12 @@ patio_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/patio_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Patio snapshot, may be false alarm"
+      message: "Patio snapshot, may be false alarm"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/patio_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/patio_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Patio camera snapshot, may be false alarm"
@@ -492,14 +480,12 @@ kitchen_side_gate_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Kitchen Side Gate snapshot, may be false alarm"
+      message: "Kitchen Side Gate snapshot, may be false alarm"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Kitchen side gate camera snapshot, may be false alarm"
@@ -522,14 +508,12 @@ frontyard_driveway_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Frontyard driveway camera snapshot, may be false alarm"
+      message: "Frontyard driveway camera snapshot, may be false alarm"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Frontyard driveway camera snapshot, may be false alarm"
@@ -552,14 +536,12 @@ frontyard_side_gate_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Frontyard side gate camera snapshot, may be false alarm"
+      message: "Frontyard side gate camera snapshot, may be false alarm"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Frontyard side gate camera snapshot, may be false alarm"
@@ -582,14 +564,12 @@ den_backyard_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Den backyard camera snapshot, may be false alarm"
+      message: "Den backyard camera snapshot, may be false alarm"
+      title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Den backyard camera snapshot, may be false alarm"
@@ -612,14 +592,11 @@ frontyard_cars_snapshot:
       data:
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg"
-  - service: hangouts.send_message
+  - service: notify.android
     data:
-      target:
-      - id: !secret hangouts_group
-      message:
-      - text: "Frontyard Cars camera snapshot, may be false alarm"
+      message: "Frontyard Cars camera snapshot, may be false alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg"
+        image: "/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Frontyard Cars camera snapshot, may be false alarm"
