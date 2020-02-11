@@ -547,10 +547,9 @@ media_player 9:
    adb_server_ip: localhost
    adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
 
- - platform: spotify
-   name: Danny Spotify
-   client_id: !secret spotify_client_id_danny
-   client_secret: !secret spotify_client_secret_danny
+spotify:
+  client_id: !secret spotify_client_id_danny
+  client_secret: !secret spotify_client_secret_danny
 
 amcrest:
  - host: 192.168.1.42

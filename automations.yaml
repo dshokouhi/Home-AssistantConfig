@@ -2647,7 +2647,8 @@
     - sensor.office_door
     - sensor.office_window
     - sensor.dishwasher
-    - sensor.bottle_warmer
+    - sensor.nursery_heater_power
+    - sensor.3d_printer
     - sensor.pool_pump
     to: 'unavailable'
     for:
