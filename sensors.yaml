@@ -340,32 +340,6 @@
      hvac_action:
        value_template: "{{ state_attr('climate.thermostat_cooling_1', 'hvac_action') }}"
 
-     danny_phone_battery:
-       value_template: "{{ state_attr('device_tracker.google_maps_100707363427265474344', 'battery_level') }}"
-       device_class: battery
-       friendly_name: "Danny Phone Battery"
-     tosh_phone_battery:
-       value_template: "{{ state_attr('device_tracker.google_maps_104359830266586918986', 'battery_level') }}"
-       device_class: battery
-       friendly_name: "Tosh Phone Battery"
-
-     danny_mobile_battery:
-       value_template: "{{ state_attr('device_tracker.dannys_pixel_4_xl', 'battery_level') }}"
-       device_class: battery
-       unit_of_measurement: "%"
-       friendly_name: "Danny Mobile Battery"
-     tosh_mobile_battery:
-       value_template: "{{ state_attr('device_tracker.toshs_pixel_3_xl', 'battery_level') }}"
-       device_class: battery
-       unit_of_measurement: "%"
-       friendly_name: "Tosh Mobile Battery"
-
-     dannys_fire_hd8_battery:
-       value_template: "{{ state_attr('device_tracker.dannys_fire_hd_8', 'battery_level') }}"
-       device_class: battery
-       unit_of_measurement: "%"
-       friendly_name: "Dannys Fire HD 8 Battery"
-      
      octoprint_time_elapsed_format:
        friendly_name: 'Printing Time Elapsed'
        value_template: >-

@@ -20,12 +20,17 @@
        value_template: "{{ states('sensor.tosh_bedroom') |int > 50 or states('sensor.tosh_den') | int > 50 }}"
 
      danny_phone_charging:
-       value_template: "{{ is_state_attr('device_tracker.google_maps_100707363427265474344', 'battery_charging', true) }}"
+       value_template: "{{ is_state_attr('sensor.dannys_pixel_4_xl_battery', 'is_charging', true) }}"
        friendly_name: "Danny Phone Charging"
        device_class: plug
      tosh_phone_charging:
-       value_template: "{{ is_state_attr('device_tracker.google_maps_104359830266586918986', 'battery_charging', true) }}"
+       value_template: "{{ is_state_attr('sensor.toshs_pixel_3_xl_battery', 'is_charging', true) }}"
        friendly_name: "Tosh Phone Charging"
+       device_class: plug
+
+     den_fire_hd8_charging:
+       value_template: "{{ is_state_attr('sensor.dannys_fire_hd8_battery', 'is_charging', true) }}"
+       friendly_name: "Den Fire HD8 Tablet Charging"
        device_class: plug
 
      windows:

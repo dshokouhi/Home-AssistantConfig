@@ -2705,6 +2705,8 @@
         actions:
         - action: 'KEY_ONE'
           title: 'Send Help'
+        ttl: 0
+        priority: 'high'
 
 - alias: Notify help needed at cars
   trigger:
@@ -2724,6 +2726,34 @@
         # {% else %}
           # media_player.den_home, media_player.kitchen_home, media_player.bedroom_speaker, media_player.office_speaker, media_player.bathroom_speaker, media_player.living_room_home
         # {%endif %}
+
+- alias: action1
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: action1
+  action:
+  - service: notify.mobile_app_pixel_4_xl
+    data:
+      message: 'action1'
+      data:
+        ttl: 0
+        priority: 'high'
+
+- alias: action2
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: action2
+  action:
+  - service: notify.mobile_app_pixel_4_xl
+    data:
+      message: 'action2'
+      data:
+        ttl: 0
+        priority: 'high'
 
 - alias: Notify bayesian off
   trigger:
@@ -2793,6 +2823,8 @@
         actions:
         - action: 'KEY_ONE'
           title: 'Send Help'
+        ttl: 0
+        priority: 'high'
 
 - alias: Notify bayesian off tosh
   trigger:
@@ -5495,6 +5527,10 @@
     platform: numeric_state
     entity_id: sensor.dannys_fire_hd8_battery
     below: 30
+  condition:
+    condition: state
+    entity_id: binary_sensor.den_fire_hd8_charging
+    state: 'off'
   action:
   - service: notify.discord
     data_template:

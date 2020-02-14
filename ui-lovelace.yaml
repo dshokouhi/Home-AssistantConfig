@@ -169,14 +169,19 @@ views:
         entities:
           - light.bookshelf_left
           - light.corner_lamp
-          - cover.den_curtains
-          - switch.den_fan
+          - entity: cover.den_curtains
+            state_color: true
+          - entity: switch.den_fan
+            state_color: true
           - light.den_lights_level
           - entity: binary_sensor.den_camera_motion_detected
             name: Den Motion
             secondary_info: last-changed
-          - switch.fireplace
-          - remote.harmony_hub_den
+            state_color: true
+          - entity: switch.fireplace
+            state_color: true
+          - entity: remote.harmony_hub_den
+            state_color: true
           - light.tv_lights
       - type: entities
         title: Kitchen
@@ -186,27 +191,33 @@ views:
           - light.bar_flex
           - light.cabinet_lights
           - light.counter_lights
-          - switch.island_lights_switch
+          - entity: switch.island_lights_switch
+            state_color: true
           - light.kitchen_lights_level
           - entity: binary_sensor.kitchen_motion_detected
             name: Kitchen Motion
             secondary_info: last-changed
-          - switch.kitchen_tv
+          - entity: switch.kitchen_tv
+            state_color: true
           - light.spot
       - type: entities
         title: Living Room
         id: lr
         show_header_toggle: false
         entities:
-          - cover.bay_window_curtains
+          - entity: cover.bay_window_curtains
+            state_color: true
           - light.front_door_lamp
           - entity: lock.front_door_lock_locked
             secondary_info: last-changed
-          - switch.living_room_fan
+            state_color: true
+          - entity: switch.living_room_fan
+            state_color: true
           - light.living_room_lights_level
           - entity: binary_sensor.living_room_camera_motion_detected
             name: Living Room Motion
             secondary_info: last-changed
+            state_color: true
       - type: entities
         title: Vacuums
         id: vacuum
@@ -274,15 +285,19 @@ views:
         show_header_toggle: false
         entities:
           - light.bedroom_closet
-          - cover.bedroom_curtains
-          - switch.bedroom_fan
+          - entity: cover.bedroom_curtains
+            state_color: true
+          - entity: switch.bedroom_fan
+            state_color: true
           - light.bedroom_lights_level
           - entity: binary_sensor.bedroom_motion_sensor
             name: Bedroom Motion
             secondary_info: last-changed
+            state_color: true
           - light.biased_lights
           - light.dannys
-          - remote.harmony_hub_bedroom
+          - entity: remote.harmony_hub_bedroom
+            state_color: true
           - light.toshs
       - type: entities
         title: Bathroom & Hallway
@@ -292,12 +307,15 @@ views:
           - light.bathroom_lights
           - entity: binary_sensor.bathroom_motion
             secondary_info: last-changed
+            state_color: true
           - light.bathroom_night_light
           - light.hallway_light
           - entity: binary_sensor.hallway_motion_sensor
             name: Hallway Motion
             secondary_info: last-changed
-          - switch.house_fan
+            state_color: true
+          - entity: switch.house_fan
+            state_color: true
       - type: horizontal-stack
         id: power
         cards:
@@ -338,18 +356,22 @@ views:
         id: outside
         title: Backyard & Garage
         entities:
-          - switch.backyard_lights_switch
+          - entity: switch.backyard_lights_switch
+            state_color: true
           - light.fig_tree_lights
           - light.firepit_lights
-          - switch.garage_lights_switch
+          - entity: switch.garage_lights_switch
+            state_color: true
           - entity: binary_sensor.garage_motion_sensor
             name: Garage Motion
             secondary_info: last-changed
+            state_color: true
           - light.garden_lights
           - light.patio
       - type: entities
         id: outdoor-motion
         title: Outdoor Motion
+        state_color: true
         show_header_toggle: false
         entities:
         - entity: binary_sensor.den_backyard_motion
@@ -370,6 +392,7 @@ views:
         id: booleans
         title: House Settings
         show_header_toggle: false
+        state_color: true
         entities:
           - input_boolean.cleaning_mode
           - input_boolean.gardener
@@ -389,6 +412,7 @@ views:
         id: catlitter
         title: Cat Litter
         show_header_toggle: false
+        state_color: true
         entities:
           - entity: binary_sensor.cat_litter_motion
             secondary_info: last-changed
@@ -422,25 +446,32 @@ views:
           - entity: binary_sensor.baby_monitor_motion_detected
             name: Baby Monitor Motion
             secondary_info: last-changed
+            state_color: true
           - entity: input_boolean.baby_sleeping
             secondary_info: last-changed
+            state_color: true
           - entity: light.nook_lamp
             name: Nursery Lamp
           - entity: light.office_closet
             name: Nursery Closet
           - cover.nursery_curtains
-          - switch.nursery_fan
+          - entity: switch.nursery_fan
+            state_color: true
           - entity: switch.nursery_heater
             secondary_info: last-changed
+            state_color: true
           - entity: light.office_lights
             name: Nursery Lights
           - entity: binary_sensor.office_motion
             name: Nursery Motion
             secondary_info: last-changed
+            state_color: true
           - entity: switch.nursery_power_strip_port_6
             secondary_info: last-changed
             name: Nursery Speaker
-          - switch.nursery_tv
+            state_color: true
+          - entity: switch.nursery_tv
+            state_color: true
   - title: Services
     path: services
     icon: mdi:home-circle
@@ -603,21 +634,27 @@ views:
         id: ring
         title: Ring
         entities:
-          - binary_sensor.catio_motion
+          - entity: binary_sensor.catio_motion
+            state_color: true
           - entity: sensor.door_view_battery
             name: Door View Battery
           - entity: sensor.ring_front_door_battery
             name: Doorbell Battery
           - entity: binary_sensor.door_view_ding
             name: Door View Ding
+            state_color: true
           - entity: binary_sensor.front_door_ding
             name: Doorbell Ding
+            state_color: true
           - entity: binary_sensor.door_view_motion
             name: Door View Motion
+            state_color: true
           - entity: binary_sensor.front_door_motion
             name: Doorbell Motion
+            state_color: true
           - entity: binary_sensor.side_gate_motion
             name: Gate Motion
+            state_color: true
           # - binary_sensor.floodlight_light
           # - binary_sensor.floodlight_motion
           # - binary_sensor.pathlight_left_light
@@ -680,6 +717,7 @@ views:
       - type: entities
         id: zm
         title: ZoneMinder
+        state_color: true
         entities:
           - switch.baby_monitor_state
           - switch.den_backyard_state
@@ -696,6 +734,7 @@ views:
       - type: entities
         id: sprinklers
         title: Sprinklers
+        state_color: true
         show_header_toggle: false
         entities:
           - switch.zone_1_patio
@@ -1040,6 +1079,7 @@ views:
         card:
           type: entities
           title: Lights & Switches
+          state_color: true
           show_header_toggle: false
         filter:
           include:
@@ -1067,6 +1107,7 @@ views:
         card:
           type: entities
           title: Battery Status
+          state_color: true
           show_header_toggle: false
         filter:
           include:
@@ -1077,6 +1118,7 @@ views:
         card:
           type: entities
           title: Door and Window Status
+          state_color: true
           show_header_toggle: false
         filter:
           include:
@@ -1135,6 +1177,7 @@ views:
         id: purifiers
         card:
           type: entities
+          state_color: true
           title: House Air Purifiers
           show_header_toggle: false
         filter:
@@ -1144,6 +1187,7 @@ views:
         id: fans
         card:
           type: entities
+          state_color: true
           title: Fans
         filter:
           include:
@@ -1159,6 +1203,7 @@ views:
         entities:
           - entity: lock.front_door_lock_locked
             secondary_info: last-changed
+            state_color: true
           - sensor.front_door_lock_status
           - sensor.front_door_action
           - sensor.front_door_code
