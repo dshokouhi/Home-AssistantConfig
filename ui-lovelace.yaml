@@ -165,23 +165,20 @@ views:
       - type: entities
         id: den
         title: Den
+        state_color: true
         show_header_toggle: false
         entities:
           - light.bookshelf_left
           - light.corner_lamp
-          - entity: cover.den_curtains
-            state_color: true
-          - entity: switch.den_fan
-            state_color: true
+          - cover.den_curtains
+          - switch.den_fan
           - light.den_lights_level
           - entity: binary_sensor.den_camera_motion_detected
             name: Den Motion
             secondary_info: last-changed
             state_color: true
-          - entity: switch.fireplace
-            state_color: true
+          - switch.fireplace
           - entity: remote.harmony_hub_den
-            state_color: true
           - light.tv_lights
       - type: entities
         title: Kitchen
@@ -191,12 +188,13 @@ views:
           - light.bar_flex
           - light.cabinet_lights
           - light.counter_lights
-          - entity: switch.island_lights_switch
+          - entity: light.island_lights
             state_color: true
           - light.kitchen_lights_level
           - entity: binary_sensor.kitchen_motion_detected
             name: Kitchen Motion
             secondary_info: last-changed
+            state_color: true
           - entity: switch.kitchen_tv
             state_color: true
           - light.spot
@@ -1087,7 +1085,7 @@ views:
             - entity_id: switch.backyard_lights_switch
             - entity_id: switch.catio_siren
             - entity_id: switch.christmas_tree_switch
-            - entity_id: switch.island_lights_switch
+            - entity_id: light.island_lights
             - entity_id: switch.garage_lights_switch
             - entity_id: switch.little_christmas_trees_switch
             - entity_id: switch.ring_side_gate_siren

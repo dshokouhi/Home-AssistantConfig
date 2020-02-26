@@ -756,7 +756,6 @@ alert:
     skip_first: true
     notifiers:
     - discord_alerts
-    - hangouts
 
 google:
    client_id: !secret google_client_id
@@ -1016,7 +1015,7 @@ google_assistant:
       room: Bathroom
     switch.kitchen_tv:
       room: Kitchen
-    switch.island_lights_switch:
+    light.island_lights:
       room: Kitchen
     light.patio:
       room: Patio
@@ -1200,6 +1199,9 @@ zwave:
       refresh_value: true
       delay: 3
     light.bathroom_lights:
+      refresh_value: true
+      delay: 3
+    light.island_lights:
       refresh_value: true
       delay: 3
 
@@ -1580,3 +1582,10 @@ glances:
  - host: 192.168.1.47
    name: Pi Hole
    version: 2
+
+rest_command:
+  assistant_broadcast:
+    url: http://192.168.1.91:3000/assistant
+    method: POST
+    content_type: 'application/json'
+    payload: '{"command":"{{ command }}", "user":"hass-broadcast", "broadcast":true}'

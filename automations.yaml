@@ -1389,6 +1389,8 @@
     platform: state
     entity_id: light.office_lights
     to: 'on'
+    for:
+      seconds: 15
   condition:
     condition: and
     conditions:
@@ -3104,9 +3106,7 @@
       brightness_pct: 100
       kelvin: 6500
   - service: light.turn_off
-    entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio, light.living_room_lights_level, light.office_lights, light.bedroom_lights_level
-  - service: switch.turn_off
-    entity_id: switch.island_lights_switch
+    entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio, light.living_room_lights_level, light.office_lights, light.bedroom_lights_level, light.island_lights
   - condition: state
     entity_id: switch.fireplace
     state: 'off'
@@ -3137,7 +3137,7 @@
   action:
   - service: cover.close_cover
     entity_id: cover.den_curtains
-    
+
 - alias: Turn off lights when movie plays
   trigger:
     platform: state
@@ -3149,10 +3149,8 @@
     state: 'on'
   action:
   - service: light.turn_off
-    entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.patio, light.corner_lamp
-  - service: switch.turn_off
-    entity_id: switch.island_lights_switch
-    
+    entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.patio, light.corner_lamp, light.island_lights
+
 - alias: Turn on lights when movie paused
   trigger:
   - platform: state
@@ -3874,13 +3872,11 @@
         entity_id: light.kitchen_lights_level
         state: 'on'
       - condition: state
-        entity_id: switch.island_lights_switch
+        entity_id: light.island_lights
         state: 'on'
   action:
   - service: light.turn_off
-    entity_id: light.kitchen_lights_level
-  - service: switch.turn_off
-    entity_id: switch.island_lights_switch
+    entity_id: light.kitchen_lights_level, light.island_lights
 
 - alias: Turn off office lights when no motion
   trigger:
@@ -3979,6 +3975,8 @@
     - condition: state
       entity_id: lock.front_door_lock_locked
       state: locked
+      for:
+        minutes: 1
   action:
   - service: notify.den
     data:
@@ -3986,7 +3984,7 @@
         color: teal
       message: "There is motion at the front door🚪"
       title: Shokabow Zoo
-  
+
 - alias: Ding Dong at front door
   trigger:
     platform: state
@@ -4003,7 +4001,10 @@
        color: teal
       message: "Someone is at the front door 🚪"
       title: Shokabow Zoo
-      
+  - service: rest_command.assistant_broadcast
+    data_template:
+      command: "Someone is at the front door"
+
 ################################################
 #
 #      Sink Leaking Automations
@@ -4933,7 +4934,7 @@
       entity_id: alarm_control_panel.home
       state: 'disarmed'
     - condition: state
-      entity_id: switch.island_lights_switch
+      entity_id: light.island_lights
       state: 'off'
     - condition: state
       entity_id: input_boolean.movie_mode
@@ -5055,16 +5056,6 @@
   - service: switch.turn_off
     entity_id: switch.tasker_sleep_tosh
 
-# - alias: Dash webhook
-  # trigger:
-    # platform: webhook
-    # webhook_id: amazon-dash
-  # action:
-  # - service: notify.discord
-    # data_template:
-      # message: "dash button"
-      # target:
-      # - !secret discord_danny
 ################################################
 #
 #      ADB Automations
@@ -5568,6 +5559,26 @@
     entity_id: switch.nursery_heater
     state: 'on'
   - service: switch.turn_off
+    entity_id: switch.nursery_heater
+
+- alias: Turn off nursery heater when power is too high
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.nursery_heater_power
+    above: 1000
+  action:
+  - service: switch.turn_off
+    entity_id: switch.nursery_heater
+  - service: notify.discord
+    data_template:
+      message: "Nursery heater is turned off because power was too high ({{ trigger.to_state.state }} watts)"
+      target:
+      - !secret discord_house
+  - service: rest_command.assistant_broadcast
+    data_template:
+      command: "Nursery heater turned off because power was too high"
+  - delay: "00:01:00"
+  - service: switch.turn_on
     entity_id: switch.nursery_heater
 
 ################################################

@@ -2,7 +2,7 @@
   entities:
     switch.bedroom_fan: on
     switch.house_fan: on
-    switch.island_lights_switch: off
+    light.island_lights: off
     switch.backyard_lights_switch: off
     light.hallway_light: off
     light.den_lights_level: off
@@ -57,7 +57,7 @@
   entities:
     light.den_lights_level: off
     light.kitchen_lights_level: off
-    switch.island_lights_switch: off
+    light.island_lights: off
     light.living_room_lights_level: off
     switch.backyard_lights_switch: off
     light.bar_flex: off

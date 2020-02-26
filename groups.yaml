@@ -12,7 +12,6 @@ sprinklers:
 tracked_users:
   name: Tracked Users
   entities:
-  - device_tracker.10f1f2822f12
   - device_tracker.3e_07_70_34_37_cc
   - device_tracker.32_3f_1f_7a_e1_27
   - device_tracker.toshs_pixel_3_xl

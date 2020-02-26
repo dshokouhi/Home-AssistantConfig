@@ -340,6 +340,13 @@
      hvac_action:
        value_template: "{{ state_attr('climate.thermostat_cooling_1', 'hvac_action') }}"
 
+     danny_phone_charging_type:
+       friendly_name: Dannys Phone Charging Type
+       value_template: "{{ state_attr('sensor.dannys_pixel_4_xl_battery', 'charger_type') }}"
+     toshs_phone_charging_type:
+       friendly_name: Toshs Phone Charging Type
+       value_template: "{{ state_attr('sensor.toshs_pixel_3_xl_battery', 'charger_type') }}"
+
      octoprint_time_elapsed_format:
        friendly_name: 'Printing Time Elapsed'
        value_template: >-
