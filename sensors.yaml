@@ -336,6 +336,10 @@
        value_template: "{{ state_attr('media_player.den_shield_tv', 'app_name') }}"
      bedroom_shield_app:
        value_template: "{{ state_attr('media_player.bedroom_shield_tv', 'app_name') }}"
+     kitchen_fire_stick_app:
+       value_template: "{{ state_attr('media_player.kitchen_fire_stick', 'app_name') }}"
+     nursery_fire_stick_app:
+       value_template: "{{ state_attr('media_player.nursery_fire_stick', 'app_name') }}"
 
      hvac_action:
        value_template: "{{ state_attr('climate.thermostat_cooling_1', 'hvac_action') }}"

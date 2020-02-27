@@ -278,8 +278,20 @@
   action:
   - service: remote.turn_off
     entity_id: remote.harmony_hub_bedroom
-    
-    
+
+- alias: Mark kitchen tv as on when an app is playing
+  trigger:
+    platform: state
+    entity_id: sensor.kitchen_fire_stick_app
+    from: 'com.amazon.tv.launcher'
+  condition:
+    condition: state
+    entity_id: switch.kitchen_tv
+    state: 'off'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.kitchen_tv
+
 ################################################
 #
 #      Laundry notifications
