@@ -9,7 +9,7 @@ views:
       - sun.sun
       - sensor.yr_symbol
     cards:
-      - type: "custom:monster-card"
+      - type: "custom:auto-entities"
         id: weight
         card:
           type: glance
@@ -92,12 +92,14 @@ views:
         state_filter:
           - 'True'
         show_empty: false
-      - type: "custom:monster-card"
+      - type: "custom:auto-entities"
         id: temp
         card:
           type: glance
           title: High Temperature
           columns: 5
+        sort:
+          method: name
         filter:
           include:
             - entity_id: "*door"
@@ -245,17 +247,6 @@ views:
             - sensor.bbq1_temperature
             - entity: binary_sensor.bbq1
               secondary_info: last-changed
-      # - type: custom:dual-thermostat
-        # name: Thermostat
-        # id: dtstat
-        # entities:
-          # - entity: climate.thermostat_cooling_1
-            # type: cool
-          # - entity: climate.thermostat_heating_1
-            # type: heat
-        #fan_control: true
-        # min_slider: 60
-        # max_slider: 80
       - type: thermostat
         entity: climate.thermostat
       - type: conditional
@@ -400,12 +391,6 @@ views:
           - input_boolean.night_mode
           - input_boolean.shower_mode
           - input_boolean.vacation_mode
-      # - type: alarm-panel
-        # id: alarm
-        # entity: alarm_control_panel.home
-        # states:
-          # - arm_away
-          # - arm_night
       - type: entities
         id: catlitter
         title: Cat Litter
@@ -524,7 +509,7 @@ views:
             entity: sensor.blue_iris_ram_used_percent
           - type: gauge
             name: BI Disk Used
-            entity: sensor.blue_iris_disk_used_percent
+            entity: sensor.blue_iris_c_used_percent_2
           - type: gauge
             name: BI CPU Used
             entity: sensor.blue_iris_cpu_used
@@ -536,7 +521,7 @@ views:
             entity: sensor.den_pi_ram_used_percent
           - type: gauge
             name: Den Pi Disk Used
-            entity: sensor.den_pi_disk_used_percent
+            entity: sensor.den_pi_used_percent_2
           - type: gauge
             name: Den Pi CPU Used
             entity: sensor.den_pi_cpu_used
@@ -548,7 +533,7 @@ views:
             entity: sensor.media_server_ram_used_percent
           - type: gauge
             name: Plex Disk Used
-            entity: sensor.media_server_disk_used_percent
+            entity: sensor.media_server_c_used_percent_2
           - type: gauge
             name: Plex CPU Used
             entity: sensor.media_server_cpu_used
@@ -560,7 +545,7 @@ views:
             entity: sensor.pi_hole_ram_used_percent
           - type: gauge
             name: Pi Hole Disk Used
-            entity: sensor.pi_hole_disk_used_percent
+            entity: sensor.pi_hole_used_percent_2
           - type: gauge
             name: Pi Hole CPU Used
             entity: sensor.pi_hole_cpu_used
@@ -572,7 +557,7 @@ views:
             entity: sensor.tosh_w10_ram_used_percent
           - type: gauge
             name: Sab Disk Used
-            entity: sensor.tosh_w10_disk_used_percent
+            entity: sensor.tosh_w10_c_used_percent_2
           - type: gauge
             name: Sab CPU Used
             entity: sensor.tosh_w10_cpu_used
@@ -1025,32 +1010,40 @@ views:
     icon: mdi:home-automation
     path: auto
     cards:
-      - type: "custom:monster-card"
+      - type: "custom:auto-entities"
         id: scenes
         title: All Scenes
         card:
           type: entities
           title: All Scenes
           show_header_toggle: false
+        sort:
+          method: name
         filter:
           include:
             - domain: scene
-      - type: "custom:monster-card"
+      - type: "custom:auto-entities"
         title: All Automations
         id: automations
+        sort:
+          method: name
+          ignore_case: true
         filter:
           include:
             - domain: automation
         card:
           type: entities
           title: All Automations
-      - type: "custom:monster-card"
+      - type: "custom:auto-entities"
         id: scripts
         title: All Scripts
         card:
           type: entities
           title: All Scripts
           show_header_toggle: false
+        sort:
+          method: name
+          ignore_case: true
         filter:
           include:
             - domain: script
@@ -1058,9 +1051,11 @@ views:
     icon: mdi:z-wave
     path: devices
     cards:
-      - type: "custom:monster-card"
+      - type: "custom:auto-entities"
         title: All Z-wave Devices
         id: automations
+        sort:
+          method: name
         filter:
           include:
             - domain: zwave
@@ -1072,13 +1067,15 @@ views:
     title: Settings
     path: settings
     cards:
-      - type: custom:monster-card
+      - type: custom:auto-entities
         id: lights
         card:
           type: entities
           title: Lights & Switches
           state_color: true
           show_header_toggle: false
+        sort:
+          method: name
         filter:
           include:
             - domain: light
@@ -1100,24 +1097,28 @@ views:
             - entity_id: light.o3
             - entity_id: light.o4
             - entity_id: light.living_room
-      - type: custom:monster-card
+      - type: custom:auto-entities
         id: battery
         card:
           type: entities
           title: Battery Status
           state_color: true
           show_header_toggle: false
+        sort:
+          method: name
         filter:
           include:
             - entity_id: "*charging"
             - entity_id: "*battery"
-      - type: custom:monster-card
+      - type: custom:auto-entities
         id: contact
         card:
           type: entities
           title: Door and Window Status
           state_color: true
           show_header_toggle: false
+        sort:
+          method: name
         filter:
           include:
             - entity_id: "*door"
@@ -1129,12 +1130,14 @@ views:
             - domain: camera
             - domain: media_player
             - domain: zha
-      - type: custom:monster-card
+      - type: custom:auto-entities
         id: temperature
         card:
           type: entities
           title: Temperature
           show_header_toggle: false
+        sort:
+          method: name
         filter:
           include:
             - entity_id: "*door"
@@ -1150,43 +1153,51 @@ views:
             - entity_id: "*cpu*"
             - entity_id: sensor.washer_temperature
             - entity_id: "*octoprint*"
-      - type: custom:monster-card
+      - type: custom:auto-entities
         id: humidity
         card:
           type: entities
           title: Humidity
           show_header_toggle: false
+        sort:
+          method: name
         filter:
           include:
             - entity_id: "*humidity"
           exclude:
             - entity_id: sensor.dryer_relative_humidity
             - entity_id: sensor.washer_relative_humidity
-      - type: custom:monster-card
+      - type: custom:auto-entities
         id: aqi
         card:
           type: entities
           title: AQI
           show_header_toggle: false
+        sort:
+          method: name
         filter:
           include:
             - entity_id: "*aqi*"
-      - type: custom:monster-card
+      - type: custom:auto-entities
         id: purifiers
         card:
           type: entities
           state_color: true
           title: House Air Purifiers
           show_header_toggle: false
+        sort:
+          method: name
         filter:
           include:
             - domain: fan
-      - type: custom:monster-card
+      - type: custom:auto-entities
         id: fans
         card:
           type: entities
           state_color: true
           title: Fans
+        sort:
+          method: name
         filter:
           include:
             - entity_id: "*fan"
@@ -1210,3 +1221,5 @@ resources:
     type: js
   - url: /local/dual-thermostat.js?v=1.2
     type: js
+  - url: /local/community/lovelace-auto-entities/auto-entities.js?v=1.0
+    type: module
