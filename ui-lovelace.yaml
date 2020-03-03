@@ -561,18 +561,30 @@ views:
           - type: gauge
             name: Sab CPU Used
             entity: sensor.tosh_w10_cpu_used
-      # - type: horizontal-stack
-        # id: vostros-pc
-        # cards:
-          # - type: gauge
-            # name: Vostros RAM Used
-            # entity: sensor.vostros_ram_used_percent
-          # - type: gauge
-            # name: Vostros Disk Used
-            # entity: sensor.vostros_disk_used_percent
-          # - type: gauge
-            # name: Vostros CPU Used
-            # entity: sensor.vostros_cpu_used
+      - type: horizontal-stack
+        id: hdd-1
+        cards:
+          - type: gauge
+            name: "D drive"
+            entity: sensor.media_server_d_used_percent_2
+          - type: gauge
+            name: "E drive"
+            entity: sensor.media_server_e_used_percent_2
+          - type: gauge
+            name: "G drive"
+            entity: sensor.media_server_g_used_percent_2
+      - type: horizontal-stack
+        id: hdd-2
+        cards:
+          - type: gauge
+            entity: sensor.media_server_h_used_percent_2
+            name: "H drive"
+          - type: gauge
+            entity: sensor.media_server_k_used_percent
+            name: "K drive"
+          - type: gauge
+            entity: sensor.blue_iris_e_used_percent_2
+            name: "Z drive"
       - type: glance
         id: speed
         title: Speed Test
@@ -944,6 +956,8 @@ views:
         entity: media_player.onkyo_den
       - type: media-control
         entity: media_player.onkyo_den_zone_2
+      - type: media-control
+        entity: media_player.outdoor_fire_stick
       - type: media-control
         entity: media_player.outdoor_speakers
       - type: media-control

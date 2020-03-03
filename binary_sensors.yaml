@@ -74,11 +74,11 @@
      prob_given_false: 0.4
      platform: 'state'
      to_state: 'home'
-   - entity_id: 'device_tracker.google_maps_100707363427265474344'
-     prob_given_true: 0.8
-     prob_given_false: 0.4
-     platform: 'state'
-     to_state: 'home'
+   # - entity_id: 'device_tracker.google_maps_100707363427265474344'
+     # prob_given_true: 0.8
+     # prob_given_false: 0.4
+     # platform: 'state'
+     # to_state: 'home'
    - entity_id: 'binary_sensor.danny_home'
      prob_given_true: 0.99
      prob_given_false: 0.3
@@ -100,11 +100,11 @@
      prob_given_false: 0.4
      platform: 'state'
      to_state: 'home'
-   - entity_id: 'device_tracker.google_maps_104359830266586918986'
-     prob_given_true: 0.8
-     prob_given_false: 0.4
-     platform: 'state'
-     to_state: 'home'
+   # - entity_id: 'device_tracker.google_maps_104359830266586918986'
+     # prob_given_true: 0.8
+     # prob_given_false: 0.4
+     # platform: 'state'
+     # to_state: 'home'
    - entity_id: 'binary_sensor.tosh_home'
      prob_given_true: 0.99
      prob_given_false: 0.3

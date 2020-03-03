@@ -412,8 +412,8 @@ device_tracker:
     - 192.168.1.172
     - 192.168.1.173
 
-  - platform: google_maps
-    username: !secret gmap_user
+  # - platform: google_maps
+    # username: !secret gmap_user
 
 remote:
  - platform: harmony
@@ -544,6 +544,12 @@ media_player 9:
  - platform: androidtv
    host: 192.168.1.18
    name: Nursery Fire Stick
+   adb_server_ip: localhost
+   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
+
+ - platform: androidtv
+   host: 192.168.1.44
+   name: Outdoor Fire Stick
    adb_server_ip: localhost
    adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
 
@@ -699,7 +705,7 @@ notify:
    name: Bedroom
    host: 192.168.1.92
    timeout: 15
-   
+
  - platform: nfandroidtv
    name: Outdoor
    host: 192.168.1.44
@@ -709,11 +715,6 @@ notify:
    name: Nursery
    host: 192.168.1.18
    timeout: 15
-
- # - platform: html5
-   # name: chrome
-   # gcm_api_key: !secret gcm_api_key
-   # gcm_sender_id: !secret gcm_sender_id
 
  - platform: slack
    name: slack
@@ -727,10 +728,6 @@ notify:
  - platform: group
    name: discord_alerts
    services:
-   # - service: chrome
-     # data:
-       # target: ["danny_pixel", "tosh_phone"]
-       # title: Shokabow Zoo
    - service: discord
      data:
        target:
@@ -742,10 +739,10 @@ notify:
    - service: mobile_app_pixel_3_xl
    - service: mobile_app_pixel_4_xl
 
- - platform: hangouts
-   name: hangouts
-   default_conversations:
-   - id: !secret hangouts_group
+ # - platform: hangouts
+   # name: hangouts
+   # default_conversations:
+   # - id: !secret hangouts_group
 
 alert:
   front_door_unlocked:
@@ -1457,23 +1454,23 @@ shell_command:
 rachio:
   api_key: !secret rachiokey
 
-hangouts:
-  intents:
-    SendHelp:
-      sentences:
-        - help
-        - I need help
-        - send help
-        - yes
-        - Yes
-        - Help
+# hangouts:
+  # intents:
+    # SendHelp:
+      # sentences:
+        # - help
+        # - I need help
+        # - send help
+        # - yes
+        # - Yes
+        # - Help
 
-intent_script:
-  SendHelp:
-    speech:
-      text: Sending help
-    action:
-      service: shell_command.boogie_help
+# intent_script:
+  # SendHelp:
+    # speech:
+      # text: Sending help
+    # action:
+      # service: shell_command.boogie_help
 
 shopping_list:
 
