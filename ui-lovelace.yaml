@@ -630,26 +630,26 @@ views:
         title: Ring
         entities:
           - entity: binary_sensor.catio_motion
-            state_color: true
+            show_last_changed: true
           - entity: sensor.door_view_battery
             name: Door View Battery
           - entity: sensor.ring_front_door_battery
             name: Doorbell Battery
           - entity: binary_sensor.door_view_ding
             name: Door View Ding
-            state_color: true
+            show_last_changed: true
           - entity: binary_sensor.front_door_ding
             name: Doorbell Ding
-            state_color: true
+            show_last_changed: true
           - entity: binary_sensor.door_view_motion
             name: Door View Motion
-            state_color: true
+            show_last_changed: true
           - entity: binary_sensor.front_door_motion
             name: Doorbell Motion
-            state_color: true
+            show_last_changed: true
           - entity: binary_sensor.side_gate_motion
             name: Gate Motion
-            state_color: true
+            show_last_changed: true
           # - binary_sensor.floodlight_light
           # - binary_sensor.floodlight_motion
           # - binary_sensor.pathlight_left_light

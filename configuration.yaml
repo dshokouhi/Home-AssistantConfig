@@ -1490,7 +1490,7 @@ image_processing:
       - entity_id: camera.kitchen
       - entity_id: camera.den_backyard
       - entity_id: camera.frontyard_cars
-    scan_interval: 604800
+    scan_interval: 6048000
     file_out:
       - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"
       #- "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
@@ -1503,7 +1503,7 @@ image_processing:
     source:
       - entity_id: camera.den_camera
       - entity_id: camera.outdoor_camera
-    scan_interval: 604800
+    scan_interval: 6048000
     file_out:
       - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"
       #- "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"

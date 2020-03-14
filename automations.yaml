@@ -1612,6 +1612,10 @@
   - platform: state
     entity_id: input_boolean.mailbox
     to: 'off'
+  condition:
+    condition: state
+    entity_id: binary_sensor.front_door
+    state: 'off'
   action:
   - wait_template: "{{ is_state('alarm_control_panel.home', 'disarmed') }}"
   - service: notify.discord
@@ -3376,6 +3380,7 @@
     data:
       data:
         color: teal
+        duration: 10
       message: "There is motion at the front door🚪"
       title: Shokabow Zoo
 
@@ -3393,6 +3398,7 @@
     data:
       data:
        color: teal
+       duration: 10
       message: "Someone is at the front door 🚪"
       title: Shokabow Zoo
   - service: rest_command.assistant_broadcast
