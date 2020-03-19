@@ -443,6 +443,9 @@ views:
           - entity: switch.nursery_heater
             secondary_info: last-changed
             state_color: true
+          - entity: switch.nursery_humidifier
+            secondary_info: last-changed
+            state_color: true
           - entity: light.office_lights
             name: Nursery Lights
           - entity: binary_sensor.office_motion

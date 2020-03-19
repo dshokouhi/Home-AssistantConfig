@@ -99,3 +99,7 @@ baby_sleeping:
 nursery_heater:
   name: Nursery Heater
   icon: mdi:radiator
+
+nursery_humidifier:
+  name: Nursery Humidifier
+  icon: mdi:air-humidifier

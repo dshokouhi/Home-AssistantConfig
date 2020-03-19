@@ -128,6 +128,22 @@
           data:
             entity_id: input_boolean.nursery_heater
 
+     nursery_humidifier:
+       friendly_name: Nursery Humidifier
+       value_template: "{% if is_state('input_boolean.nursery_humidifier', 'on') %}on{% else %}off{% endif %}"
+       turn_on:
+        - service: script.turn_on
+          entity_id: script.nursery_humidifier
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.nursery_humidifier
+       turn_off:
+        - service: script.turn_on
+          entity_id: script.nursery_humidifier
+        - service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.nursery_humidifier
+
  - platform: template
    switches:
      bedroom_shield:
