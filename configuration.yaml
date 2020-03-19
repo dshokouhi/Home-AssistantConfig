@@ -250,7 +250,6 @@ discovery:
   - songpal
   - roku
   - google_cast
-  - plex_mediaserver
 
 conversation:
 
@@ -411,9 +410,6 @@ device_tracker:
     hosts:
     - 192.168.1.172
     - 192.168.1.173
-
-  # - platform: google_maps
-    # username: !secret gmap_user
 
 remote:
  - platform: harmony
@@ -738,11 +734,6 @@ notify:
    services:
    - service: mobile_app_pixel_3_xl
    - service: mobile_app_pixel_4_xl
-
- # - platform: hangouts
-   # name: hangouts
-   # default_conversations:
-   # - id: !secret hangouts_group
 
 alert:
   front_door_unlocked:
@@ -1454,28 +1445,13 @@ shell_command:
 rachio:
   api_key: !secret rachiokey
 
-# hangouts:
-  # intents:
-    # SendHelp:
-      # sentences:
-        # - help
-        # - I need help
-        # - send help
-        # - yes
-        # - Yes
-        # - Help
-
-# intent_script:
-  # SendHelp:
-    # speech:
-      # text: Sending help
-    # action:
-      # service: shell_command.boogie_help
-
 shopping_list:
 
 lovelace:
   mode: yaml
+  resources:
+  - url: /local/community/lovelace-auto-entities/auto-entities.js?v=1.0
+    type: module
 
 image_processing:
   - platform: tensorflow
