@@ -557,13 +557,13 @@
   - service: camera.snapshot
     data:
       entity_id: camera.living_room_camera
-      filename: '/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/living_room_camera.jpg'
   - service: notify.slack
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸 "
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/living_room_camera.jpg"
   - service: notify.discord
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸 "
@@ -571,13 +571,13 @@
       - !secret discord_alarm
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/living_room_camera.jpg"
   - service: notify.android
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+        image: "/local/living_room_camera.jpg"
   - service: switch.turn_on
     entity_id: switch.living_room_state
   - delay: "00:00:30"
@@ -602,13 +602,13 @@
   - service: camera.snapshot
     data:
       entity_id: camera.den_camera
-      filename: '/home/homeassistant/.homeassistant/snapshot/den_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/den_camera.jpg'
   - service: notify.slack
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/den_camera.jpg"
   - service: notify.discord
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot. 📸 "
@@ -616,13 +616,13 @@
       - !secret discord_alarm
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/den_camera.jpg"
   - service: notify.android
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+        image: "/local/den_camera.jpg"
   - service: switch.turn_on
     entity_id: switch.den_state
   - delay: "00:00:30"
@@ -644,13 +644,13 @@
   - service: camera.snapshot
     data:
       entity_id: camera.kitchen
-      filename: '/home/homeassistant/.homeassistant/snapshot/kitchen.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/kitchen.jpg'
   - service: notify.slack
     data:
       message: "Kitchen camera triggered snapshot 📸 "
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/kitchen.jpg"
+          path: "/home/homeassistant/.homeassistant/www/kitchen.jpg"
   - service: notify.discord
     data_template:
       message: "Kitchen camera triggered snapshot 📸"
@@ -658,13 +658,13 @@
       - !secret discord_alarm
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/kitchen.jpg"
+        - "/home/homeassistant/.homeassistant/www/kitchen.jpg"
   - service: notify.android
     data:
       message: "Kitchen camera triggered snapshot"
       title: "Alarm"
       data:
-        image_file: "/home/homeassistant/.homeassistant/snapshot/kitchen.jpg"
+        image_file: "/local/kitchen.jpg"
   - service: switch.turn_on
     entity_id: switch.kitchen_state
   - delay: "00:00:30"

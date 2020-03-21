@@ -297,20 +297,20 @@ den_camera_snapshot:
   - service: camera.snapshot
     data:
       entity_id: camera.den_camera
-      filename: '/home/homeassistant/.homeassistant/snapshot/den_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/den_camera.jpg'
   - service: notify.slack
     data:
       message: "Den camera snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/den_camera.jpg"
   - service: notify.android
     data:
       message: "Den camera snapshot, may be false alarm"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+        image: "/local/den_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Den camera snapshot, may be false alarm"
@@ -318,7 +318,7 @@ den_camera_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/den_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/den_camera.jpg"
 
 baby_monitor_snapshot:
   sequence:
@@ -340,20 +340,20 @@ living_room_camera_snapshot:
   - service: camera.snapshot
     data:
       entity_id: camera.living_room_camera
-      filename: '/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/living_room_camera.jpg'
   - service: notify.slack
     data:
       message: "Living room camera snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/living_room_camera.jpg"
   - service: notify.android
     data:
       message: "Living room camera snapshot, may be false alarm"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+        image: "/local/living_room_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Living room camera snapshot, may be false alarm"
@@ -361,27 +361,27 @@ living_room_camera_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/living_room_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/living_room_camera.jpg"
 
 kitchen_camera_snapshot:
   sequence:
   - service: camera.snapshot
     data:
       entity_id: camera.kitchen
-      filename: '/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/kitchen_camera.jpg'
   - service: notify.slack
     data:
       message: "Kitchen camera snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/kitchen_camera.jpg"
   - service: notify.android
     data:
       message: "Kitchen camera snapshot, may be false alarm"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+        image: "/local/kitchen_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Kitchen camera snapshot, may be false alarm"
@@ -389,27 +389,27 @@ kitchen_camera_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/kitchen_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/kitchen_camera.jpg"
 
 outdoor_camera_snapshot:
   sequence:
   - service: camera.snapshot
     data:
       entity_id: camera.outdoor_camera
-      filename: '/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/outdoor_camera.jpg'
   - service: notify.slack
     data:
       message: "Outdoor camera snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/outdoor_camera.jpg"
   - service: notify.android
     data:
       message: "Outdoor camera snapshot, may be false alarm"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"
+        image: "/local/outdoor_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Outdoor camera snapshot, may be false alarm"
@@ -417,27 +417,27 @@ outdoor_camera_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/outdoor_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/outdoor_camera.jpg"
 
 garage_side_gate_snapshot:
   sequence:
   - service: camera.snapshot
     data:
       entity_id: camera.garage_side_gate
-      filename: '/home/homeassistant/.homeassistant/snapshot/garage_side_gate_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/garage_side_gate_camera.jpg'
   - service: notify.slack
     data:
       message: "Garage Side Gate camera snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/garage_side_gate_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/garage_side_gate_camera.jpg"
   - service: notify.android
     data:
       message: "Garage Side Gate camera snapshot, may be false alarm"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/garage_side_gate_camera.jpg"
+        image: "/local/garage_side_gate_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Garage side gate camera snapshot, may be false alarm"
@@ -445,27 +445,27 @@ garage_side_gate_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/garage_side_gate_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/garage_side_gate_camera.jpg"
 
 patio_snapshot:
   sequence:
   - service: camera.snapshot
     data:
       entity_id: camera.patio
-      filename: '/home/homeassistant/.homeassistant/snapshot/patio_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/patio_camera.jpg'
   - service: notify.slack
     data:
       message: "Patio snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/patio_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/patio_camera.jpg"
   - service: notify.android
     data:
       message: "Patio snapshot, may be false alarm"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/patio_camera.jpg"
+        image: "/local/patio_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Patio camera snapshot, may be false alarm"
@@ -473,27 +473,27 @@ patio_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/patio_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/patio_camera.jpg"
 
 kitchen_side_gate_snapshot:
   sequence:
   - service: camera.snapshot
     data:
       entity_id: camera.kitchen_side_gate
-      filename: '/home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/kitchen_side_gate_camera.jpg'
   - service: notify.slack
     data:
       message: "Kitchen Side Gate snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/kitchen_side_gate_camera.jpg"
   - service: notify.android
     data:
       message: "Kitchen Side Gate snapshot, may be false alarm"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_camera.jpg"
+        image: "/local/kitchen_side_gate_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Kitchen side gate camera snapshot, may be false alarm"
@@ -501,27 +501,27 @@ kitchen_side_gate_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/kitchen_side_gate_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/kitchen_side_gate_camera.jpg"
 
 frontyard_driveway_snapshot:
   sequence:
   - service: camera.snapshot
     data:
       entity_id: camera.frontyard_driveway
-      filename: '/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/frontyard_driveway_camera.jpg'
   - service: notify.slack
     data:
       message: "Frontyard driveway camera snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/frontyard_driveway_camera.jpg"
   - service: notify.android
     data:
       message: "Frontyard driveway camera snapshot, may be false alarm"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg"
+        image: "/local/frontyard_driveway_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Frontyard driveway camera snapshot, may be false alarm"
@@ -529,27 +529,27 @@ frontyard_driveway_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/frontyard_driveway_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/frontyard_driveway_camera.jpg"
 
 frontyard_side_gate_snapshot:
   sequence:
   - service: camera.snapshot
     data:
       entity_id: camera.frontyard_side_gate
-      filename: '/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/frontyard_side_gate_camera.jpg'
   - service: notify.slack
     data:
       message: "Frontyard side gate camera snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/frontyard_side_gate_camera.jpg"
   - service: notify.android
     data:
       message: "Frontyard side gate camera snapshot, may be false alarm"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg"
+        image: "/local/frontyard_side_gate_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Frontyard side gate camera snapshot, may be false alarm"
@@ -557,27 +557,27 @@ frontyard_side_gate_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/frontyard_side_gate_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/frontyard_side_gate_camera.jpg"
 
 den_backyard_snapshot:
   sequence:
   - service: camera.snapshot
     data:
       entity_id: camera.den_backyard
-      filename: '/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/den_backyard_camera.jpg'
   - service: notify.slack
     data:
       message: "Den backyard camera snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/den_backyard_camera.jpg"
   - service: notify.android
     data:
       message: "Den backyard camera snapshot, may be false alarm"
       title: "Alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg"
+        image: "/local/den_backyard_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Den backyard camera snapshot, may be false alarm"
@@ -585,26 +585,26 @@ den_backyard_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/den_backyard_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/den_backyard_camera.jpg"
 
 frontyard_cars_snapshot:
   sequence:
   - service: camera.snapshot
     data:
       entity_id: camera.frontyard_cars
-      filename: '/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg'
+      filename: '/home/homeassistant/.homeassistant/www/frontyard_cars_camera.jpg'
   - service: notify.slack
     data:
       message: "Frontyard Cars camera snapshot, may be false alarm"
       title: "Shokabow Zoo - Alarm Tripped"
       data:
         file:
-          path: "/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg"
+          path: "/home/homeassistant/.homeassistant/www/frontyard_cars_camera.jpg"
   - service: notify.android
     data:
       message: "Frontyard Cars camera snapshot, may be false alarm"
       data:
-        image: "/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg"
+        image: "/local/frontyard_cars_camera.jpg"
   - service: notify.discord
     data_template:
       message: "Frontyard Cars camera snapshot, may be false alarm"
@@ -612,7 +612,7 @@ frontyard_cars_snapshot:
       - !secret discord_house
       data:
         images:
-        - "/home/homeassistant/.homeassistant/snapshot/frontyard_cars_camera.jpg"
+        - "/home/homeassistant/.homeassistant/www/frontyard_cars_camera.jpg"
 
 light_at_night:
   sequence:
