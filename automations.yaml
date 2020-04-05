@@ -244,7 +244,7 @@
   trigger:
   - platform: state
     entity_id: media_player.kodi_bedroom, media_player.bedroom_shield_tv
-    to: idle
+    to: 'off'
     for:
       minutes: 30
   condition:
@@ -258,20 +258,25 @@
 - alias: Turn off bedroom tv in night mode when channels have been playing for 3 hours
   trigger:
   - platform: state
-    entity_id: media_player.kodi_bedroom, media_player.bedroom_shield_tv
+    entity_id: media_player.kodi_bedroom
     to: playing
     for:
       hours: 3
   - platform: state
+    entity_id: media_player.bedroom_shield_tv
+    to: 'paused'
+    for:
+      hours: 3
+  - platform: state
     entity_id: sensor.bedroom_shield_app
-    to: Vaders
+    to: TiviMate
     for:
       hours: 3
   condition:
     condition: and
     conditions:
     - condition: template
-      value_template: "{{ is_state('media_player.kodi_bedroom', 'playing') or is_state('media_player.bedroom_shield_tv', 'playing') }}"
+      value_template: "{{ is_state('media_player.kodi_bedroom', 'playing') or not is_state('media_player.bedroom_shield_tv', 'off') }}"
     - condition: state
       entity_id: input_boolean.night_mode
       state: 'on'
@@ -2002,13 +2007,13 @@
 - alias: Turn off sleep tracking
   trigger:
   - platform: state
-    entity_id: binary_sensor.danny_phone_charging
+    entity_id: binary_sensor.dannys_phone_charging
     from: 'on'
     to: 'off'
     for:
       minutes: 10
   - platform: state
-    entity_id: binary_sensor.tosh_phone_charging
+    entity_id: binary_sensor.toshs_phone_charging
     from: 'on'
     to: 'off'
     for:
@@ -2026,7 +2031,7 @@
   - service: switch.turn_off
     data_template:
       entity_id: >-
-          {% if trigger.entity_id == 'binary_sensor.danny_phone_charging' %}
+          {% if trigger.entity_id == 'binary_sensor.dannys_phone_charging' %}
             switch.tasker_sleep_danny
           {% else %}
             switch.tasker_sleep_tosh
@@ -4476,14 +4481,6 @@
       {% else %}
       {% endif %}
     entity_id: switch.nursery_power_strip_port_6
-  - service_template: >-
-      {% if trigger.to_state.state == 'on' %}
-        switch.turn_on
-      {% elif trigger.to_state.state == 'off' %}
-        switch.turn_off
-      {% else %}
-      {% endif %}
-    entity_id: switch.nursery_humidifier
   - service: media_player.volume_set
     data_template:
       entity_id: media_player.living_room_home, media_player.bedroom_home, media_player.bathroom_speaker, media_player.kitchen_home
@@ -4616,7 +4613,7 @@
 - alias: Notify fire hd8 low battery
   trigger:
     platform: numeric_state
-    entity_id: sensor.dannys_fire_hd8_battery
+    entity_id: sensor.den_fire_hd8_battery_level
     below: 30
   condition:
     condition: state
@@ -4625,7 +4622,7 @@
   action:
   - service: notify.discord
     data_template:
-      message: "Low battery ({{ states('sensor.dannys_fire_hd8_battery') }}) for tablet in den, plug it in"
+      message: "Low battery ({{ states('sensor.den_fire_hd8_battery_level') }}) for tablet in den, plug it in"
       target:
       - !secret discord_house
 
@@ -4680,6 +4677,61 @@
   - delay: "00:01:00"
   - service: switch.turn_on
     entity_id: switch.nursery_heater
+
+- alias: Turn off nursery humidifier when above 55
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.office_air_purifier_humidity
+    above: 54
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.baby_sleeping
+      state: 'on'
+    - condition: state
+      entity_id: switch.nursery_humidifier
+      state: 'on'
+  action:
+    service: switch.turn_off
+    entity_id: switch.nursery_humidifier
+
+- alias: Turn on nursery humidifier when below 45
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.office_air_purifier_humidity
+    below: 45
+  - platform: state
+    entity_id: input_boolean.baby_sleeping
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.baby_sleeping
+      state: 'on'
+    - condition: state
+      entity_id: switch.nursery_humidifier
+      state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.office_air_purifier_humidity
+      below: 45
+  action:
+    service: switch.turn_on
+    entity_id: switch.nursery_humidifier
+
+- alias: Turn off nursery humidifier when baby sleeping turns off
+  trigger:
+    platform: state
+    entity_id: input_boolean.baby_sleeping
+    to: 'off'
+  condition:
+    condition: state
+    entity_id: switch.nursery_humidifier
+    state: 'on'
+  action:
+    service: switch.turn_off
+    entity_id: switch.nursery_humidifier
 
 ################################################
 #

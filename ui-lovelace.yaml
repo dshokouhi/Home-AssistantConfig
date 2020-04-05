@@ -990,6 +990,8 @@ views:
   - title: Weather
     path: weather
     icon: mdi:weather-sunny
+    badges:
+      - sensor.los_angeles_county_san_fernando_valley
     cards:
       - type: glance
         id: station
@@ -1017,6 +1019,9 @@ views:
       - type: weather-forecast
         entity: weather.home
         id: metno
+      - type: weather-forecast
+        entity: weather.kvny
+        id: kvny
       - type: iframe
         aspect_ratio: 90%
         url: https://embed.windy.com/embed2.html?wind,34.198,-118.522,10
@@ -1125,8 +1130,10 @@ views:
           method: name
         filter:
           include:
-            - entity_id: "*charging"
-            - entity_id: "*battery"
+            - entity_id: "*charg*"
+            - entity_id: "*battery*"
+          exclude:
+            - domain: automation
       - type: custom:auto-entities
         id: contact
         card:

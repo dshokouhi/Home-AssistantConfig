@@ -633,3 +633,9 @@ light.3d_printer:
 
 switch.nursery_humidifier:
   icon: mdi:air-humidifier
+
+sensor.dannys_phone_charging_type:
+  icon: mdi:cellphone-charging
+
+sensor.toshs_phone_charging_type:
+  icon: mdi:cellphone-charging

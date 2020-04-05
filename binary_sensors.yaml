@@ -19,12 +19,12 @@
        device_class: presence
        value_template: "{{ states('sensor.tosh_bedroom') |int > 50 or states('sensor.tosh_den') | int > 50 }}"
 
-     danny_phone_charging:
-       value_template: "{{ is_state_attr('sensor.dannys_pixel_4_xl_battery', 'is_charging', true) }}"
+     dannys_phone_charging:
+       value_template: "{{ is_state_attr('sensor.dannys_pixel_4_xl_battery_state', 'is_charging', true) }}"
        friendly_name: "Danny Phone Charging"
        device_class: plug
-     tosh_phone_charging:
-       value_template: "{{ is_state_attr('sensor.toshs_pixel_3_xl_battery', 'is_charging', true) }}"
+     toshs_phone_charging:
+       value_template: "{{ is_state_attr('sensor.toshs_pixel_3_xl_battery_state', 'is_charging', true) }}"
        friendly_name: "Tosh Phone Charging"
        device_class: plug
 

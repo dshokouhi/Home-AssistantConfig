@@ -342,14 +342,14 @@
        value_template: "{{ state_attr('media_player.nursery_fire_stick', 'app_name') }}"
 
      hvac_action:
-       value_template: "{{ state_attr('climate.thermostat_cooling_1', 'hvac_action') }}"
+       value_template: "{{ state_attr('climate.thermostat', 'hvac_action') }}"
 
-     danny_phone_charging_type:
+     dannys_phone_charging_type:
        friendly_name: Dannys Phone Charging Type
-       value_template: "{{ state_attr('sensor.dannys_pixel_4_xl_battery', 'charger_type') }}"
+       value_template: "{{ state_attr('sensor.dannys_pixel_4_xl_battery_state', 'charger_type') }}"
      toshs_phone_charging_type:
        friendly_name: Toshs Phone Charging Type
-       value_template: "{{ state_attr('sensor.toshs_pixel_3_xl_battery', 'charger_type') }}"
+       value_template: "{{ state_attr('sensor.toshs_pixel_3_xl_battery_state', 'charger_type') }}"
 
      octoprint_time_elapsed_format:
        friendly_name: 'Printing Time Elapsed'
@@ -482,3 +482,8 @@
    state_topic: anova/timer
    value_template: "{{ (((value_json.timer | int) * 60) - 3600) | timestamp_custom('%H:%M') }}"
    icon: 'mdi:timer'
+
+ - platform: weatheralerts
+   state: CA
+   zone: 547
+   county: 37
