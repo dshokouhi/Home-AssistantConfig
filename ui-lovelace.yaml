@@ -668,17 +668,19 @@ views:
         id: printer
         title: Epson Printer Info
         entities:
-          - entity: sensor.ink_level_black
+          - entity: sensor.epson_et_7750_series
+            name: State
+          - entity: sensor.epson_et_7750_series_black_ink
             name: Black
           - entity: sensor.cleaning_level
             name: Clean
-          - entity: sensor.ink_level_cyan
+          - entity: sensor.epson_et_7750_series_cyan_ink
             name: Cyan
-          - entity: sensor.ink_level_magenta
+          - entity: sensor.epson_et_7750_series_magenta_ink
             name: Magenta
-          - entity: sensor.ink_level_photoblack
+          - entity: sensor.epson_et_7750_series_photo_black_ink
             name: Photo
-          - entity: sensor.ink_level_yellow
+          - entity: sensor.epson_et_7750_series_yellow_ink
             name: Yellow
       - type: entities
         id: obihai

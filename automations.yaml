@@ -567,8 +567,7 @@
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸 "
       data:
-        file:
-          path: "/home/homeassistant/.homeassistant/www/living_room_camera.jpg"
+        file: "/home/homeassistant/.homeassistant/www/living_room_camera.jpg"
   - service: notify.discord
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸 "
@@ -612,8 +611,7 @@
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸"
       data:
-        file:
-          path: "/home/homeassistant/.homeassistant/www/den_camera.jpg"
+        file: "/home/homeassistant/.homeassistant/www/den_camera.jpg"
   - service: notify.discord
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot. 📸 "
@@ -654,8 +652,7 @@
     data:
       message: "Kitchen camera triggered snapshot 📸 "
       data:
-        file:
-          path: "/home/homeassistant/.homeassistant/www/kitchen.jpg"
+        file: "/home/homeassistant/.homeassistant/www/kitchen.jpg"
   - service: notify.discord
     data_template:
       message: "Kitchen camera triggered snapshot 📸"

@@ -252,12 +252,7 @@
  - platform: epsonworkforce
    host: 192.168.1.57
    monitored_conditions:
-   - black
-   - yellow
-   - magenta
-   - cyan
    - clean
-   - photoblack
 
  - platform: template
    sensors:
