@@ -1013,13 +1013,13 @@ views:
             name: UV Index
           - entity: sensor.shokabow_weather_voltage
             name: Voltage
-      - type: weather-forecast
+      - type: "custom:weather-card"
         entity: weather.dark_sky
         id: darksky
-      - type: weather-forecast
+      - type: "custom:weather-card"
         entity: weather.home
         id: metno
-      - type: weather-forecast
+      - type: "custom:weather-card"
         entity: weather.kvny
         id: kvny
       - type: iframe

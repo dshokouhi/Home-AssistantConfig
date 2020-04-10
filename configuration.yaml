@@ -1452,6 +1452,8 @@ lovelace:
   resources:
   - url: /local/community/lovelace-auto-entities/auto-entities.js?v=1.0
     type: module
+  - url: /local/community/weather-card/weather-card.js
+    type: module
 
 image_processing:
   - platform: tensorflow
