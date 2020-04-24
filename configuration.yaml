@@ -269,6 +269,8 @@ logbook:
 logger:
   default: warn
   # logs:
+    # custom_components.rachio: debug
+  # logs:
     # homeassistant.components.google_assistant: debug
   # logs:
     # homeassistant.components.plex: debug
@@ -472,7 +474,7 @@ media_player 4:
 media_player 5:
  - platform: kodi
    host: 192.168.1.182
-   port: 8181
+   port: 8080
    username: kodi
    password: !secret kodi
    name: "Kodi Kitchen"
@@ -1162,6 +1164,16 @@ google_assistant:
     switch.nursery_tv_power:
       expose: false
     switch.nursery_fire_stick_power:
+      expose: false
+    switch.morning_lawn_schedule:
+      expose: false
+    light.wled:
+      expose: false
+    switch.wled_nightlight:
+      expose: false
+    switch.wled_sync_receive:
+      expose: false
+    switch.wled_sync_send:
       expose: false
 
 namecheapdns:

@@ -3382,7 +3382,7 @@
     data:
       data:
         color: teal
-        duration: 10
+        duration: 5
       message: "There is motion at the front door🚪"
       title: Shokabow Zoo
 

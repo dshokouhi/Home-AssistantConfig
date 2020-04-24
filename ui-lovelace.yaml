@@ -628,60 +628,6 @@ views:
             name: Speed
           - entity: sensor.sabnzbd_status
             name: Status
-      - type: glance
-        id: ring
-        title: Ring
-        entities:
-          - entity: binary_sensor.catio_motion
-            show_last_changed: true
-          - entity: sensor.door_view_battery
-            name: Door View Battery
-          - entity: sensor.ring_front_door_battery
-            name: Doorbell Battery
-          - entity: binary_sensor.door_view_ding
-            name: Door View Ding
-            show_last_changed: true
-          - entity: binary_sensor.front_door_ding
-            name: Doorbell Ding
-            show_last_changed: true
-          - entity: binary_sensor.door_view_motion
-            name: Door View Motion
-            show_last_changed: true
-          - entity: binary_sensor.front_door_motion
-            name: Doorbell Motion
-            show_last_changed: true
-          - entity: binary_sensor.side_gate_motion
-            name: Gate Motion
-            show_last_changed: true
-          # - binary_sensor.floodlight_light
-          # - binary_sensor.floodlight_motion
-          # - binary_sensor.pathlight_left_light
-          # - binary_sensor.pathlight_left_motion
-          # - binary_sensor.pathlight_right_light
-          # - binary_sensor.pathlight_right_motion
-          # - binary_sensor.spotlight_light
-          # - binary_sensor.spotlight_driveway_motion
-          # - binary_sensor.spotlight_light_2
-          # - binary_sensor.spotlight_side_gate_motion
-          # - binary_sensor.walkway_motion_sensor
-      - type: glance
-        id: printer
-        title: Epson Printer Info
-        entities:
-          - entity: sensor.epson_et_7750_series
-            name: State
-          - entity: sensor.epson_et_7750_series_black_ink
-            name: Black
-          - entity: sensor.cleaning_level
-            name: Clean
-          - entity: sensor.epson_et_7750_series_cyan_ink
-            name: Cyan
-          - entity: sensor.epson_et_7750_series_magenta_ink
-            name: Magenta
-          - entity: sensor.epson_et_7750_series_photo_black_ink
-            name: Photo
-          - entity: sensor.epson_et_7750_series_yellow_ink
-            name: Yellow
       - type: entities
         id: obihai
         title: Home Phone
@@ -695,42 +641,6 @@ views:
           - sensor.obihai_phone1_port_last_caller_info
           - sensor.obihai_reboot_required
           - sensor.obihai_sp1_service_status
-      - type: entities
-        id: octoprint
-        title: OctoPrint
-        show_header_toggle: false
-        entities:
-          - entity: light.3d_printer
-            secondary_info: last-changed
-          - sensor.3d_printer
-          - binary_sensor.octoprint_printing
-          - binary_sensor.octoprint_printing_error
-          - entity: sensor.octoprint_current_state
-            secondary_info: last-changed
-          - sensor.octoprint_job_percentage
-          - sensor.octoprint_time_remaining_format
-          - sensor.octoprint_time_elapsed_format
-          - sensor.octoprint_actual_bed_temp
-          - sensor.octoprint_target_bed_temp
-          - sensor.octoprint_actual_tool0_temp
-          - sensor.octoprint_target_tool0_temp
-      - type: entities
-        id: zm
-        title: ZoneMinder
-        state_color: true
-        entities:
-          - switch.baby_monitor_state
-          - switch.den_backyard_state
-          - switch.den_state
-          - switch.frontyard_cars_state
-          - switch.frontyard_driveway_state
-          - switch.frontyard_side_gate_state
-          - switch.garage_state
-          - switch.garage_side_gate_state
-          - switch.kitchen_state
-          - switch.kitchen_side_gate_state
-          - switch.living_room_state
-          - switch.patio_state
       - type: entities
         id: sprinklers
         title: Sprinklers
@@ -751,6 +661,63 @@ views:
         entities:
         - entity: sensor.next_launch
           secondary_info: last-changed
+      - type: conditional
+        conditions:
+          - entity: light.wled
+            state_not: 'unavailable'
+        card:
+          type: entities
+          title: WLED
+          state_color: true
+          show_header_toggle: false
+          entities:
+            - entity: light.wled
+              secondary_info: last-changed
+            - sensor.wled_estimated_current
+            - switch.wled_nightlight
+            - switch.wled_sync_receive
+            - switch.wled_sync_send
+  - title: Printers
+    path: printers
+    icon: mdi:printer
+    cards:
+      - type: entities
+        id: octoprint
+        title: OctoPrint
+        show_header_toggle: false
+        entities:
+          - entity: light.3d_printer
+            secondary_info: last-changed
+          - sensor.3d_printer
+          - binary_sensor.octoprint_printing
+          - binary_sensor.octoprint_printing_error
+          - entity: sensor.octoprint_current_state
+            secondary_info: last-changed
+          - sensor.octoprint_job_percentage
+          - sensor.octoprint_time_remaining_format
+          - sensor.octoprint_time_elapsed_format
+          - sensor.octoprint_actual_bed_temp
+          - sensor.octoprint_target_bed_temp
+          - sensor.octoprint_actual_tool0_temp
+          - sensor.octoprint_target_tool0_temp
+      - type: glance
+        id: printer
+        title: Epson Printer Info
+        entities:
+          - entity: sensor.epson_et_7750_series
+            name: State
+          - entity: sensor.epson_et_7750_series_black_ink
+            name: Black
+          - entity: sensor.cleaning_level
+            name: Clean
+          - entity: sensor.epson_et_7750_series_cyan_ink
+            name: Cyan
+          - entity: sensor.epson_et_7750_series_magenta_ink
+            name: Magenta
+          - entity: sensor.epson_et_7750_series_photo_black_ink
+            name: Photo
+          - entity: sensor.epson_et_7750_series_yellow_ink
+            name: Yellow
   - title: Cameras
     path: cameras
     icon: mdi:camera
@@ -909,6 +876,48 @@ views:
               service: image_processing.scan
               service_data:
                 entity_id: image_processing.tensorflow_patio
+      - type: entities
+        id: zm
+        title: ZoneMinder
+        state_color: true
+        entities:
+          - switch.baby_monitor_state
+          - switch.den_backyard_state
+          - switch.den_state
+          - switch.frontyard_cars_state
+          - switch.frontyard_driveway_state
+          - switch.frontyard_side_gate_state
+          - switch.garage_state
+          - switch.garage_side_gate_state
+          - switch.kitchen_state
+          - switch.kitchen_side_gate_state
+          - switch.living_room_state
+          - switch.patio_state
+      - type: glance
+        id: ring
+        title: Ring
+        entities:
+          - entity: binary_sensor.catio_motion
+            show_last_changed: true
+          - entity: sensor.door_view_battery
+            name: Door View Battery
+          - entity: sensor.ring_front_door_battery
+            name: Doorbell Battery
+          - entity: binary_sensor.door_view_ding
+            name: Door View Ding
+            show_last_changed: true
+          - entity: binary_sensor.front_door_ding
+            name: Doorbell Ding
+            show_last_changed: true
+          - entity: binary_sensor.door_view_motion
+            name: Door View Motion
+            show_last_changed: true
+          - entity: binary_sensor.front_door_motion
+            name: Doorbell Motion
+            show_last_changed: true
+          - entity: binary_sensor.side_gate_motion
+            name: Gate Motion
+            show_last_changed: true
   - title: Media Players
     path: media
     icon: mdi:cast
@@ -1106,7 +1115,6 @@ views:
             - entity_id: switch.backyard_lights_switch
             - entity_id: switch.catio_siren
             - entity_id: switch.christmas_tree_switch
-            - entity_id: light.island_lights
             - entity_id: switch.garage_lights_switch
             - entity_id: switch.little_christmas_trees_switch
             - entity_id: switch.ring_side_gate_siren

@@ -578,16 +578,16 @@ sensor.house_vacuum_battery:
   unit_of_measurement: '%'
 
 cover.den_curtains:
-  device_class: curtains
+  device_class: curtain
 
 cover.bay_window_curtains:
-  device_class: curtains
+  device_class: curtain
 
 cover.bedroom_curtains:
-  device_class: curtains
+  device_class: curtain
 
 cover.nursery_curtains:
-  device_class: curtains
+  device_class: curtain
 
 counter.cat_litter_motion:
   unit_of_measurement: visits
