@@ -248,7 +248,6 @@ discovery:
   - netgear_router
   - logitech_mediaserver
   - songpal
-  - roku
   - google_cast
 
 conversation:
@@ -278,7 +277,6 @@ logger:
     # plexwebsocket: debug
 
 recorder:
-  purge_interval: 1
   purge_keep_days: 5
   exclude:
     domains:
@@ -687,6 +685,8 @@ camera:
  - platform: ffmpeg
    name: Ferret Cage
    input: -rtsp_transport tcp -i rtsp://192.168.1.33/ch0_0.h264
+
+ - platform: bloomsky
 
 notify:
  - platform: nfandroidtv
@@ -1507,9 +1507,6 @@ weather:
   - platform: darksky
     api_key: !secret darksky_api
     mode: daily
-
-  - platform: nws
-    api_key: !secret nws_api
 
 counter:
   cat_litter_motion:

@@ -9,16 +9,16 @@ views:
       - sun.sun
       - sensor.yr_symbol
     cards:
-      - type: "custom:auto-entities"
-        id: weight
-        card:
-          type: glance
-          title: Weight sensor
-        filter:
-          include:
-            - entity_id: sensor.hx711_value
-              state: '> 2'
-        show_empty: false
+      # - type: "custom:auto-entities"
+        # id: weight
+        # card:
+          # type: glance
+          # title: Weight sensor
+        # filter:
+          # include:
+            # - entity_id: sensor.hx711_value
+              # state: '> 2'
+        # show_empty: false
       - type: entity-filter
         id: leaks
         card:
@@ -433,8 +433,6 @@ views:
           - entity: input_boolean.baby_sleeping
             secondary_info: last-changed
             state_color: true
-          - entity: light.nook_lamp
-            name: Nursery Lamp
           - entity: light.office_closet
             name: Nursery Closet
           - cover.nursery_curtains
@@ -458,6 +456,7 @@ views:
             state_color: true
           - entity: switch.nursery_tv
             state_color: true
+          - entity: light.ollies_lamp
   - title: Services
     path: services
     icon: mdi:home-circle
@@ -1031,7 +1030,7 @@ views:
         entity: weather.home
         id: metno
       - type: "custom:weather-card"
-        entity: weather.kvny
+        entity: weather.kvny_daynight
         id: kvny
       - type: iframe
         aspect_ratio: 90%

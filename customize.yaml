@@ -428,7 +428,7 @@ light.patio_pool_light:
 light.front_door_lamp:
   icon: mdi:lamp
   
-light.nook_lamp:
+light.ollies_lamp:
   icon: mdi:floor-lamp
   
 binary_sensor.water_leak_sensor_158d0001bc24f5:

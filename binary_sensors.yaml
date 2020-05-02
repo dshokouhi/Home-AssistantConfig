@@ -218,3 +218,8 @@
    payload_on: 'on'
    payload_off: 'off'
    device_class: motion
+
+ - platform: bloomsky
+   monitored_conditions:
+     - Night
+     - Rain

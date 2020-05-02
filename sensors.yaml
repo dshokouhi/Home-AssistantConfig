@@ -483,3 +483,12 @@
    zone: 547
    county: 37
    scan_interval: 3600
+
+ - platform: bloomsky
+   monitored_conditions:
+     - Temperature
+     - Humidity
+     - Pressure
+     - UVIndex
+     - Luminance
+     - Voltage

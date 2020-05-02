@@ -3535,7 +3535,7 @@
       click_type: single
   action:
     service: light.toggle
-    entity_id: light.nook_lamp
+    entity_id: light.ollies_lamp
 
 ################################################
 #
