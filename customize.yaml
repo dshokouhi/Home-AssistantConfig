@@ -16,7 +16,7 @@ group.auto:
 switch.den_fan:
   icon: mdi:fan
 
-switch.nursery_fan:
+switch.ollies_fan:
   icon: mdi:fan
 
 switch.living_room_fan:
@@ -37,7 +37,7 @@ switch.bedroom_fan:
 switch.kitchen_tv:
   icon: mdi:television
 
-switch.nursery_tv:
+switch.ollies_tv:
   icon: mdi:television
 
 # sensor.fedex:
@@ -222,7 +222,7 @@ binary_sensor.bedroom_closet_door:
   friendly_name: Bedroom Closet Door
   device_class: door
 
-binary_sensor.office_door:
+binary_sensor.ollies_door:
   device_class: door
 
 sensor.bedroom_closet_door:
@@ -241,14 +241,14 @@ sensor.bathroom_window:
 sensor.bathroom_window_battery:
   device_class: battery
 
-binary_sensor.office_window:
-  friendly_name: Office Window
+binary_sensor.ollies_window:
+  friendly_name: Ollies Window
   device_class: window
   
-sensor.office_window:
-  friendly_name: Office Window
+sensor.ollies_window:
+  friendly_name: Ollies Window
 
-sensor.office_window_battery:
+sensor.ollies_window_battery:
   device_class: battery
 
 binary_sensor.bedroom_window:
@@ -338,14 +338,14 @@ light.centralite_3210l_0a932dbf_1:
 light.office_closet:
   emulated_hue_hidden: true
 
-binary_sensor.office_closet_door:
-  friendly_name: Office Closet Door
+binary_sensor.ollies_closet_door:
+  friendly_name: Ollies Closet Door
   device_class: door
 
-sensor.office_closet_door:
-  friendly_name: Office Closet Door
+sensor.ollies_closet_door:
+  friendly_name: Ollies Closet Door
 
-sensor.office_closet_door_battery:
+sensor.ollies_closet_door_battery:
   device_class: battery
 
 light.den_lights_level:
@@ -560,7 +560,7 @@ sensor.den_air_purifier_aqi:
 sensor.living_room_air_purifier_aqi:
   icon: mdi:cloud
   
-sensor.office_air_purifier_aqi:
+sensor.ollies_air_purifier_aqi:
   icon: mdi:cloud
   
 light.hallway_light:
@@ -586,7 +586,7 @@ cover.bay_window_curtains:
 cover.bedroom_curtains:
   device_class: curtain
 
-cover.nursery_curtains:
+cover.ollies_curtains:
   device_class: curtain
 
 counter.cat_litter_motion:
@@ -622,7 +622,7 @@ sensor.changing_table_activity:
 sensor.ombi_pending_requests:
   unit_of_measurement: requests
 
-switch.nursery_heater:
+switch.ollies_heater:
   icon: mdi:radiator
 
 switch.nursery_power_strip_port_6:
@@ -631,7 +631,7 @@ switch.nursery_power_strip_port_6:
 light.3d_printer:
   icon: mdi:printer-3d
 
-switch.nursery_humidifier:
+switch.ollies_humidifier:
   icon: mdi:air-humidifier
 
 sensor.dannys_phone_charging_type:

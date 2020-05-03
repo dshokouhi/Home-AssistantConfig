@@ -40,7 +40,7 @@ views:
         entities:
           - sensor.den_smoke_status
           - sensor.bedroom_smoke_status
-          - sensor.office_smoke_status
+          - sensor.ollies_smoke_status
         state_filter:
           - 'Fire'
           - 'CO2'
@@ -70,9 +70,9 @@ views:
           - binary_sensor.living_room_right_bay_window
           - binary_sensor.living_room_side_window
           - binary_sensor.mailbox
-          - binary_sensor.office_closet_door
-          - binary_sensor.office_door
-          - binary_sensor.office_window
+          - binary_sensor.ollies_closet_door
+          - binary_sensor.ollies_door
+          - binary_sensor.ollies_window
         state_filter:
           - 'on'
         show_empty: false
@@ -330,7 +330,7 @@ views:
         id: power
         cards:
           - type: gauge
-            name: Nursery Heater Power
+            name: Ollies Heater Power
             entity: sensor.nursery_heater_power
             #scale: 30px
             min: 0
@@ -405,25 +405,20 @@ views:
           - sensor.cat_litter_humidity
           - sensor.cat_litter_luminance
           - sensor.cat_litter_temperature
-  - title: Peanuts Nursery
-    path: nursery
+  - title: Ollies Room
+    path: ollies
     icon: mdi:baby-face
     badges:
-      - entity: sensor.office_air_purifier_temp
-        name: Nursery Air Purifier Temperature
-      - entity: sensor.nursery_average_temperature
-      - entity: sensor.office_closet_door
-        name: Nursery Closet Door
-      - entity: sensor.office_door
-        name: Nursery Door
-      - entity: sensor.office_air_purifier_humidity
-        name: Nursery Humidity
-      - entity: sensor.office_window
-        name: Nursery Window
+      - entity: sensor.ollies_air_purifier_temp
+      - entity: sensor.ollies_average_temperature
+      - entity: sensor.ollies_closet_door
+      - entity: sensor.ollies_door
+      - entity: sensor.ollies_air_purifier_humidity
+      - entity: sensor.ollies_window
     cards:
       - type: entities
-        title: Peanuts Nursery
-        id: nursery
+        title: Ollies Room
+        id: ollies
         show_header_toggle: false
         entities:
           - entity: binary_sensor.baby_monitor_motion_detected
@@ -434,27 +429,25 @@ views:
             secondary_info: last-changed
             state_color: true
           - entity: light.office_closet
-            name: Nursery Closet
-          - cover.nursery_curtains
-          - entity: switch.nursery_fan
+            name: Ollies Closet
+          - cover.ollies_curtains
+          - entity: switch.ollies_fan
             state_color: true
-          - entity: switch.nursery_heater
+          - entity: switch.ollies_heater
             secondary_info: last-changed
             state_color: true
-          - entity: switch.nursery_humidifier
+          - entity: switch.ollies_humidifier
             secondary_info: last-changed
             state_color: true
-          - entity: light.office_lights
-            name: Nursery Lights
-          - entity: binary_sensor.office_motion
-            name: Nursery Motion
+          - entity: light.ollies_lights
+          - entity: binary_sensor.ollies_motion
             secondary_info: last-changed
             state_color: true
           - entity: switch.nursery_power_strip_port_6
             secondary_info: last-changed
-            name: Nursery Speaker
+            name: Ollies Speaker
             state_color: true
-          - entity: switch.nursery_tv
+          - entity: switch.ollies_tv
             state_color: true
           - entity: light.ollies_lamp
   - title: Services
@@ -954,7 +947,7 @@ views:
       - type: media-control
         entity: media_player.kodi_kitchen
       - type: media-control
-        entity: media_player.kodi_nursery
+        entity: media_player.kodi_ollies
       - type: media-control
         entity: media_player.kodi_outdoor
       - type: media-control
@@ -962,7 +955,7 @@ views:
       - type: media-control
         entity: media_player.living_room_home
       - type: media-control
-        entity: media_player.nursery_fire_stick
+        entity: media_player.ollies_fire_stick
       - type: media-control
         entity: media_player.office_speaker
       - type: media-control

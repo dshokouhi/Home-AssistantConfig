@@ -44,7 +44,7 @@
             or is_state('binary_sensor.living_room_left_bay_window', 'on')
             or is_state('binary_sensor.living_room_right_bay_window', 'on')
             or is_state('binary_sensor.living_room_side_window', 'on')
-            or is_state('binary_sensor.office_window', 'on') }}
+            or is_state('binary_sensor.ollies_window', 'on') }}
 
  # - platform: template
    # sensors:

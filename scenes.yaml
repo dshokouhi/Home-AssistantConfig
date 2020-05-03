@@ -16,7 +16,7 @@
     light.cabinet_lights: off
     light.counter_lights: off
     light.patio: off
-    light.office_lights: off
+    light.ollies_lights: off
     light.garden_lights: off
     #switch.little_christmas_trees_switch: off
     #switch.christmas_tree_switch: off
@@ -68,7 +68,7 @@
     light.fig_tree_lights: off
     light.hallway_light: off
     light.living_room_lamp: off
-    light.office_lights: off
+    light.ollies_lights: off
     light.patio: off
     light.toshs: off
     light.bedroom_lights_level: off
@@ -90,7 +90,7 @@
       brightness: 255
       #kelvin: 6500
       color_temp: 153
-    light.office_lights: on
+    light.ollies_lights: on
     switch.kitchen_tv: on
     light.den_lights_level:
       state: on

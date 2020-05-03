@@ -495,7 +495,7 @@ media_player 8:
    port: 8080
    username: kodi
    password: !secret kodi
-   name: "Kodi Nursery"
+   name: "Kodi Ollies"
 
 media_player 9:
  - platform: kodi
@@ -539,7 +539,7 @@ media_player 9:
 
  - platform: androidtv
    host: 192.168.1.18
-   name: Nursery Fire Stick
+   name: Ollies Fire Stick
    adb_server_ip: localhost
    adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
 
@@ -710,7 +710,7 @@ notify:
    timeout: 15
 
  - platform: nfandroidtv
-   name: Nursery
+   name: Ollies
    host: 192.168.1.18
    timeout: 15
 
@@ -784,7 +784,7 @@ google_assistant:
       expose: false
     script.zone_2_off:
       expose: false
-    script.nursery_heater:
+    script.ollies_heater:
       expose: false
     script.open_den_curtains:
       expose: false
@@ -800,19 +800,19 @@ google_assistant:
       expose: false
     script.stop_den_curtains:
       expose: false
-    script.close_nursery_curtains:
+    script.close_ollies_curtains:
       expose: false
-    script.open_nursery_curtains:
+    script.open_ollies_curtains:
       expose: false
-    script.stop_nursery_curtains:
+    script.stop_ollies_curtains:
       expose: false
     script.kitchen_tv_on:
       expose: false
     script.kitchen_tv_off:
       expose: false
-    script.nursery_tv:
+    script.ollies_tv:
       expose: false
-    script.nursery_fan_toggle:
+    script.ollies_fan_toggle:
       expose: false
     script.bedroom_shield:
       expose: false
@@ -916,7 +916,7 @@ google_assistant:
       room: "no group"
     input_boolean.baby_sleeping:
       expose: true
-      room: Nursery
+      room: Ollies
     script.den_alarm:
       expose: false
     script.kitchen_alarm:
@@ -995,8 +995,8 @@ google_assistant:
       room: Hallway
     light.hallway_light:
       room: Hallway
-    light.office_lights:
-      room: Office
+    light.ollies_lights:
+      room: Ollies
       aliases:
       - Nursery Lights
     light.bathroom_night_light:
@@ -1017,8 +1017,8 @@ google_assistant:
       room: Outside
     switch.den_fan:
       room: Den
-    switch.nursery_fan:
-      room: Nursery
+    switch.ollies_fan:
+      room: Ollies
     light.living_room_lights_level:
       room: "Living Room"
     switch.living_room_fan:
@@ -1042,7 +1042,7 @@ google_assistant:
     camera.den_camera:
       room: Den
     camera.baby_monitor:
-      room: Nursery
+      room: Ollies
     camera.kitchen:
       room: Kitchen
     camera.living_room_camera:
@@ -1053,8 +1053,8 @@ google_assistant:
       room: Bedroom
     cover.bay_window_curtains:
       room: "Living Room"
-    cover.nursery_curtains:
-      room: Nursery
+    cover.ollies_curtains:
+      room: Ollies
     camera.baby_monitor_scan:
       expose: false
     camera.kitchen_scan:
@@ -1107,11 +1107,9 @@ google_assistant:
     light.front_door_lamp:
       room: "no group"
     light.nook_lamp:
-      room: "no group"
-      aliases:
-      - Nursery Lamp
-    switch.nursery_tv:
-      room: Office
+      expose: false
+    switch.ollies_tv:
+      room: Ollies
     binary_sensor.windows:
       expose: false
     sensor.den_air_purifier_temp:
@@ -1120,11 +1118,9 @@ google_assistant:
     sensor.bedroom_air_purifier_temp:
       expose: true
       room: Bedroom
-    sensor.office_air_purifier_temp:
+    sensor.ollies_air_purifier_temp:
       expose: true
-      aliases:
-      - Nursery Air Purifier
-      room: Office
+      room: Ollies
     sensor.living_room_air_purifier_temp:
       expose: true
       room: "Living Room"
@@ -1149,8 +1145,8 @@ google_assistant:
       expose: false
     switch.sous_vide_timer:
       expose: false
-    switch.nursery_heater:
-      room: Nursery
+    switch.ollies_heater:
+      room: Ollies
     switch.nursery_power_strip_port_1:
       expose: false
     switch.nursery_power_strip_port_2:
@@ -1175,6 +1171,8 @@ google_assistant:
       expose: false
     switch.wled_sync_send:
       expose: false
+    light.ollies_lamp:
+      room: Ollie
 
 namecheapdns:
   host: plex
@@ -1235,7 +1233,7 @@ input_select:
     - Den
     - Kitchen
     - Living Room
-    - Office
+    - Ollies
     - Outside
     - Whole House
     - "None"
@@ -1363,18 +1361,18 @@ cover:
         stop_cover:
           - service: script.turn_on
             entity_id: script.stop_bay_window_curtains
-      nursery_curtains:
-        friendly_name: Nursery Curtains
-        value_template: "{{ is_state('input_boolean.nursery_curtains', 'on' ) }}"
+      ollies_curtains:
+        friendly_name: Ollies Curtains
+        value_template: "{{ is_state('input_boolean.ollies_curtains', 'on' ) }}"
         open_cover:
           - service: script.turn_on
-            entity_id: script.open_nursery_curtains
+            entity_id: script.open_ollies_curtains
         close_cover:
           - service: script.turn_on
-            entity_id: script.close_nursery_curtains
+            entity_id: script.close_ollies_curtains
         stop_cover:
           - service: script.turn_on
-            entity_id: script.stop_nursery_curtains
+            entity_id: script.stop_ollies_curtains
 
 xiaomi_aqara:
   discovery_retry: 5
@@ -1407,9 +1405,9 @@ fan:
     token: !secret lr_purifier_token
     
   - platform: xiaomi_miio
-    name: Office Air Purifier
+    name: Ollies Air Purifier
     host: 192.168.1.51
-    token: !secret office_purifier_token
+    token: !secret ollies_purifier_token
     
 sabnzbd:
   host: 192.168.1.24
@@ -1435,8 +1433,8 @@ shell_command:
   dishes_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+dishes+are+done&user=hass-broadcast
   front_door_jammed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+front+door+lock+is+jammed&user=hass-broadcast
   mail: curl -X POST http://192.168.1.47:3000/customBroadcast?text=you+got+mail&user=hass-broadcast
-  rain_window: curl -X POST http://192.168.1.47:3000/customBroadcast?text=its+raining+and+the+following+windows+are+open{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window{% endif %}{% if is_state('binary_sensor.den_window', 'on') %}+den+window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %}+office+window{% endif %}&user=hass-broadcast
-  thermostat_window: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+thermostat+is+on+and+the+following+windows+are+open{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window{% endif %}{% if is_state('binary_sensor.den_window', 'on') %}+den+window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %}+office+window{% endif %}&user=hass-broadcast
+  rain_window: curl -X POST http://192.168.1.47:3000/customBroadcast?text=its+raining+and+the+following+windows+are+open{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window{% endif %}{% if is_state('binary_sensor.den_window', 'on') %}+den+window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window{% endif %}{% if is_state('binary_sensor.ollies_window', 'on') %}+ollies+window{% endif %}&user=hass-broadcast
+  thermostat_window: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+thermostat+is+on+and+the+following+windows+are+open{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window{% endif %}{% if is_state('binary_sensor.den_window', 'on') %}+den+window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window{% endif %}{% if is_state('binary_sensor.ollies_window', 'on') %}+ollies+window{% endif %}&user=hass-broadcast
   boogie_help: curl -X POST http://192.168.1.47:3000/customBroadcast?text=boogie+i+need+help+outside&user=hass-broadcast
   water_heater_leak: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+water+heater+is+leaking&user=hass-broadcast
   rain_water_heater: curl -X POST http://192.168.1.47:3000/customBroadcast?text=there+is+rain+getting+into+the+water+heater&user=hass-broadcast
@@ -1452,7 +1450,7 @@ shell_command:
   bottle_warmer_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=bottle+warmer+completed&user=hass-broadcast
   printing_completed: curl -X POST http://192.168.1.47:3000/customBroadcast?text=printing+completed&user=hass-broadcast
   baby_motion_detected: curl -X POST http://192.168.1.47:3000/customBroadcast?text=baby+motion+detected&user=hass-broadcast
-  cool_windows: curl -X POST http://192.168.1.47:3000/customBroadcast?text=its+getting+hot+close+the+following+windows+so+the+cooler+turns+on+{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window{% endif %}{% if is_state('binary_sensor.den_window', 'on') %}+den+window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %}+office+window{% endif %}&user=hass-broadcast
+  cool_windows: curl -X POST http://192.168.1.47:3000/customBroadcast?text=its+getting+hot+close+the+following+windows+so+the+cooler+turns+on+{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window{% endif %}{% if is_state('binary_sensor.den_window', 'on') %}+den+window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window{% endif %}{% if is_state('binary_sensor.ollies_window', 'on') %}+ollies+window{% endif %}&user=hass-broadcast
 
 rachio:
   api_key: !secret rachiokey

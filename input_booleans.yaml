@@ -2,8 +2,8 @@ den_fan:
   name: Den Fan
   icon: mdi:fan
 
-nursery_fan:
-  name: Nursery Fan
+ollies_fan:
+  name: Ollies Fan
   icon: mdi:fan
 
 fireplace:
@@ -26,8 +26,8 @@ kitchen_tv:
   name: Kitchen TV
   icon: mdi:television
 
-nursery_tv:
-  name: Nursery TV
+ollies_tv:
+  name: Ollies TV
   icon: mdi:television
 
 dishwasher_status:
@@ -50,8 +50,8 @@ bay_window_curtains:
 bedroom_curtains:
   name: Bedroom Curtains
 
-nursery_curtains:
-  name: Nursery Curtains
+ollies_curtains:
+  name: Ollies Curtains
 
 mailbox:
   name: Mailbox
@@ -96,10 +96,10 @@ baby_sleeping:
   name: Baby Sleeping
   icon: mdi:sleep
 
-nursery_heater:
-  name: Nursery Heater
+ollies_heater:
+  name: Ollies Heater
   icon: mdi:radiator
 
-nursery_humidifier:
-  name: Nursery Humidifier
+ollies_humidifier:
+  name: Ollies Humidifier
   icon: mdi:air-humidifier

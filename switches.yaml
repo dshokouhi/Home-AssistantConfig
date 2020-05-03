@@ -16,21 +16,21 @@
           data:
             entity_id: input_boolean.den_fan
 
-     nursery_fan:
-       friendly_name: Nursery Fan
-       value_template: "{% if is_state('input_boolean.nursery_fan', 'on') %}on{% else %}off{% endif %}"
+     ollies_fan:
+       friendly_name: Ollies Fan
+       value_template: "{% if is_state('input_boolean.ollies_fan', 'on') %}on{% else %}off{% endif %}"
        turn_on:
         - service: script.turn_on
-          entity_id: script.nursery_fan_toggle
+          entity_id: script.ollies_fan_toggle
         - service: input_boolean.turn_on
           data:
-            entity_id: input_boolean.nursery_fan
+            entity_id: input_boolean.ollies_fan
        turn_off:
         - service: script.turn_on
-          entity_id: script.nursery_fan_toggle
+          entity_id: script.ollies_fan_toggle
         - service: input_boolean.turn_off
           data:
-            entity_id: input_boolean.nursery_fan
+            entity_id: input_boolean.ollies_fan
 
      living_room_fan:
        friendly_name: Living Room Fan
@@ -96,53 +96,53 @@
           data:
             entity_id: input_boolean.kitchen_tv
 
-     nursery_tv:
-       friendly_name: Nursery TV
-       value_template: "{% if is_state('input_boolean.nursery_tv', 'on') %}on{% else %}off{% endif %}"
+     ollies_tv:
+       friendly_name: Ollies TV
+       value_template: "{% if is_state('input_boolean.ollies_tv', 'on') %}on{% else %}off{% endif %}"
        turn_on:
         - service: script.turn_on
-          entity_id: script.nursery_tv
+          entity_id: script.ollies_tv
         - service: input_boolean.turn_on
           data:
-            entity_id: input_boolean.nursery_tv
+            entity_id: input_boolean.ollies_tv
        turn_off:
         - service: script.turn_on
-          entity_id: script.nursery_tv
+          entity_id: script.ollies_tv
         - service: input_boolean.turn_off
           data:
-            entity_id: input_boolean.nursery_tv
+            entity_id: input_boolean.ollies_tv
 
-     nursery_heater:
-       friendly_name: Nursery Heater
-       value_template: "{% if is_state('input_boolean.nursery_heater', 'on') %}on{% else %}off{% endif %}"
+     ollies_heater:
+       friendly_name: Ollies Heater
+       value_template: "{% if is_state('input_boolean.ollies_heater', 'on') %}on{% else %}off{% endif %}"
        turn_on:
         - service: script.turn_on
-          entity_id: script.nursery_heater
+          entity_id: script.ollies_heater
         - service: input_boolean.turn_on
           data:
-            entity_id: input_boolean.nursery_heater
+            entity_id: input_boolean.ollies_heater
        turn_off:
         - service: script.turn_on
-          entity_id: script.nursery_heater
+          entity_id: script.ollies_heater
         - service: input_boolean.turn_off
           data:
-            entity_id: input_boolean.nursery_heater
+            entity_id: input_boolean.ollies_heater
 
-     nursery_humidifier:
-       friendly_name: Nursery Humidifier
-       value_template: "{% if is_state('input_boolean.nursery_humidifier', 'on') %}on{% else %}off{% endif %}"
+     ollies_humidifier:
+       friendly_name: Ollies Humidifier
+       value_template: "{% if is_state('input_boolean.ollies_humidifier', 'on') %}on{% else %}off{% endif %}"
        turn_on:
         - service: script.turn_on
-          entity_id: script.nursery_humidifier
+          entity_id: script.ollies_humidifier
         - service: input_boolean.turn_on
           data:
-            entity_id: input_boolean.nursery_humidifier
+            entity_id: input_boolean.ollies_humidifier
        turn_off:
         - service: script.turn_on
-          entity_id: script.nursery_humidifier
+          entity_id: script.ollies_humidifier
         - service: input_boolean.turn_off
           data:
-            entity_id: input_boolean.nursery_humidifier
+            entity_id: input_boolean.ollies_humidifier
 
  - platform: template
    switches:

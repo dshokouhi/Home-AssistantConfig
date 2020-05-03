@@ -697,7 +697,7 @@
     entity_id: binary_sensor.kitchen_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.office_window
+    entity_id: binary_sensor.ollies_window
     to: 'on'
   - platform: state
     entity_id: binary_sensor.bedroom_window
@@ -891,7 +891,7 @@
     state: 'Dad'
   action:
   - service: light.turn_on
-    entity_id: light.office_lights
+    entity_id: light.ollies_lights
   - service: notify.slack
     data:
       message: "The front door has been unlocked by dad"
@@ -918,7 +918,7 @@
     state: 'Zoo Keeper'
   action:
   - service: light.turn_on
-    entity_id: light.office_lights
+    entity_id: light.ollies_lights
   - service: notify.slack
     data:
       message: "The front door has been unlocked by zoo keeper"
@@ -969,7 +969,7 @@
     to: 'triggered'
   action:
   - service: light.turn_on
-    entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.bedroom_lights_level, light.office_lights
+    entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.bedroom_lights_level, light.ollies_lights
   - service: notify.slack
     data_template:
       message: "The alarm has been triggered since it was not disarmed for 60 seconds 👮‍♀ , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
@@ -1043,7 +1043,7 @@
     entity_id: binary_sensor.kitchen_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.office_window
+    entity_id: binary_sensor.ollies_window
     to: 'on'
   - platform: state
     entity_id: binary_sensor.bedroom_window
@@ -1075,7 +1075,7 @@
   - service: tts.google_say
     entity_id: media_player.bedroom_home
     data_template:
-      message: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
+      message: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.ollies_window', 'on') %} Ollies Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
 
 - alias: Windows open while going to bed
   trigger:
@@ -1106,7 +1106,7 @@
   - service: tts.google_say
     entity_id: media_player.bedroom_home
     data_template:
-      message: "The alarm is arming in night mode and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.office_window', 'on') %} Office Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
+      message: "The alarm is arming in night mode and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.ollies_window', 'on') %} Ollies Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
 
 - alias: Set alarm status drop down
   trigger:
@@ -1150,14 +1150,14 @@
 
 ################################################
 #
-#      Office automation
+#      Ollies automation
 #
 ################################################
 
-- alias: Office Lights On
+- alias: Ollies Lights On
   trigger:
     platform: state
-    entity_id: light.office_lights
+    entity_id: light.ollies_lights
     to: 'on'
     for:
       seconds: 15
@@ -1188,14 +1188,14 @@
     data:
       brightness_pct: 100
   - service: light.turn_on
-    entity_id: light.office_lights
+    entity_id: light.ollies_lights
     data:
       brightness_pct: 100
 
-- alias: Office Lights Off
+- alias: Ollies Lights Off
   trigger:
     platform: state
-    entity_id: light.office_lights
+    entity_id: light.ollies_lights
     to: 'off'
   action:
   - service: light.turn_off
@@ -1675,7 +1675,7 @@
     service: light.turn_off
     entity_id: light.bedroom_closet
 
-- alias: Turn off office closet if on for 15 min and door closed
+- alias: Turn off Ollies closet if on for 15 min and door closed
   trigger:
   - platform: state
     entity_id: light.office_closet
@@ -1684,25 +1684,25 @@
       minutes: 15
   condition:
     condition: state
-    entity_id: binary_sensor.office_closet_door
+    entity_id: binary_sensor.ollies_closet_door
     state: 'off'
   action:
     service: light.turn_off
     entity_id: light.office_closet
     
-- alias: Office Closet Light
+- alias: Ollies Closet Light
   trigger:
   - platform: state
-    entity_id: binary_sensor.office_closet_door
+    entity_id: binary_sensor.ollies_closet_door
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.office_closet_door
+    entity_id: binary_sensor.ollies_closet_door
     to: 'off'
   action:
     service_template: >
-           {% if is_state("binary_sensor.office_closet_door", "on") %}
+           {% if is_state("binary_sensor.ollies_closet_door", "on") %}
              light.turn_on
-           {% elif is_state("binary_sensor.office_closet_door", "off") %}
+           {% elif is_state("binary_sensor.ollies_closet_door", "off") %}
              light.turn_off
            {% else %}
            {% endif %}
@@ -1858,7 +1858,7 @@
     entity_id: binary_sensor.kitchen_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.office_window
+    entity_id: binary_sensor.ollies_window
     to: 'on'
   - platform: state
     entity_id: binary_sensor.bedroom_window
@@ -1910,7 +1910,7 @@
     entity_id: binary_sensor.kitchen_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.office_window
+    entity_id: binary_sensor.ollies_window
     to: 'on'
   - platform: state
     entity_id: binary_sensor.bedroom_window
@@ -2221,7 +2221,7 @@
                 media_player.outside_speakers
               {%-elif is_state("input_select.cast_devices", "Den") %}
                 media_player.den_home_hub
-              {%-elif is_state("input_select.cast_devices", "Office") %}
+              {%-elif is_state("input_select.cast_devices", "Ollies") %}
                 media_player.office_speaker
               {%-elif is_state("input_select.cast_devices", "Kitchen") %}
                 media_player.kitchen_home
@@ -2252,7 +2252,7 @@
               media_player.outdoor_speakers
             {%-elif is_state("input_select.cast_devices", "Den") %}
               media_player.den_home_hub
-            {%-elif is_state("input_select.cast_devices", "Office") %}
+            {%-elif is_state("input_select.cast_devices", "Ollies") %}
               media_player.office_speaker
             {%-elif is_state("input_select.cast_devices", "Kitchen") %}
               media_player.kitchen_home
@@ -2318,9 +2318,9 @@
     - sensor.living_room_side_window
     - sensor.den_window
     - sensor.den_sliding_door
-    - sensor.office_closet_door
-    - sensor.office_door
-    - sensor.office_window
+    - sensor.ollies_closet_door
+    - sensor.ollies_door
+    - sensor.ollies_window
     - sensor.dishwasher
     - sensor.nursery_heater_power
     - sensor.3d_printer
@@ -2708,7 +2708,7 @@
       brightness_pct: 100
       kelvin: 6500
   - service: light.turn_off
-    entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio, light.living_room_lights_level, light.office_lights, light.bedroom_lights_level, light.island_lights
+    entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio, light.living_room_lights_level, light.ollies_lights, light.bedroom_lights_level, light.island_lights
   - condition: state
     entity_id: switch.fireplace
     state: 'off'
@@ -3278,10 +3278,10 @@
   - service: light.turn_off
     entity_id: light.kitchen_lights_level, light.island_lights
 
-- alias: Turn off office lights when no motion
+- alias: Turn off Ollies lights when no motion
   trigger:
     platform: state
-    entity_id: binary_sensor.office_motion, binary_sensor.office_door
+    entity_id: binary_sensor.ollies_motion, binary_sensor.ollies_door
     to: 'off'
     for:
       minutes: 5
@@ -3292,31 +3292,31 @@
       entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
-      entity_id: light.office_lights
+      entity_id: light.ollies_lights
       state: 'on'
     - condition: state
-      entity_id: binary_sensor.office_closet_door
+      entity_id: binary_sensor.ollies_closet_door
       state: 'off'
     - condition: state
       entity_id: group.tracked_users
       state: 'home'
     - condition: state
-      entity_id: binary_sensor.office_door
+      entity_id: binary_sensor.ollies_door
       state: 'off'
     - condition: state
-      entity_id: binary_sensor.office_motion
+      entity_id: binary_sensor.ollies_motion
       state: 'off'
     - condition: state
       entity_id: input_boolean.baby_sleeping
       state: 'off'
   action:
     service: light.turn_off
-    entity_id: light.office_lights
+    entity_id: light.ollies_lights
     
-- alias: Turn on office lights when motion
+- alias: Turn on Ollies lights when motion
   trigger:
     platform: state
-    entity_id: binary_sensor.office_motion, binary_sensor.office_door
+    entity_id: binary_sensor.ollies_motion, binary_sensor.ollies_door
     to: 'on'
   condition:
     condition: and
@@ -3325,7 +3325,7 @@
       entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
-      entity_id: light.office_lights
+      entity_id: light.ollies_lights
       state: 'off'
     - condition: state
       entity_id: group.tracked_users
@@ -3335,7 +3335,7 @@
       state: 'off'
   action:
     service: light.turn_on
-    entity_id: light.office_lights
+    entity_id: light.ollies_lights
 
 - alias: Hallway light motion at night
   trigger:
@@ -3526,7 +3526,7 @@
     service: switch.toggle
     entity_id: switch.backyard_lights_switch
 
-- alias: Toggle nursery lamp
+- alias: Toggle Ollies lamp
   trigger:
     platform: event
     event_type: xiaomi_aqara.click
@@ -3927,7 +3927,7 @@
       at: '18:00:00'
   condition:
     condition: template
-    value_template: "{{ (state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.office_air_purifier', 'filter_life_remaining')| int <= 3) }}"
+    value_template: "{{ (state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.ollies_air_purifier', 'filter_life_remaining')| int <= 3) }}"
   action:
   - service: notify.discord
     data_template:
@@ -3938,8 +3938,8 @@
            Clean living room air purifier filter, filter level {{ state_attr('fan.living_room_air_purifier', 'filter_life_remaining') }} ⚠
          {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3 %}
            Clean bedroom air purifier filter, filter level {{ state_attr('fan.bedroom_air_purifier', 'filter_life_remaining') }} ⚠
-         {% elif state_attr('fan.office_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean office air purifier filter, filter level {{ state_attr('fan.office_air_purifier', 'filter_life_remaining') }} ⚠
+         {% elif state_attr('fan.ollies_air_purifier', 'filter_life_remaining')| int <= 3 %}
+           Clean ollies air purifier filter, filter level {{ state_attr('fan.ollies_air_purifier', 'filter_life_remaining') }} ⚠
          {% else %}
          {% endif %}
       target:
@@ -4184,7 +4184,7 @@
 - alias: ADB reconnect
   trigger:
     platform: state
-    entity_id: media_player.den_shield_tv, media_player.bedroom_shield_tv, media_player.kitchen_fire_stick, media_player.nursery_fire_stick
+    entity_id: media_player.den_shield_tv, media_player.bedroom_shield_tv, media_player.kitchen_fire_stick, media_player.ollies_fire_stick
     to: 'unavailable'
     for:
       minutes: 1
@@ -4198,7 +4198,7 @@
               192.168.1.92
             {% elif trigger.entity_id == 'media_player.kitchen_fire_stick' %}
               192.168.1.182
-            {% elif trigger.entity_id == 'media_player.nursery_fire_stick' %}
+            {% elif trigger.entity_id == 'media_player.ollies_fire_stick' %}
               192.168.1.18
             {% else %}
             {% endif %}
@@ -4457,7 +4457,7 @@
 #
 ################################################
 
-- alias: Nursery speaker and lights when baby sleeping
+- alias: ollies speaker and lights when baby sleeping
   trigger:
     platform: state
     entity_id: input_boolean.baby_sleeping
@@ -4469,7 +4469,7 @@
         light.turn_on
       {% else %}
       {% endif %}
-    entity_id: light.office_lights, light.hallway_light
+    entity_id: light.ollies_lights, light.hallway_light
   - service_template: >-
       {% if trigger.to_state.state == 'on' %}
         switch.turn_off
@@ -4503,7 +4503,7 @@
       entity_id: input_boolean.baby_sleeping
       state: 'on'
     - condition: state
-      entity_id: binary_sensor.office_door
+      entity_id: binary_sensor.ollies_door
       state: 'off'
   action:
   - service: shell_command.baby_motion_detected
@@ -4542,10 +4542,10 @@
 - alias: Notify temperature during sleep
   trigger:
   - platform: numeric_state
-    entity_id: sensor.nursery_average_temperature
+    entity_id: sensor.ollies_average_temperature
     above: 75
   - platform: numeric_state
-    entity_id: sensor.nursery_average_temperature
+    entity_id: sensor.ollies_average_temperature
     below: 70
   condition:
     condition: state
@@ -4554,14 +4554,14 @@
   action:
   - service: notify.discord
     data_template:
-      message: "Nursery temperature is at {{ states('sensor.nursery_average_temperature') }} 🌡 {% if states('sensor.nursery_average_temperature') | int > 75%} 🔥 {% else %} {% endif %} 👶 check the heater positioning"
+      message: "Ollies room temperature is at {{ states('sensor.ollies_average_temperature') }} 🌡 {% if states('sensor.ollies_average_temperature') | int > 75%} 🔥 {% else %} {% endif %} 👶 check the heater positioning"
       target:
       - !secret discord_house
 
-- alias: Turn on nursery heater when its cold
+- alias: Turn on ollies heater when its cold
   trigger:
   - platform: numeric_state
-    entity_id: sensor.nursery_average_temperature
+    entity_id: sensor.ollies_average_temperature
     below: 71
   - platform: state
     entity_id: input_boolean.baby_sleeping
@@ -4574,7 +4574,7 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: switch.nursery_heater
+      entity_id: switch.ollies_heater
       state: 'off'
     - condition: state
       entity_id: input_boolean.baby_sleeping
@@ -4583,29 +4583,29 @@
       entity_id: climate.thermostat
       state: 'off'
     - condition: numeric_state
-      entity_id: sensor.nursery_average_temperature
+      entity_id: sensor.ollies_average_temperature
       below: 71
   action:
     service: switch.turn_on
-    entity_id: switch.nursery_heater
+    entity_id: switch.ollies_heater
 
-- alias: Turn off nursery heater when its hot
+- alias: Turn off ollies heater when its hot
   trigger:
     platform: numeric_state
-    entity_id: sensor.nursery_average_temperature
+    entity_id: sensor.ollies_average_temperature
     above: 74
   condition:
     condition: and
     conditions:
     - condition: state
-      entity_id: switch.nursery_heater
+      entity_id: switch.ollies_heater
       state: 'on'
     - condition: state
       entity_id: input_boolean.baby_sleeping
       state: 'on'
   action:
     service: switch.turn_off
-    entity_id: switch.nursery_heater
+    entity_id: switch.ollies_heater
 
 - alias: Notify fire hd8 low battery
   trigger:
@@ -4623,7 +4623,7 @@
       target:
       - !secret discord_house
 
-- alias: Turn off nursery heater if heat is on or baby sleeping turns off
+- alias: Turn off ollies heater if heat is on or baby sleeping turns off
   trigger:
   - platform: state
     entity_id: climate.thermostat
@@ -4634,51 +4634,51 @@
     from: 'on'
   condition:
     condition: state
-    entity_id: switch.nursery_heater
+    entity_id: switch.ollies_heater
     state: 'on'
   action:
     service: switch.turn_off
-    entity_id: switch.nursery_heater
+    entity_id: switch.ollies_heater
 
-- alias: Turn off nursery heater if on for 1 hour
+- alias: Turn off ollies heater if on for 1 hour
   trigger:
     platform: state
-    entity_id: switch.nursery_heater
+    entity_id: switch.ollies_heater
     to: 'on'
     for:
       hours: 1
   action:
-  - wait_template: "{{ states('sensor.nursery_average_temperature') | int > 71 }}"
+  - wait_template: "{{ states('sensor.ollies_average_temperature') | int > 71 }}"
   - condition: state
-    entity_id: switch.nursery_heater
+    entity_id: switch.ollies_heater
     state: 'on'
   - service: switch.turn_off
-    entity_id: switch.nursery_heater
+    entity_id: switch.ollies_heater
 
-- alias: Turn off nursery heater when power is too high
+- alias: Turn off ollies heater when power is too high
   trigger:
     platform: numeric_state
     entity_id: sensor.nursery_heater_power
     above: 1000
   action:
   - service: switch.turn_off
-    entity_id: switch.nursery_heater
+    entity_id: switch.ollies_heater
   - service: notify.discord
     data_template:
-      message: "Nursery heater is turned off because power was too high ({{ trigger.to_state.state }} watts)"
+      message: "ollies heater is turned off because power was too high ({{ trigger.to_state.state }} watts)"
       target:
       - !secret discord_house
   - service: rest_command.assistant_broadcast
     data_template:
-      command: "Nursery heater turned off because power was too high"
+      command: "ollies heater turned off because power was too high"
   - delay: "00:01:00"
   - service: switch.turn_on
-    entity_id: switch.nursery_heater
+    entity_id: switch.ollies_heater
 
-- alias: Turn off nursery humidifier when above 55
+- alias: Turn off ollies humidifier when above 55
   trigger:
     platform: numeric_state
-    entity_id: sensor.office_air_purifier_humidity
+    entity_id: sensor.ollies_air_purifier_humidity
     above: 54
   condition:
     condition: and
@@ -4687,16 +4687,16 @@
       entity_id: input_boolean.baby_sleeping
       state: 'on'
     - condition: state
-      entity_id: switch.nursery_humidifier
+      entity_id: switch.ollies_humidifier
       state: 'on'
   action:
     service: switch.turn_off
-    entity_id: switch.nursery_humidifier
+    entity_id: switch.ollies_humidifier
 
-- alias: Turn on nursery humidifier when below 45
+- alias: Turn on ollies humidifier when below 45
   trigger:
   - platform: numeric_state
-    entity_id: sensor.office_air_purifier_humidity
+    entity_id: sensor.ollies_air_purifier_humidity
     below: 45
   - platform: state
     entity_id: input_boolean.baby_sleeping
@@ -4708,27 +4708,27 @@
       entity_id: input_boolean.baby_sleeping
       state: 'on'
     - condition: state
-      entity_id: switch.nursery_humidifier
+      entity_id: switch.ollies_humidifier
       state: 'off'
     - condition: numeric_state
-      entity_id: sensor.office_air_purifier_humidity
+      entity_id: sensor.ollies_air_purifier_humidity
       below: 45
   action:
     service: switch.turn_on
-    entity_id: switch.nursery_humidifier
+    entity_id: switch.ollies_humidifier
 
-- alias: Turn off nursery humidifier when baby sleeping turns off
+- alias: Turn off ollies humidifier when baby sleeping turns off
   trigger:
     platform: state
     entity_id: input_boolean.baby_sleeping
     to: 'off'
   condition:
     condition: state
-    entity_id: switch.nursery_humidifier
+    entity_id: switch.ollies_humidifier
     state: 'on'
   action:
     service: switch.turn_off
-    entity_id: switch.nursery_humidifier
+    entity_id: switch.ollies_humidifier
 
 ################################################
 #

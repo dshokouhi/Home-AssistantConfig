@@ -143,7 +143,7 @@
                          {%endif%}'
        friendly_name: 'Bedroom Smoke'
 
-     office_smoke_status:
+     ollies_smoke_status:
        value_template: '{%- if is_state("sensor.office_smoke_alarm_type", "0") %}
                          Idle
                          {%else%}
@@ -159,7 +159,7 @@
                            Unknown
                            {%- endif %}
                          {%endif%}'
-       friendly_name: 'Office Smoke'
+       friendly_name: 'Ollies Smoke'
 
  - platform: template
    sensors:
@@ -223,29 +223,29 @@
        friendly_name: Living Room Air Purifier AQI
        unit_of_measurement: AQI
 
-     office_air_purifier_temp:
-       value_template: "{{ ((state_attr('fan.office_air_purifier', 'temperature') * 9)/5 + 32)|round }}"
-       availability_template: "{{ not is_state('fan.office_air_purifier', 'unavailable') }}"
-       friendly_name: Office Air Purifier Temperature
+     ollies_air_purifier_temp:
+       value_template: "{{ ((state_attr('fan.ollies_air_purifier', 'temperature') * 9)/5 + 32)|round }}"
+       availability_template: "{{ not is_state('fan.ollies_air_purifier', 'unavailable') }}"
+       friendly_name: Ollies Air Purifier Temperature
        unit_of_measurement: "F"
        device_class: temperature
 
-     office_air_purifier_humidity:
-       value_template: "{{ state_attr('fan.office_air_purifier', 'humidity') }}"
-       availability_template: "{{ not is_state('fan.office_air_purifier', 'unavailable') }}"
-       friendly_name: Office Air Purifier Humidity
+     ollies_air_purifier_humidity:
+       value_template: "{{ state_attr('fan.ollies_air_purifier', 'humidity') }}"
+       availability_template: "{{ not is_state('fan.ollies_air_purifier', 'unavailable') }}"
+       friendly_name: Ollies Air Purifier Humidity
        unit_of_measurement: "%"
        device_class: humidity
 
-     office_air_purifier_aqi:
-       value_template: "{{ state_attr('fan.office_air_purifier', 'aqi') }}"
-       availability_template: "{{ not is_state('fan.office_air_purifier', 'unavailable') }}"
-       friendly_name: Office Air Purifier AQI
+     ollies_air_purifier_aqi:
+       value_template: "{{ state_attr('fan.ollies_air_purifier', 'aqi') }}"
+       availability_template: "{{ not is_state('fan.ollies_air_purifier', 'unavailable') }}"
+       friendly_name: Ollies Air Purifier AQI
        unit_of_measurement: AQI
 
-     nursery_average_temperature:
-       value_template: "{{ ((states('sensor.office_air_purifier_temp') | float(2)) + (states('sensor.office_door') | float(2)) + (states('sensor.office_closet_door') | float(2)) + (states('sensor.office_window') | float(2))) / 4 | float(2) }}"
-       friendly_name: Nursery Average Temperature
+     ollies_average_temperature:
+       value_template: "{{ ((states('sensor.ollies_air_purifier_temp') | float(2)) + (states('sensor.ollies_door') | float(2)) + (states('sensor.ollies_closet_door') | float(2)) + (states('sensor.ollies_window') | float(2))) / 4 | float(2) }}"
+       friendly_name: Ollies Average Temperature
        device_class: temperature
        unit_of_measurement: "F"
 
@@ -333,8 +333,8 @@
        value_template: "{{ state_attr('media_player.bedroom_shield_tv', 'app_name') }}"
      kitchen_fire_stick_app:
        value_template: "{{ state_attr('media_player.kitchen_fire_stick', 'app_name') }}"
-     nursery_fire_stick_app:
-       value_template: "{{ state_attr('media_player.nursery_fire_stick', 'app_name') }}"
+     ollies_fire_stick_app:
+       value_template: "{{ state_attr('media_player.ollies_fire_stick', 'app_name') }}"
 
      hvac_action:
        value_template: "{{ state_attr('climate.thermostat', 'hvac_action') }}"

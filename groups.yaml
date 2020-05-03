@@ -27,7 +27,7 @@ all_windows:
   - binary_sensor.living_room_left_bay_window
   - binary_sensor.living_room_right_bay_window
   - binary_sensor.living_room_side_window
-  - binary_sensor.office_window
+  - binary_sensor.ollies_window
 
 monitored_contacts:
   name: Monitored Doors and Windows
@@ -44,4 +44,4 @@ monitored_contacts:
   - binary_sensor.living_room_left_bay_window
   - binary_sensor.living_room_right_bay_window
   - binary_sensor.living_room_side_window
-  - binary_sensor.office_window
+  - binary_sensor.ollies_window

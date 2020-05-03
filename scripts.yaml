@@ -82,7 +82,7 @@ stop_bedroom_curtains:
       device: 44919307
       entity_id: remote.harmony_hub_bedroom
 
-close_nursery_curtains:
+close_ollies_curtains:
   sequence:
   - service: remote.send_command
     data_template:
@@ -90,9 +90,9 @@ close_nursery_curtains:
       device: 62856127
       entity_id: remote.harmony_hub_bedroom
   - service: input_boolean.turn_off
-    entity_id: input_boolean.nursery_curtains
+    entity_id: input_boolean.ollies_curtains
 
-open_nursery_curtains:
+open_ollies_curtains:
   sequence:
   - service: remote.send_command
     data_template:
@@ -100,9 +100,9 @@ open_nursery_curtains:
       device: 62856127
       entity_id: remote.harmony_hub_bedroom
   - service: input_boolean.turn_on
-    entity_id: input_boolean.nursery_curtains
+    entity_id: input_boolean.ollies_curtains
 
-stop_nursery_curtains:
+stop_ollies_curtains:
   sequence:
   - service: remote.send_command
     data_template:
@@ -150,7 +150,7 @@ den_fan_toggle:
       device: 55283138
       entity_id: remote.harmony_hub_den
 
-nursery_fan_toggle:
+ollies_fan_toggle:
   sequence:
   - service: remote.send_command
     data:
@@ -209,7 +209,7 @@ kitchen_tv_off:
       device: '34582686'
       entity_id: remote.harmony_hub_den
 
-nursery_tv:
+ollies_tv:
   sequence:
   - service: remote.send_command
     data_template:
@@ -217,7 +217,7 @@ nursery_tv:
       device: '62464283'
       entity_id: remote.harmony_hub_bedroom
 
-nursery_heater:
+ollies_heater:
   sequence:
   - service: remote.send_command
     data_template:
@@ -225,7 +225,7 @@ nursery_heater:
       device: '65803919'
       entity_id: remote.harmony_hub_bedroom
   - condition: state
-    entity_id: input_boolean.nursery_heater
+    entity_id: input_boolean.ollies_heater
     state: 'on'
   - delay: "00:00:01"
   - service: remote.send_command
@@ -234,7 +234,7 @@ nursery_heater:
       device: '65803919'
       entity_id: remote.harmony_hub_bedroom
 
-nursery_humidifier:
+ollies_humidifier:
   sequence:
   - service: remote.send_command
     data:
