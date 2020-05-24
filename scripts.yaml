@@ -748,3 +748,13 @@ cast_kitchen:
               camera.baby_monitor
             {% endif %}
       media_player: media_player.kitchen_tv
+ 
+action_test:
+  sequence:
+  - service: notify.mobile_app_pixel_4_xl
+    data:
+      message: test
+      data:
+        actions:
+        - action: 'action1'
+          title: test

@@ -110,10 +110,13 @@ views:
               state: '> 79'
           exclude:
             - entity_id: "*dark*"
-            - entity_id: sensor.bbq1_temperature
+            - entity_id: sensor.bbq_temperature
             - entity_id: sensor.pws_temp_f
             - entity_id: sensor.shokabow_weather_temperature
             - entity_id: "*octoprint*"
+            - entity_id: sensor.pool_temperature
+            - entity_id: sensor.ambient_pool_temperature
+            - entity_id: sensor.cat_litter_temperature
         show_empty: false
       - type: entity-filter
         id: people
@@ -234,7 +237,7 @@ views:
       - type: conditional
         id: bbqcond
         conditions:
-          - entity: binary_sensor.bbq1
+          - entity: binary_sensor.bbq_probe
             state: 'on'
         card:
           type: entities
@@ -244,8 +247,8 @@ views:
           entities:
             - input_select.bbq_probe1
             - input_number.bbq1_override
-            - sensor.bbq1_temperature
-            - entity: binary_sensor.bbq1
+            - sensor.bbq_temperature
+            - entity: binary_sensor.bbq_probe
               secondary_info: last-changed
       - type: thermostat
         entity: climate.thermostat
@@ -405,6 +408,18 @@ views:
           - sensor.cat_litter_humidity
           - sensor.cat_litter_luminance
           - sensor.cat_litter_temperature
+      - type: entities
+        title: Pool
+        id: pool
+        entities:
+          - entity: sensor.pool_temperature
+          - entity: sensor.ambient_pool_temperature
+          - entity: sensor.ambient_pool_humidity
+          #- entity: sensor.pool_vcc_voltage
+          - entity: binary_sensor.pool_sensor
+            secondary_info: last-changed
+            state_color: true
+          - entity: sensor.pool_pump_power
   - title: Ollies Room
     path: ollies
     icon: mdi:baby-face
@@ -467,6 +482,8 @@ views:
         name: Plex Stats
       - entity: sensor.ombi_pending_requests
         name: Plex Requests
+      - entity: sensor.hacs
+        name: HACS Updates
     cards:
       - type: horizontal-stack
         id: stats
@@ -957,7 +974,7 @@ views:
       - type: media-control
         entity: media_player.ollies_fire_stick
       - type: media-control
-        entity: media_player.office_speaker
+        entity: media_player.ollies_speaker
       - type: media-control
         entity: media_player.onkyo_den
       - type: media-control

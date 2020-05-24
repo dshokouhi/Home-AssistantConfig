@@ -997,8 +997,6 @@ google_assistant:
       room: Hallway
     light.ollies_lights:
       room: Ollies
-      aliases:
-      - Nursery Lights
     light.bathroom_night_light:
       room: "no group"
     light.bathroom_lights:
@@ -1135,11 +1133,16 @@ google_assistant:
       aliases:
       - Weather Station
       room: Patio
-    sensor.bbq1_temperature:
+    sensor.bbq_temperature:
       expose: true
       aliases:
       - Smoker
       - BBQ
+      room: Patio
+    sensor.pool_temperature:
+      expose: true
+      aliases:
+      - Pool
       room: Patio
     climate.sous_vide:
       expose: false

@@ -38,9 +38,26 @@
   - platform: state
     entity_id: media_player.outdoor_speakers
     to: 'idle'
+  condition:
+    condition: state
+    entity_id: media_player.onkyo_den_zone_2
+    state: 'off'
   action:
   - service: script.turn_on
     entity_id: script.zone_2_cc
+
+- alias: Outside Speakers CC off
+  trigger:
+    platform: state
+    entity_id: media_player.outdoor_speakers
+    to: 'off'
+  condition:
+    condition: state
+    entity_id: media_player.onkyo_den_zone_2
+    state: 'on'
+  action:
+  - service: script.turn_on
+    entity_id: script.zone_2_off
 
 - alias: Set Den Harmony Off
   trigger:
@@ -532,6 +549,44 @@
     data_template:
       message: "Printing paused."
 
+- alias: TTS close den sliding door
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.den_sliding_door
+    to: 'on'
+    for:
+      minutes: 3
+  - platform: state
+    entity_id: climate.thermostat
+    to: 'cool'
+  - platform: state
+    entity_id: climate.thermostat
+    to: 'heat'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.den_sliding_door
+      state: 'on'
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: climate.thermostat
+        state: 'cool'
+      - condition: state
+        entity_id: climate.thermostat
+        state: 'heat'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.den_home_hub
+    data_template:
+      message: "Please close the den sliding door, the thermostat is set to {{ states('climate.thermostat') }}."
+  - service: notify.discord
+    data_template:
+      message: "Please close the den sliding 🚪, the themostat is set to {{ states('climate.thermostat') }}."
+      target:
+      - !secret discord_house
+
 ################################################
 #
 #      Alarm automations and notifications
@@ -901,7 +956,7 @@
       target:
       - !secret discord_alarm
   - service: tts.google_say
-    entity_id: media_player.kitchen_home, media_player.den_home_hub, media_player.office_speaker
+    entity_id: media_player.kitchen_home, media_player.den_home_hub, media_player.ollies_speaker
     data:
       message: 'Hello just a friendly reminder to make sure the water bowls in the den, living room and also the ferret cage are refilled.  Dont forget to feed the ferrets and cats.  Please clean up the ferrets and cat litter. Thank you so much have a great day.'
 
@@ -2222,7 +2277,7 @@
               {%-elif is_state("input_select.cast_devices", "Den") %}
                 media_player.den_home_hub
               {%-elif is_state("input_select.cast_devices", "Ollies") %}
-                media_player.office_speaker
+                media_player.ollies_speaker
               {%-elif is_state("input_select.cast_devices", "Kitchen") %}
                 media_player.kitchen_home
               {%-elif is_state("input_select.cast_devices", "Bathroom") %}
@@ -2253,7 +2308,7 @@
             {%-elif is_state("input_select.cast_devices", "Den") %}
               media_player.den_home_hub
             {%-elif is_state("input_select.cast_devices", "Ollies") %}
-              media_player.office_speaker
+              media_player.ollies_speaker
             {%-elif is_state("input_select.cast_devices", "Kitchen") %}
               media_player.kitchen_home
             {%-elif is_state("input_select.cast_devices", "Bathroom") %}
@@ -2353,7 +2408,7 @@
   action:
   - service: notify.mobile_app_pixel_4_xl
     data:
-      message: 'Welcome 🏠 ! Do you need help❓'
+      message: 'Welcome 🏠 do you need help❓'
       title: 'Shokouhi Zoo'
       data:
         actions:
@@ -2441,7 +2496,7 @@
   action:
   - service: notify.mobile_app_pixel_3_xl
     data:
-      message: 'Welcome 🏠 ! Do you need help❓'
+      message: 'Welcome 🏠 do you need help❓'
       title: 'Shokouhi Zoo'
       data:
         actions:
@@ -2954,7 +3009,7 @@
       at: "17:00:00"
   condition:
     - condition: template
-      value_template: "{{ states('sensor.plex')|int == 0 }}"
+      value_template: "{{ states('sensor.tautulli')|int == 0 }}"
     - condition: template
       value_template: "{{ states('sensor.sabnzbd_speed')|int == 0 }}"
   action:
@@ -3632,24 +3687,24 @@
     from: "Select Input"
   condition:
     condition: state
-    entity_id: binary_sensor.bbq1
+    entity_id: binary_sensor.bbq_probe
     state: 'on'
   action:
   - wait_template: >
      {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 195 }}
+       {{ states.sensor.bbq_temperature.state|int >= 195 }}
      {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 195 }}
+       {{ states.sensor.bbq_temperature.state|int >= 195 }}
      {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 150 }}
+       {{ states.sensor.bbq_temperature.state|int >= 150 }}
      {% elif is_state("input_select.bbq_probe1", "Fish") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 130 }}
+       {{ states.sensor.bbq_temperature.state|int >= 130 }}
      {% elif is_state("input_select.bbq_probe1", "Steak") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 120 }}
+       {{ states.sensor.bbq_temperature.state|int >= 120 }}
      {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 145 }}
+       {{ states.sensor.bbq_temperature.state|int >= 145 }}
      {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 120 }}
+       {{ states.sensor.bbq_temperature.state|int >= 120 }}
      {%- else -%}
      {%- endif %}
   - service: notify.discord
@@ -3676,19 +3731,19 @@
   - service: shell_command.bbq_almost
   - wait_template: >
      {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 205 }}
+       {{ states.sensor.bbq_temperature.state|int >= 205 }}
      {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 205 }}
+       {{ states.sensor.bbq_temperature.state|int >= 205 }}
      {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 165 }}
+       {{ states.sensor.bbq_temperature.state|int >= 165 }}
      {% elif is_state("input_select.bbq_probe1", "Fish") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 145 }}
+       {{ states.sensor.bbq_temperature.state|int >= 145 }}
      {% elif is_state("input_select.bbq_probe1", "Steak") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 130 }}
+       {{ states.sensor.bbq_temperature.state|int >= 130 }}
      {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 160 }}
+       {{ states.sensor.bbq_temperature.state|int >= 160 }}
      {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
-       {{ states.sensor.bbq1_temperature.state|int >= 130 }}
+       {{ states.sensor.bbq_temperature.state|int >= 130 }}
      {%- else -%}
      {%- endif %}
   - service: notify.discord
@@ -3749,7 +3804,7 @@
     from: "Select Input"
   condition:
     condition: state
-    entity_id: binary_sensor.bbq1
+    entity_id: binary_sensor.bbq_probe
     state: 'off'
   action:
   - delay: "00:00:20"
@@ -3764,7 +3819,7 @@
     entity_id: input_select.bbq_probe1
   condition:
     condition: state
-    entity_id: binary_sensor.bbq1
+    entity_id: binary_sensor.bbq_probe
     state: 'on'
   action:
   - service: input_number.set_value
@@ -3939,7 +3994,7 @@
          {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3 %}
            Clean bedroom air purifier filter, filter level {{ state_attr('fan.bedroom_air_purifier', 'filter_life_remaining') }} ⚠
          {% elif state_attr('fan.ollies_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean ollies air purifier filter, filter level {{ state_attr('fan.ollies_air_purifier', 'filter_life_remaining') }} ⚠
+           Clean Ollies air purifier filter, filter level {{ state_attr('fan.ollies_air_purifier', 'filter_life_remaining') }} ⚠
          {% else %}
          {% endif %}
       target:
@@ -4005,7 +4060,7 @@
   - service: notify.discord
     data_template:
       message: >
-            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} 📷 detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }}.
+            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }} 📸.
       target:
       - !secret discord_images
       data:
@@ -4457,7 +4512,7 @@
 #
 ################################################
 
-- alias: ollies speaker and lights when baby sleeping
+- alias: Ollies speaker and lights when baby sleeping
   trigger:
     platform: state
     entity_id: input_boolean.baby_sleeping
@@ -4558,7 +4613,7 @@
       target:
       - !secret discord_house
 
-- alias: Turn on ollies heater when its cold
+- alias: Turn on Ollies heater when its cold
   trigger:
   - platform: numeric_state
     entity_id: sensor.ollies_average_temperature
@@ -4589,7 +4644,7 @@
     service: switch.turn_on
     entity_id: switch.ollies_heater
 
-- alias: Turn off ollies heater when its hot
+- alias: Turn off Ollies heater when its hot
   trigger:
     platform: numeric_state
     entity_id: sensor.ollies_average_temperature
@@ -4623,7 +4678,7 @@
       target:
       - !secret discord_house
 
-- alias: Turn off ollies heater if heat is on or baby sleeping turns off
+- alias: Turn off Ollies heater if heat is on or baby sleeping turns off
   trigger:
   - platform: state
     entity_id: climate.thermostat
@@ -4640,7 +4695,7 @@
     service: switch.turn_off
     entity_id: switch.ollies_heater
 
-- alias: Turn off ollies heater if on for 1 hour
+- alias: Turn off Ollies heater if on for 1 hour
   trigger:
     platform: state
     entity_id: switch.ollies_heater
@@ -4655,7 +4710,7 @@
   - service: switch.turn_off
     entity_id: switch.ollies_heater
 
-- alias: Turn off ollies heater when power is too high
+- alias: Turn off Ollies heater when power is too high
   trigger:
     platform: numeric_state
     entity_id: sensor.nursery_heater_power
@@ -4665,21 +4720,21 @@
     entity_id: switch.ollies_heater
   - service: notify.discord
     data_template:
-      message: "ollies heater is turned off because power was too high ({{ trigger.to_state.state }} watts)"
+      message: "Ollies heater has been turned off because power was too high ({{ trigger.to_state.state }} watts), retrying again in 1 minute"
       target:
       - !secret discord_house
   - service: rest_command.assistant_broadcast
     data_template:
-      command: "ollies heater turned off because power was too high"
+      command: "Ollies heater turned off because power was too high, retrying in 1 minute"
   - delay: "00:01:00"
   - service: switch.turn_on
     entity_id: switch.ollies_heater
 
-- alias: Turn off ollies humidifier when above 55
+- alias: Turn off Ollies humidifier when above 55
   trigger:
     platform: numeric_state
     entity_id: sensor.ollies_air_purifier_humidity
-    above: 54
+    above: 50
   condition:
     condition: and
     conditions:
@@ -4693,7 +4748,7 @@
     service: switch.turn_off
     entity_id: switch.ollies_humidifier
 
-- alias: Turn on ollies humidifier when below 45
+- alias: Turn on Ollies humidifier when below 45
   trigger:
   - platform: numeric_state
     entity_id: sensor.ollies_air_purifier_humidity
@@ -4717,7 +4772,7 @@
     service: switch.turn_on
     entity_id: switch.ollies_humidifier
 
-- alias: Turn off ollies humidifier when baby sleeping turns off
+- alias: Turn off Ollies humidifier when baby sleeping turns off
   trigger:
     platform: state
     entity_id: input_boolean.baby_sleeping
