@@ -901,6 +901,9 @@
       state: 'armed_away'
     - condition: state
       entity_id: alarm_control_panel.home
+      state: 'arming'
+    - condition: state
+      entity_id: alarm_control_panel.home
       state: 'pending'
   action:
   - service: alarm_control_panel.alarm_disarm
