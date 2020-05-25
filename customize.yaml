@@ -471,14 +471,11 @@ binary_sensor.bedroom_door:
 binary_sensor.bathroom_door:
   device_class: door
   
-sensor.bbq1_temperature:
-  friendly_name: BBQ Probe 1 Temperature
+sensor.bbq_temperature:
+  friendly_name: BBQ Temperature
   icon: mdi:thermometer
   device_class: temperature
-  
-binary_sensor.bbq1:
-  friendly_name: BBQ Probe 1 Status
-  
+
 sensor.dishwasher_running:
   icon: mdi:washing-machine
   
@@ -639,3 +636,6 @@ sensor.dannys_phone_charging_type:
 
 sensor.toshs_phone_charging_type:
   icon: mdi:cellphone-charging
+  
+sensor.pool_temperature:
+  device_class: temperature

@@ -465,6 +465,12 @@
    unit_of_measurement: '%'
    name: 'Tosh Den'
 
+ - platform: mqtt
+   state_topic: "octoPrint/progress/printing"
+   value_template: "http://192.168.1.91:5000/plugin/UltimakerFormatPackage/thumbnail/{{(value_json.path)|regex_replace(find='gcode', replace='png', ignorecase=True)}}"
+   force_update: true
+   name: 'Octoprint Gcode Image'
+
  - platform: launch_library
 
  - platform: tautulli

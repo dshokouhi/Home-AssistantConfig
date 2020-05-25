@@ -395,6 +395,7 @@ script: !include scripts.yaml
 tts:
   - platform: google_translate
     service_name: google_say
+    base_url: !secret baseurl
 
 group: !include groups.yaml
 
@@ -633,6 +634,10 @@ camera:
    still_image_url: !secret frontyard_cars_image
    stream_source: !secret frontyard_cars_h264
    name: Frontyard Cars
+
+ - platform: generic
+   name: OctoPrint Gcode Preview
+   still_image_url: "{{ states('sensor.octoprint_gcode_image') }}"
 
  - platform: local_file
    name: Frontyard Driveway Scan
@@ -1311,7 +1316,7 @@ input_select:
     - Select Input
     initial: "Select Input"
     icon: mdi:camera
-    
+
 input_number:
   bbq1_override:
     name: BBQ Probe 1 Override
@@ -1320,7 +1325,14 @@ input_number:
     initial: 130
     mode: box
     unit_of_measurement: "F"
-    
+
+  pool_temp:
+    name: Pool Temp
+    min: 32
+    max: 200
+    mode: box
+    unit_of_measurement: "F"
+
 neato:
   username: !secret neato_user
   password: !secret neato_pass

@@ -3849,7 +3849,7 @@
 
 ################################################
 #
-#      Pool Pump Automations
+#      Pool Automations
 #
 ################################################
 
@@ -3870,6 +3870,26 @@
       message: "Pool pump 🏊‍♀️ is offline :no_entry, go outside and hit reset ⚠ "
       target:
       - !secret discord_house
+
+- alias: Save pool temperature
+  trigger:
+    platform: state
+    entity_id: sensor.pool_temperature
+  condition:
+    condition: and
+    conditions:
+    - condition: template
+      value_template: "{{ (states('sensor.pool_temperature') | int < 150) and (trigger.to_state.state | int != states('input_number.pool_temp') | int)}}"
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: sensor.pool_temperature
+        state: unavailable
+  action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.pool_temp
+      value: "{{ trigger.to_state.state | int }}"
 
 ################################################
 #

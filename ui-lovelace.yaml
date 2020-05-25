@@ -117,6 +117,7 @@ views:
             - entity_id: sensor.pool_temperature
             - entity_id: sensor.ambient_pool_temperature
             - entity_id: sensor.cat_litter_temperature
+            - entity_id: input_number.pool_temp
         show_empty: false
       - type: entity-filter
         id: people
@@ -415,7 +416,9 @@ views:
           - entity: sensor.pool_temperature
           - entity: sensor.ambient_pool_temperature
           - entity: sensor.ambient_pool_humidity
-          #- entity: sensor.pool_vcc_voltage
+          - entity: input_number.pool_temp
+            name: Last saved pool temperature
+            secondary_info: last-changed
           - entity: binary_sensor.pool_sensor
             secondary_info: last-changed
             state_color: true
@@ -709,6 +712,8 @@ views:
           - sensor.octoprint_target_bed_temp
           - sensor.octoprint_actual_tool0_temp
           - sensor.octoprint_target_tool0_temp
+      - type: picture-entity
+        entity: camera.octoprint_gcode_preview
       - type: glance
         id: printer
         title: Epson Printer Info
