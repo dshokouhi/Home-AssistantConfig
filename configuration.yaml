@@ -1330,6 +1330,7 @@ input_number:
     name: Pool Temp
     min: 32
     max: 200
+    step: 0.1
     mode: box
     unit_of_measurement: "F"
 

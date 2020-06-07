@@ -118,6 +118,8 @@ views:
             - entity_id: sensor.ambient_pool_temperature
             - entity_id: sensor.cat_litter_temperature
             - entity_id: input_number.pool_temp
+            - entity_id: sensor.den_pi_cpu_thermal_1_temp
+            - entity_id: sensor.pi_hole_cpu_thermal_1_temp
         show_empty: false
       - type: entity-filter
         id: people
@@ -251,6 +253,7 @@ views:
             - sensor.bbq_temperature
             - entity: binary_sensor.bbq_probe
               secondary_info: last-changed
+              state_color: true
       - type: thermostat
         entity: climate.thermostat
       - type: conditional
@@ -533,13 +536,13 @@ views:
         cards:
           - type: gauge
             name: Den Pi RAM Used
-            entity: sensor.den_pi_ram_used_percent
+            entity: sensor.den_pi_ram_used_percent_2
           - type: gauge
             name: Den Pi Disk Used
-            entity: sensor.den_pi_used_percent_2
+            entity: sensor.den_pi_used_percent
           - type: gauge
             name: Den Pi CPU Used
-            entity: sensor.den_pi_cpu_used
+            entity: sensor.den_pi_cpu_used_2
       - type: horizontal-stack
         id: ms-pc
         cards:
@@ -557,13 +560,13 @@ views:
         cards:
           - type: gauge
             name: Pi Hole RAM Used
-            entity: sensor.pi_hole_ram_used_percent
+            entity: sensor.pi_hole_ram_used_percent_2
           - type: gauge
             name: Pi Hole Disk Used
-            entity: sensor.pi_hole_used_percent_2
+            entity: sensor.pi_hole_used_percent
           - type: gauge
             name: Pi Hole CPU Used
-            entity: sensor.pi_hole_cpu_used
+            entity: sensor.pi_hole_cpu_used_2
       - type: horizontal-stack
         id: sab-pc
         cards:
@@ -714,6 +717,8 @@ views:
           - sensor.octoprint_target_tool0_temp
       - type: picture-entity
         entity: camera.octoprint_gcode_preview
+        show_name: false
+        show_state: false
       - type: glance
         id: printer
         title: Epson Printer Info

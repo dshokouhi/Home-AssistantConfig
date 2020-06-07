@@ -1663,6 +1663,7 @@
   - platform: state
     entity_id: binary_sensor.mailbox
     to: 'on'
+    from: 'off'
   action:
     service: input_boolean.turn_off
     entity_id: input_boolean.mailbox
@@ -3879,7 +3880,7 @@
     condition: and
     conditions:
     - condition: template
-      value_template: "{{ (states('sensor.pool_temperature') | int < 150) and (trigger.to_state.state | int != states('input_number.pool_temp') | int)}}"
+      value_template: "{{ (states('sensor.pool_temperature') | int < 150) and (trigger.to_state.state != states('input_number.pool_temp'))}}"
     - condition: not
       conditions:
       - condition: state
@@ -3889,7 +3890,7 @@
   - service: input_number.set_value
     data_template:
       entity_id: input_number.pool_temp
-      value: "{{ trigger.to_state.state | int }}"
+      value: "{{ trigger.to_state.state }}"
 
 ################################################
 #
