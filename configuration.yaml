@@ -770,6 +770,7 @@ google_assistant:
   - camera
   - cover
   - binary_sensor
+  - input_select
   entity_config:
     script.on_bedroom_fan:
       expose: false

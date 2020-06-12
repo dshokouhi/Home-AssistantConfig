@@ -28,15 +28,6 @@
    monitored_conditions:
    - upcoming
 
- - platform: sonarr
-   api_key: !secret sonarr
-   host: !secret househost
-   urlbase: /sonarr
-   ssl: true
-   port: 443
-   monitored_conditions:
-   - upcoming
-
  - platform: template
    sensors:
      danny_next_event:
