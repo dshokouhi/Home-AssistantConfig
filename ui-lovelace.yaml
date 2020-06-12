@@ -9,16 +9,6 @@ views:
       - sun.sun
       - sensor.yr_symbol
     cards:
-      # - type: "custom:auto-entities"
-        # id: weight
-        # card:
-          # type: glance
-          # title: Weight sensor
-        # filter:
-          # include:
-            # - entity_id: sensor.hx711_value
-              # state: '> 2'
-        # show_empty: false
       - type: entity-filter
         id: leaks
         card:
@@ -354,15 +344,12 @@ views:
         entities:
           - entity: switch.backyard_lights_switch
             state_color: true
-          - light.fig_tree_lights
-          - light.firepit_lights
           - entity: switch.garage_lights_switch
             state_color: true
           - entity: binary_sensor.garage_motion_sensor
             name: Garage Motion
             secondary_info: last-changed
             state_color: true
-          - light.garden_lights
           - light.patio
       - type: entities
         id: outdoor-motion
@@ -425,7 +412,6 @@ views:
           - entity: binary_sensor.pool_sensor
             secondary_info: last-changed
             state_color: true
-          - entity: sensor.pool_pump_power
   - title: Ollies Room
     path: ollies
     icon: mdi:baby-face
@@ -460,6 +446,7 @@ views:
           - entity: switch.ollies_humidifier
             secondary_info: last-changed
             state_color: true
+          - entity: light.ollies_lamp
           - entity: light.ollies_lights
           - entity: binary_sensor.ollies_motion
             secondary_info: last-changed
@@ -470,7 +457,6 @@ views:
             state_color: true
           - entity: switch.ollies_tv
             state_color: true
-          - entity: light.ollies_lamp
   - title: Services
     path: services
     icon: mdi:home-circle
@@ -997,20 +983,6 @@ views:
         entity: media_player.sony_bravia_tv
       - type: media-control
         entity: media_player.stream_unlimited9639
-  - title: Calendar
-    path: calendar
-    icon: mdi:calendar
-    cards:
-      - type: entities
-        id: calsensor
-        title: Calendar Sensors
-        show_header_toggle: false
-        entities:
-          - sensor.danny_next_event
-          - sensor.tosh_next_event
-          - sensor.danny_next_meeting
-          - sensor.next_us_holiday
-          - sensor.next_jewish_holiday
   - title: Shopping List
     path: shopping
     icon: mdi:cart

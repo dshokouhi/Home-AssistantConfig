@@ -17,15 +17,14 @@
     light.counter_lights: off
     light.patio: off
     light.ollies_lights: off
-    light.garden_lights: off
     #switch.little_christmas_trees_switch: off
     #switch.christmas_tree_switch: off
-    light.den_bookshelf_left: off
     light.nook_lamp: off
     input_boolean.night_mode: on
     light.front_door_lamp: off
     light.spot: off
     light.bathroom_lights: off
+    light.ollies_lamp: off
 
 - name: Colorful
   entities:
@@ -64,19 +63,14 @@
     light.cabinet_lights: off
     light.counter_lights: off
     light.dannys: off
-    light.firepit_lights: off
-    light.fig_tree_lights: off
     light.hallway_light: off
-    light.living_room_lamp: off
     light.ollies_lights: off
     light.patio: off
     light.toshs: off
     light.bedroom_lights_level: off
-    light.garden_lights: off
     #switch.little_christmas_trees_switch: off
     #switch.christmas_tree_switch: off
-    light.den_bookshelf_left: off
-    light.nook_lamp: off
+    light.ollies_lamp: off
     light.spot: off
     light.bathroom_night_light: off
     light.bathroom_lights: off

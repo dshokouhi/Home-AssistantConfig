@@ -25,12 +25,6 @@ switch.living_room_fan:
 switch.fireplace:
   icon: mdi:fire
 
-light.firepit_lights:
-  icon: mdi:fire
-
-light.garden_lights:
-  icon: mdi:tree
-
 switch.bedroom_fan:
   icon: mdi:fan
 
@@ -40,24 +34,12 @@ switch.kitchen_tv:
 switch.ollies_tv:
   icon: mdi:television
 
-# sensor.fedex:
-  # friendly_name: FedEx
-
-# sensor.ups:
-  # friendly_name: UPS
-
-# sensor.usps_mail:
-  # friendly_name: USPS Daily Mail Count
-  
-# sensor.usps_packages:
-  # friendly_name: USPS Packages
-  
 sensor.yr_symbol:
   friendly_name: Weather
 
 switch.living_room_state:
   emulated_hue_hidden: true
-  
+
 switch.den_state:
   emulated_hue_hidden: true
   
@@ -184,9 +166,6 @@ light.counter_lights:
   
 switch.house_fan:
   icon: mdi:fan
-
-light.fig_tree_lights:
-  icon: mdi:pine-tree
 
 light.dannys:
   friendly_name: Dannys Nightstand

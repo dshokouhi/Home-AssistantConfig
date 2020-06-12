@@ -1012,12 +1012,6 @@ google_assistant:
       room: Kitchen
     light.patio:
       room: Patio
-    light.fig_tree_lights:
-      room: Outside
-    light.firepit_lights:
-      room: Outside
-    light.garden_lights:
-      room: Outside
     switch.den_fan:
       room: Den
     switch.ollies_fan:
@@ -1544,6 +1538,7 @@ climate:
     temperature_command_topic: anova/command/temp
     min_temp: 77
     max_temp: 210
+    precision: 0.5
 
 octoprint:
   host: 192.168.1.91

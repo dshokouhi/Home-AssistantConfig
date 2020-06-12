@@ -2410,7 +2410,7 @@
     entity_id: switch.tasker_sleep_danny
     state: 'off'
   action:
-  - service: notify.mobile_app_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_4_xl
     data:
       message: 'Welcome 🏠 do you need help❓'
       title: 'Shokouhi Zoo'
@@ -2437,7 +2437,7 @@
     event_data:
       action: action1
   action:
-  - service: notify.mobile_app_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_4_xl
     data:
       message: 'action1'
       data:
@@ -2451,7 +2451,7 @@
     event_data:
       action: action2
   action:
-  - service: notify.mobile_app_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_4_xl
     data:
       message: 'action2'
       data:
@@ -2532,11 +2532,6 @@
     to: 'not_home'
     for:
       minutes: 5
-  - platform: state
-    entity_id: switch.tasker_sleep_tosh
-    to: 'on'
-    for:
-      hours: 8
   condition:
     condition: and
     conditions:
@@ -3013,7 +3008,7 @@
       at: "17:00:00"
   condition:
     - condition: template
-      value_template: "{{ states('sensor.tautulli')|int == 0 }}"
+      value_template: "{{ states('sensor.plex')|int == 0 }}"
     - condition: template
       value_template: "{{ states('sensor.sabnzbd_speed')|int == 0 }}"
   action:
