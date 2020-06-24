@@ -6,6 +6,7 @@ homeassistant:
   unit_system: imperial
   time_zone: America/Los_Angeles
   customize: !include customize.yaml
+  external_url: !secret baseurl
   # customize_glob: !include custom-ui.yaml
   whitelist_external_dirs:
   - /home/homeassistant/.homeassistant/snapshot
@@ -267,14 +268,32 @@ logbook:
 
 logger:
   default: warn
-  # logs:
+  logs:
+    homeassistant.util.package: info
+    homeassistant.bootstrap: info
+    homeassistant.components.zwave: info
+    homeassistant.core: info
+    homeassistant.components.esphome: error
+    homeassistant.components.rachio: info
+    homeassistant.components.mobile_app: info
+    pychromecast: error
+    zigpy: info
+    openzwave: info
     # custom_components.rachio: debug
-  # logs:
     # homeassistant.components.google_assistant: debug
-  # logs:
     # homeassistant.components.plex: debug
     # plexapi: debug
     # plexwebsocket: debug
+    # homeassistant.components.esphome: warn
+    # aioesphomeapi: warn
+    # discord: warn
+    # googleapiclient: warn
+    # homeassistant.components.script: warn
+    # homeassistant.helpers.script: warn
+    # homeassistant.components.automation: warn
+    # homeassistant.components.tensorflow.image_processing: warn
+    # homeassistant.components.ipp: warn
+    # homeassistant.setup: warn
 
 recorder:
   purge_keep_days: 5
@@ -740,7 +759,7 @@ notify:
    name: android
    services:
    - service: mobile_app_pixel_3_xl
-   - service: mobile_app_pixel_4_xl
+   - service: mobile_app_dannys_pixel_4_xl
 
 alert:
   front_door_unlocked:

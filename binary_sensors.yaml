@@ -33,6 +33,16 @@
        friendly_name: "Den Fire HD8 Tablet Charging"
        device_class: plug
 
+     bedroom_tablet_charging:
+       value_template: "{{ is_state_attr('sensor.bedroom_tablet_battery_state', 'is_charging', true) }}"
+       friendly_name: "Bedroom Tablet Charging"
+       device_class: plug
+
+     kitchen_tablet_charging:
+       value_template: "{{ is_state_attr('sensor.kitchen_tablet_battery_state', 'is_charging', true) }}"
+       friendly_name: "Kitchen Tablet Charging"
+       device_class: plug
+
      windows:
        friendly_name: "Windows"
        device_class: window

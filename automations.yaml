@@ -4681,19 +4681,26 @@
     service: switch.turn_off
     entity_id: switch.ollies_heater
 
-- alias: Notify fire hd8 low battery
+- alias: Notify tablet low battery
   trigger:
     platform: numeric_state
-    entity_id: sensor.den_fire_hd8_battery_level
+    entity_id: sensor.den_fire_hd8_battery_level, sensor.bedroom_tablet_battery_level, sensor.kitchen_tablet_battery_level
     below: 30
   condition:
-    condition: state
-    entity_id: binary_sensor.den_fire_hd8_charging
-    state: 'off'
+    condition: template
+    value_template: >-
+        {% if trigger.entity_id == 'sensor.den_fire_hd8_battery_level' %}
+          {{ is_state('binary_sensor.den_fire_hd8_charging', 'off') }}
+        {% elif trigger.entity_id == 'sensor.bedroom_tablet_battery_level' %}
+          {{ is_state('binary_sensor.bedroom_tablet_charging', 'off') }}
+        {% elif trigger.entity_id == 'sensor.kitchen_tablet_battery_level' %}
+          {{ is_state('binary_sensor.kitchen_tablet_charging', 'off') }}
+        {% else %}
+        {% endif %}
   action:
   - service: notify.discord
     data_template:
-      message: "Low battery ({{ states('sensor.den_fire_hd8_battery_level') }}) for tablet in den, plug it in"
+      message: "{{ trigger.to_state.attributes.friendly_name }} is at ({{ trigger.to_state.state }}%), plug it in"
       target:
       - !secret discord_house
 
