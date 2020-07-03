@@ -451,6 +451,7 @@ views:
           - entity: binary_sensor.ollies_motion
             secondary_info: last-changed
             state_color: true
+          - entity: switch.ollies_sound_machine_plug
           - entity: switch.nursery_power_strip_port_6
             secondary_info: last-changed
             name: Ollies Speaker

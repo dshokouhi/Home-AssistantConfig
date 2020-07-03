@@ -1173,7 +1173,7 @@ google_assistant:
       expose: false
     switch.nursery_power_strip_port_2:
       expose: false
-    switch.nursery_power_strip_port_5:
+    switch.ollies_sound_machine_plug:
       expose: false
     switch.nursery_power_strip_port_6:
       expose: false
@@ -1558,7 +1558,7 @@ climate:
     temperature_command_topic: anova/command/temp
     min_temp: 77
     max_temp: 210
-    precision: 0.5
+    precision: 0.1
 
 octoprint:
   host: 192.168.1.91

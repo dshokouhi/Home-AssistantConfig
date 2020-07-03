@@ -4552,6 +4552,14 @@
       {% else %}
       {% endif %}
     entity_id: switch.nursery_power_strip_port_6
+  - service_template: >-
+      {% if trigger.to_state.state == 'off' %}
+        switch.turn_off
+      {% elif trigger.to_state.state == 'on' %}
+        switch.turn_on
+      {% else %}
+      {% endif %}
+    entity_id: switch.ollies_sound_machine_plug
   - service: media_player.volume_set
     data_template:
       entity_id: media_player.living_room_home, media_player.bedroom_home, media_player.bathroom_speaker, media_player.kitchen_home
