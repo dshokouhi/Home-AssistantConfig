@@ -637,6 +637,10 @@
       title: "Alarm"
       data:
         image: "/local/living_room_camera.jpg"
+        group: alarm
+        channel: alarm
+        sticky: true
+        importance: high
   - service: switch.turn_on
     entity_id: switch.living_room_state
   - delay: "00:00:30"
@@ -681,6 +685,10 @@
       title: "Alarm"
       data:
         image: "/local/den_camera.jpg"
+        group: alarm
+        channel: alarm
+        sticky: true
+        importance: high
   - service: switch.turn_on
     entity_id: switch.den_state
   - delay: "00:00:30"
@@ -722,6 +730,10 @@
       title: "Alarm"
       data:
         image_file: "/local/kitchen.jpg"
+        group: alarm
+        channel: alarm
+        sticky: true
+        importance: high
   - service: switch.turn_on
     entity_id: switch.kitchen_state
   - delay: "00:00:30"
@@ -2220,6 +2232,11 @@
     data_template:
       message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }}"
       title: "Smoke Alarm ⚠"
+      data:
+        channel: alert
+        group: alert
+        sticky: true
+        importance: high
 
 - alias: CO2 Detected
   trigger:
@@ -2252,7 +2269,12 @@
   - service: notify.android
     data_template:
       message: "CO2 Detected {{ trigger.to_state.attributes.friendly_name }}"
-      title: "Smoke Alarm ⚠"
+      title: "CO2 Alarm ⚠"
+      data:
+        channel: alert
+        group: alert
+        sticky: true
+        importance: high
 
 ################################################
 #
@@ -2420,6 +2442,10 @@
           title: 'Send Help'
         ttl: 0
         priority: 'high'
+        group: location
+        channel: location
+        timeout: 600
+        importance: high
 
 - alias: Notify help needed at cars
   trigger:
@@ -2443,6 +2469,8 @@
       data:
         ttl: 0
         priority: 'high'
+        group: test
+        timeout: 30
 
 - alias: action2
   trigger:
@@ -2457,6 +2485,8 @@
       data:
         ttl: 0
         priority: 'high'
+        group: test
+        timeout: 30
 
 - alias: Notify bayesian off
   trigger:
@@ -2508,6 +2538,10 @@
           title: 'Send Help'
         ttl: 0
         priority: 'high'
+        group: location
+        channel: location
+        timeout: 600
+        importance: high
 
 - alias: Notify bayesian off tosh
   trigger:
