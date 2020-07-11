@@ -2156,14 +2156,15 @@
       entity_id: sensor.thermostat_temperature
       above: 75
   action:
-  - service: climate.set_temperature
-    data:
-      entity_id: climate.thermostat
-      temperature: 74
   - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat
       hvac_mode: 'cool'
+  - delay: "00:00:05"
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.thermostat
+      temperature: 74
 
 ##################################################
 #
@@ -2209,7 +2210,7 @@
     entity_id: sensor.bedroom_smoke_status
     to: 'Fire'
   - platform: state
-    entity_id: sensor.office_smoke_status
+    entity_id: sensor.ollies_smoke_status
     to: 'Fire'
   action:
   - service: notify.slack
@@ -2247,7 +2248,7 @@
     entity_id: sensor.bedroom_smoke_status
     to: 'CO2'
   - platform: state
-    entity_id: sensor.office_smoke_status
+    entity_id: sensor.ollies_smoke_status
     to: 'CO2'
   action:
   - service: notify.slack
@@ -2605,14 +2606,15 @@
     entity_id: group.tracked_users
     state: 'not_home'
   action:
-  - service: climate.set_temperature
-    data:
-      entity_id: climate.thermostat
-      temperature: 78
   - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat
       hvac_mode: 'cool'
+  - delay: "00:00:05"
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.thermostat
+      temperature: 78
 
 - alias: Cool down house if thermostat gets above 80 and someone is home
   trigger:
@@ -2629,14 +2631,15 @@
       entity_id: binary_sensor.windows
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
-      entity_id: climate.thermostat
-      temperature: 76
   - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat
       hvac_mode: 'cool'
+  - delay: "00:00:05"
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.thermostat
+      temperature: 76
 
 - alias: Cool down house if thermostat gets above 80 and someone is home but window is open
   trigger:
@@ -2665,14 +2668,15 @@
   - condition: state
     entity_id: binary_sensor.windows
     state: 'off'
-  - service: climate.set_temperature
-    data:
-      entity_id: climate.thermostat
-      temperature: 76
   - service: climate.set_hvac_mode
     data:
       entity_id: climate.thermostat
       hvac_mode: 'cool'
+  - delay: "00:00:05"
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.thermostat
+      temperature: 76
 
 - alias: Set thermostat cooling if on and house is armed
   trigger:

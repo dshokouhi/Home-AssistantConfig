@@ -1450,13 +1450,24 @@ sabnzbd:
     - 'queue_remaining'
     - 'disk_size'
     - 'disk_free'
-    
+
 panel_iframe:
   configurator:
     title: Configurator
     icon: mdi:wrench
     url: !secret hass_config_url
-    
+
+panel_custom:
+  - name: panel-redirect
+    # url_path needs to be unique for each panel_custom config
+    url_path: redirect-logs
+    sidebar_title: Logs
+    sidebar_icon: mdi:math-log
+    module_url: /local/panel-redirect.js
+    config:
+      # Where you want to redirect to
+      target: /config/logs
+
 shell_command:
   washer_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+washer+is+done{% if is_state('input_boolean.dryer_status', 'on') %}+however+the+dryer+is+still+running{% else %}+time+to+switch+laundry{% endif %}&user=hass-broadcast
   dryer_done: curl -X POST http://192.168.1.47:3000/customBroadcast?text=the+dryer+is+done{% if is_state('input_boolean.washer_status', 'on') %}+however+the+washer+is+still+running{% else %}+time+to+get+your+clothes{% endif %}&user=hass-broadcast
