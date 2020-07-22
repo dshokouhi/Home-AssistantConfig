@@ -307,9 +307,18 @@
     entity_id: sensor.kitchen_fire_stick_app
     from: 'com.amazon.tv.launcher'
   condition:
-    condition: state
-    entity_id: switch.kitchen_tv
-    state: 'off'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.kitchen_tv
+      state: 'off'
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: sensor.kitchen_fire_stick_app
+        state:
+        - 'unavailable'
+        - 'unknown'
   action:
     service: input_boolean.turn_on
     entity_id: input_boolean.kitchen_tv
@@ -4253,6 +4262,14 @@
       entity_id: vacuum.mrs_neato
       zone: Kitchen
 
+- alias: Vacuum deep clean Kitchen
+  trigger:
+    platform: webhook
+    webhook_id: !secret neato_deep_kitchen
+  action:
+  - service: script.turn_on
+    entity_id: script.kitchen_deep_cleaning
+
 - alias: Vacuum Living Room
   trigger:
     platform: webhook
@@ -4637,10 +4654,6 @@
   trigger:
     platform: state
     entity_id: input_boolean.baby_sleeping
-  condition:
-    condition: state
-    entity_id: remote.harmony_hub_den
-    state: 'on'
   action:
   - service: mqtt.publish
     data_template:

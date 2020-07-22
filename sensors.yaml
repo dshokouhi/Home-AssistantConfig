@@ -479,7 +479,7 @@
    state: CA
    zone: 547
    county: 37
-   scan_interval: 3600
+   scan_interval: 600
 
  - platform: bloomsky
    monitored_conditions:

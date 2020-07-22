@@ -1150,6 +1150,7 @@ views:
             - entity_id: "*door"
             - entity_id: binary_sensor.garage_frontyard
             - entity_id: "*window"
+            - entity_id: binary_sensor.mailbox
           exclude:
             - domain: automation
             - domain: sensor
