@@ -229,4 +229,4 @@
    optimistic: false
    retain: true
    value_template: "{{ value_json.timer_state }}"
-   icon: 'mdi:timer'
+   icon: 'mdi:timer-outline'

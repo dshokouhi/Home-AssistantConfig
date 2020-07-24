@@ -8,7 +8,7 @@ homeassistant:
   customize: !include customize.yaml
   external_url: !secret baseurl
   # customize_glob: !include custom-ui.yaml
-  whitelist_external_dirs:
+  allowlist_external_dirs:
   - /home/homeassistant/.homeassistant/snapshot
   - /home/homeassistant/.homeassistant
 
@@ -38,8 +38,8 @@ frontend:
 # not sure where used 
       sidebar-text_-_background: "var(--pink)"
 # card background colour, part of media player background
-      paper-card-background-color: "var(--light_grey)"
-      card-background-color: "var(--paper-card-background-color)"
+      #paper-card-background-color: "var(--light_grey)"
+      card-background-color: "var(--light-grey)"
 # mqtt pubish header and thats it 
       paper-card-header-color: "var(--white)"
 # main background colour of states page
@@ -118,7 +118,7 @@ frontend:
       paper-grey-50: 'black'
       paper-grey-200: 'black'
       paper-card-header-color: 'red'
-      paper-card-background-color: 'black'
+      card-background-color: 'black'
       paper-dialog-background-color: 'black'
       paper-item-icon-color: 'var(--primary-text-color)'
       paper-item-icon-active-color: '#03A9F4'
@@ -158,7 +158,7 @@ frontend:
 
       # Card
       card-background-color: "#1D1D1D"
-      paper-card-background-color: "#1D1D1D"
+      #paper-card-background-color: "#1D1D1D"
 
       # Colours
       primary-color: "#08a8a5"
@@ -583,6 +583,7 @@ amcrest:
    stream_source: rtsp
    binary_sensors:
    - motion_detected
+   - audio_detected
 
  - host: 192.168.1.171
    port: 1030
@@ -593,6 +594,7 @@ amcrest:
    stream_source: rtsp
    binary_sensors:
    - motion_detected
+   - audio_detected
 
  - host: 192.168.1.36
    port: 1027
@@ -607,6 +609,7 @@ amcrest:
    name: "Baby Monitor"
    binary_sensors:
    - motion_detected
+   - audio_detected
 
  - host: 192.168.1.162
    port: 1029
@@ -617,6 +620,7 @@ amcrest:
    stream_source: rtsp
    binary_sensors:
    - motion_detected
+   - audio_detected
 
 camera:
  - platform: generic

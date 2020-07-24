@@ -473,7 +473,7 @@
    name: Sous Vide Timer
    state_topic: anova/timer
    value_template: "{{ (((value_json.timer | int) * 60) - 3600) | timestamp_custom('%H:%M') }}"
-   icon: 'mdi:timer'
+   icon: 'mdi:timer-outline'
 
  - platform: weatheralerts
    state: CA

@@ -1088,7 +1088,7 @@ views:
           type: entities
           title: All Z-wave Devices
           show_header_toggle: false
-  - icon: mdi:settings
+  - icon: mdi:cog
     title: Settings
     path: settings
     cards:
