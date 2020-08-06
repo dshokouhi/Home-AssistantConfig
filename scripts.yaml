@@ -751,7 +751,7 @@ cast_kitchen:
  
 action_test:
   sequence:
-  - service: notify.mobile_app_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_4_xl
     data:
       message: test
       data:

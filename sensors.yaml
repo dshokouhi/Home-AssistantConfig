@@ -235,7 +235,7 @@
        unit_of_measurement: AQI
 
      ollies_average_temperature:
-       value_template: "{{ ((states('sensor.ollies_air_purifier_temp') | float(2)) + (states('sensor.ollies_door') | float(2)) + (states('sensor.ollies_closet_door') | float(2)) + (states('sensor.ollies_window') | float(2))) / 4 | float(2) }}"
+       value_template: "{{ (((states('sensor.ollies_air_purifier_temp') | float(2)) + (states('sensor.ollies_door') | float(2)) + (states('sensor.ollies_closet_door') | float(2)) + (states('sensor.ollies_window') | float(2))) / 4) | round(2) }}"
        friendly_name: Ollies Average Temperature
        device_class: temperature
        unit_of_measurement: "F"

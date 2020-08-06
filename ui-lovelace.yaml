@@ -168,6 +168,10 @@ views:
         entities:
           - light.bookshelf_left
           - light.corner_lamp
+          - entity: binary_sensor.den_camera_audio_detected
+            name: Den Audio
+            secondary_info: last-changed
+            state_color: true
           - cover.den_curtains
           - switch.den_fan
           - light.den_lights_level
@@ -188,6 +192,10 @@ views:
           - light.counter_lights
           - entity: light.island_lights
             state_color: true
+          - entity: binary_sensor.kitchen_audio_detected
+            name: Kitchen Audio
+            secondary_info: last-changed
+            state_color: true
           - light.kitchen_lights_level
           - entity: binary_sensor.kitchen_motion_detected
             name: Kitchen Motion
@@ -205,6 +213,10 @@ views:
             state_color: true
           - light.front_door_lamp
           - entity: lock.front_door_lock_locked
+            secondary_info: last-changed
+            state_color: true
+          - entity: binary_sensor.living_room_camera_audio_detected
+            name: Living Room Audio
             secondary_info: last-changed
             state_color: true
           - entity: switch.living_room_fan
@@ -428,6 +440,10 @@ views:
         id: ollies
         show_header_toggle: false
         entities:
+          - entity: binary_sensor.baby_monitor_audio_detected
+            name: Baby Monitor Audio
+            secondary_info: last-changed
+            state_color: true
           - entity: binary_sensor.baby_monitor_motion_detected
             name: Baby Monitor Motion
             secondary_info: last-changed

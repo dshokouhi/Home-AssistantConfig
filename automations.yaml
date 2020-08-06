@@ -4295,6 +4295,10 @@
   action:
   - service: scene.turn_on
     entity_id: scene.goodnight
+  - service: mqtt.publish
+    data_template:
+      topic: bedroomtablet/babysleep
+      payload: on
 
 - alias: Danny tasker awake webhook
   trigger:

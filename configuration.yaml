@@ -402,6 +402,10 @@ recorder:
     - sensor.washer_rain_rate
     - sensor.washer_temperature
     - sensor.washer_water_oxidation
+    - binary_sensor.den_camera_audio_detected
+    - binary_sensor.kitchen_audio_detected
+    - binary_sensor.living_room_camera_audio_detected
+    - binary_sensor.baby_monitor_audio_detected
 
 sun:
 
@@ -744,8 +748,9 @@ notify:
 
  - platform: slack
    name: slack
-   api_key: !secret slack_api
+   api_key: !secret slack_bot
    default_channel: '#hass'
+   username: hass
 
  - platform: discord
    name: discord
