@@ -174,6 +174,8 @@ views:
             state_color: true
           - cover.den_curtains
           - switch.den_fan
+          - entity: sensor.den_fire_hd8_light_sensor
+            name: Den Illumination
           - light.den_lights_level
           - entity: binary_sensor.den_camera_motion_detected
             name: Den Motion
@@ -287,6 +289,8 @@ views:
             state_color: true
           - entity: switch.bedroom_fan
             state_color: true
+          - entity: sensor.bedroom_tablet_light_sensor
+            name: Bedroom Illumination
           - light.bedroom_lights_level
           - entity: binary_sensor.bedroom_motion_sensor
             name: Bedroom Motion
