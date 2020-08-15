@@ -2,9 +2,9 @@ close_bay_window_curtains:
   sequence:
   - service: remote.send_command
     data_template:
-      command: Close
-      device: 44931881
-      entity_id: remote.harmony_hub_den
+      command: 'close'
+      device: 'bay_window_curtains'
+      entity_id: remote.broadlink
   - service: input_boolean.turn_off
     entity_id: input_boolean.bay_window_curtains
 
@@ -12,9 +12,9 @@ open_bay_window_curtains:
   sequence:
   - service: remote.send_command
     data_template:
-      command: Open
-      device: 44931881
-      entity_id: remote.harmony_hub_den
+      command: 'open'
+      device: 'bay_window_curtains'
+      entity_id: remote.broadlink
   - service: input_boolean.turn_on
     entity_id: input_boolean.bay_window_curtains
 
@@ -70,9 +70,9 @@ stop_bay_window_curtains:
   sequence:
   - service: remote.send_command
     data_template:
-      command: Stop
-      device: 44931881
-      entity_id: remote.harmony_hub_den
+      command: 'stop'
+      device: 'bay_window_curtains'
+      entity_id: remote.broadlink
 
 stop_bedroom_curtains:
   sequence:
@@ -130,17 +130,17 @@ on_lr_fan:
   sequence:
   - service: remote.send_command
     data_template:
-      command: Low
-      device: 36480637
-      entity_id: remote.harmony_hub_den
+      command: 'poweron'
+      device: 'livingroomfan'
+      entity_id: remote.broadlink
 
 lr_fan_off:
   sequence:
   - service: remote.send_command
     data:
-      command: 'No'
-      device: '36480637'
-      entity_id: remote.harmony_hub_den
+      command: 'poweroff'
+      device: 'livingroomfan'
+      entity_id: remote.broadlink
 
 den_fan_toggle:
   sequence:
@@ -197,17 +197,17 @@ kitchen_tv_on:
   sequence:
   - service: remote.send_command
     data_template:
-      command: 'PowerOn'
-      device: '34582686'
-      entity_id: remote.harmony_hub_den
+      command: 'power'
+      device: 'kitchentv'
+      entity_id: remote.broadlink
 
 kitchen_tv_off:
   sequence:
   - service: remote.send_command
     data_template:
-      command: 'PowerOff'
-      device: '34582686'
-      entity_id: remote.harmony_hub_den
+      command: 'power'
+      device: 'kitchentv'
+      entity_id: remote.broadlink
 
 ollies_tv:
   sequence:
@@ -758,3 +758,10 @@ action_test:
         actions:
         - action: 'action1'
           title: test
+
+bedroom_tablet_baby_sleep:
+  sequence:
+  - service: mqtt.publish
+    data_template:
+      topic: "bedroomtablet/babysleep"
+      payload: "on"

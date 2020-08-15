@@ -740,6 +740,38 @@ views:
             name: Photo
           - entity: sensor.epson_et_7750_series_yellow_ink
             name: Yellow
+  - title: Phones
+    path: phones
+    icon: mdi:cellphone
+    cards:
+      - type: entities
+        id: dannys-phone
+        title: Danny
+        entities:
+          - device_tracker.dannys_pixel_4_xl
+          - sensor.dannys_pixel_4_xl_battery_level
+          - sensor.dannys_pixel_4_xl_battery_state
+          - sensor.dannys_pixel_4_xl_bluetooth_connection
+          - sensor.dannys_pixel_4_xl_geocoded_location
+          - sensor.dannys_pixel_4_xl_light_sensor
+          - sensor.dannys_pixel_4_xl_next_alarm
+          - sensor.dannys_pixel_4_xl_phone_state
+          - sensor.dannys_pixel_4_xl_storage_sensor
+          - sensor.dannys_pixel_4_xl_wifi_connection
+      - type: entities
+        id: toshs-phone
+        title: Tosh
+        entities:
+          - device_tracker.toshs_pixel_3_xl
+          - sensor.toshs_pixel_3_xl_battery
+          - sensor.toshs_pixel_3_xl_battery_state
+          - sensor.toshs_pixel_3_xl_bluetooth_connection
+          - sensor.toshs_pixel_3_xl_geocoded_location
+          - sensor.toshs_pixel_3_xl_light_sensor
+          - sensor.toshs_pixel_3_xl_next_alarm
+          - sensor.toshs_pixel_3_xl_phone_state
+          - sensor.toshs_pixel_3_xl_storage_sensor
+          - sensor.toshs_pixel_3_xl_wifi_connection
   - title: Cameras
     path: cameras
     icon: mdi:camera

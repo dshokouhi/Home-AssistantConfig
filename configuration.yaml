@@ -445,6 +445,11 @@ remote 1:
    name: Harmony Hub Bedroom
    host: 192.168.1.21
 
+ - platform: broadlink
+   host: 192.168.1.207
+   mac: !secret broadlink_mac
+   type: rm4c_mini
+
 mqtt:
   broker: 192.168.1.47
   discovery: true
