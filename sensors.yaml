@@ -10,8 +10,8 @@
        value_template: "{{ states('sensor.washer_power_2') | int > 5 }}"
      dryer_running:
        value_template: "{{ states('sensor.dryer_power_2') | int > 5}}"
-     dryer2_running:
-       value_template: "{{ states('sensor.dryer_power') | int > 5}}"
+     # dryer2_running:
+       # value_template: "{{ states('sensor.dryer_power') | int > 5}}"
      dishwasher_running:
        value_template: "{{ states('sensor.dishwasher') | int > 5}}"
 
@@ -273,23 +273,23 @@
      front_door_code:
        friendly_name: 'Front Door Code'
        value_template: >
-          {% if is_state('sensor.front_door_lock_alarm_level', '1') %}
+          {% if is_state('sensor.front_door_lock_user_code', '1') %}
             Us
-          {% elif is_state('sensor.front_door_lock_alarm_level', '2') %}
+          {% elif is_state('sensor.front_door_lock_user_code', '2') %}
             Dad
-          {% elif is_state('sensor.front_door_lock_alarm_level', '3') %}
+          {% elif is_state('sensor.front_door_lock_user_code', '3') %}
             Zoo Keeper
-          {% elif is_state('sensor.front_door_lock_alarm_level', '4') %}
+          {% elif is_state('sensor.front_door_lock_user_code', '4') %}
             Courtney
-          {% elif is_state('sensor.front_door_lock_alarm_level', '5') %}
+          {% elif is_state('sensor.front_door_lock_user_code', '5') %}
             Izzy
           {% else %}
             Locked
           {% endif %}
 
-     front_door_lock_status:
-       friendly_name: 'Front Door Lock Status'
-       value_template: "{{ state_attr('lock.front_door_lock_locked', 'lock_status') }}"
+     # front_door_lock_status:
+       # friendly_name: 'Front Door Lock Status'
+       # value_template: "{{ state_attr('lock.front_door_lock_locked', 'lock_status') }}"
 
  - platform: template
    sensors:

@@ -69,8 +69,6 @@
     condition: template
     value_template: '{{ trigger.to_state.attributes.current_activity == "PowerOff" }}'
   action:
-  - service: switch.turn_off
-    entity_id: switch.kitchen_tv
   - service: light.turn_off
     entity_id: light.tv_lights
   - condition: state
@@ -467,6 +465,7 @@
 ################################################
 
 - alias: Front Door TTS
+  mode: queued
   trigger:
   - platform: state
     entity_id: binary_sensor.front_door
@@ -493,7 +492,7 @@
   trigger:
     platform: state
     entity_id: sensor.front_door_lock_alarm_type
-    to: '9'
+    to: '11'
   action:
   - service: notify.discord
     data_template:
@@ -782,7 +781,7 @@
     entity_id: binary_sensor.bathroom_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.garage_frontyard
+    entity_id: binary_sensor.garage_frontyard_door
     to: 'on'
   condition:
     condition: state
@@ -815,7 +814,7 @@
   - service: scene.turn_on
     entity_id: scene.goodbye
   - service: lock.lock
-    entity_id: lock.front_door_lock_locked
+    entity_id: lock.front_door
   - service: notify.slack
     data:
       message: "The alarm has been activated."
@@ -899,7 +898,7 @@
   trigger:
   - platform: state
     entity_id: sensor.front_door_lock_alarm_type
-    to: '18'
+    to: '5'
   condition:
     condition: state
     entity_id: alarm_control_panel.home
@@ -913,7 +912,7 @@
   trigger:
   - platform: state
     entity_id: sensor.front_door_lock_alarm_type
-    to: '19'
+    to: '6'
   condition:
     condition: or
     conditions:
@@ -935,7 +934,7 @@
   trigger:
   - platform: state
     entity_id: sensor.front_door_lock_alarm_type
-    to: '19'
+    to: '6'
     for:
       seconds: 1
   condition:
@@ -945,7 +944,7 @@
       entity_id: alarm_control_panel.home
       state: 'disarmed'
     - condition: state
-      entity_id: sensor.front_door_lock_alarm_level
+      entity_id: sensor.front_door_lock_user_code
       state: '1'
   action:
   - service: light.turn_on
@@ -961,7 +960,7 @@
   trigger:
   - platform: state
     entity_id: sensor.front_door_lock_alarm_type
-    to: '19'
+    to: '6'
     for:
       seconds: 1
   condition:
@@ -988,7 +987,7 @@
   trigger:
   - platform: state
     entity_id: sensor.front_door_lock_alarm_type
-    to: '19'
+    to: '6'
     for:
       seconds: 2
   condition:
@@ -1030,7 +1029,7 @@
   trigger:
     platform: state
     entity_id: sensor.front_door_lock_alarm_type
-    to: '161'
+    to: '16'
   action:
   - service: notify.slack
     data:
@@ -1131,7 +1130,7 @@
     entity_id: binary_sensor.bathroom_window
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.garage_frontyard
+    entity_id: binary_sensor.garage_frontyard_door
     to: 'on'
   condition:
     condition: and
@@ -1621,7 +1620,7 @@
 - alias: Timer Start Auto Lock
   trigger:
   - platform: state
-    entity_id: lock.front_door_lock_locked
+    entity_id: lock.front_door
     to: 'unlocked'
   - platform: state
     entity_id: binary_sensor.front_door
@@ -1633,7 +1632,7 @@
       entity_id: binary_sensor.front_door
       state: 'off'
     - condition: state
-      entity_id: lock.front_door_lock_locked
+      entity_id: lock.front_door
       state: 'unlocked'
   action:
   - service: timer.start
@@ -1642,7 +1641,7 @@
 - alias: Cancel Timer Door Locked
   trigger:
   - platform: state
-    entity_id: lock.front_door_lock_locked
+    entity_id: lock.front_door
     to: 'locked'
   - platform: state
     entity_id: binary_sensor.front_door
@@ -1663,7 +1662,7 @@
     state: 'off'
   action:
   - service: lock.lock
-    entity_id: lock.front_door_lock_locked
+    entity_id: lock.front_door
 
 ################################################
 #
@@ -1791,16 +1790,16 @@
 - alias: Garage lights from frontyard
   trigger:
   - platform: state
-    entity_id: binary_sensor.garage_frontyard
+    entity_id: binary_sensor.garage_frontyard_door
     to: 'on'
   - platform: state
-    entity_id: binary_sensor.garage_frontyard
+    entity_id: binary_sensor.garage_frontyard_door
     to: 'off'
   action:
     service_template: >
-           {% if is_state("binary_sensor.garage_frontyard", "on") %}
+           {% if is_state("binary_sensor.garage_frontyard_door", "on") %}
              switch.turn_on
-           {% elif is_state("binary_sensor.garage_frontyard", "off") %}
+           {% elif is_state("binary_sensor.garage_frontyard_door", "off") %}
              switch.turn_off
            {% else %}
            {% endif %}
@@ -1822,7 +1821,7 @@
     to: 'off'
   condition:
     condition: state
-    entity_id: binary_sensor.garage_frontyard
+    entity_id: binary_sensor.garage_frontyard_door
     state: 'off'
   action:
   - service: switch.turn_off
@@ -1842,7 +1841,7 @@
       minutes: 15
   condition:
     condition: state
-    entity_id: binary_sensor.garage_frontyard
+    entity_id: binary_sensor.garage_frontyard_door
     state: 'off'
   action:
   - wait_template: "{{ states.binary_sensor.garage_motion_sensor.state == 'off' }}"
@@ -2538,7 +2537,7 @@
     entity_id: switch.tasker_sleep_tosh
     state: 'off'
   action:
-  - service: notify.mobile_app_pixel_3_xl
+  - service: notify.mobile_app_toshs_pixel_3_xl
     data:
       message: 'Welcome 🏠 do you need help❓'
       title: 'Shokouhi Zoo'
@@ -3309,6 +3308,11 @@
   action:
   - service: light.turn_off
     entity_id: light.bedroom_lights_level, light.dannys, light.toshs
+  - delay: "00:00:05"
+  - service: mqtt.publish
+    data_template:
+      topic: "OpenZWave/1/command/requestnodedynamic/"
+      payload: '{ "node": 2 }'
 
 - alias: Turn off living room lights when no motion
   trigger:
@@ -3339,8 +3343,13 @@
       entity_id: input_boolean.guest_sleeping
       state: 'off'
   action:
-    service: light.turn_off
+  - service: light.turn_off
     entity_id: light.living_room_lights_level
+  - delay: "00:00:05"
+  - service: mqtt.publish
+    data_template:
+      topic: "OpenZWave/1/command/requestnodedynamic/"
+      payload: '{ "node": 4 }'
 
 - alias: Turn off kitchen lights when no motion
   trigger:
@@ -3475,7 +3484,7 @@
       entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
-      entity_id: lock.front_door_lock_locked
+      entity_id: lock.front_door
       state: locked
       for:
         minutes: 1
@@ -4165,11 +4174,10 @@
       entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
 
 - alias: Image processing in kitchen on motion when someone is home and awake
-  mode: parallel
+  mode: queued
   trigger:
     platform: state
     entity_id: binary_sensor.kitchen_motion_detected
-    to: 'on'
   condition:
     condition: and
     conditions:
@@ -4197,11 +4205,10 @@
       entity_id: image_processing.tensorflow_kitchen
 
 - alias: Image processing in living room on motion when someone is home and awake
-  mode: parallel
+  mode: queued
   trigger:
     platform: state
     entity_id: binary_sensor.living_room_camera_motion_detected
-    to: 'on'
   condition:
     condition: and
     conditions:
@@ -4353,7 +4360,7 @@
 - alias: Increase Cat Motion Counter
   trigger:
     platform: state
-    entity_id: binary_sensor.cat_litter_motion
+    entity_id: binary_sensor.cat_litter_motion_detected
     to: 'on'
   action:
     service: counter.increment
@@ -4908,3 +4915,20 @@
   - wait_template: "{{ states('sensor.hx711_value') | int < 2 }}"
   - service: light.turn_off
     entity_id: light.bookshelf_left
+
+################################################
+#
+#      NFC Automations
+#
+################################################
+
+- alias: NFC scanned
+  trigger:
+  - platform: event
+    event_type: tag_scanned
+    event_data:
+      tag_id: 4bdace23-1e7b-4c36-a7ce-caca845c4283
+  action:
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data_template:
+      message: NFC tag scanned

@@ -106,7 +106,7 @@ views:
             - entity_id: "*octoprint*"
             - entity_id: sensor.pool_temperature
             - entity_id: sensor.ambient_pool_temperature
-            - entity_id: sensor.cat_litter_temperature
+            - entity_id: sensor.cat_litter_air_temperature
             - entity_id: input_number.pool_temp
             - entity_id: sensor.den_pi_cpu_thermal_1_temp
             - entity_id: sensor.pi_hole_cpu_thermal_1_temp
@@ -214,7 +214,7 @@ views:
           - entity: cover.bay_window_curtains
             state_color: true
           - light.front_door_lamp
-          - entity: lock.front_door_lock_locked
+          - entity: lock.front_door
             secondary_info: last-changed
             state_color: true
           - entity: binary_sensor.living_room_camera_audio_detected
@@ -407,14 +407,14 @@ views:
         show_header_toggle: false
         state_color: true
         entities:
-          - entity: binary_sensor.cat_litter_motion
+          - entity: binary_sensor.cat_litter_motion_detected
             secondary_info: last-changed
           - counter.cat_litter_motion
           - entity: input_boolean.cat_litter_cleaned
             secondary_info: last-changed
           - sensor.cat_litter_humidity
           - sensor.cat_litter_luminance
-          - sensor.cat_litter_temperature
+          - sensor.cat_litter_air_temperature
       - type: entities
         title: Pool
         id: pool
@@ -955,8 +955,6 @@ views:
         id: ring
         title: Ring
         entities:
-          - entity: binary_sensor.catio_motion
-            show_last_changed: true
           - entity: sensor.door_view_battery
             name: Door View Battery
           - entity: sensor.ring_front_door_battery
@@ -1077,12 +1075,12 @@ views:
       - type: "custom:weather-card"
         entity: weather.kvny_daynight
         id: kvny
-      - type: iframe
-        aspect_ratio: 90%
-        url: https://embed.windy.com/embed2.html?wind,34.198,-118.522,10
-      - type: iframe
-        aspect_ratio: 90%
-        url: https://embed.windy.com/embed2.html?rain,34.198,-118.522,10
+  - title: OZW
+    icon: mdi:z-wave
+    path: ozw
+    panel: true
+    cards:
+      - type: "custom:ozw-network-visualization-card"
   - title: Automations
     icon: mdi:home-automation
     path: auto
@@ -1124,22 +1122,6 @@ views:
         filter:
           include:
             - domain: script
-  - title: Zwave
-    icon: mdi:z-wave
-    path: devices
-    cards:
-      - type: "custom:auto-entities"
-        title: All Z-wave Devices
-        id: automations
-        sort:
-          method: name
-        filter:
-          include:
-            - domain: zwave
-        card:
-          type: entities
-          title: All Z-wave Devices
-          show_header_toggle: false
   - icon: mdi:cog
     title: Settings
     path: settings
@@ -1207,6 +1189,7 @@ views:
             - domain: automation
             - domain: sensor
             - domain: camera
+            - domain: lock
             - domain: media_player
             - domain: zha
       - type: custom:auto-entities
@@ -1226,6 +1209,7 @@ views:
             - domain: automation
             - domain: binary_sensor
             - domain: camera
+            - domain: lock
             - domain: media_player
             - domain: zha
             - entity_id: sensor.dryer_temperature
@@ -1284,14 +1268,3 @@ views:
             - domain: automation
             - domain: input_boolean
             - domain: script
-      - type: entities
-        id: lock
-        title: Lock
-        show_header_toggle: false
-        entities:
-          - entity: lock.front_door_lock_locked
-            secondary_info: last-changed
-            state_color: true
-          - sensor.front_door_lock_status
-          - sensor.front_door_action
-          - sensor.front_door_code

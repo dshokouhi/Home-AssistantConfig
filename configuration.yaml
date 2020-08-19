@@ -774,7 +774,7 @@ notify:
  - platform: group
    name: android
    services:
-   - service: mobile_app_pixel_3_xl
+   - service: mobile_app_toshs_pixel_3_xl
    - service: mobile_app_dannys_pixel_4_xl
 
 alert:
@@ -1217,29 +1217,29 @@ namecheapdns:
   domain: !secret namecheap_site
   password: !secret namecheap_pw
 
-zwave:
-  usb_path: /dev/ttyACM0
-  network_key: !secret zwave_network_key
-  autoheal: false
-  device_config:
-    light.den_lights_level:
-      refresh_value: true
-      delay: 3
-    light.kitchen_lights_level:
-      refresh_value: true
-      delay: 3
-    light.living_room_lights_level:
-      refresh_value: true
-      delay: 3
-    light.bedroom_lights_level:
-      refresh_value: true
-      delay: 3
-    light.bathroom_lights:
-      refresh_value: true
-      delay: 3
-    light.island_lights:
-      refresh_value: true
-      delay: 3
+# zwave:
+  # usb_path: /dev/ttyACM0
+  # network_key: !secret zwave_network_key
+  # autoheal: false
+  # device_config:
+    # light.den_lights_level:
+      # refresh_value: true
+      # delay: 3
+    # light.kitchen_lights_level:
+      # refresh_value: true
+      # delay: 3
+    # light.living_room_lights_level:
+      # refresh_value: true
+      # delay: 3
+    # light.bedroom_lights_level:
+      # refresh_value: true
+      # delay: 3
+    # light.bathroom_lights:
+      # refresh_value: true
+      # delay: 3
+    # light.island_lights:
+      # refresh_value: true
+      # delay: 3
 
 zha:
   #usb_path: /dev/zigbee
@@ -1521,6 +1521,8 @@ lovelace:
     type: module
   - url: /local/community/weather-card/weather-card.js
     type: module
+  - url: /local/ozw-network-visualization-card.js
+    type: module
 
 image_processing:
   - platform: tensorflow
@@ -1540,20 +1542,21 @@ image_processing:
       - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"
       #- "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
     model:
-      graph: /home/homeassistant/.homeassistant/tensorflow/models/efficientdet_d2_coco17_tpu-32/
+      #graph: /home/homeassistant/.homeassistant/tensorflow/models/efficientdet_d1_coco17_tpu-32/
+      graph: /home/homeassistant/.homeassistant/tensorflow_old/frozen_inference_graph.pb
       categories:
         - person
 
-  - platform: tensorflow
-    source:
-      - entity_id: camera.den_camera
-      - entity_id: camera.outdoor_camera
-    scan_interval: 6048000
-    file_out:
-      - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"
-      #- "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
-    model:
-      graph: /home/homeassistant/.homeassistant/tensorflow/models/efficientdet_d0_coco17_tpu-32/
+  # - platform: tensorflow
+    # source:
+      # - entity_id: camera.den_camera
+      # - entity_id: camera.outdoor_camera
+    # scan_interval: 6048000
+    # file_out:
+      # - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"
+     # - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
+    # model:
+      # graph: /home/homeassistant/.homeassistant/tensorflow/models/efficientdet_d2_coco17_tpu-32/
 
 speedtestdotnet:
   manual: true

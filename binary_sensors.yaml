@@ -1,15 +1,5 @@
  - platform: template
    sensors:
-     garage_frontyard:
-       friendly_name: "Garage Door Frontyard"
-       device_class: garage_door
-       value_template: "{{ is_state('sensor.garage_door_frontyard_alarm_level', '255') }}"
-
-     cat_litter_motion:
-       friendly_name: "Cat Litter Motion"
-       device_class: motion
-       value_template: "{{ is_state('sensor.cat_litter_alarm_level', '255') }}"
-
      danny_home:
        friendly_name: "Danny Home"
        device_class: presence
@@ -30,7 +20,7 @@
 
      den_fire_hd8_charging:
        value_template: "{{ is_state_attr('sensor.dannys_fire_hd8_battery', 'is_charging', true) }}"
-       friendly_name: "Den Fire HD8 Tablet Charging"
+       friendly_name: "Den Tablet Charging"
        device_class: plug
 
      bedroom_tablet_charging:
@@ -56,19 +46,6 @@
             or is_state('binary_sensor.living_room_side_window', 'on')
             or is_state('binary_sensor.ollies_window', 'on') }}
 
- # - platform: template
-   # sensors:
-     # plex_playing:
-       # friendly_name: Plex Playing Status
-       # value_template: >-
-        # {% if (states('sensor.tautulli') |int >= 1) %}
-          # {% for playing in states.sensor.tautulli.attributes %}
-            # {% if state_attr('sensor.tautulli', playing)['Activity'] in ['playing','buffering'] %}
-              # true
-            # {% endif %}
-          # {% endfor %}
-        # {% endif %}
-
  - platform: bayesian
    prior: 0.6
    name: "Dannys Bayesian Presence"
@@ -84,11 +61,6 @@
      prob_given_false: 0.4
      platform: 'state'
      to_state: 'home'
-   # - entity_id: 'device_tracker.google_maps_100707363427265474344'
-     # prob_given_true: 0.8
-     # prob_given_false: 0.4
-     # platform: 'state'
-     # to_state: 'home'
    - entity_id: 'binary_sensor.danny_home'
      prob_given_true: 0.99
      prob_given_false: 0.3
@@ -110,11 +82,6 @@
      prob_given_false: 0.4
      platform: 'state'
      to_state: 'home'
-   # - entity_id: 'device_tracker.google_maps_104359830266586918986'
-     # prob_given_true: 0.8
-     # prob_given_false: 0.4
-     # platform: 'state'
-     # to_state: 'home'
    - entity_id: 'binary_sensor.tosh_home'
      prob_given_true: 0.99
      prob_given_false: 0.3
@@ -233,3 +200,11 @@
    monitored_conditions:
      - Night
      - Rain
+
+ - platform: mqtt
+   name: ozw_network_status
+   state_topic: OpenZWave/1/status/
+   value_template: >
+     {{ "ON" if value_json.Status in ["driverAwakeNodesQueried", "driverAllNodesQueriedSomeDead", "driverAllNodesQueried"] else "OFF" }}
+   json_attributes_topic: OpenZWave/1/status/
+   device_class: "connectivity"
