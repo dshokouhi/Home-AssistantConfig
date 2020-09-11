@@ -823,6 +823,19 @@
       message: "The alarm has been activated."
       target:
       - !secret discord_alarm
+  - delay: "00:00:05"
+  - service: mqtt.publish
+    data_template:
+      topic: "OpenZWave/1/command/requestnodedynamic/"
+      payload: '{ "node": 2 }'
+  - service: mqtt.publish
+    data_template:
+      topic: "OpenZWave/1/command/requestnodedynamic/"
+      payload: '{ "node": 4 }'
+  - service: mqtt.publish
+    data_template:
+      topic: "OpenZWave/1/command/requestnodedynamic/"
+      payload: '{ "node": 7 }'
 
 - alias: Notify Alarm Off
   trigger:
@@ -955,6 +968,8 @@
     value_template: "{{ states.media_player.kodi_den.state != 'playing' and states.media_player.kodi_shield.state != 'playing' }}"
   - service: light.turn_on
     entity_id: light.den_lights_level
+  - service: script.turn_on
+    entity_id: script.update_lights_dynamic
 
 - alias: Dad Unlock
   trigger:
@@ -1073,6 +1088,8 @@
     state: below_horizon
   - service: light.turn_on
     entity_id: light.patio
+  - service: script.turn_on
+    entity_id: script.update_lights_dynamic
 
 - alias: Turn off armed night when we wake up
   trigger:
@@ -2195,6 +2212,8 @@
     entity_id: light.living_room_lights_level
   - service: switch.turn_off
     entity_id: switch.siren_switch
+  - service: script.turn_on
+    entity_id: script.update_lights_dynamic
   - condition: state
     entity_id: climate.thermostat
     state: cool
@@ -2809,6 +2828,8 @@
       kelvin: 6500
   - service: light.turn_off
     entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio, light.living_room_lights_level, light.ollies_lights, light.bedroom_lights_level, light.island_lights
+  - service: script.turn_on
+    entity_id: script.update_lights_dynamic
   - condition: state
     entity_id: switch.fireplace
     state: 'off'
@@ -2852,6 +2873,8 @@
   action:
   - service: light.turn_off
     entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.patio, light.corner_lamp, light.island_lights
+  - service: script.turn_on
+    entity_id: script.update_lights_dynamic
 
 - alias: Turn on lights when movie paused
   trigger:
@@ -4250,6 +4273,13 @@
                light.living_room_lights_level
              {% else %}
              {% endif %}
+  - condition: template
+    value_template: "{{ trigger.entity_id == 'image_processing.tensorflow_living_room_camera' }}"
+  - delay: "00:00:05"
+  - service: mqtt.publish
+    data_template:
+      topic: "OpenZWave/1/command/requestnodedynamic/"
+      payload: '{ "node": 4 }'
 
 ################################################
 #
@@ -4768,11 +4798,11 @@
     condition: template
     value_template: >-
         {% if trigger.entity_id == 'sensor.den_fire_hd8_battery_level' %}
-          {{ is_state('binary_sensor.den_fire_hd8_charging', 'off') }}
+          {{ is_state('binary_sensor.den_fire_hd8_is_charging', 'off') }}
         {% elif trigger.entity_id == 'sensor.bedroom_tablet_battery_level' %}
-          {{ is_state('binary_sensor.bedroom_tablet_charging', 'off') }}
+          {{ is_state('binary_sensor.bedroom_tablet_is_charging', 'off') }}
         {% elif trigger.entity_id == 'sensor.kitchen_tablet_battery_level' %}
-          {{ is_state('binary_sensor.kitchen_tablet_charging', 'off') }}
+          {{ is_state('binary_sensor.kitchen_tablet_is_charging', 'off') }}
         {% else %}
         {% endif %}
   action:

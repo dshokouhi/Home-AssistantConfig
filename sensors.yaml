@@ -287,10 +287,6 @@
             Locked
           {% endif %}
 
-     # front_door_lock_status:
-       # friendly_name: 'Front Door Lock Status'
-       # value_template: "{{ state_attr('lock.front_door_lock_locked', 'lock_status') }}"
-
  - platform: template
    sensors:
      harmony_den_activity:
@@ -329,13 +325,6 @@
 
      hvac_action:
        value_template: "{{ state_attr('climate.thermostat', 'hvac_action') }}"
-
-     dannys_phone_charging_type:
-       friendly_name: Dannys Phone Charging Type
-       value_template: "{{ state_attr('sensor.dannys_pixel_4_xl_battery_state', 'charger_type') }}"
-     toshs_phone_charging_type:
-       friendly_name: Toshs Phone Charging Type
-       value_template: "{{ state_attr('sensor.toshs_pixel_3_xl_battery_state', 'charger_type') }}"
 
      octoprint_time_elapsed_format:
        friendly_name: 'Printing Time Elapsed'
@@ -489,3 +478,39 @@
      - UVIndex
      - Luminance
      - Voltage
+
+ - platform: history_stats
+   name: Dannys Pixel 4 XL Daily Screen On Time
+   entity_id: binary_sensor.dannys_pixel_4_xl_interactive
+   state: 'on'
+   type: time
+   start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+   duration:
+     hours: 24
+
+ - platform: history_stats
+   name: Dannys Pixel 4 XL Daily Screen On Count
+   entity_id: binary_sensor.dannys_pixel_4_xl_interactive
+   state: 'on'
+   type: count
+   start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+   duration:
+     hours: 24
+
+ - platform: history_stats
+   name: Toshs Pixel 3 XL Daily Screen On Time
+   entity_id: binary_sensor.toshs_pixel_3_xl_interactive
+   state: 'on'
+   type: time
+   start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+   duration:
+     hours: 24
+ 
+ - platform: history_stats
+   name: Toshs Pixel 3 XL Daily Screen On Count
+   entity_id: binary_sensor.toshs_pixel_3_xl_interactive
+   state: 'on'
+   type: count
+   start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+   duration:
+     hours: 24

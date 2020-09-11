@@ -1570,6 +1570,8 @@ counter:
   cat_litter_motion:
     icon: mdi:cat
     name: Cat Litter Motion Count
+  tensorflow:
+    name: Image Scans
 
 climate:
   - platform: mqtt
@@ -1635,3 +1637,11 @@ rest_command:
     method: POST
     content_type: 'application/json'
     payload: '{"command":"{{ command }}", "user":"hass-broadcast", "broadcast":true}'
+
+utility_meter:
+  dannys_daily_steps:
+    source: sensor.dannys_pixel_4_xl_steps_sensor
+    cycle: daily
+  toshs_daily_steps:
+    source: sensor.toshs_pixel_3_xl_steps_sensor
+    cycle: daily

@@ -289,6 +289,7 @@ views:
             state_color: true
           - entity: switch.bedroom_fan
             state_color: true
+          - sensor.bedroom_illumination_sensor
           - entity: sensor.bedroom_tablet_light_sensor
             name: Bedroom Illumination
           - light.bedroom_lights_level
@@ -306,6 +307,8 @@ views:
         id: bathoffice
         show_header_toggle: false
         entities:
+          - sensor.bathroom_illumination
+          - sensor.bathroom_illumination_sensor
           - light.bathroom_lights
           - entity: binary_sensor.bathroom_motion
             secondary_info: last-changed
@@ -443,6 +446,7 @@ views:
         title: Ollies Room
         id: ollies
         show_header_toggle: false
+        state_color: true
         entities:
           - entity: binary_sensor.baby_monitor_audio_detected
             name: Baby Monitor Audio
@@ -748,34 +752,32 @@ views:
     path: phones
     icon: mdi:cellphone
     cards:
-      - type: entities
-        id: dannys-phone
-        title: Danny
-        entities:
-          - device_tracker.dannys_pixel_4_xl
-          - sensor.dannys_pixel_4_xl_battery_level
-          - sensor.dannys_pixel_4_xl_battery_state
-          - sensor.dannys_pixel_4_xl_bluetooth_connection
-          - sensor.dannys_pixel_4_xl_geocoded_location
-          - sensor.dannys_pixel_4_xl_light_sensor
-          - sensor.dannys_pixel_4_xl_next_alarm
-          - sensor.dannys_pixel_4_xl_phone_state
-          - sensor.dannys_pixel_4_xl_storage_sensor
-          - sensor.dannys_pixel_4_xl_wifi_connection
-      - type: entities
-        id: toshs-phone
-        title: Tosh
-        entities:
-          - device_tracker.toshs_pixel_3_xl
-          - sensor.toshs_pixel_3_xl_battery
-          - sensor.toshs_pixel_3_xl_battery_state
-          - sensor.toshs_pixel_3_xl_bluetooth_connection
-          - sensor.toshs_pixel_3_xl_geocoded_location
-          - sensor.toshs_pixel_3_xl_light_sensor
-          - sensor.toshs_pixel_3_xl_next_alarm
-          - sensor.toshs_pixel_3_xl_phone_state
-          - sensor.toshs_pixel_3_xl_storage_sensor
-          - sensor.toshs_pixel_3_xl_wifi_connection
+      - type: custom:auto-entities
+        id: danny-pixel
+        card:
+          type: entities
+          title: Danny
+          show_header_toggle: false
+        sort:
+          method: name
+        filter:
+          include:
+            - entity_id: "*dannys_pixel*"
+              options:
+                secondary_info: last-changed
+      - type: custom:auto-entities
+        id: tosh-pixel
+        card:
+          type: entities
+          title: Tosh
+          show_header_toggle: false
+        sort:
+          method: name
+        filter:
+          include:
+            - entity_id: "*toshs_pixel*"
+              options:
+                secondary_info: last-changed
   - title: Cameras
     path: cameras
     icon: mdi:camera
