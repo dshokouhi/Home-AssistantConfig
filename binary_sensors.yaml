@@ -42,6 +42,11 @@
      prob_given_false: 0.3
      platform: 'state'
      to_state: 'on'
+   - entity_id: 'sensor.dannys_pixel_4_xl_wifi_connection'
+     prob_given_false: 0.2
+     prob_given_true: 0.99
+     platform: 'state'
+     to_state: 'shakuyi-5G'
 
  - platform: bayesian
    prior: 0.6
@@ -63,6 +68,11 @@
      prob_given_false: 0.3
      platform: 'state'
      to_state: 'on'
+   - entity_id: 'sensor.toshs_pixel_3_xl_wifi_connection'
+     prob_given_false: 0.2
+     prob_given_true: 0.99
+     platform: 'state'
+     to_state: 'shakuyi-5G'
 
  - platform: workday
    country: US
