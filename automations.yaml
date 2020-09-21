@@ -4109,7 +4109,7 @@
 - alias: Rocket Launch
   trigger:
     platform: time_pattern
-    minutes: '/60'
+    minutes: '/59'
     seconds: 00
   condition:
     condition: and

@@ -4,7 +4,7 @@ close_bay_window_curtains:
     data_template:
       command: 'close'
       device: 'bay_window_curtains'
-      entity_id: remote.broadlink
+      entity_id: remote.broadlink_remote
   - service: input_boolean.turn_off
     entity_id: input_boolean.bay_window_curtains
 
@@ -14,7 +14,7 @@ open_bay_window_curtains:
     data_template:
       command: 'open'
       device: 'bay_window_curtains'
-      entity_id: remote.broadlink
+      entity_id: remote.broadlink_remote
   - service: input_boolean.turn_on
     entity_id: input_boolean.bay_window_curtains
 
@@ -72,7 +72,7 @@ stop_bay_window_curtains:
     data_template:
       command: 'stop'
       device: 'bay_window_curtains'
-      entity_id: remote.broadlink
+      entity_id: remote.broadlink_remote
 
 stop_bedroom_curtains:
   sequence:
@@ -132,7 +132,7 @@ on_lr_fan:
     data_template:
       command: 'poweron'
       device: 'livingroomfan'
-      entity_id: remote.broadlink
+      entity_id: remote.broadlink_remote
 
 lr_fan_off:
   sequence:
@@ -140,7 +140,7 @@ lr_fan_off:
     data:
       command: 'poweroff'
       device: 'livingroomfan'
-      entity_id: remote.broadlink
+      entity_id: remote.broadlink_remote
 
 den_fan_toggle:
   sequence:
@@ -199,7 +199,7 @@ kitchen_tv_on:
     data_template:
       command: 'power'
       device: 'kitchentv'
-      entity_id: remote.broadlink
+      entity_id: remote.broadlink_remote
 
 kitchen_tv_off:
   sequence:
@@ -207,7 +207,7 @@ kitchen_tv_off:
     data_template:
       command: 'power'
       device: 'kitchentv'
-      entity_id: remote.broadlink
+      entity_id: remote.broadlink_remote
 
 ollies_tv:
   sequence:

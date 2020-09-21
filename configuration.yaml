@@ -447,11 +447,6 @@ remote 1:
    name: Harmony Hub Bedroom
    host: 192.168.1.21
 
- - platform: broadlink
-   host: 192.168.1.207
-   mac: !secret broadlink_mac
-   type: rm4c_mini
-
 mqtt:
   broker: 192.168.1.47
   discovery: true
@@ -480,61 +475,13 @@ binary_sensor: !include binary_sensors.yaml
 
 sensor: !include sensors.yaml
 
-media_player 1:
- - platform: kodi
-   host: 192.168.1.60
-   port: 8383
-   username: kodi
-   password: !secret kodi
-   name: "Kodi Den"
-
-media_player 2:
+media_player:
  - platform: braviatv
    host: 192.168.1.29
 
-media_player 4:
- - platform: kodi
-   host: 192.168.1.92
-   port: 8080
-   username: kodi
-   password: !secret kodi
-   name: "Kodi Bedroom"
-
-media_player 5:
- - platform: kodi
-   host: 192.168.1.182
-   port: 8080
-   username: kodi
-   password: !secret kodi
-   name: "Kodi Kitchen"
-
-media_player 7:
  - platform: onkyo
    host: 192.168.1.27
    name: Onkyo Den
- 
-media_player 8:
- - platform: kodi
-   host: 192.168.1.44
-   port: 8080
-   username: kodi
-   password: !secret kodi
-   name: "Kodi Outdoor"
-
- - platform: kodi
-   host: 192.168.1.18
-   port: 8080
-   username: kodi
-   password: !secret kodi
-   name: "Kodi Ollies"
-
-media_player 9:
- - platform: kodi
-   host: 192.168.1.72
-   port: 8080
-   username: kodi
-   password: !secret kodi
-   name: "Kodi Shield"
 
  - platform: androidtv
    host: 192.168.1.72

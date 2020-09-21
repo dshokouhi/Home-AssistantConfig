@@ -7,7 +7,6 @@ views:
       - entity: alarm_control_panel.home
         name: House Alarm
       - sun.sun
-      - sensor.yr_symbol
     cards:
       - type: entity-filter
         id: leaks

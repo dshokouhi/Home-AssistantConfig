@@ -1,7 +1,5 @@
  - platform: moon
 
- - platform: yr
-
  - platform: season
 
  - platform: template
