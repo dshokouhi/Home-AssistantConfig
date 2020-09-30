@@ -4174,8 +4174,8 @@
     data_template:
       data:
         color: red
-        duration: 10
-        position: center
+        duration: 3
+        position: bottom-right
         file:
           path: "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
       message: >

@@ -1010,13 +1010,7 @@ views:
       - type: media-control
         entity: media_player.kodi_den
       - type: media-control
-        entity: media_player.kodi_kitchen
-      - type: media-control
         entity: media_player.kodi_ollies
-      - type: media-control
-        entity: media_player.kodi_outdoor
-      - type: media-control
-        entity: media_player.kodi_shield
       - type: media-control
         entity: media_player.living_room_home
       - type: media-control
