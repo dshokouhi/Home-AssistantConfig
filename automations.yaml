@@ -804,6 +804,10 @@
       message: "The alarm has been tripped ⚠ from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data_template:
+      message: TTS
+      title: "Warning the alarm was just tripped at the following windows/doors: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
 
 - alias: Goodbye on Alarm
   trigger:
@@ -823,19 +827,16 @@
       message: "The alarm has been activated."
       target:
       - !secret discord_alarm
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data:
+      message: TTS
+      title: "The alarm has been activated."
+      data:
+        ttl: 0
+        priority: 'high'
   - delay: "00:00:05"
-  - service: mqtt.publish
-    data_template:
-      topic: "OpenZWave/1/command/requestnodedynamic/"
-      payload: '{ "node": 2 }'
-  - service: mqtt.publish
-    data_template:
-      topic: "OpenZWave/1/command/requestnodedynamic/"
-      payload: '{ "node": 4 }'
-  - service: mqtt.publish
-    data_template:
-      topic: "OpenZWave/1/command/requestnodedynamic/"
-      payload: '{ "node": 7 }'
+  - service: script.turn_on
+    entity_id: script.update_lights_dynamic
 
 - alias: Notify Alarm Off
   trigger:
@@ -884,6 +885,13 @@
       message: "The alarm has been activated since nobody is home"
       target:
       - !secret discord_alarm
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data:
+      message: TTS
+      title: "The alarm has been activated since nobody is home"
+      data:
+        ttl: 0
+        priority: 'high'
 
 - alias: Disarm alarm when someone comes home
   trigger:
@@ -1039,6 +1047,13 @@
       message: "The following window(s) is/are open but the alarm is turned on ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data_template:
+      message: TTS
+      title: "The following windows are open but the alarm is on: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      data:
+        ttl: 0
+        priority: 'high'
 
 - alias: Notify door lock keypad locked
   trigger:
@@ -1071,6 +1086,13 @@
       message: "The alarm has been triggered since it was not disarmed for 60 seconds 👮‍♀‍ , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data_template:
+      message: TTS
+      title: "Attention the alarm has been triggered by: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      data:
+        ttl: 0
+        priority: 'high'
   - service: switch.turn_on
     entity_id: switch.siren_switch
   - service: script.turn_on
@@ -2526,11 +2548,18 @@
     entity_id: switch.tasker_sleep_danny
     state: 'off'
   action:
-  - service: notify.discord
-    data_template:
-      message: "You are not home 🏠, did you forget anything?"
-      target:
-      - !secret discord_danny
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data:
+      message: TTS
+      title: "You are not home, did you forget anything?"
+      data:
+        ttl: 0
+        priority: 'high'
+  # - service: notify.discord
+    # data_template:
+      # message: "You are not home 🏠, did you forget anything?"
+      # target:
+      # - !secret discord_danny
 
 - alias: Mobile app location
   trigger:

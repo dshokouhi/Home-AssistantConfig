@@ -417,19 +417,24 @@ views:
           - sensor.cat_litter_humidity
           - sensor.cat_litter_luminance
           - sensor.cat_litter_air_temperature
-      - type: entities
-        title: Pool
-        id: pool
-        entities:
-          - entity: sensor.pool_temperature
-          - entity: sensor.ambient_pool_temperature
-          - entity: sensor.ambient_pool_humidity
-          - entity: input_number.pool_temp
-            name: Last saved pool temperature
-            secondary_info: last-changed
-          - entity: binary_sensor.pool_sensor
-            secondary_info: last-changed
-            state_color: true
+      - type: conditional
+        conditions:
+          - entity: light.outdoor_plug
+            state: 'on'
+        card:
+          type: entities
+          title: Pool
+          id: pool
+          entities:
+            - entity: sensor.pool_temperature
+            - entity: sensor.ambient_pool_temperature
+            - entity: sensor.ambient_pool_humidity
+            - entity: input_number.pool_temp
+              name: Last saved pool temperature
+              secondary_info: last-changed
+            - entity: binary_sensor.pool_sensor
+              secondary_info: last-changed
+              state_color: true
   - title: Ollies Room
     path: ollies
     icon: mdi:baby-face
