@@ -285,6 +285,42 @@
             Locked
           {% endif %}
 
+     postmates_tosh:
+       friendly_name: Postmates Toshs Phone
+       value_template: >
+            {% if is_state_attr('sensor.toshs_pixel_3_xl_last_notification', 'package', 'com.postmates.android') %}
+              {{ states('sensor.toshs_pixel_3_xl_last_notification') }}
+            {% else %}
+              Nothing
+            {% endif %}
+
+     instacart_tosh:
+       friendly_name: Instacart Toshs Phone
+       value_template: >
+            {% if is_state_attr('sensor.toshs_pixel_3_xl_last_notification', 'package', 'com.instacart.client') %}
+              {{ states('sensor.toshs_pixel_3_xl_last_notification') }}
+            {% else %}
+              Nothing
+            {% endif %}
+
+     postmates_danny:
+       friendly_name: Postmates Dannys Phone
+       value_template: >
+            {% if is_state_attr('sensor.dannys_pixel_4_xl_last_notification', 'package', 'com.postmates.android') %}
+              {{ states('sensor.dannys_pixel_4_xl_last_notification') }}
+            {% else %}
+              Nothing
+            {% endif %}
+
+     instacart_danny:
+       friendly_name: Instacart Dannys Phone
+       value_template: >
+            {% if is_state_attr('sensor.dannys_pixel_4_xl_last_notification', 'package', 'com.instacart.client') %}
+              {{ states('sensor.dannys_pixel_4_xl_last_notification') }}
+            {% else %}
+              Nothing
+            {% endif %}
+
  - platform: template
    sensors:
      harmony_den_activity:

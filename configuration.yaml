@@ -12,6 +12,7 @@ homeassistant:
   - /home/homeassistant/.homeassistant/snapshot
   - /home/homeassistant/.homeassistant
 
+
 frontend:
   themes:
     material_dark_green:

@@ -1931,23 +1931,23 @@
     service: light.turn_off
     entity_id: light.bathroom_lights
 
-# - alias: Christmas Lights
-  # trigger:
-  # - platform: state
-    # entity_id: input_boolean.night_mode
-    # to: 'on'
-  # - event: sunset
-    # platform: sun
-    # offset: '-00:30:00'
-  # action:
-    # service: script.turn_on 
-    # data_template:
-      # entity_id: >
-       # {% if trigger.entity_id == 'input_boolean.night_mode' %}
-         # script.christmas_off
-       # {% else %}
-         # script.christmas_on
-       # {% endif %}
+- alias: Christmas Lights
+  trigger:
+  - platform: state
+    entity_id: input_boolean.night_mode
+    to: 'on'
+  - event: sunset
+    platform: sun
+    offset: '-00:30:00'
+  action:
+    service: script.turn_on 
+    data_template:
+      entity_id: >
+       {% if trigger.entity_id == 'input_boolean.night_mode' %}
+         script.christmas_off
+       {% else %}
+         script.christmas_on
+       {% endif %}
 
 ################################################
 #
@@ -2610,11 +2610,13 @@
     entity_id: switch.tasker_sleep_tosh
     state: 'off'
   action:
-  - service: notify.discord
-    data_template:
-      message: "Tosh has left the zoo 🐶🐱🐀 .  Did you forget anything?"
-      target:
-      - !secret discord_house
+  - service: notify.mobile_app_toshs_pixel_3_xl
+    data:
+      message: TTS
+      title: "Tosh has left the zoo. Did you forget anything?"
+      data:
+        ttl: 0
+        priority: high
 
 - alias: Tosh awake and left
   trigger:
@@ -4977,7 +4979,7 @@
 
 ################################################
 #
-#      NFC Automations
+#      Android Event Automations
 #
 ################################################
 
@@ -4990,4 +4992,20 @@
   action:
   - service: notify.mobile_app_dannys_pixel_4_xl
     data_template:
-      message: NFC tag scanned
+      message: "NFC tag scanned by {% set person = states.person|selectattr('attributes.user_id', 'eq', trigger.event.context.user_id)|first %}{{ person.attributes.friendly_name }}"
+      data:
+        ttl: 0
+        priority: high
+
+- alias: Zone entered
+  trigger:
+  - platform: event
+    event_type: android.zone_entered
+  - platform: event
+    event_type: android.zone_exited
+  action:
+  - service: notify.discord
+    data_template:
+      message: "{% set person = states.person|selectattr('attributes.user_id', 'eq', trigger.event.context.user_id)|first %}{{ person.attributes.friendly_name }} {{ trigger.event }} home zone with accuracy {{ trigger.event.data.accuracy }} "
+      target:
+      - !secret discord_danny
