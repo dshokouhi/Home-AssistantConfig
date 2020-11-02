@@ -1116,11 +1116,11 @@
 - alias: Turn off armed night when we wake up
   trigger:
   - platform: state
-    entity_id: switch.tasker_sleep_tosh
+    entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
     from: 'on'
     to: 'off'
   - platform: state
-    entity_id: switch.tasker_sleep_danny
+    entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
     from: 'on'
     to: 'off'
   condition:
@@ -1607,7 +1607,7 @@
 - alias: Danny awake
   trigger:
     platform: state
-    entity_id: switch.tasker_sleep_danny
+    entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
     from: 'on'
     to: 'off'
   condition:
@@ -1621,7 +1621,7 @@
 - alias: Open bedroom curtains and turn off the fan when we wake up
   trigger:
   - platform: state
-    entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
+    entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking, binary_sensor.toshs_pixel_3_xl_sleep_tracking
     to: 'off'
   - platform: state
     entity_id: sun.sun
@@ -1630,10 +1630,10 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: switch.tasker_sleep_danny
+      entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
       state: 'off'
     - condition: state
-      entity_id: switch.tasker_sleep_tosh
+      entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
       state: 'off'
     - condition: state
       entity_id: sun.sun
@@ -2116,46 +2116,60 @@
     entity_id: input_boolean.night_mode
     to: 'on'
   action:
-  - service: switch.turn_on
-    entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
+  - service: notify.mobile_app_toshs_pixel_3_xl
+    data:
+      message: command_broadcast_intent
+      title: "com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK"
+      data:
+        channel: "com.urbandroid.sleep"
+        ttl: 0
+        priority: high
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data:
+      message: command_broadcast_intent
+      title: "com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK"
+      data:
+        channel: "com.urbandroid.sleep"
+        ttl: 0
+        priority: high
 
-- alias: Turn off sleep tracking
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.dannys_phone_charging
-    from: 'on'
-    to: 'off'
-    for:
-      minutes: 10
-  - platform: state
-    entity_id: binary_sensor.toshs_phone_charging
-    from: 'on'
-    to: 'off'
-    for:
-      minutes: 10
-  condition:
-    condition: or
-    conditions:
-    - condition: state
-      entity_id: switch.tasker_sleep_danny
-      state: 'on'
-    - condition: state
-      entity_id: switch.tasker_sleep_tosh
-      state: 'on'
-  action:
-  - service: switch.turn_off
-    data_template:
-      entity_id: >-
-          {% if trigger.entity_id == 'binary_sensor.dannys_phone_charging' %}
-            switch.tasker_sleep_danny
-          {% else %}
-            switch.tasker_sleep_tosh
-          {% endif %}
-  - condition: state
-    entity_id: device_tracker.toshs_pixel_3_xl
-    state: 'not_home'
-  - service: automation.trigger
-    entity_id: automation.tosh_awake_and_left
+# - alias: Turn off sleep tracking
+  # trigger:
+  # - platform: state
+    # entity_id: binary_sensor.dannys_phone_charging
+    # from: 'on'
+    # to: 'off'
+    # for:
+      # minutes: 10
+  # - platform: state
+    # entity_id: binary_sensor.toshs_phone_charging
+    # from: 'on'
+    # to: 'off'
+    # for:
+      # minutes: 10
+  # condition:
+    # condition: or
+    # conditions:
+    # - condition: state
+      # entity_id: switch.tasker_sleep_danny
+      # state: 'on'
+    # - condition: state
+      # entity_id: switch.tasker_sleep_tosh
+      # state: 'on'
+  # action:
+  # - service: switch.turn_off
+    # data_template:
+      # entity_id: >-
+          # {% if trigger.entity_id == 'binary_sensor.dannys_phone_charging' %}
+            # switch.tasker_sleep_danny
+          # {% else %}
+            # switch.tasker_sleep_tosh
+          # {% endif %}
+  # - condition: state
+    # entity_id: device_tracker.toshs_pixel_3_xl
+    # state: 'not_home'
+  # - service: automation.trigger
+    # entity_id: automation.tosh_awake_and_left
 
 - alias: Turn off thermostat if left on during night mode
   trigger:
@@ -2479,7 +2493,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: switch.tasker_sleep_danny
+    entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
     state: 'off'
   action:
   - service: notify.mobile_app_dannys_pixel_4_xl
@@ -2545,7 +2559,7 @@
     to: 'off'
   condition:
     condition: state
-    entity_id: switch.tasker_sleep_danny
+    entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
     state: 'off'
   action:
   - service: notify.mobile_app_dannys_pixel_4_xl
@@ -2582,7 +2596,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: switch.tasker_sleep_tosh
+    entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
     state: 'off'
   action:
   - service: notify.mobile_app_toshs_pixel_3_xl
@@ -2607,7 +2621,7 @@
     to: 'off'
   condition:
     condition: state
-    entity_id: switch.tasker_sleep_tosh
+    entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
     state: 'off'
   action:
   - service: notify.mobile_app_toshs_pixel_3_xl
@@ -2629,17 +2643,20 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: switch.tasker_sleep_tosh
+      entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
       state: 'on'
     - condition: state
       entity_id: sun.sun
       state: 'above_horizon'
   action:
-  - service: switch.turn_on
-    entity_id: switch.tasker_awake_tosh
-  - delay: "00:01:00"
-  - service: switch.turn_off
-    entity_id: switch.tasker_awake_tosh, switch.tasker_sleep_tosh
+  - service: notify.mobile_app_toshs_pixel_3_xl
+    data:
+      message: command_broadcast_intent
+      title: "com.urbandroid.sleep.alarmclock.STOP_SLEEP_TRACK"
+      data:
+        channel: "com.urbandroid.sleep"
+        ttl: 0
+        priority: high
   - delay: "00:01:00"
   - condition: state
     entity_id: group.tracked_users
@@ -3322,10 +3339,10 @@
       entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
-      entity_id: switch.tasker_sleep_danny
+      entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
       state: 'off'
     - condition: state
-      entity_id: switch.tasker_sleep_tosh
+      entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
       state: 'off'
   action:
   - service: light.turn_on
@@ -4368,21 +4385,21 @@
       topic: "bedroomtablet/babysleep"
       payload: "on"
 
-- alias: Danny tasker awake webhook
-  trigger:
-    platform: webhook
-    webhook_id: !secret danny_awake_webhook
-  action:
-  - service: switch.turn_off
-    entity_id: switch.tasker_sleep_danny
+# - alias: Danny tasker awake webhook
+  # trigger:
+    # platform: webhook
+    # webhook_id: !secret danny_awake_webhook
+  # action:
+  # - service: switch.turn_off
+    # entity_id: switch.tasker_sleep_danny
 
-- alias: Tosh tasker awake webhook
-  trigger:
-    platform: webhook
-    webhook_id: !secret tosh_awake_webhook
-  action:
-  - service: switch.turn_off
-    entity_id: switch.tasker_sleep_tosh
+# - alias: Tosh tasker awake webhook
+  # trigger:
+    # platform: webhook
+    # webhook_id: !secret tosh_awake_webhook
+  # action:
+  # - service: switch.turn_off
+    # entity_id: switch.tasker_sleep_tosh
 
 ################################################
 #

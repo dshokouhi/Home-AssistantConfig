@@ -278,6 +278,7 @@ logger:
     homeassistant.components.rachio: info
     homeassistant.components.mobile_app: info
     homeassistant.components.tensorflow: info
+    homeassistant.config_entries: error
     absl: info
     pychromecast: error
     zigpy: info

@@ -182,7 +182,10 @@ views:
             state_color: true
           - switch.fireplace
           - entity: remote.harmony_hub_den
+            secondary_info: last-changed
           - light.tv_lights
+          - entity: remote.xboxone_remote
+            secondary_info: last-changed
       - type: entities
         title: Kitchen
         id: kitchen
@@ -505,6 +508,8 @@ views:
         name: Plex Requests
       - entity: sensor.hacs
         name: HACS Updates
+      - entity: sensor.shakuyi_status
+        name: Xbox Status
     cards:
       - type: horizontal-stack
         id: stats
@@ -1034,6 +1039,8 @@ views:
         entity: media_player.sony_bravia_tv
       - type: media-control
         entity: media_player.stream_unlimited9639
+      - type: media-control
+        entity: media_player.xboxone
   - title: Shopping List
     path: shopping
     icon: mdi:cart
