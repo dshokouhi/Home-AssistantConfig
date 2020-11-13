@@ -1116,11 +1116,11 @@
 - alias: Turn off armed night when we wake up
   trigger:
   - platform: state
-    entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
+    entity_id: switch.tasker_sleep_tosh
     from: 'on'
     to: 'off'
   - platform: state
-    entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
+    entity_id: switch.tasker_sleep_danny
     from: 'on'
     to: 'off'
   condition:
@@ -1607,7 +1607,7 @@
 - alias: Danny awake
   trigger:
     platform: state
-    entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
+    entity_id: switch.tasker_sleep_danny
     from: 'on'
     to: 'off'
   condition:
@@ -1621,7 +1621,7 @@
 - alias: Open bedroom curtains and turn off the fan when we wake up
   trigger:
   - platform: state
-    entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking, binary_sensor.toshs_pixel_3_xl_sleep_tracking
+    entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
     to: 'off'
   - platform: state
     entity_id: sun.sun
@@ -1630,10 +1630,10 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
+      entity_id: switch.tasker_sleep_danny
       state: 'off'
     - condition: state
-      entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
+      entity_id: switch.tasker_sleep_tosh
       state: 'off'
     - condition: state
       entity_id: sun.sun
@@ -2132,6 +2132,8 @@
         channel: "com.urbandroid.sleep"
         ttl: 0
         priority: high
+  - service: switch.turn_on
+    entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
 
 # - alias: Turn off sleep tracking
   # trigger:
@@ -2493,7 +2495,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
+    entity_id: switch.tasker_sleep_danny
     state: 'off'
   action:
   - service: notify.mobile_app_dannys_pixel_4_xl
@@ -2559,7 +2561,7 @@
     to: 'off'
   condition:
     condition: state
-    entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
+    entity_id: switch.tasker_sleep_danny
     state: 'off'
   action:
   - service: notify.mobile_app_dannys_pixel_4_xl
@@ -2596,7 +2598,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
+    entity_id: switch.tasker_sleep_tosh
     state: 'off'
   action:
   - service: notify.mobile_app_toshs_pixel_3_xl
@@ -2621,7 +2623,7 @@
     to: 'off'
   condition:
     condition: state
-    entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
+    entity_id: switch.tasker_sleep_tosh
     state: 'off'
   action:
   - service: notify.mobile_app_toshs_pixel_3_xl
@@ -2643,7 +2645,7 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
+      entity_id: switch.tasker_sleep_tosh
       state: 'on'
     - condition: state
       entity_id: sun.sun
@@ -3202,7 +3204,7 @@
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_speaker
-      media_content_id: "https://19213.live.streamtheworld.com/KROQFMAAC.aac?SRC=CBS&DIST=CBS&TGT=cbslocalplayer&tdsdk=js-2.9&pname=TDSdk&pversion=2.9&banners=none&sbmid=75476a0e-e311-49bb-d6e5-eb6d47354b9e"
+      media_content_id: "https://16613.live.streamtheworld.com/KROQFMAAC_SBM?sbmid=ae8969da-8576-407c-b516-d9cac989c57c&lsid=cookie:2e321e7d-030e-4333-b196-e76c5cbb13f2"
       media_content_type: "audio/mp4"
       
 - alias: Shower Mode Turned Off
@@ -3243,11 +3245,11 @@
     entity_id: media_player.bathroom_speaker
     data:
       message: "Please open the bathroom window"
-  - delay: "00:00:02"
+  - delay: "00:00:06"
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_speaker
-      media_content_id: "https://19213.live.streamtheworld.com/KROQFMAAC.aac?SRC=CBS&DIST=CBS&TGT=cbslocalplayer&tdsdk=js-2.9&pname=TDSdk&pversion=2.9&banners=none&sbmid=75476a0e-e311-49bb-d6e5-eb6d47354b9e"
+      media_content_id: "https://16613.live.streamtheworld.com/KROQFMAAC_SBM?sbmid=ae8969da-8576-407c-b516-d9cac989c57c&lsid=cookie:2e321e7d-030e-4333-b196-e76c5cbb13f2"
       media_content_type: "audio/mp4"
     
 - alias: Shower mode off if bathroom speaker not playing or humidity drops below 60
@@ -3339,10 +3341,10 @@
       entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
-      entity_id: binary_sensor.dannys_pixel_4_xl_sleep_tracking
+      entity_id: switch.tasker_sleep_danny
       state: 'off'
     - condition: state
-      entity_id: binary_sensor.toshs_pixel_3_xl_sleep_tracking
+      entity_id: switch.tasker_sleep_tosh
       state: 'off'
   action:
   - service: light.turn_on
@@ -4385,21 +4387,21 @@
       topic: "bedroomtablet/babysleep"
       payload: "on"
 
-# - alias: Danny tasker awake webhook
-  # trigger:
-    # platform: webhook
-    # webhook_id: !secret danny_awake_webhook
-  # action:
-  # - service: switch.turn_off
-    # entity_id: switch.tasker_sleep_danny
+- alias: Danny tasker awake webhook
+  trigger:
+    platform: webhook
+    webhook_id: !secret danny_awake_webhook
+  action:
+  - service: switch.turn_off
+    entity_id: switch.tasker_sleep_danny
 
-# - alias: Tosh tasker awake webhook
-  # trigger:
-    # platform: webhook
-    # webhook_id: !secret tosh_awake_webhook
-  # action:
-  # - service: switch.turn_off
-    # entity_id: switch.tasker_sleep_tosh
+- alias: Tosh tasker awake webhook
+  trigger:
+    platform: webhook
+    webhook_id: !secret tosh_awake_webhook
+  action:
+  - service: switch.turn_off
+    entity_id: switch.tasker_sleep_tosh
 
 ################################################
 #
