@@ -3204,7 +3204,7 @@
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_speaker
-      media_content_id: "https://16613.live.streamtheworld.com/KROQFMAAC_SBM?sbmid=ae8969da-8576-407c-b516-d9cac989c57c&lsid=cookie:2e321e7d-030e-4333-b196-e76c5cbb13f2"
+      media_content_id: "https://19253.live.streamtheworld.com/KROQFMAAC_SC?sbmid=651e8669-2a3c-4d9e-be0b-4bf2db6fed8d&DIST=CBS&TGT=radiocomPlayer&SRC=CBS&lsid=cookie:2e321e7d-030e-4333-b196-e76c5cbb13f2"
       media_content_type: "audio/mp4"
       
 - alias: Shower Mode Turned Off
@@ -3249,7 +3249,7 @@
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_speaker
-      media_content_id: "https://16613.live.streamtheworld.com/KROQFMAAC_SBM?sbmid=ae8969da-8576-407c-b516-d9cac989c57c&lsid=cookie:2e321e7d-030e-4333-b196-e76c5cbb13f2"
+      media_content_id: "https://19253.live.streamtheworld.com/KROQFMAAC_SC?sbmid=651e8669-2a3c-4d9e-be0b-4bf2db6fed8d&DIST=CBS&TGT=radiocomPlayer&SRC=CBS&lsid=cookie:2e321e7d-030e-4333-b196-e76c5cbb13f2"
       media_content_type: "audio/mp4"
     
 - alias: Shower mode off if bathroom speaker not playing or humidity drops below 60
@@ -4402,6 +4402,26 @@
   action:
   - service: switch.turn_off
     entity_id: switch.tasker_sleep_tosh
+
+- alias: Sleep as android danny webhook
+  trigger:
+    platform: webhook
+    webhook_id: !secret sleep_as_android_danny_webhook
+  action:
+  - service: input_text.set_value
+    data:
+      entity_id: input_text.sleep_as_android_danny
+      value: "{{ trigger.json.event }}"
+
+- alias: Sleep as android tosh webhook
+  trigger:
+    platform: webhook
+    webhook_id: !secret sleep_as_android_tosh_webhook
+  action:
+  - service: input_text.set_value
+    data:
+      entity_id: input_text.sleep_as_android_tosh
+      value: "{{ trigger.json.event }}"
 
 ################################################
 #

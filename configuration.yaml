@@ -729,7 +729,7 @@ notify:
 alert:
   front_door_unlocked:
     name: Front Door is unlocked
-    entity_id: lock.front_door_lock_locked
+    entity_id: lock.front_door
     state: 'unlocked'
     repeat: 5
     skip_first: true

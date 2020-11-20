@@ -53,7 +53,7 @@ views:
           - binary_sensor.den_window
           - binary_sensor.front_door
           - binary_sensor.garage_backyard_door
-          - binary_sensor.garage_frontyard
+          - binary_sensor.garage_frontyard_door
           - binary_sensor.kitchen_window
           - binary_sensor.living_room_left_bay_window
           - binary_sensor.living_room_right_bay_window
