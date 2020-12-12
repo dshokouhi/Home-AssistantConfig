@@ -1116,12 +1116,7 @@
 - alias: Turn off armed night when we wake up
   trigger:
   - platform: state
-    entity_id: switch.tasker_sleep_tosh
-    from: 'on'
-    to: 'off'
-  - platform: state
-    entity_id: switch.tasker_sleep_danny
-    from: 'on'
+    entity_id: input_boolean.danny_sleep, input_boolean.tosh_sleep
     to: 'off'
   condition:
     condition: state
@@ -1190,7 +1185,7 @@
       target:
       - !secret discord_alarm
   - service: tts.google_say
-    entity_id: media_player.bedroom_home
+    entity_id: media_player.bedroom_display
     data_template:
       message: "Alarm is in armed night and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.ollies_window', 'on') %} Ollies Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}{% if is_state('binary_sensor.garage_door_frontyard', 'on') %} Garage Door Frontyard{% endif %}"
 
@@ -1221,7 +1216,7 @@
     entity_id: group.tracked_users
     state: 'home'
   - service: tts.google_say
-    entity_id: media_player.bedroom_home
+    entity_id: media_player.bedroom_display
     data_template:
       message: "The alarm is arming in night mode and the following windows are open{% if is_state('binary_sensor.den_window', 'on') %} Den Window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %} Kitchen Window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %} Living Room Side Window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %} Living Room Right Bay Window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %} Living Room Left Bay Window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %} Bedroom Window{% endif %}{% if is_state('binary_sensor.ollies_window', 'on') %} Ollies Window{% endif %}{% if is_state('binary_sensor.bathroom_window', 'on') %} Bathroom Window{% endif %}"
 
@@ -1607,8 +1602,7 @@
 - alias: Danny awake
   trigger:
     platform: state
-    entity_id: switch.tasker_sleep_danny
-    from: 'on'
+    entity_id: input_boolean.danny_sleep
     to: 'off'
   condition:
     condition: state
@@ -1621,7 +1615,7 @@
 - alias: Open bedroom curtains and turn off the fan when we wake up
   trigger:
   - platform: state
-    entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
+    entity_id: input_boolean.danny_sleep, input_boolean.tosh_sleep
     to: 'off'
   - platform: state
     entity_id: sun.sun
@@ -1630,10 +1624,10 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: switch.tasker_sleep_danny
+      entity_id: input_boolean.danny_sleep
       state: 'off'
     - condition: state
-      entity_id: switch.tasker_sleep_tosh
+      entity_id: input_boolean.tosh_sleep
       state: 'off'
     - condition: state
       entity_id: sun.sun
@@ -2132,8 +2126,8 @@
         channel: "com.urbandroid.sleep"
         ttl: 0
         priority: high
-  - service: switch.turn_on
-    entity_id: switch.tasker_sleep_danny, switch.tasker_sleep_tosh
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.danny_sleep, input_boolean.tosh_sleep
 
 # - alias: Turn off sleep tracking
   # trigger:
@@ -2375,7 +2369,7 @@
               {%-elif is_state("input_select.cast_devices", "Bathroom") %}
                 media_player.bathroom_speaker
               {%-elif is_state("input_select.cast_devices", "Bedroom") %}
-                media_player.bedroom_home
+                media_player.bedroom_display
               {% else %}
                 "None"
               {% endif %}
@@ -2406,7 +2400,7 @@
             {%-elif is_state("input_select.cast_devices", "Bathroom") %}
               media_player.bathroom_speaker
             {%-elif is_state("input_select.cast_devices", "Bedroom") %}
-              media_player.bedroom_home
+              media_player.bedroom_display
             {% else %}
               "None"
             {% endif %}
@@ -2495,7 +2489,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: switch.tasker_sleep_danny
+    entity_id: input_boolean.danny_sleep
     state: 'off'
   action:
   - service: notify.mobile_app_dannys_pixel_4_xl
@@ -2561,7 +2555,7 @@
     to: 'off'
   condition:
     condition: state
-    entity_id: switch.tasker_sleep_danny
+    entity_id: input_boolean.danny_sleep
     state: 'off'
   action:
   - service: notify.mobile_app_dannys_pixel_4_xl
@@ -2598,7 +2592,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: switch.tasker_sleep_tosh
+    entity_id: input_boolean.tosh_sleep
     state: 'off'
   action:
   - service: notify.mobile_app_toshs_pixel_3_xl
@@ -2623,7 +2617,7 @@
     to: 'off'
   condition:
     condition: state
-    entity_id: switch.tasker_sleep_tosh
+    entity_id: input_boolean.tosh_sleep
     state: 'off'
   action:
   - service: notify.mobile_app_toshs_pixel_3_xl
@@ -2645,7 +2639,7 @@
     condition: and
     conditions:
     - condition: state
-      entity_id: switch.tasker_sleep_tosh
+      entity_id: input_boolean.tosh_sleep
       state: 'on'
     - condition: state
       entity_id: sun.sun
@@ -2659,6 +2653,8 @@
         channel: "com.urbandroid.sleep"
         ttl: 0
         priority: high
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.tosh_sleep
   - delay: "00:01:00"
   - condition: state
     entity_id: group.tracked_users
@@ -3341,10 +3337,10 @@
       entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
-      entity_id: switch.tasker_sleep_danny
+      entity_id: input_boolean.danny_sleep
       state: 'off'
     - condition: state
-      entity_id: switch.tasker_sleep_tosh
+      entity_id: input_boolean.tosh_sleep
       state: 'off'
   action:
   - service: light.turn_on
@@ -4331,6 +4327,89 @@
       topic: "OpenZWave/1/command/requestnodedynamic/"
       payload: '{ "node": 4 }'
 
+- alias: Notify kitchen tv on for 1 hour
+  trigger:
+    platform: state
+    entity_id: switch.kitchen_tv
+    to: 'on'
+    for:
+      hours: 1
+  action:
+  - service: notify.android
+    data:
+      message: 'Do you still want the Kitchen TV on?'
+      data:
+        ttl: 0
+        priority: high
+        sticky: true
+        persistent: true
+        tag: kitchen_tv
+        actions:
+        - action: 'TV_YES'
+          title: 'Yes'
+        - action: 'TV_NO'
+          title: 'No'
+
+- alias: Turn off kitchen TV from action
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: 'TV_NO'
+  action:
+  - service: notify.android
+    data:
+      message: clear_notification
+      data:
+        ttl: 0
+        priority: high
+        tag: kitchen_tv
+  - condition: state
+    entity_id: switch.kitchen_tv
+    state: 'on'
+  - service: switch.turn_off
+    entity_id: switch.kitchen_tv
+
+- alias: Notify gardener is on for 2 hours
+  trigger:
+    platform: state
+    entity_id: input_boolean.gardener
+    to: 'on'
+    for:
+      hours: 2
+  action:
+  - service: notify.android
+    data:
+      message: 'Is the gardener still there?'
+      data:
+        ttl: 0
+        priority: high
+        persistent: true
+        sticky: true
+        tag: gardener
+        actions:
+        - action: 'GARDENER_YES'
+          title: 'Yes'
+        - action: 'GARDENER_NO'
+          title: 'No'
+
+- alias: Turn off gardener from action
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: 'GARDENER_NO'
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.gardener
+  - service: notify.android
+    data:
+      message: clear_notification
+      data:
+        ttl: 0
+        priority: high
+        tag: gardener
+
 ################################################
 #
 #      Webhook Automations
@@ -4412,6 +4491,10 @@
     data:
       entity_id: input_text.sleep_as_android_danny
       value: "{{ trigger.json.event }}"
+  - condition: template
+    value_template: "{{ is_state('input_text.sleep_as_android_danny', 'sleep_tracking_stopped') or is_state('input_text.sleep_as_android_danny', 'sleep_tracking_started') }}"
+  - service: "{% if is_state('input_text.sleep_as_android_danny', 'sleep_tracking_stopped') %}input_boolean.turn_off{% elif is_state('input_text.sleep_as_android_danny', 'sleep_tracking_started') %}input_boolean.turn_on{% else %}{% endif %}"
+    entity_id: input_boolean.danny_sleep
 
 - alias: Sleep as android tosh webhook
   trigger:
@@ -4422,6 +4505,10 @@
     data:
       entity_id: input_text.sleep_as_android_tosh
       value: "{{ trigger.json.event }}"
+  - condition: template
+    value_template: "{{ is_state('input_text.sleep_as_android_tosh', 'sleep_tracking_stopped') or is_state('input_text.sleep_as_android_tosh', 'sleep_tracking_started') }}"
+  - service: "{% if is_state('input_text.sleep_as_android_tosh', 'sleep_tracking_stopped') %}input_boolean.turn_off{% elif is_state('input_text.sleep_as_android_tosh', 'sleep_tracking_started') %}input_boolean.turn_on{% else %}{% endif %}"
+    entity_id: input_boolean.tosh_sleep
 
 ################################################
 #
@@ -4736,7 +4823,7 @@
     entity_id: switch.ollies_sound_machine_plug
   - service: media_player.volume_set
     data_template:
-      entity_id: media_player.living_room_home, media_player.bedroom_home, media_player.bathroom_speaker, media_player.kitchen_home
+      entity_id: media_player.living_room_home, media_player.bedroom_display, media_player.bathroom_speaker, media_player.kitchen_home
       volume_level: >-
         {% if trigger.to_state.state == 'on' %}
           0.3
@@ -4934,11 +5021,11 @@
   - service: switch.turn_on
     entity_id: switch.ollies_heater
 
-- alias: Turn off Ollies humidifier when above 55
+- alias: Turn off Ollies humidifier when above 45
   trigger:
     platform: numeric_state
     entity_id: sensor.ollies_air_purifier_humidity
-    above: 50
+    above: 45
   condition:
     condition: and
     conditions:
@@ -4952,11 +5039,11 @@
     service: switch.turn_off
     entity_id: switch.ollies_humidifier
 
-- alias: Turn on Ollies humidifier when below 45
+- alias: Turn on Ollies humidifier when below 40
   trigger:
   - platform: numeric_state
     entity_id: sensor.ollies_air_purifier_humidity
-    below: 45
+    below: 40
   - platform: state
     entity_id: input_boolean.baby_sleeping
     to: 'on'
@@ -4971,7 +5058,7 @@
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.ollies_air_purifier_humidity
-      below: 45
+      below: 40
   action:
     service: switch.turn_on
     entity_id: switch.ollies_humidifier

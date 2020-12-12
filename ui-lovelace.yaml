@@ -708,10 +708,11 @@ views:
           entities:
             - entity: light.wled
               secondary_info: last-changed
-            - sensor.wled_estimated_current
+            - entity: light.wled_segment_1
+              secondary_info: last-changed
+            - entity: light.wled_master
+              secondary_info: last-changed
             - switch.wled_nightlight
-            - switch.wled_sync_receive
-            - switch.wled_sync_send
   - title: Printers
     path: printers
     icon: mdi:printer

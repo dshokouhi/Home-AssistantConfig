@@ -648,17 +648,17 @@ baby_monitor_alarm:
 christmas_on:
   sequence:
   - service: switch.turn_on
-    entity_id: switch.christmas_tree_switch, switch.little_christmas_trees_switch
+    entity_id: switch.christmas_tree_switch, switch.little_christmas_trees_switch, switch.living_room_camera_plug
   - service: light.turn_on
-    entity_id: light.centralite_3210l_0b0383b4_1
-    
+    entity_id: light.wled_master
+
 christmas_off:
   sequence:
   - service: switch.turn_off
-    entity_id: switch.christmas_tree_switch, switch.little_christmas_trees_switch
+    entity_id: switch.christmas_tree_switch, switch.little_christmas_trees_switch, switch.living_room_camera_plug
   - service: light.turn_off
-    entity_id: light.centralite_3210l_0b0383b4_1
-    
+    entity_id: light.wled_master
+
 house_deep_cleaning:
   sequence:
   - service: neato.custom_cleaning

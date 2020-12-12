@@ -103,3 +103,11 @@ ollies_heater:
 ollies_humidifier:
   name: Ollies Humidifier
   icon: mdi:air-humidifier
+
+danny_sleep:
+  name: Danny sleep tracking
+  icon: mdi:sleep
+
+tosh_sleep:
+  name: Tosh sleep tracking
+  icon: mdi:sleep

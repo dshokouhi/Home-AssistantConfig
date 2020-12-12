@@ -9,6 +9,14 @@
        device_class: presence
        value_template: "{{ states('sensor.tosh_bedroom') |int > 50 or states('sensor.tosh_den') | int > 50 }}"
 
+     danny_sleep_tracking:
+       friendly_name: "Danny Sleep Tracking"
+       value_template: "{{ is_state('input_boolean.danny_sleep', 'on') }}"
+
+     tosh_sleep_tracking:
+       friendly_name: "Tosh Sleep Tracking"
+       value_template: "{{ is_state('input_boolean.tosh_sleep', 'on') }}"
+
      windows:
        friendly_name: "Windows"
        device_class: window

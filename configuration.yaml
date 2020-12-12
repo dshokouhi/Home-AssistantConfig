@@ -512,6 +512,19 @@ media_player:
      ar.tvplayer.tv: "TiviMate"
 
  - platform: androidtv
+   host: 192.168.1.214
+   name: Kitchen Google TV
+   adb_server_ip: localhost
+   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
+   apps:
+     com.google.android.youtube.tv: "Youtube"
+     org.xbmc.kodi: "Kodi"
+     com.netflix.ninja: "Netflix"
+     com.google.android.tvlauncher: "Homescreen"
+     com.plexapp.android: "Plex"
+     ar.tvplayer.tv: "TiviMate"
+
+ - platform: androidtv
    host: 192.168.1.182
    name: Kitchen Fire Stick
    adb_server_ip: localhost
