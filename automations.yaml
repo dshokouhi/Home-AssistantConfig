@@ -1475,6 +1475,10 @@
     entity_id: switch.house_fan
   - service: light.turn_off
     entity_id: light.bathroom_night_light, light.toshs
+  - service: homeassistant.update_entity
+    entity_id: sensor.ssl_certificate_expiry
+  - service: homeassistant.update_entity
+    entity_id: sensor.uptime_days
   - wait_template: "{{ is_state('input_boolean.guest_sleeping', 'off') }}"
   - service: cover.open_cover
     entity_id: cover.bay_window_curtains
@@ -1689,11 +1693,8 @@
     event_type: timer.finished
     event_data:
       entity_id: timer.door_lock
-  condition:
-    condition: state
-    entity_id: binary_sensor.front_door
-    state: 'off'
   action:
+  - wait_template: "{{ is_state('binary_sensor.front_door', 'off') }}"
   - service: lock.lock
     entity_id: lock.front_door
 
@@ -1929,15 +1930,11 @@
   trigger:
   - platform: state
     entity_id: input_boolean.night_mode
-    to: 'on'
-  - event: sunset
-    platform: sun
-    offset: '-00:30:00'
   action:
     service: script.turn_on 
     data_template:
       entity_id: >
-       {% if trigger.entity_id == 'input_boolean.night_mode' %}
+       {% if is_state('input_boolean.night_mode', 'on') %}
          script.christmas_off
        {% else %}
          script.christmas_on
@@ -2367,7 +2364,7 @@
               {%-elif is_state("input_select.cast_devices", "Kitchen") %}
                 media_player.kitchen_home
               {%-elif is_state("input_select.cast_devices", "Bathroom") %}
-                media_player.bathroom_speaker
+                media_player.bathroom_home
               {%-elif is_state("input_select.cast_devices", "Bedroom") %}
                 media_player.bedroom_display
               {% else %}
@@ -2398,7 +2395,7 @@
             {%-elif is_state("input_select.cast_devices", "Kitchen") %}
               media_player.kitchen_home
             {%-elif is_state("input_select.cast_devices", "Bathroom") %}
-              media_player.bathroom_speaker
+              media_player.bathroom_home
             {%-elif is_state("input_select.cast_devices", "Bedroom") %}
               media_player.bedroom_display
             {% else %}
@@ -2504,8 +2501,17 @@
         priority: 'high'
         group: location
         channel: location
+        tag: location
         timeout: 600
         importance: high
+  - wait_template: "{{ is_state('binary_sensor.front_door', 'on') }}"
+  - service: notify.android
+    data:
+      message: clear_notification
+      data:
+        ttl: 0
+        priority: high
+        tag: location
 
 - alias: Notify help needed at cars
   trigger:
@@ -2607,8 +2613,17 @@
         priority: 'high'
         group: location
         channel: location
+        tag: location
         timeout: 600
         importance: high
+  - wait_template: "{{ is_state('binary_sensor.front_door', 'on') }}"
+  - service: notify.android
+    data:
+      message: clear_notification
+      data:
+        ttl: 0
+        priority: high
+        tag: location
 
 - alias: Notify bayesian off tosh
   trigger:
@@ -3199,7 +3214,7 @@
     entity_id: switch.house_fan
   - service: media_player.play_media
     data:
-      entity_id: media_player.bathroom_speaker
+      entity_id: media_player.bathroom_home
       media_content_id: "https://19253.live.streamtheworld.com/KROQFMAAC_SC?sbmid=651e8669-2a3c-4d9e-be0b-4bf2db6fed8d&DIST=CBS&TGT=radiocomPlayer&SRC=CBS&lsid=cookie:2e321e7d-030e-4333-b196-e76c5cbb13f2"
       media_content_type: "audio/mp4"
       
@@ -3210,7 +3225,7 @@
     to: 'off'
   action:
   - service: media_player.media_stop
-    entity_id: media_player.bathroom_speaker
+    entity_id: media_player.bathroom_home
   - wait_template: "{{ states('sensor.bathroom_humidity') | int < 60 }}"
   - condition: state
     entity_id: input_boolean.night_mode
@@ -3236,22 +3251,22 @@
       state: 'off'
   action:
   - service: media_player.media_play_pause
-    entity_id: media_player.bathroom_speaker
+    entity_id: media_player.bathroom_home
   - service: tts.google_say
-    entity_id: media_player.bathroom_speaker
+    entity_id: media_player.bathroom_home
     data:
       message: "Please open the bathroom window"
   - delay: "00:00:06"
   - service: media_player.play_media
     data:
-      entity_id: media_player.bathroom_speaker
+      entity_id: media_player.bathroom_home
       media_content_id: "https://19253.live.streamtheworld.com/KROQFMAAC_SC?sbmid=651e8669-2a3c-4d9e-be0b-4bf2db6fed8d&DIST=CBS&TGT=radiocomPlayer&SRC=CBS&lsid=cookie:2e321e7d-030e-4333-b196-e76c5cbb13f2"
       media_content_type: "audio/mp4"
     
 - alias: Shower mode off if bathroom speaker not playing or humidity drops below 60
   trigger:
   - platform: state
-    entity_id: media_player.bathroom_speaker
+    entity_id: media_player.bathroom_home
     to: 'paused'
     for:
       minutes: 30
@@ -3259,7 +3274,7 @@
     entity_id: alarm_control_panel.home
     to: 'armed_away'
   - platform: state
-    entity_id: media_player.bathroom_speaker
+    entity_id: media_player.bathroom_home
     to: 'off'
     for:
       minutes: 5
@@ -3295,7 +3310,7 @@
 - alias: Play music again if interrupted
   trigger:
   - platform: state
-    entity_id: media_player.bathroom_speaker
+    entity_id: media_player.bathroom_home
     to: 'idle'
     for:
       seconds: 20
@@ -3306,7 +3321,7 @@
   action:
   - service: media_player.play_media
     data:
-      entity_id: media_player.bathroom_speaker
+      entity_id: media_player.bathroom_home
       media_content_id: "https://19213.live.streamtheworld.com/KROQFMAAC.aac?SRC=CBS&DIST=CBS&TGT=cbslocalplayer&tdsdk=js-2.9&pname=TDSdk&pversion=2.9&banners=none&sbmid=75476a0e-e311-49bb-d6e5-eb6d47354b9e"
       media_content_type: "audio/mp4"
       
@@ -4155,8 +4170,7 @@
 - alias: Rocket Launch
   trigger:
     platform: time_pattern
-    minutes: '/59'
-    seconds: 00
+    minutes: '5'
   condition:
     condition: and
     conditions:
@@ -4343,6 +4357,7 @@
         priority: high
         sticky: true
         persistent: true
+        channel: "Left On"
         tag: kitchen_tv
         actions:
         - action: 'TV_YES'
@@ -4386,6 +4401,7 @@
         priority: high
         persistent: true
         sticky: true
+        channel: "Left On"
         tag: gardener
         actions:
         - action: 'GARDENER_YES'
@@ -4823,7 +4839,7 @@
     entity_id: switch.ollies_sound_machine_plug
   - service: media_player.volume_set
     data_template:
-      entity_id: media_player.living_room_home, media_player.bedroom_display, media_player.bathroom_speaker, media_player.kitchen_home
+      entity_id: media_player.living_room_home, media_player.bedroom_display, media_player.bathroom_home, media_player.kitchen_home
       volume_level: >-
         {% if trigger.to_state.state == 'on' %}
           0.3
@@ -4838,7 +4854,7 @@
     entity_id: binary_sensor.baby_monitor_motion_detected
     to: 'on'
     for:
-      seconds: 30
+      seconds: 45
   condition:
     condition: and
     conditions:
@@ -4885,7 +4901,7 @@
     above: 75
   - platform: numeric_state
     entity_id: sensor.ollies_average_temperature
-    below: 70
+    below: 60
   condition:
     condition: state
     entity_id: input_boolean.baby_sleeping
@@ -4901,7 +4917,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.ollies_average_temperature
-    below: 71
+    below: 61
   - platform: state
     entity_id: input_boolean.baby_sleeping
     to: 'on'
@@ -4923,7 +4939,7 @@
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.ollies_average_temperature
-      below: 71
+      below: 61
   action:
     service: switch.turn_on
     entity_id: switch.ollies_heater
@@ -4932,7 +4948,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.ollies_average_temperature
-    above: 74
+    above: 70
   condition:
     condition: and
     conditions:

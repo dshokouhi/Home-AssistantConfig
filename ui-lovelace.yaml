@@ -495,7 +495,7 @@ views:
     badges:
       - entity: sensor.zestimate
         name: Zestimate
-      - entity: sensor.uptime
+      - entity: sensor.uptime_days
         name: System Uptime
       - entity: sensor.home_assistant_v2_db
         name: Database
@@ -991,13 +991,13 @@ views:
     icon: mdi:cast
     cards:
       - type: media-control
-        entity: media_player.bathroom_speaker
+        entity: media_player.bathroom_home
       - type: media-control
         entity: media_player.bedroom_android_tv
       - type: media-control
         entity: media_player.bedroom_shield_tv
       - type: media-control
-        entity: media_player.bedroom_home
+        entity: media_player.bedroom_display
       - type: media-control
         entity: media_player.danny_spotify
       - type: media-control

@@ -388,6 +388,12 @@
      hvac_action:
        value_template: "{{ state_attr('climate.thermostat', 'hvac_action') }}"
 
+     ssl_certificate_expiry:
+       value_template: "{{ ((as_timestamp(states('sensor.cert_expiry_timestamp')) - as_timestamp(now())) /60 /60 /24) | int }}"
+
+     uptime_days:
+       value_template: "{{ ((as_timestamp(now()) - as_timestamp(states('sensor.uptime'))) /60 /60 /24) | round(2) }}"
+
      octoprint_time_elapsed_format:
        friendly_name: 'Printing Time Elapsed'
        value_template: >-
