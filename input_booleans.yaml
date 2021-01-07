@@ -111,3 +111,7 @@ danny_sleep:
 tosh_sleep:
   name: Tosh sleep tracking
   icon: mdi:sleep
+
+living_room_tv:
+  name: Living Room TV
+  icon: mdi:television

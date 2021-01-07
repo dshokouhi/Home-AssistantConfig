@@ -207,6 +207,7 @@ views:
             state_color: true
           - entity: switch.kitchen_tv
             state_color: true
+            secondary_info: last-changed
           - light.spot
       - type: entities
         title: Living Room
@@ -228,6 +229,9 @@ views:
           - light.living_room_lights_level
           - entity: binary_sensor.living_room_camera_motion_detected
             name: Living Room Motion
+            secondary_info: last-changed
+            state_color: true
+          - entity: switch.living_room_tv
             secondary_info: last-changed
             state_color: true
       - type: entities
@@ -1023,7 +1027,11 @@ views:
       - type: media-control
         entity: media_player.kodi_ollies
       - type: media-control
+        entity: media_player.lg_webos_smart_tv
+      - type: media-control
         entity: media_player.living_room_home
+      - type: media-control
+        entity: media_player.living_room_google_tv
       - type: media-control
         entity: media_player.ollies_fire_stick
       - type: media-control

@@ -34,6 +34,9 @@ switch.kitchen_tv:
 switch.ollies_tv:
   icon: mdi:television
 
+switch.living_room_tv:
+  icon: mdi:television
+
 sensor.yr_symbol:
   friendly_name: Weather
 

@@ -514,7 +514,7 @@ media_player:
 
  - platform: androidtv
    host: 192.168.1.214
-   name: Kitchen Google TV
+   name: Living Room Google TV
    adb_server_ip: localhost
    adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
    apps:
@@ -714,6 +714,11 @@ notify:
  - platform: nfandroidtv
    name: Ollies
    host: 192.168.1.18
+   timeout: 15
+
+ - platform: nfandroidtv
+   name: Living Room
+   host: 192.168.1.214
    timeout: 15
 
  - platform: slack
@@ -1608,3 +1613,6 @@ utility_meter:
   toshs_daily_steps:
     source: sensor.toshs_pixel_3_xl_steps_sensor
     cycle: daily
+
+webostv:
+  host: 192.168.1.219

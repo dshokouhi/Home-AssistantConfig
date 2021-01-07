@@ -1930,11 +1930,15 @@
   trigger:
   - platform: state
     entity_id: input_boolean.night_mode
+    to: 'on'
+  - event: sunset
+    platform: sun
+    offset: '-00:30:00'
   action:
     service: script.turn_on 
     data_template:
       entity_id: >
-       {% if is_state('input_boolean.night_mode', 'on') %}
+       {% if trigger.entity_id == 'input_boolean.night_mode' %}
          script.christmas_off
        {% else %}
          script.christmas_on
@@ -3418,7 +3422,7 @@
       entity_id: group.tracked_users
       state: 'home'
     - condition: state
-      entity_id: switch.kitchen_tv
+      entity_id: switch.living_room_tv
       state: 'off'
     - condition: state
       entity_id: input_boolean.cleaning_mode
@@ -4385,6 +4389,50 @@
   - service: switch.turn_off
     entity_id: switch.kitchen_tv
 
+- alias: Notify living room tv on for 1 hour
+  trigger:
+    platform: state
+    entity_id: switch.living_room_tv
+    to: 'on'
+    for:
+      hours: 1
+  action:
+  - service: notify.android
+    data:
+      message: 'Do you still want the Living Room TV on?'
+      data:
+        ttl: 0
+        priority: high
+        sticky: true
+        persistent: true
+        channel: "Left On"
+        tag: living_room_tv
+        actions:
+        - action: 'TV_YES'
+          title: 'Yes'
+        - action: 'TV_NO'
+          title: 'No'
+
+- alias: Turn off living room TV from action
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: 'TV_NO'
+  action:
+  - service: notify.android
+    data:
+      message: clear_notification
+      data:
+        ttl: 0
+        priority: high
+        tag: living_room_tv
+  - condition: state
+    entity_id: switch.living_room_tv
+    state: 'on'
+  - service: switch.turn_off
+    entity_id: switch.living_room_tv
+
 - alias: Notify gardener is on for 2 hours
   trigger:
     platform: state
@@ -4535,7 +4583,7 @@
 - alias: ADB reconnect
   trigger:
     platform: state
-    entity_id: media_player.den_shield_tv, media_player.bedroom_shield_tv, media_player.kitchen_fire_stick, media_player.ollies_fire_stick
+    entity_id: media_player.den_shield_tv, media_player.bedroom_shield_tv, media_player.kitchen_fire_stick, media_player.ollies_fire_stick, media_player.living_room_google_tv
     to: 'unavailable'
     for:
       minutes: 1
@@ -4551,6 +4599,8 @@
               192.168.1.182
             {% elif trigger.entity_id == 'media_player.ollies_fire_stick' %}
               192.168.1.18
+            {% elif trigger.entity_id == 'media_player.living_room_google_tv' %}
+              192.168.1.214
             {% else %}
             {% endif %}
 
@@ -5151,3 +5201,15 @@
       message: "{% set person = states.person|selectattr('attributes.user_id', 'eq', trigger.event.context.user_id)|first %}{{ person.attributes.friendly_name }} {{ trigger.event }} home zone with accuracy {{ trigger.event.data.accuracy }} "
       target:
       - !secret discord_danny
+
+- alias: Phone alarm
+  trigger:
+    platform: time
+    at: sensor.dannys_pixel_4_xl_next_alarm
+  action:
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data_template:
+      message: "alarm going off"
+      data:
+        ttl: 0
+        priority: high

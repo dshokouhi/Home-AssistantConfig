@@ -201,12 +201,28 @@ kitchen_tv_on:
       device: 'kitchentv'
       entity_id: remote.broadlink_remote
 
+living_room_tv_on:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: 'power_on'
+      device: 'webos_tv'
+      entity_id: remote.broadlink_remote
+
 kitchen_tv_off:
   sequence:
   - service: remote.send_command
     data_template:
       command: 'power'
       device: 'kitchentv'
+      entity_id: remote.broadlink_remote
+
+living_room_tv_off:
+  sequence:
+  - service: remote.send_command
+    data_template:
+      command: 'power_off'
+      device: 'webos_tv'
       entity_id: remote.broadlink_remote
 
 ollies_tv:
@@ -648,16 +664,18 @@ baby_monitor_alarm:
 christmas_on:
   sequence:
   - service: switch.turn_on
-    entity_id: switch.christmas_tree_switch, switch.little_christmas_trees_switch, switch.living_room_camera_plug
-  - service: light.turn_on
-    entity_id: light.wled_master
+    entity_id: switch.christmas_tree_switch
+    #, switch.little_christmas_trees_switch, switch.living_room_camera_plug
+  # - service: light.turn_on
+    # entity_id: light.wled_master
 
 christmas_off:
   sequence:
   - service: switch.turn_off
-    entity_id: switch.christmas_tree_switch, switch.little_christmas_trees_switch, switch.living_room_camera_plug
-  - service: light.turn_off
-    entity_id: light.wled_master
+    entity_id: switch.christmas_tree_switch
+    #, switch.little_christmas_trees_switch, switch.living_room_camera_plug
+  # - service: light.turn_off
+    # entity_id: light.wled_master
 
 house_deep_cleaning:
   sequence:
