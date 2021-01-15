@@ -439,6 +439,7 @@ device_tracker:
     hosts:
     - 192.168.1.172
     - 192.168.1.173
+    - 192.168.1.220
 
 remote:
  - platform: harmony
@@ -1333,8 +1334,8 @@ input_number:
     unit_of_measurement: "F"
 
 neato:
-  username: !secret neato_user
-  password: !secret neato_pass
+  client_id: !secret neato_id
+  client_secret: !secret neato_secret
 
 cover:
   - platform: template

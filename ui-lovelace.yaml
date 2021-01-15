@@ -107,8 +107,8 @@ views:
             - entity_id: sensor.ambient_pool_temperature
             - entity_id: sensor.cat_litter_air_temperature
             - entity_id: input_number.pool_temp
-            - entity_id: sensor.den_pi_cpu_thermal_1_temp
-            - entity_id: sensor.pi_hole_cpu_thermal_1_temp
+            - entity_id: sensor.den_pi_cpu_thermal_1_temperature
+            - entity_id: sensor.pi_hole_cpu_thermal_1_temperature
         show_empty: false
       - type: entity-filter
         id: people
