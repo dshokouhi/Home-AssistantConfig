@@ -163,6 +163,21 @@
       brightness_pct: 100
       kelvin: 6500
 
+- alias: Turn on bias Lights Night
+  trigger:
+  - event: sunset
+    platform: sun
+    offset: '-00:30:00'
+  condition:
+    condition: template
+    value_template: "{{ states.remote.harmony_hub_bedroom.attributes.current_activity != 'PowerOff' }}"
+  action:
+  - service: light.turn_on
+    entity_id: light.biased_lights
+    data:
+      brightness_pct: 100
+      kelvin: 6500
+
 - alias: Harmony Den activity start
   trigger:
     platform: state
@@ -1319,6 +1334,20 @@
   - service: light.turn_off
     entity_id: light.o4
 
+- alias: Turn off light that randomly turns on
+  trigger:
+    platform: state
+    entity_id: light.o1, light.o2, light.o3, light.o4
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: light.ollies_lights
+    state: 'off'
+  action:
+    service: light.turn_off
+    data:
+      entity_id: "{{ trigger.entity_id }}"
+
 ################################################
 #
 #      Dog Lights
@@ -1619,7 +1648,10 @@
 - alias: Open bedroom curtains and turn off the fan when we wake up
   trigger:
   - platform: state
-    entity_id: input_boolean.danny_sleep, input_boolean.tosh_sleep
+    entity_id: input_boolean.danny_sleep
+    to: 'off'
+  - platform: state
+    entity_id: input_boolean.tosh_sleep
     to: 'off'
   - platform: state
     entity_id: sun.sun
@@ -2041,6 +2073,8 @@
       state: 'on'
     - condition: template
       value_template: "{{ states.climate.thermostat.state != 'off' }}"
+    - condition: template
+      value_template: "{{ states.climate.thermostat.state != 'unavailable' }}"
     - condition: state
       entity_id: input_boolean.night_mode
       state: 'off'
