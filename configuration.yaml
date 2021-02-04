@@ -1511,8 +1511,8 @@ image_processing:
       - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"
       #- "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
     model:
-      #graph: /home/homeassistant/.homeassistant/tensorflow/models/efficientdet_d1_coco17_tpu-32/
-      graph: /home/homeassistant/.homeassistant/tensorflow_old/frozen_inference_graph.pb
+      graph: /home/homeassistant/.homeassistant/tensorflow/models/efficientdet_d1_coco17_tpu-32/
+      #graph: /home/homeassistant/.homeassistant/tensorflow_old/frozen_inference_graph.pb
       categories:
         - person
 

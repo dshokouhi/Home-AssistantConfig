@@ -186,6 +186,15 @@ views:
           - light.tv_lights
           - entity: remote.xboxone_remote
             secondary_info: last-changed
+          # - type: weblink
+            # name: test
+            # url: "app://net.dinglisch.android.taskerm"
+          # - type: weblink
+            # name: test2
+            # url: "app://com.twitter.android"
+          # - type: weblink
+            # name: test3
+            # url: "intent://scan/#Intent;scheme=zxing;package=com.google.zxing.client.android;end"
       - type: entities
         title: Kitchen
         id: kitchen

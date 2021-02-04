@@ -4671,6 +4671,13 @@
     entity_id: sensor.cat_litter_luminance
     above: 50
   action:
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data:
+      message: clear_notification
+      data:
+        ttl: 0
+        priority: high
+        tag: cat-litter
   - service_template: >-
             {% if is_state('input_boolean.cat_litter_cleaned', 'off') %}
               input_boolean.turn_on
@@ -4688,7 +4695,7 @@
   trigger:
   - platform: numeric_state
     entity_id: counter.cat_litter_motion
-    above: 49
+    above: 100
   condition:
     condition: state
     entity_id: input_boolean.cat_litter_cleaned
@@ -4697,6 +4704,16 @@
   - wait_template: "{{ is_state('alarm_control_panel.home', 'disarmed') }}"
   - service: input_boolean.turn_off
     entity_id: input_boolean.cat_litter_cleaned
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data:
+      message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
+      data:
+        ttl: 0
+        priority: high
+        channel: "Cat Litter"
+        tag: cat-litter
+        persistent: true
+        sticky: true
   - service: notify.discord
     data_template:
       message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
@@ -5225,6 +5242,8 @@
       data:
         ttl: 0
         priority: high
+        group: nfc
+        channel: NFC
 
 - alias: Zone entered
   trigger:
@@ -5238,6 +5257,64 @@
       message: "{% set person = states.person|selectattr('attributes.user_id', 'eq', trigger.event.context.user_id)|first %}{{ person.attributes.friendly_name }} {{ trigger.event }} home zone with accuracy {{ trigger.event.data.accuracy }} "
       target:
       - !secret discord_danny
+
+- alias: Intent received
+  trigger:
+  - platform: event
+    event_type: android.intent_received
+  action:
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data_template:
+      message: "Intent received by user {% set person = states.person|selectattr('attributes.user_id', 'eq', trigger.event.context.user_id)|first %}{{ person.attributes.friendly_name }} with action {{ trigger.event.data.intent }}"
+      data:
+        ttl: 0
+        priority: high
+        group: intents
+        channel: Intents
+
+- alias: Save Danny Mi Band Steps
+  trigger:
+    platform: event
+    event_type: android.intent_received
+    event_data:
+      intent: com.mc.miband.stepsGot
+  action:
+    service: input_number.set_value
+    data:
+      entity_id: input_number.danny_mi_band_steps
+      value: "{{ trigger.event.data.value }}"
+
+- alias: Save Danny Mi Band Heart Rate
+  trigger:
+    platform: event
+    event_type: android.intent_received
+    event_data:
+      intent: com.mc.miband.heartRateGot
+  action:
+    service: input_number.set_value
+    data:
+      entity_id: input_number.danny_mi_band_heart_rate
+      value: "{{ trigger.event.data.value }}"
+
+- alias: Save Danny Mi Band Sleep
+  trigger:
+  - platform: event
+    event_type: android.intent_received
+    event_data:
+      intent: com.mc.miband.tasker.fellAsleep
+  - platform: event
+    event_type: android.intent_received
+    event_data:
+      intent: com.mc.miband.tasker.wokeUp
+  action:
+    service: >-
+        {% if trigger.event.data.intent == 'com.mc.miband.tasker.wokeUp' %}
+          input_boolean.turn_off
+        {% else %}
+          input_boolean.turn_on
+        {% endif %}
+    data:
+      entity_id: input_boolean.danny_mi_band_sleep
 
 - alias: Phone alarm
   trigger:
