@@ -159,6 +159,76 @@ views:
         state_filter:
           - 'off'
         show_empty: false
+      # - type: "custom:button-card"
+        # color_type: card
+        # color: rgb(223, 255, 97)
+        # icon: mdi:volume-minus
+        # tap_action:
+          # action: call-service
+          # service: light.toggle
+          # service_data:
+            # entity_id: light.corner_lamp
+          # haptic: "success"
+      # - type: "custom:button-card"
+        # color_type: card
+        # color: rgb(223, 255, 97)
+        # icon: mdi:volume-minus
+        # tap_action:
+          # action: call-service
+          # service: light.toggle
+          # service_data:
+            # entity_id: light.corner_lamp
+          # haptic: "warning"
+      # - type: "custom:button-card"
+        # color_type: card
+        # color: rgb(223, 255, 97)
+        # icon: mdi:volume-minus
+        # tap_action:
+          # action: call-service
+          # service: light.toggle
+          # service_data:
+            # entity_id: light.corner_lamp
+          # haptic: "failure"
+      # - type: "custom:button-card"
+        # color_type: card
+        # color: rgb(223, 255, 97)
+        # icon: mdi:volume-minus
+        # tap_action:
+          # action: call-service
+          # service: light.toggle
+          # service_data:
+            # entity_id: light.corner_lamp
+          # haptic: "light"
+      # - type: "custom:button-card"
+        # color_type: card
+        # color: rgb(223, 255, 97)
+        # icon: mdi:volume-minus
+        # tap_action:
+          # action: call-service
+          # service: light.toggle
+          # service_data:
+            # entity_id: light.corner_lamp
+          # haptic: "medium"
+      # - type: "custom:button-card"
+        # color_type: card
+        # color: rgb(223, 255, 97)
+        # icon: mdi:volume-minus
+        # tap_action:
+          # action: call-service
+          # service: light.toggle
+          # service_data:
+            # entity_id: light.corner_lamp
+          # haptic: "heavy"
+      # - type: "custom:button-card"
+        # color_type: card
+        # color: rgb(223, 255, 97)
+        # icon: mdi:volume-minus
+        # tap_action:
+          # action: call-service
+          # service: light.toggle
+          # service_data:
+            # entity_id: light.corner_lamp
+          # haptic: "selection"
       - type: entities
         id: den
         title: Den
@@ -523,6 +593,7 @@ views:
         name: HACS Updates
       - entity: sensor.shakuyi_status
         name: Xbox Status
+      - sensor.blue_iris_status
     cards:
       - type: horizontal-stack
         id: stats
@@ -709,6 +780,17 @@ views:
         entities:
         - entity: sensor.next_launch
           secondary_info: last-changed
+      - type: entities
+        id: danny_mi_band
+        title: Dannys Mi Band
+        show_header_toggle: false
+        entities:
+          - entity: input_boolean.danny_mi_band_sleep
+            secondary_info: last-changed
+          - entity: sensor.danny_mi_band_steps
+            secondary_info: last-changed
+          - entity: sensor.danny_mi_band_heart_rate
+            secondary_info: last-changed
       - type: conditional
         conditions:
           - entity: light.wled

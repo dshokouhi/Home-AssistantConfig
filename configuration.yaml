@@ -437,19 +437,8 @@ device_tracker:
   - platform: nmap_tracker
     consider_home: 60
     hosts:
-    - 192.168.1.172
-    - 192.168.1.173
+    - 192.168.1.222
     - 192.168.1.220
-
-remote:
- - platform: harmony
-   name: Harmony Hub Den
-   host: 192.168.1.9
-
-remote 1:
- - platform: harmony
-   name: Harmony Hub Bedroom
-   host: 192.168.1.21
 
 mqtt:
   broker: 192.168.1.47
@@ -1186,32 +1175,7 @@ namecheapdns:
   domain: !secret namecheap_site
   password: !secret namecheap_pw
 
-# zwave:
-  # usb_path: /dev/ttyACM0
-  # network_key: !secret zwave_network_key
-  # autoheal: false
-  # device_config:
-    # light.den_lights_level:
-      # refresh_value: true
-      # delay: 3
-    # light.kitchen_lights_level:
-      # refresh_value: true
-      # delay: 3
-    # light.living_room_lights_level:
-      # refresh_value: true
-      # delay: 3
-    # light.bedroom_lights_level:
-      # refresh_value: true
-      # delay: 3
-    # light.bathroom_lights:
-      # refresh_value: true
-      # delay: 3
-    # light.island_lights:
-      # refresh_value: true
-      # delay: 3
-
 zha:
-  #usb_path: /dev/zigbee
   database_path: /home/homeassistant/.homeassistant/zigbee.db
 
 emulated_hue:
@@ -1478,9 +1442,6 @@ shell_command:
   baby_motion_detected: curl -X POST http://192.168.1.47:3000/customBroadcast?text=baby+motion+detected&user=hass-broadcast
   cool_windows: curl -X POST http://192.168.1.47:3000/customBroadcast?text=its+getting+hot+close+the+following+windows+so+the+cooler+turns+on+{% if is_state('binary_sensor.bathroom_window', 'on') %}+bathroom+window{% endif %}{% if is_state('binary_sensor.bedroom_window', 'on') %}+bedroom+window{% endif %}{% if is_state('binary_sensor.den_window', 'on') %}+den+window{% endif %}{% if is_state('binary_sensor.kitchen_window', 'on') %}+kitchen+window{% endif %}{% if is_state('binary_sensor.living_room_left_bay_window', 'on') %}+living+room+left+bay+window{% endif %}{% if is_state('binary_sensor.living_room_right_bay_window', 'on') %}+living+room+right+bay+window{% endif %}{% if is_state('binary_sensor.living_room_side_window', 'on') %}+living+room+side+window{% endif %}{% if is_state('binary_sensor.ollies_window', 'on') %}+ollies+window{% endif %}&user=hass-broadcast
 
-rachio:
-  api_key: !secret rachiokey
-
 shopping_list:
 
 lovelace:
@@ -1491,6 +1452,8 @@ lovelace:
   - url: /local/community/weather-card/weather-card.js
     type: module
   - url: /local/ozw-network-visualization-card.js
+    type: module
+  - url: /local/community/button-card/button-card.js
     type: module
 
 image_processing:
@@ -1515,17 +1478,6 @@ image_processing:
       #graph: /home/homeassistant/.homeassistant/tensorflow_old/frozen_inference_graph.pb
       categories:
         - person
-
-  # - platform: tensorflow
-    # source:
-      # - entity_id: camera.den_camera
-      # - entity_id: camera.outdoor_camera
-    # scan_interval: 6048000
-    # file_out:
-      # - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_latest.jpg"
-     # - "/home/homeassistant/.homeassistant/snapshot/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
-    # model:
-      # graph: /home/homeassistant/.homeassistant/tensorflow/models/efficientdet_d2_coco17_tpu-32/
 
 speedtestdotnet:
   manual: true

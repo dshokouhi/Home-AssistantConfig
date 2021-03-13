@@ -3732,33 +3732,33 @@
     service: light.toggle
     entity_id: light.patio
 
-- alias: Open or Close Den Curtains
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.click
-    event_data:
-      entity_id: binary_sensor.patio_switch
-      click_type: double
-  action:
-    service_template: >
-        {% if is_state('cover.den_curtains', 'open') %}
-          cover.close_cover
-        {% elif is_state('cover.den_curtains', 'closed') %}
-          cover.open_cover
-        {% else %}
-        {% endif %}
-    entity_id: cover.den_curtains
+# - alias: Open or Close Den Curtains
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.click
+    # event_data:
+      # entity_id: binary_sensor.patio_switch
+      # click_type: double
+  # action:
+    # service_template: >
+        # {% if is_state('cover.den_curtains', 'open') %}
+          # cover.close_cover
+        # {% elif is_state('cover.den_curtains', 'closed') %}
+          # cover.open_cover
+        # {% else %}
+        # {% endif %}
+    # entity_id: cover.den_curtains
 
-- alias: Toggle Backyard Lights
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.click
-    event_data:
-      entity_id: binary_sensor.patio_switch
-      click_type: long_click_press
-  action:
-    service: switch.toggle
-    entity_id: switch.backyard_lights_switch
+# - alias: Toggle Backyard Lights
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.click
+    # event_data:
+      # entity_id: binary_sensor.patio_switch
+      # click_type: long_click_press
+  # action:
+    # service: switch.toggle
+    # entity_id: switch.backyard_lights_switch
 
 - alias: Toggle Ollies lamp
   trigger:
@@ -4695,7 +4695,7 @@
   trigger:
   - platform: numeric_state
     entity_id: counter.cat_litter_motion
-    above: 100
+    above: 99
   condition:
     condition: state
     entity_id: input_boolean.cat_litter_cleaned
@@ -5273,6 +5273,7 @@
         channel: Intents
 
 - alias: Save Danny Mi Band Steps
+  mode: queued
   trigger:
     platform: event
     event_type: android.intent_received
@@ -5285,6 +5286,7 @@
       value: "{{ trigger.event.data.value }}"
 
 - alias: Save Danny Mi Band Heart Rate
+  mode: queued
   trigger:
     platform: event
     event_type: android.intent_received
@@ -5297,6 +5299,7 @@
       value: "{{ trigger.event.data.value }}"
 
 - alias: Save Danny Mi Band Sleep
+  mode: queued
   trigger:
   - platform: event
     event_type: android.intent_received
