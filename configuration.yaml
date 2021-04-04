@@ -995,6 +995,8 @@ google_assistant:
     light.hallway_light:
       room: Hallway
     light.ollies_lights:
+      expose: false
+    light.ollies_lights_level:
       room: Ollies
     light.bathroom_night_light:
       room: "no group"
@@ -1168,7 +1170,11 @@ google_assistant:
     switch.wled_sync_send:
       expose: false
     light.ollies_lamp:
-      room: Ollie
+      expose: false
+    switch.harmony_hub_den_shield_tv:
+      expose: false
+    switch.harmony_hub_bedroom_bedroom_shield_tv:
+      expose: false
 
 namecheapdns:
   host: plex

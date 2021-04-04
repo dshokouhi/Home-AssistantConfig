@@ -390,7 +390,7 @@
      inside_outside_temp:
        friendly_name: Inside vs Outside Temperature
        value_template: >-
-         {% if states('sensor.thermostat_temperature') | int > states('sensor.shokabow_weather_temperature') | int %}
+         {% if states('sensor.thermostat_temperature') | int > state_attr('weather.kvny_daynight', 'temperature') | int %}
            True
          {% else %}
            False
@@ -606,3 +606,5 @@
    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
    duration:
      hours: 24
+
+ - platform: websocket_api

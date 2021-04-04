@@ -1007,7 +1007,7 @@
     state: 'Dad'
   action:
   - service: light.turn_on
-    entity_id: light.ollies_lights
+    entity_id: light.ollies_lights_level
   - service: notify.slack
     data:
       message: "The front door has been unlocked by dad"
@@ -1034,7 +1034,7 @@
     state: 'Zoo Keeper'
   action:
   - service: light.turn_on
-    entity_id: light.ollies_lights
+    entity_id: light.ollies_lights_level
   - service: notify.slack
     data:
       message: "The front door has been unlocked by zoo keeper"
@@ -1092,7 +1092,7 @@
     to: 'triggered'
   action:
   - service: light.turn_on
-    entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.bedroom_lights_level, light.ollies_lights
+    entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.bedroom_lights_level, light.ollies_lights_level
   - service: notify.slack
     data_template:
       message: "The alarm has been triggered since it was not disarmed for 60 seconds 👮‍♀ , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
@@ -1284,7 +1284,7 @@
 - alias: Ollies Lights On
   trigger:
     platform: state
-    entity_id: light.ollies_lights
+    entity_id: light.ollies_lights_level
     to: 'on'
     for:
       seconds: 15
@@ -1315,14 +1315,14 @@
     data:
       brightness_pct: 100
   - service: light.turn_on
-    entity_id: light.ollies_lights
+    entity_id: light.ollies_lights_level
     data:
       brightness_pct: 100
 
 - alias: Ollies Lights Off
   trigger:
     platform: state
-    entity_id: light.ollies_lights
+    entity_id: light.ollies_lights_level
     to: 'off'
   action:
   - service: light.turn_off
@@ -1341,7 +1341,7 @@
     to: 'on'
   condition:
     condition: state
-    entity_id: light.ollies_lights
+    entity_id: light.ollies_lights_level
     state: 'off'
   action:
     service: light.turn_off
@@ -1869,7 +1869,7 @@
              switch.turn_off
            {% else %}
            {% endif %}
-    entity_id: switch.garage_lights_switch
+    entity_id: switch.garage_switch
 
 - alias: Turn on garage lights from backyard
   trigger:
@@ -1878,7 +1878,7 @@
     to: 'on'
   action:
     service: switch.turn_on
-    entity_id: switch.garage_lights_switch
+    entity_id: switch.garage_switch
 
 - alias: Turn off garage lights from backyard
   trigger:
@@ -1891,7 +1891,7 @@
     state: 'off'
   action:
   - service: switch.turn_off
-    entity_id: switch.garage_lights_switch
+    entity_id: switch.garage_switch
 
 - alias: Turn off garage lights if backyard left open for 15 minutes
   trigger:
@@ -1901,7 +1901,7 @@
     for:
       minutes: 15
   - platform: state
-    entity_id: switch.garage_lights_switch
+    entity_id: switch.garage_switch
     to: 'on'
     for:
       minutes: 15
@@ -1912,7 +1912,7 @@
   action:
   - wait_template: "{{ states.binary_sensor.garage_motion_sensor.state == 'off' }}"
   - service: switch.turn_off
-    entity_id: switch.garage_lights_switch
+    entity_id: switch.garage_switch
 
 - alias: Turn on bathroom lights when door opens
   trigger:
@@ -2882,7 +2882,7 @@
     state: 'off'
   - service: notify.discord
     data_template:
-      message: "Please open a window and turn off the thermostat 🌡 .  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ states('sensor.shokabow_weather_temperature') }} {{ state_attr('sensor.shokabow_weather_temperature', 'unit_of_measurement') }} outside."
+      message: "Please open a window and turn off the thermostat 🌡 .  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ state_attr('weather.kvny_daynight', 'temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} outside."
       target:
       - !secret discord_house
 
@@ -2926,7 +2926,7 @@
       brightness_pct: 100
       kelvin: 6500
   - service: light.turn_off
-    entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio, light.living_room_lights_level, light.ollies_lights, light.bedroom_lights_level, light.island_lights
+    entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio, light.living_room_lights_level, light.ollies_lights_level, light.bedroom_lights_level, light.island_lights
   - service: script.turn_on
     entity_id: script.update_lights_dynamic
   - condition: state
@@ -3524,7 +3524,7 @@
       entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
-      entity_id: light.ollies_lights
+      entity_id: light.ollies_lights_level
       state: 'on'
     - condition: state
       entity_id: binary_sensor.ollies_closet_door
@@ -3543,7 +3543,7 @@
       state: 'off'
   action:
     service: light.turn_off
-    entity_id: light.ollies_lights
+    entity_id: light.ollies_lights_level
     
 - alias: Turn on Ollies lights when motion
   trigger:
@@ -3557,7 +3557,7 @@
       entity_id: alarm_control_panel.home
       state: disarmed
     - condition: state
-      entity_id: light.ollies_lights
+      entity_id: light.ollies_lights_level
       state: 'off'
     - condition: state
       entity_id: group.tracked_users
@@ -3567,7 +3567,7 @@
       state: 'off'
   action:
     service: light.turn_on
-    entity_id: light.ollies_lights
+    entity_id: light.ollies_lights_level
 
 - alias: Hallway light motion at night
   trigger:
@@ -4924,7 +4924,7 @@
         light.turn_on
       {% else %}
       {% endif %}
-    entity_id: light.ollies_lights, light.hallway_light
+    entity_id: light.ollies_lights_level, light.hallway_light
   - service_template: >-
       {% if trigger.to_state.state == 'on' %}
         switch.turn_off
@@ -5196,32 +5196,63 @@
     service: switch.turn_off
     entity_id: switch.ollies_humidifier
 
+- alias: Ollies curtains
+  trigger:
+  - platform: state
+    entity_id: input_boolean.baby_sleeping
+  - event: sunset
+    platform: sun
+  condition:
+    condition: template
+    value_template: "{{ (is_state('cover.ollies_curtains', 'open')) or (is_state('input_boolean.baby_sleeping', 'off') and is_state('cover.ollies_curtains', 'closed') and is_state('sun.sun', 'above_horizon')) }}"
+  action:
+  - service: >
+        {% if trigger.entity_id == 'input_boolean.baby_sleeping' %}
+          {% if trigger.to_state.state == 'on' %}
+            {% if is_state('cover.ollies_curtains', 'open') %}
+              cover.close_cover
+            {% else %}
+            {% endif %}
+          {% else %}
+            {% if is_state('sun.sun', 'above_horizon') %}
+              cover.open_cover
+            {% else %}
+            {% endif %}
+          {% endif %}
+        {% else %}
+          {% if is_state('cover.ollies_curtains', 'open') %}
+            cover.close_cover
+          {% else %}
+          {% endif %}
+        {% endif %}
+    entity_id: cover.ollies_curtains
+
 ################################################
 #
 #      Weight Sensor Automations
 #
 ################################################
 
-- alias: Weight Sensor
-  trigger:
-    platform: numeric_state
-    entity_id: sensor.hx711_value
-    above: 2
-  condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: sun.sun
-      state: below_horizon
-    - condition: state
-      entity_id: alarm_control_panel.home
-      state: disarmed
-  action:
-  - service: light.turn_on
-    entity_id: light.bookshelf_left
-  - wait_template: "{{ states('sensor.hx711_value') | int < 2 }}"
-  - service: light.turn_off
-    entity_id: light.bookshelf_left
+# - alias: Weight Sensor
+  # trigger:
+    # platform: numeric_state
+    # entity_id: sensor.hx711_value
+    # above: 2
+  # condition:
+    # condition: and
+    # conditions:
+    # - condition: state
+      # entity_id: sun.sun
+      # state: below_horizon
+    # - condition: state
+      # entity_id: alarm_control_panel.home
+      # state: disarmed
+  # action:
+  # - service: light.turn_on
+    # entity_id: light.bookshelf_left
+  # - wait_template: "{{ states('sensor.hx711_value') | int < 2 }}"
+  # - service: light.turn_off
+    # entity_id: light.bookshelf_left
 
 ################################################
 #

@@ -109,6 +109,7 @@ views:
             - entity_id: input_number.pool_temp
             - entity_id: sensor.den_pi_cpu_thermal_1_temperature
             - entity_id: sensor.pi_hole_cpu_thermal_1_temperature
+            - entity_id: "*battery_temperature*"
         show_empty: false
       - type: entity-filter
         id: people
@@ -448,7 +449,7 @@ views:
         entities:
           - entity: switch.backyard_lights_switch
             state_color: true
-          - entity: switch.garage_lights_switch
+          - entity: switch.garage_switch
             state_color: true
           - entity: binary_sensor.garage_motion_sensor
             name: Garage Motion
@@ -552,6 +553,8 @@ views:
           - entity: light.office_closet
             name: Ollies Closet
           - cover.ollies_curtains
+          - entity: binary_sensor.ollies_door
+            secondary_info: last-changed
           - entity: switch.ollies_fan
             state_color: true
           - entity: switch.ollies_heater
@@ -562,6 +565,7 @@ views:
             state_color: true
           - entity: light.ollies_lamp
           - entity: light.ollies_lights
+          - entity: light.ollies_lights_level
           - entity: binary_sensor.ollies_motion
             secondary_info: last-changed
             state_color: true
@@ -1248,7 +1252,7 @@ views:
             - entity_id: switch.backyard_lights_switch
             - entity_id: switch.catio_siren
             - entity_id: switch.christmas_tree_switch
-            - entity_id: switch.garage_lights_switch
+            - entity_id: switch.garage_switch
             - entity_id: switch.little_christmas_trees_switch
             - entity_id: switch.ring_side_gate_siren
             - entity_id: switch.side_gate_siren
