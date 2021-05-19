@@ -144,21 +144,21 @@
           data:
             entity_id: input_boolean.ollies_heater
 
-     ollies_humidifier:
-       friendly_name: Ollies Humidifier
-       value_template: "{% if is_state('input_boolean.ollies_humidifier', 'on') %}on{% else %}off{% endif %}"
+     bedroom_humidifier:
+       friendly_name: Bedroom Humidifier
+       value_template: "{% if is_state('input_boolean.bedroom_humidifier', 'on') %}on{% else %}off{% endif %}"
        turn_on:
         - service: script.turn_on
-          entity_id: script.ollies_humidifier
+          entity_id: script.bedroom_humidifier
         - service: input_boolean.turn_on
           data:
-            entity_id: input_boolean.ollies_humidifier
+            entity_id: input_boolean.bedroom_humidifier
        turn_off:
         - service: script.turn_on
-          entity_id: script.ollies_humidifier
+          entity_id: script.bedroom_humidifier
         - service: input_boolean.turn_off
           data:
-            entity_id: input_boolean.ollies_humidifier
+            entity_id: input_boolean.bedroom_humidifier
 
  - platform: template
    switches:

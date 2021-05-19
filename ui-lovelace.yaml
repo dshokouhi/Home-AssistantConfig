@@ -110,6 +110,8 @@ views:
             - entity_id: sensor.den_pi_cpu_thermal_1_temperature
             - entity_id: sensor.pi_hole_cpu_thermal_1_temperature
             - entity_id: "*battery_temperature*"
+            - entity_id: sensor.pi_hole_cpu_thermal_1_temperature_2
+            - entity_id: sensor.den_pi_cpu_thermal_1_temperature_2
         show_empty: false
       - type: entity-filter
         id: people
@@ -560,7 +562,7 @@ views:
           - entity: switch.ollies_heater
             secondary_info: last-changed
             state_color: true
-          - entity: switch.ollies_humidifier
+          - entity: switch.ollies_humidifier_switch
             secondary_info: last-changed
             state_color: true
           - entity: light.ollies_lamp

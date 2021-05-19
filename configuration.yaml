@@ -411,6 +411,7 @@ recorder:
     - binary_sensor.kitchen_audio_detected
     - binary_sensor.living_room_camera_audio_detected
     - binary_sensor.baby_monitor_audio_detected
+    - sensor.obihai_obitalk_service_status
 
 sun:
 
@@ -560,11 +561,11 @@ amcrest:
    - motion_detected
    - audio_detected
 
- - host: 192.168.1.36
-   port: 1027
-   username: !secret amcrest_user
-   password: !secret boogie1
-   name: "Outdoor Camera"
+ # - host: 192.168.1.36
+   # port: 1027
+   # username: !secret amcrest_user
+   # password: !secret boogie1
+   # name: "Outdoor Camera"
 
  - host: 192.168.1.97
    port: 1028
@@ -1373,26 +1374,26 @@ zoneminder:
 influxdb:
   max_retries: 10
   
-fan:
-  - platform: xiaomi_miio
-    name: Den Air Purifier
-    host: 192.168.1.64
-    token: !secret den_purifier_token
+# fan:
+  # - platform: xiaomi_miio
+    # name: Den Air Purifier
+    # host: 192.168.1.64
+    # token: !secret den_purifier_token
     
-  - platform: xiaomi_miio
-    name: Bedroom Air Purifier
-    host: 192.168.1.62
-    token: !secret bedroom_purifier_token
+  # - platform: xiaomi_miio
+    # name: Bedroom Air Purifier
+    # host: 192.168.1.62
+    # token: !secret bedroom_purifier_token
     
-  - platform: xiaomi_miio
-    name: Living Room Air Purifier
-    host: 192.168.1.63
-    token: !secret lr_purifier_token
+  # - platform: xiaomi_miio
+    # name: Living Room Air Purifier
+    # host: 192.168.1.63
+    # token: !secret lr_purifier_token
     
-  - platform: xiaomi_miio
-    name: Ollies Air Purifier
-    host: 192.168.1.51
-    token: !secret ollies_purifier_token
+  # - platform: xiaomi_miio
+    # name: Ollies Air Purifier
+    # host: 192.168.1.51
+    # token: !secret ollies_purifier_token
     
 sabnzbd:
   host: 192.168.1.24

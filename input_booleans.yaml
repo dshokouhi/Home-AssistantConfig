@@ -100,8 +100,8 @@ ollies_heater:
   name: Ollies Heater
   icon: mdi:radiator
 
-ollies_humidifier:
-  name: Ollies Humidifier
+bedroom_humidifier:
+  name: Bedroom Humidifier
   icon: mdi:air-humidifier
 
 danny_sleep:
