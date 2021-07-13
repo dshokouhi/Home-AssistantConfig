@@ -243,7 +243,7 @@ http:
    ssl_key: !secret sslkey
 
 updater:
-  include_used_components: true
+  #include_used_components: true
 
 discovery:
   ignore:
@@ -1486,8 +1486,8 @@ image_processing:
       categories:
         - person
 
-speedtestdotnet:
-  manual: true
+# speedtestdotnet:
+  # manual: true
 
 weather:
   - platform: darksky
@@ -1506,8 +1506,8 @@ climate:
     name: Sous vide
     modes:
       - disconnected
-      - stopped
-      - running
+      - "off"
+      - heat
     current_temperature_topic: anova/status
     current_temperature_template: "{{ value_json.current_temp }}"
     temperature_state_topic: anova/status
@@ -1516,6 +1516,8 @@ climate:
     mode_state_template: "{{ value_json.state }}"
     mode_command_topic: anova/command/run
     temperature_command_topic: anova/command/temp
+    send_if_off: true
+    temp_step: 0.5
     min_temp: 77
     max_temp: 210
     precision: 0.1
@@ -1530,34 +1532,34 @@ octoprint:
 hacs:
   token: !secret github_api
 
-pi_hole:
- - host: 192.168.1.47
+# pi_hole:
+ # - host: 192.168.1.47
 
 ombi:
   host: 192.168.1.107
   username: !secret ombi_username
   api_key: !secret ombi_api
 
-glances:
- - host: 192.168.1.24
-   name: Tosh W10
-   version: 3
+# glances:
+ # - host: 192.168.1.24
+   # name: Tosh W10
+   # version: 3
 
- - host: 192.168.1.107
-   name: Blue Iris
-   version: 3
+ # - host: 192.168.1.107
+   # name: Blue Iris
+   # version: 3
 
- - host: 192.168.1.60
-   name: Media Server
-   version: 3
+ # - host: 192.168.1.60
+   # name: Media Server
+   # version: 3
 
- - host: 192.168.1.91
-   name: Den Pi
-   version: 2
+ # - host: 192.168.1.91
+   # name: Den Pi
+   # version: 2
 
- - host: 192.168.1.47
-   name: Pi Hole
-   version: 2
+ # - host: 192.168.1.47
+   # name: Pi Hole
+   # version: 2
 
 rest_command:
   assistant_broadcast:

@@ -553,8 +553,14 @@
  - platform: mqtt
    name: Sous Vide Timer
    state_topic: anova/timer
-   value_template: "{{ (((value_json.timer | int) * 60) - 3600) | timestamp_custom('%H:%M') }}"
+   value_template: "{{ (value_json.timer | int) }}"
    icon: 'mdi:timer-outline'
+
+ - platform: mqtt
+   name: Octoprint Progress
+   state_topic: "octoPrint/progress/printing"
+   value_template: "{{ value_json.progress }}"
+   unit_of_measurement: '%'
 
  - platform: weatheralerts
    state: CA

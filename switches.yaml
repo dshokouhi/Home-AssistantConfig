@@ -238,10 +238,10 @@
    name: Sous Vide Timer
    state_topic: anova/timer
    command_topic: anova/command/timer_run
-   payload_on: 'running'
-   payload_off: 'stopped'
-   state_on: 'running'
-   state_off: 'stopped'
+   payload_on: 'heat'
+   payload_off: 'off'
+   state_on: 'heat'
+   state_off: 'off'
    optimistic: false
    retain: true
    value_template: "{{ value_json.timer_state }}"

@@ -275,7 +275,6 @@ views:
         entities:
           - light.bar_flex
           - light.cabinet_lights
-          - light.counter_lights
           - entity: light.island_lights
             state_color: true
           - entity: binary_sensor.kitchen_audio_detected
@@ -578,6 +577,59 @@ views:
             state_color: true
           - entity: switch.ollies_tv
             state_color: true
+  - title: Aquariums
+    path: aquariums
+    icon: mdi:fish
+    cards:
+      # - type: entities
+        # id: aquarium-1g
+        # title: Aquarium 1G
+        # show_header_toggle: false
+        # state_color: true
+        # entities:
+          # - entity: sensor.aquarium_1g_temp
+      - type: entities
+        id: aquarium-10g
+        title: Aquarium 10G
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: light.aquarium_light
+            name: Aquarium Light 10G
+          - entity: sensor.aquarium_temperature
+            secondary_info: last-changed
+      - type: entities
+        id: aquarium-20g
+        title: Aquarium 20G
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: switch.aquarium_20g_light
+          - entity: sensor.aquarium_20g_temp
+            secondary_info: last-changed
+      - type: entities
+        id: aquarium-55g
+        title: Aquarium 55G
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: light.aquarium_light_55g
+          - entity: sensor.50g_aquarium_temp
+            secondary_info: last-changed
+          - entity: switch.aquarium_55g_bubble_light
+          - entity: switch.aquarium_55g_strip_plug_2
+          - entity: switch.aquarium_55g_strip_plug_3
+      - type: entities
+        id: shrimp-aquarium
+        title: Shrimp Aquarium
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: sensor.shrimp_aquarium_temp
+            secondary_info: last-changed
+          - entity: switch.shrimp_aquarium_light
+          - entity: switch.shrimp_aquarium_plug_1
+          - entity: switch.shrimp_aquarium_plug_2
   - title: Services
     path: services
     icon: mdi:home-circle
@@ -895,8 +947,6 @@ views:
     cards:
       - type: picture-entity
         entity: camera.baby_monitor
-      - type: picture-entity
-        entity: camera.catio
       - type: picture-entity
         entity: camera.den_backyard
       - type: picture-entity
@@ -1252,7 +1302,6 @@ views:
           include:
             - domain: light
             - entity_id: switch.backyard_lights_switch
-            - entity_id: switch.catio_siren
             - entity_id: switch.christmas_tree_switch
             - entity_id: switch.garage_switch
             - entity_id: switch.little_christmas_trees_switch

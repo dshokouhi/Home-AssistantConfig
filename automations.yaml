@@ -1006,8 +1006,6 @@
     entity_id: sensor.front_door_code
     state: 'Dad'
   action:
-  - service: light.turn_on
-    entity_id: light.ollies_lights_level
   - service: notify.slack
     data:
       message: "The front door has been unlocked by dad"
@@ -1033,14 +1031,33 @@
     entity_id: sensor.front_door_code
     state: 'Zoo Keeper'
   action:
-  - service: light.turn_on
-    entity_id: light.ollies_lights_level
   - service: notify.slack
     data:
       message: "The front door has been unlocked by zoo keeper"
   - service: notify.discord
     data_template:
       message: "The front door has been unlocked by zoo keeper"
+      target:
+      - !secret discord_alarm
+
+- alias: Izzy Unlock
+  trigger:
+  - platform: state
+    entity_id: sensor.front_door_lock_alarm_type
+    to: '6'
+    for:
+      seconds: 2
+  condition:
+    condition: state
+    entity_id: sensor.front_door_code
+    state: 'Izzy'
+  action:
+  - service: notify.slack
+    data:
+      message: "The front door has been unlocked by Izzy"
+  - service: notify.discord
+    data_template:
+      message: "The front door has been unlocked by Izzy"
       target:
       - !secret discord_alarm
 
@@ -4106,6 +4123,8 @@
   - service: light.turn_off
     entity_id: light.kitchen_lights_level
   - delay: '00:{{ range(10,59) | random | int }}:{{ range(20,59) | random | int }}'
+  - service: script.turn_on
+    entity_id: script.update_lights_dynamic
   - condition: state
     entity_id: alarm_control_panel.home
     state: 'armed_away'
@@ -4117,7 +4136,9 @@
     state: 'armed_away'
   - service: light.turn_off
     entity_id: light.bedroom_lights_level
-    
+  - service: script.turn_on
+    entity_id: script.update_lights_dynamic
+
 ################################################
 #
 #      Fan Automations
@@ -4681,6 +4702,8 @@
         ttl: 0
         priority: high
         tag: cat-litter
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.cat_litter_notifying
   - service_template: >-
             {% if is_state('input_boolean.cat_litter_cleaned', 'off') %}
               input_boolean.turn_on
@@ -4723,12 +4746,48 @@
         group: cat-litter
         persistent: true
         sticky: true
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.cat_litter_notifying
   - service: notify.discord
     data_template:
       message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
       target:
       - !secret discord_house
 
+- alias: Update cat litter notification based on alarm
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.home
+    to: disarmed
+  - platform: time_pattern
+    minutes: 20
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.cat_litter_notifying
+      state: 'on'
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
+    - condition: state
+      entity_id: sun.sun
+      state: 'above_horizon'
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: 'off'
+  action:
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data:
+      message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
+      data:
+        ttl: 0
+        priority: high
+        channel: "Cat Litter"
+        tag: cat-litter
+        group: cat-litter
+        persistent: true
+        sticky: true
 ################################################
 #
 #      Cube Automations
@@ -4887,7 +4946,7 @@
   trigger:
     platform: state
     entity_id: climate.sous_vide
-    to: 'running'
+    to: 'heat'
   condition:
     condition: template
     value_template: "{{ state_attr('climate.sous_vide', 'current_temperature') | int != state_attr('climate.sous_vide', 'temperature') | int }}"
@@ -4896,7 +4955,7 @@
   - wait_template: "{{ state_attr('climate.sous_vide', 'current_temperature') | int == state_attr('climate.sous_vide', 'temperature') | int }}"
   - delay: "00:00:05"
   - condition: template
-    value_template: "{{ (state_attr('climate.sous_vide', 'current_temperature') | int == state_attr('climate.sous_vide', 'temperature') | int) and (is_state('climate.sous_vide', 'running')) }}"
+    value_template: "{{ (state_attr('climate.sous_vide', 'current_temperature') | int == state_attr('climate.sous_vide', 'temperature') | int) and (is_state('climate.sous_vide', 'heat')) }}"
   - service: notify.discord
     data_template:
       message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }} 🍳 "
@@ -4961,13 +5020,11 @@
         {% else %}
         {% endif %}
 
-- alias: Announce baby motion while sleeping
+- alias: Announce ollies door is open while he is sleeping
   trigger:
     platform: state
-    entity_id: binary_sensor.baby_monitor_motion_detected
+    entity_id: binary_sensor.ollies_door
     to: 'on'
-    for:
-      seconds: 45
   condition:
     condition: and
     conditions:
@@ -4976,12 +5033,14 @@
       state: 'on'
     - condition: state
       entity_id: binary_sensor.ollies_door
-      state: 'off'
+      state: 'on'
   action:
-  - service: shell_command.baby_motion_detected
+  - service: rest_command.assistant_broadcast
+    data_template:
+      command: "Ollies door is open"
   - service: notify.discord
     data_template:
-      message: "Baby motion detected 👶"
+      message: Ollies door is open 👶
       target:
       - !secret discord_house
 
@@ -5353,11 +5412,18 @@
     service: >-
         {% if trigger.event.data.intent == 'com.mc.miband.tasker.wokeUp' %}
           input_boolean.turn_off
-        {% else %}
+        {% elif trigger.event.data.intent == 'com.mc.miband.tasker.fellAsleep' %}
           input_boolean.turn_on
+        {% else %}
         {% endif %}
     data:
-      entity_id: input_boolean.danny_mi_band_sleep
+      entity_id: >-
+        {% if trigger.event.context.user_id == '8290db6a0fc449a491470c631e1e5d77' %}
+          input_boolean.danny_mi_band_sleep
+        {% elif trigger.event.context.user_id == '0a800877081d4593b2a5f8e0ecca7c54' %}
+          input_boolean.tosh_mi_band_sleep
+        {% else %}
+        {% endif %}
 
 - alias: Phone alarm
   trigger:
@@ -5377,17 +5443,140 @@
 #
 ################################################
 
-- alias: Aquarium Lights With Sunrise
+- alias: Aquarium Lights Morning
   trigger:
-  - platform: sun
-    event: sunrise
-  - platform: sun
-    event: sunset
+  - platform: time
+    at: "08:00:00"
+  action:
+  - service: light.turn_on
+    entity_id: light.aquarium_light, light.aquarium_light_55g
+  - service: switch.turn_on
+    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light
+
+- alias: Aquarium Lights Night
+  trigger:
+  - platform: time
+    at: "18:00:00"
+  action:
+  - service: light.turn_off
+    entity_id: light.aquarium_light, light.aquarium_light_55g
+  - service: switch.turn_off
+    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light
+
+- alias: Feed fish
+  trigger:
+    platform: state
+    entity_id: input_number.stepper_control
+  action:
+  - service: esphome.stepper_control_stepper
+    data_template:
+      target: "{{ trigger.to_state.state | int }}"
+
+- alias: Aquarium 55G Bubble Light On
+  trigger:
+  - platform: time
+    at: "19:00:00"
+  action:
+  - service: switch.turn_on
+    entity_id: switch.aquarium_55g_bubble_light
+
+- alias: Aquarium 55G Bubble Light Off
+  trigger:
+  - platform: time
+    at: "23:00:00"
+  action:
+  - service: switch.turn_off
+    entity_id: switch.aquarium_55g_bubble_light
+
+- alias: Aquarium lights in ollies room
+  trigger:
+  - platform: state
+    entity_id: sun.sun
+  - platform: state
+    entity_id: input_boolean.baby_sleeping
   action:
   - service: >-
-         {% if trigger.event == 'sunrise' %}
-           light.turn_on
-         {% else %}
-           light.turn_off
-         {% endif %}
-    entity_id: light.aquarium_light
+      {% if is_state('sun.sun', 'above_horizon') and is_state('input_boolean.baby_sleeping', 'off') %}
+        switch.turn_on
+      {% else %}
+        switch.turn_off
+      {% endif %}
+    entity_id: switch.aquarium_1g_light
+
+- alias: Notify aquarium temperature
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp
+    above: 81
+  - platform: numeric_state
+    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp
+    below: 75
+  action:
+  - service: notify.android
+    data_template:
+      message: "{{ trigger.to_state.name }} is at {{ trigger.to_state.state }} {{ trigger.to_state.attributes.unit_of_measurement }} check the heater or fan"
+      data:
+        ttl: 0
+        priority: high
+        group: aquarium
+        channel: Aquarium
+################################################
+#
+#      3D Printer Automations
+#
+################################################
+
+- alias: Turn off printer when it finishes and alarm is on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.octoprint_printing
+    to: 'off'
+  condition:
+    condition: not
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'disarmed'
+  action:
+  - wait_template: "{{ states('sensor.octoprint_actual_tool0_temp') | int < 120 }}"
+  - service: light.turn_off
+    entity_id: light.3d_printer
+
+- alias: Notify print is ready to come off the bed
+  trigger:
+    platform: state
+    entity_id: binary_sensor.octoprint_printing
+    to: 'off'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.home
+    state: 'disarmed'
+  action:
+  - wait_template: "{{ states('sensor.octoprint_actual_bed_temp') | int < 100 }}"
+  - condition: state
+    entity_id: alarm_control_panel.home
+    state: 'disarmed'
+  - service: notify.mobile_app_dannys_pixel_4_xl
+    data:
+      message: Print is ready to come off the bed. Would you like to turn off the printer?
+      data:
+        ttl: 0
+        priority: high
+        tag: printer
+        channel: Printer
+        group: printer
+        actions:
+        - action: "PRINTER_OFF"
+          title: "Turn off"
+        - action: "PRINTER_ON"
+          title: "Leave on"
+
+- alias: Turn off printer from notification
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: PRINTER_OFF
+  action:
+  - service: light.turn_off
+    entity_id: light.3d_printer

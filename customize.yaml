@@ -163,9 +163,6 @@ switch.sprinklers_in_standby_mode:
   
 light.corner_lamp:
   icon: mdi:lamp
-
-light.counter_lights:
-  icon: mdi:fridge
   
 switch.house_fan:
   icon: mdi:fan
