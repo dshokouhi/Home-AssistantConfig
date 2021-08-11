@@ -590,7 +590,7 @@ views:
           # - entity: sensor.aquarium_1g_temp
       - type: entities
         id: aquarium-10g
-        title: Aquarium 10G
+        title: Puffers (10G)
         show_header_toggle: false
         state_color: true
         entities:
@@ -600,7 +600,7 @@ views:
             secondary_info: last-changed
       - type: entities
         id: aquarium-20g
-        title: Aquarium 20G
+        title: Guppy (20G)
         show_header_toggle: false
         state_color: true
         entities:
@@ -608,8 +608,17 @@ views:
           - entity: sensor.aquarium_20g_temp
             secondary_info: last-changed
       - type: entities
+        id: aquarium-50g
+        title: Angelfish (50G)
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: switch.aquarium_50g_light
+          - entity: sensor.aquarium_50g_temperature
+            secondary_info: last-changed
+      - type: entities
         id: aquarium-55g
-        title: Aquarium 55G
+        title: Gourami (55G)
         show_header_toggle: false
         state_color: true
         entities:
@@ -617,19 +626,17 @@ views:
           - entity: sensor.50g_aquarium_temp
             secondary_info: last-changed
           - entity: switch.aquarium_55g_bubble_light
-          - entity: switch.aquarium_55g_strip_plug_2
-          - entity: switch.aquarium_55g_strip_plug_3
+          - entity: switch.aquarium_55g_scentsy
       - type: entities
         id: shrimp-aquarium
         title: Shrimp Aquarium
         show_header_toggle: false
         state_color: true
         entities:
+          - entity: switch.shrimp_aquarium_light
           - entity: sensor.shrimp_aquarium_temp
             secondary_info: last-changed
-          - entity: switch.shrimp_aquarium_light
           - entity: switch.shrimp_aquarium_plug_1
-          - entity: switch.shrimp_aquarium_plug_2
   - title: Services
     path: services
     icon: mdi:home-circle

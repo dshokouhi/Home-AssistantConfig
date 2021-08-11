@@ -4746,6 +4746,7 @@
         group: cat-litter
         persistent: true
         sticky: true
+        alert_once: true
   - service: input_boolean.turn_on
     entity_id: input_boolean.cat_litter_notifying
   - service: notify.discord
@@ -4788,6 +4789,7 @@
         group: cat-litter
         persistent: true
         sticky: true
+        alert_once: true
 ################################################
 #
 #      Cube Automations
@@ -5035,9 +5037,10 @@
       entity_id: binary_sensor.ollies_door
       state: 'on'
   action:
-  - service: rest_command.assistant_broadcast
-    data_template:
-      command: "Ollies door is open"
+  - service: tts.google_say
+    entity_id: media_player.kitchen_home, media_player.den_home_hub, media_player.bedroom_display, media_player.bathroom_home
+    data:
+      message: "Ollies door is open"
   - service: notify.discord
     data_template:
       message: Ollies door is open 👶
@@ -5451,7 +5454,7 @@
   - service: light.turn_on
     entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_on
-    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light
+    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light
 
 - alias: Aquarium Lights Night
   trigger:
@@ -5461,7 +5464,7 @@
   - service: light.turn_off
     entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_off
-    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light
+    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light
 
 - alias: Feed fish
   trigger:
@@ -5506,10 +5509,10 @@
 - alias: Notify aquarium temperature
   trigger:
   - platform: numeric_state
-    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp
+    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature
     above: 81
   - platform: numeric_state
-    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp
+    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature
     below: 75
   action:
   - service: notify.android

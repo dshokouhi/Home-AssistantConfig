@@ -470,9 +470,6 @@ binary_sensor: !include binary_sensors.yaml
 sensor: !include sensors.yaml
 
 media_player:
- - platform: braviatv
-   host: 192.168.1.29
-
  - platform: onkyo
    host: 192.168.1.27
    name: Onkyo Den
@@ -568,7 +565,7 @@ amcrest:
    # name: "Outdoor Camera"
 
  - host: 192.168.1.97
-   port: 1028
+  # port: 1028
    username: !secret amcrest_user
    password: !secret amcrest_pass
    name: "Baby Monitor"
@@ -1373,27 +1370,6 @@ zoneminder:
  
 influxdb:
   max_retries: 10
-  
-# fan:
-  # - platform: xiaomi_miio
-    # name: Den Air Purifier
-    # host: 192.168.1.64
-    # token: !secret den_purifier_token
-    
-  # - platform: xiaomi_miio
-    # name: Bedroom Air Purifier
-    # host: 192.168.1.62
-    # token: !secret bedroom_purifier_token
-    
-  # - platform: xiaomi_miio
-    # name: Living Room Air Purifier
-    # host: 192.168.1.63
-    # token: !secret lr_purifier_token
-    
-  # - platform: xiaomi_miio
-    # name: Ollies Air Purifier
-    # host: 192.168.1.51
-    # token: !secret ollies_purifier_token
     
 sabnzbd:
   host: 192.168.1.24
@@ -1486,9 +1462,6 @@ image_processing:
       categories:
         - person
 
-# speedtestdotnet:
-  # manual: true
-
 weather:
   - platform: darksky
     api_key: !secret darksky_api
@@ -1532,34 +1505,10 @@ octoprint:
 hacs:
   token: !secret github_api
 
-# pi_hole:
- # - host: 192.168.1.47
-
 ombi:
   host: 192.168.1.107
   username: !secret ombi_username
   api_key: !secret ombi_api
-
-# glances:
- # - host: 192.168.1.24
-   # name: Tosh W10
-   # version: 3
-
- # - host: 192.168.1.107
-   # name: Blue Iris
-   # version: 3
-
- # - host: 192.168.1.60
-   # name: Media Server
-   # version: 3
-
- # - host: 192.168.1.91
-   # name: Den Pi
-   # version: 2
-
- # - host: 192.168.1.47
-   # name: Pi Hole
-   # version: 2
 
 rest_command:
   assistant_broadcast:
