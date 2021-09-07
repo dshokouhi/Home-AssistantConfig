@@ -190,10 +190,10 @@
    payload_off: 'off'
    device_class: motion
 
- - platform: bloomsky
-   monitored_conditions:
-     - Night
-     - Rain
+ # - platform: bloomsky
+   # monitored_conditions:
+     # - Night
+     # - Rain
 
  - platform: mqtt
    name: ozw_network_status

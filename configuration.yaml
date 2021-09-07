@@ -431,8 +431,8 @@ group: !include groups.yaml
 ifttt:
    key: !secret ifttt
 
-bloomsky:
-   api_key: !secret bloomsky
+# bloomsky:
+   # api_key: !secret bloomsky
 
 device_tracker:
   - platform: nmap_tracker
@@ -513,23 +513,23 @@ media_player:
      com.plexapp.android: "Plex"
      ar.tvplayer.tv: "TiviMate"
 
- - platform: androidtv
-   host: 192.168.1.182
-   name: Kitchen Fire Stick
-   adb_server_ip: localhost
-   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
+ # - platform: androidtv
+   # host: 192.168.1.182
+   # name: Kitchen Fire Stick
+   # adb_server_ip: localhost
+   # adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
 
- - platform: androidtv
-   host: 192.168.1.18
-   name: Ollies Fire Stick
-   adb_server_ip: localhost
-   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
+ # - platform: androidtv
+   # host: 192.168.1.18
+   # name: Ollies Fire Stick
+   # adb_server_ip: localhost
+   # adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
 
- - platform: androidtv
-   host: 192.168.1.44
-   name: Outdoor Fire Stick
-   adb_server_ip: localhost
-   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
+ # - platform: androidtv
+   # host: 192.168.1.44
+   # name: Outdoor Fire Stick
+   # adb_server_ip: localhost
+   # adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
 
 spotify:
   client_id: !secret spotify_client_id_danny
@@ -676,38 +676,38 @@ camera:
    name: Ferret Cage
    input: -rtsp_transport tcp -i rtsp://192.168.1.33/ch0_0.h264
 
- - platform: bloomsky
+ #- platform: bloomsky
 
 notify:
- - platform: nfandroidtv
-   name: Den
-   host: 192.168.1.29
-   timeout: 15
+ # - platform: nfandroidtv
+   # name: Den
+   # host: 192.168.1.29
+   # timeout: 15
 
- - platform: nfandroidtv
-   name: Kitchen
-   host: 192.168.1.182
-   timeout: 15
+ # - platform: nfandroidtv
+   # name: Kitchen
+   # host: 192.168.1.182
+   # timeout: 15
 
- - platform: nfandroidtv
-   name: Bedroom
-   host: 192.168.1.92
-   timeout: 15
+ # - platform: nfandroidtv
+   # name: Bedroom
+   # host: 192.168.1.92
+   # timeout: 15
 
- - platform: nfandroidtv
-   name: Outdoor
-   host: 192.168.1.44
-   timeout: 15
+ # - platform: nfandroidtv
+   # name: Outdoor
+   # host: 192.168.1.44
+   # timeout: 15
 
- - platform: nfandroidtv
-   name: Ollies
-   host: 192.168.1.18
-   timeout: 15
+ # - platform: nfandroidtv
+   # name: Ollies
+   # host: 192.168.1.18
+   # timeout: 15
 
- - platform: nfandroidtv
-   name: Living Room
-   host: 192.168.1.214
-   timeout: 15
+ # - platform: nfandroidtv
+   # name: Living Room
+   # host: 192.168.1.214
+   # timeout: 15
 
  - platform: slack
    name: slack

@@ -600,13 +600,20 @@ views:
             secondary_info: last-changed
       - type: entities
         id: aquarium-20g
-        title: Guppy (20G)
+        title: Female Guppy (20G)
         show_header_toggle: false
         state_color: true
         entities:
           - entity: switch.aquarium_20g_light
           - entity: sensor.aquarium_20g_temp
             secondary_info: last-changed
+      - type: entities
+        id: aquarium-triangle
+        title: Male Guppy (Triangle)
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: switch.aquarium_triangle_light
       - type: entities
         id: aquarium-50g
         title: Angelfish (50G)
@@ -629,14 +636,26 @@ views:
           - entity: switch.aquarium_55g_scentsy
       - type: entities
         id: shrimp-aquarium
-        title: Shrimp Aquarium
+        title: Blue Shrimp Aquarium
         show_header_toggle: false
         state_color: true
         entities:
           - entity: switch.shrimp_aquarium_light
+            name: Blue Shrimp Aquarium Light
           - entity: sensor.shrimp_aquarium_temp
             secondary_info: last-changed
-          - entity: switch.shrimp_aquarium_plug_1
+            name: Blue Shrimp Aquarium Temperature
+      - type: entities
+        id: shrimp2-aquarium
+        title: Green Shrimp Aquarium
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: switch.shrimp_2_aquarium_plug_2
+            name: Green Shrimp Aquarium Light
+          - entity: sensor.shrimp2_aquarium_temp
+            name: Green Shrimp Aquarium Temperature
+            secondary_info: last-changed
   - title: Services
     path: services
     icon: mdi:home-circle

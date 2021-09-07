@@ -568,14 +568,14 @@
    county: 37
    scan_interval: 600
 
- - platform: bloomsky
-   monitored_conditions:
-     - Temperature
-     - Humidity
-     - Pressure
-     - UVIndex
-     - Luminance
-     - Voltage
+ # - platform: bloomsky
+   # monitored_conditions:
+     # - Temperature
+     # - Humidity
+     # - Pressure
+     # - UVIndex
+     # - Luminance
+     # - Voltage
 
  - platform: history_stats
    name: Dannys Pixel 4 XL Daily Screen On Time
