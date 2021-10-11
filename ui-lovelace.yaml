@@ -505,24 +505,24 @@ views:
           - sensor.cat_litter_humidity
           - sensor.cat_litter_luminance
           - sensor.cat_litter_air_temperature
-      - type: conditional
-        conditions:
-          - entity: light.outdoor_plug
-            state: 'on'
-        card:
-          type: entities
-          title: Pool
-          id: pool
-          entities:
-            - entity: sensor.pool_temperature
-            - entity: sensor.ambient_pool_temperature
-            - entity: sensor.ambient_pool_humidity
-            - entity: input_number.pool_temp
-              name: Last saved pool temperature
-              secondary_info: last-changed
-            - entity: binary_sensor.pool_sensor
-              secondary_info: last-changed
-              state_color: true
+      # - type: conditional
+        # conditions:
+          # - entity: light.outdoor_plug
+            # state: 'on'
+        # card:
+          # type: entities
+          # title: Pool
+          # id: pool
+          # entities:
+            # - entity: sensor.pool_temperature
+            # - entity: sensor.ambient_pool_temperature
+            # - entity: sensor.ambient_pool_humidity
+            # - entity: input_number.pool_temp
+              # name: Last saved pool temperature
+              # secondary_info: last-changed
+            # - entity: binary_sensor.pool_sensor
+              # secondary_info: last-changed
+              # state_color: true
   - title: Ollies Room
     path: ollies
     icon: mdi:baby-face
@@ -589,6 +589,15 @@ views:
         # entities:
           # - entity: sensor.aquarium_1g_temp
       - type: entities
+        id: aquarium-5g
+        title: Betta (5G)
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: switch.aquarium_5g_light
+          - entity: sensor.betta_aquarium_temp
+            secondary_info: last-changed
+      - type: entities
         id: aquarium-10g
         title: Puffers (10G)
         show_header_toggle: false
@@ -614,6 +623,15 @@ views:
         state_color: true
         entities:
           - entity: switch.aquarium_triangle_light
+      - type: entities
+        id: aquarium-30g
+        title: Oranda Goldfish (30G)
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: switch.aquarium_30g_light
+          - entity: sensor.oranda_aquarium_temp
+            secondary_info: last-changed
       - type: entities
         id: aquarium-50g
         title: Angelfish (50G)

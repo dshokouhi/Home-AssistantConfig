@@ -434,12 +434,12 @@ ifttt:
 # bloomsky:
    # api_key: !secret bloomsky
 
-device_tracker:
-  - platform: nmap_tracker
-    consider_home: 60
-    hosts:
-    - 192.168.1.222
-    - 192.168.1.220
+# device_tracker:
+  # - platform: nmap_tracker
+    # consider_home: 60
+    # hosts:
+    # - 192.168.1.222
+    # - 192.168.1.220
 
 mqtt:
   broker: 192.168.1.47

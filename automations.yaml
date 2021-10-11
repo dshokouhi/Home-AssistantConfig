@@ -4181,9 +4181,9 @@
     below: 74
   action:
     service_template: >
-        {% if states('sensor.living_room_air_purifier_temp')|int > 76 %}
+        {% if states('sensor.living_room_air_purifier_temp')|float > 76 %}
           switch.turn_on
-        {% elif states('sensor.living_room_air_purifier_temp')|int < 74 %}
+        {% elif states('sensor.living_room_air_purifier_temp')|float < 74 %}
           switch.turn_off
         {% endif %}
     entity_id: switch.living_room_fan
@@ -4207,14 +4207,14 @@
   - service: notify.discord
     data_template:
       message: >-
-         {% if state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean den air purifier filter, filter level {{ state_attr('fan.den_air_purifier', 'filter_life_remaining') }} ⚠
-         {% elif state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean living room air purifier filter, filter level {{ state_attr('fan.living_room_air_purifier', 'filter_life_remaining') }} ⚠
-         {% elif state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean bedroom air purifier filter, filter level {{ state_attr('fan.bedroom_air_purifier', 'filter_life_remaining') }} ⚠
-         {% elif state_attr('fan.ollies_air_purifier', 'filter_life_remaining')| int <= 3 %}
-           Clean Ollies air purifier filter, filter level {{ state_attr('fan.ollies_air_purifier', 'filter_life_remaining') }} ⚠
+         {% if states('sensor.den_air_purifier_filter_life_remaining')| int <= 3 %}
+           Clean den air purifier filter, filter level {{ states('sensor.den_air_purifier_filter_life_remaining') }} ⚠
+         {% elif states('sensor.living_room_air_purifier_filter_life_remaining')| int <= 3 %}
+           Clean living room air purifier filter, filter level {{ states('sensor.living_room_air_purifier_filter_life_remaining') }} ⚠
+         {% elif states('sensor.bedroom_air_purifier_filter_life_remaining')| int <= 3 %}
+           Clean bedroom air purifier filter, filter level {{ states('sensor.bedroom_air_purifier_filter_life_remaining') }} ⚠
+         {% elif states('sensor.ollies_air_purifier_filter_life_remaining')| int <= 3 %}
+           Clean Ollies air purifier filter, filter level {{ states('sensor.ollies_air_purifier_filter_life_remaining') }} ⚠
          {% else %}
          {% endif %}
       target:
@@ -5454,7 +5454,7 @@
   - service: light.turn_on
     entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_on
-    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_triangle_light
+    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_triangle_light, switch.aquarium_30g_light, switch.aquarium_5g_light
 
 - alias: Aquarium Lights Night
   trigger:
@@ -5464,7 +5464,7 @@
   - service: light.turn_off
     entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_off
-    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_triangle_light
+    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_triangle_light, switch.aquarium_30g_light, switch.aquarium_5g_light
 
 - alias: Feed fish
   trigger:
@@ -5509,11 +5509,14 @@
 - alias: Notify aquarium temperature
   trigger:
   - platform: numeric_state
-    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp
+    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp, sensor.betta_aquarium_temp, sensor.oranda_aquarium_temp
     above: 81
   - platform: numeric_state
-    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp
-    below: 75
+    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp, sensor.betta_aquarium_temp
+    below: 70
+  - platform: numeric_state
+    entity_id: sensor.oranda_aquarium_temp
+    below: 60
   action:
   - service: notify.android
     data_template:
