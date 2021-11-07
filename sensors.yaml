@@ -152,91 +152,11 @@
 
  - platform: template
    sensors:
-     # den_air_purifier_temp:
-       # value_template: "{{ ((state_attr('fan.den_air_purifier', 'temperature') * 9)/5 + 32)|round }}"
-       # availability_template: "{{ not is_state('fan.den_air_purifier', 'unavailable') }}"
-       # friendly_name: Den Air Purifier Temperature
-       # unit_of_measurement: "F"
-       # device_class: temperature
-
-     # den_air_purifier_humidity:
-       # value_template: "{{ state_attr('fan.den_air_purifier', 'humidity') }}"
-       # availability_template: "{{ not is_state('fan.den_air_purifier', 'unavailable') }}"
-       # friendly_name: Den Air Purifier Humidity
-       # unit_of_measurement: "%"
-       # device_class: humidity
-
-     # den_air_purifier_aqi:
-       # value_template: "{{ state_attr('fan.den_air_purifier', 'aqi') }}"
-       # availability_template: "{{ not is_state('fan.den_air_purifier', 'unavailable') }}"
-       # friendly_name: Den Air Purifier AQI
-       # unit_of_measurement: AQI
-
-     # bedroom_air_purifier_temp:
-       # value_template: "{{ ((state_attr('fan.bedroom_air_purifier', 'temperature') * 9)/5 + 32)|round}}"
-       # availability_template: "{{ not is_state('fan.bedroom_air_purifier', 'unavailable') }}"
-       # friendly_name: Bedroom Air Purifier Temperature
-       # unit_of_measurement: "F"
-       # device_class: temperature
-
-     # bedroom_air_purifier_humidity:
-       # value_template: "{{ state_attr('fan.bedroom_air_purifier', 'humidity') }}"
-       # availability_template: "{{ not is_state('fan.bedroom_air_purifier', 'unavailable') }}"
-       # friendly_name: Bedroom Air Purifier Humidity
-       # unit_of_measurement: "%"
-       # device_class: humidity
-
-     # bedroom_air_purifier_aqi:
-       # value_template: "{{ state_attr('fan.bedroom_air_purifier', 'aqi') }}"
-       # availability_template: "{{ not is_state('fan.bedroom_air_purifier', 'unavailable') }}"
-       # friendly_name: Bedroom Air Purifier AQI
-       # unit_of_measurement: AQI
-
-     # living_room_air_purifier_temp:
-       # value_template: "{{ ((state_attr('fan.living_room_air_purifier', 'temperature') * 9)/5 + 32)|round }}"
-       # availability_template: "{{ not is_state('fan.living_room_air_purifier', 'unavailable') }}"
-       # friendly_name: Living Room Air Purifier Temperature
-       # unit_of_measurement: "F"
-       # device_class: temperature
-
-     # living_room_air_purifier_humidity:
-       # value_template: "{{ state_attr('fan.living_room_air_purifier', 'humidity') }}"
-       # availability_template: "{{ not is_state('fan.living_room_air_purifier', 'unavailable') }}"
-       # friendly_name: Living Room Air Purifier Humidity
-       # unit_of_measurement: "%"
-       # device_class: humidity
-
-     # living_room_air_purifier_aqi:
-       # value_template: "{{ state_attr('fan.living_room_air_purifier', 'aqi') }}"
-       # availability_template: "{{ not is_state('fan.living_room_air_purifier', 'unavailable') }}"
-       # friendly_name: Living Room Air Purifier AQI
-       # unit_of_measurement: AQI
-
-     # ollies_air_purifier_temp:
-       # value_template: "{{ ((state_attr('fan.ollies_air_purifier', 'temperature') * 9)/5 + 32)|round }}"
-       # availability_template: "{{ not is_state('fan.ollies_air_purifier', 'unavailable') }}"
-       # friendly_name: Ollies Air Purifier Temperature
-       # unit_of_measurement: "F"
-       # device_class: temperature
-
-     # ollies_air_purifier_humidity:
-       # value_template: "{{ state_attr('fan.ollies_air_purifier', 'humidity') }}"
-       # availability_template: "{{ not is_state('fan.ollies_air_purifier', 'unavailable') }}"
-       # friendly_name: Ollies Air Purifier Humidity
-       # unit_of_measurement: "%"
-       # device_class: humidity
-
-     # ollies_air_purifier_aqi:
-       # value_template: "{{ state_attr('fan.ollies_air_purifier', 'aqi') }}"
-       # availability_template: "{{ not is_state('fan.ollies_air_purifier', 'unavailable') }}"
-       # friendly_name: Ollies Air Purifier AQI
-       # unit_of_measurement: AQI
-
      ollies_average_temperature:
        value_template: "{{ (((states('sensor.ollies_air_purifier_temp') | float(2)) + (states('sensor.ollies_door') | float(2)) + (states('sensor.ollies_closet_door') | float(2)) + (states('sensor.ollies_window') | float(2))) / 4) | round(2) }}"
        friendly_name: Ollies Average Temperature
        device_class: temperature
-       unit_of_measurement: "F"
+       unit_of_measurement: "°F"
 
  - platform: epsonworkforce
    host: 192.168.1.57
@@ -320,15 +240,15 @@
      postmates_danny:
        friendly_name: Postmates Dannys Phone
        value_template: >
-            {% if is_state_attr('sensor.dannys_pixel_4_xl_last_notification', 'package', 'com.postmates.android') %}
-              {{ states('sensor.dannys_pixel_4_xl_last_notification') }}
+            {% if is_state_attr('sensor.dannys_pixel_6_pro_last_notification', 'package', 'com.postmates.android') %}
+              {{ states('sensor.dannys_pixel_6_pro_last_notification') }}
             {% else %}
               Nothing
             {% endif %}
        attribute_templates:
          title: >
-            {% if is_state_attr('sensor.dannys_pixel_4_xl_last_notification', 'package', 'com.postmates.android') %}
-              {{ state_attr('sensor.dannys_pixel_4_xl_last_notification', 'android.title') }}
+            {% if is_state_attr('sensor.dannys_pixel_6_pro_last_notification', 'package', 'com.postmates.android') %}
+              {{ state_attr('sensor.dannys_pixel_6_pro_last_notification', 'android.title') }}
             {% else %}
               Nothing
             {% endif %}
@@ -336,15 +256,15 @@
      instacart_danny:
        friendly_name: Instacart Dannys Phone
        value_template: >
-            {% if is_state_attr('sensor.dannys_pixel_4_xl_last_notification', 'package', 'com.instacart.client') %}
-              {{ states('sensor.dannys_pixel_4_xl_last_notification') }}
+            {% if is_state_attr('sensor.dannys_pixel_6_pro_last_notification', 'package', 'com.instacart.client') %}
+              {{ states('sensor.dannys_pixel_6_pro_last_notification') }}
             {% else %}
               Nothing
             {% endif %}
        attribute_templates:
          title: >
-            {% if is_state_attr('sensor.dannys_pixel_4_xl_last_notification', 'package', 'com.instacart.client') %}
-              {{ state_attr('sensor.dannys_pixel_4_xl_last_notification', 'android.title') }}
+            {% if is_state_attr('sensor.dannys_pixel_6_pro_last_notification', 'package', 'com.instacart.client') %}
+              {{ state_attr('sensor.dannys_pixel_6_pro_last_notification', 'android.title') }}
             {% else %}
               Nothing
             {% endif %}
@@ -367,14 +287,14 @@
        availability_template: "{{ not is_state('vacuum.mr_neato', 'unavailable') }}"
        friendly_name: Den Vacuum Status
 
-     dannys_pixel_4_xl_sleep_motion:
-       friendly_name: Dannys Pixel 4 XL Sleep Motion
-       value_template: "{{ state_attr('sensor.dannys_pixel_4_xl_sleep_confidence', 'motion') }}"
+     dannys_pixel_6_pro_sleep_motion:
+       friendly_name: Dannys Pixel 6 Pro Sleep Motion
+       value_template: "{{ state_attr('sensor.dannys_pixel_6_pro_sleep_confidence', 'motion') }}"
        unit_of_measurement: motion
 
-     dannys_pixel_4_xl_sleep_light:
-       friendly_name: Dannys Pixel 4 XL Sleep Light
-       value_template: "{{ state_attr('sensor.dannys_pixel_4_xl_sleep_confidence', 'light') }}"
+     dannys_pixel_6_pro_sleep_light:
+       friendly_name: Dannys Pixel 6 Pro Sleep Light
+       value_template: "{{ state_attr('sensor.dannys_pixel_6_pro_sleep_confidence', 'light') }}"
        unit_of_measurement: lx
 
      toshs_pixel_3_xl_sleep_motion:
@@ -578,8 +498,8 @@
      # - Voltage
 
  - platform: history_stats
-   name: Dannys Pixel 4 XL Daily Screen On Time
-   entity_id: binary_sensor.dannys_pixel_4_xl_interactive
+   name: Dannys Pixel 6 Pro Daily Screen On Time
+   entity_id: binary_sensor.dannys_pixel_6_pro_interactive
    state: 'on'
    type: time
    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
@@ -587,8 +507,8 @@
      hours: 24
 
  - platform: history_stats
-   name: Dannys Pixel 4 XL Daily Screen On Count
-   entity_id: binary_sensor.dannys_pixel_4_xl_interactive
+   name: Dannys Pixel 6 Pro Daily Screen On Count
+   entity_id: binary_sensor.dannys_pixel_6_pro_interactive
    state: 'on'
    type: count
    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
@@ -596,8 +516,8 @@
      hours: 24
 
  - platform: history_stats
-   name: Toshs Pixel 3 XL Daily Screen On Time
-   entity_id: binary_sensor.toshs_pixel_3_xl_interactive
+   name: Toshs Pixel 4 XL Daily Screen On Time
+   entity_id: binary_sensor.toshs_pixel_4_xl_interactive
    state: 'on'
    type: time
    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
@@ -605,8 +525,8 @@
      hours: 24
 
  - platform: history_stats
-   name: Toshs Pixel 3 XL Daily Screen On Count
-   entity_id: binary_sensor.toshs_pixel_3_xl_interactive
+   name: Toshs Pixel 4 XL Daily Screen On Count
+   entity_id: binary_sensor.toshs_pixel_4_xl_interactive
    state: 'on'
    type: count
    start: '{{ now().replace(hour=0, minute=0, second=0) }}'

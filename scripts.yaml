@@ -769,13 +769,16 @@ cast_kitchen:
  
 action_test:
   sequence:
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: test
       data:
+        notification_icon: "mdi:gesture-tap-button"
         actions:
         - action: 'action1'
           title: test
+        - action: REPLY
+          title: reply
 
 bedroom_tablet_baby_sleep:
   sequence:

@@ -969,7 +969,7 @@ views:
           method: name
         filter:
           include:
-            - entity_id: "*dannys_pixel*"
+            - entity_id: "*dannys_pixel_6*"
               options:
                 secondary_info: last-changed
       - type: custom:auto-entities
@@ -982,7 +982,7 @@ views:
           method: name
         filter:
           include:
-            - entity_id: "*toshs_pixel*"
+            - entity_id: "*toshs_pixel_4*"
               options:
                 secondary_info: last-changed
   - title: Cameras
@@ -1014,11 +1014,7 @@ views:
       - type: picture-entity
         entity: camera.living_room_camera
       - type: picture-entity
-        entity: camera.outdoor_camera
-      - type: picture-entity
         entity: camera.patio
-      - type: picture-entity
-        entity: camera.shokabow_weather
       - type: picture-entity
         entity: camera.side_gate
       - type: picture-entity
@@ -1253,26 +1249,26 @@ views:
     badges:
       - sensor.los_angeles_county_san_fernando_valley
     cards:
-      - type: glance
-        id: station
-        title: Weather Station
-        entities:
-          - entity: binary_sensor.shokabow_weather_night
-            name: Night
-          - entity: binary_sensor.shokabow_weather_rain
-            name: Rain
-          - entity: sensor.shokabow_weather_humidity
-            name: Humidity
-          - entity: sensor.shokabow_weather_luminance
-            name: Luminance
-          - entity: sensor.shokabow_weather_pressure
-            name: Pressure
-          - entity: sensor.shokabow_weather_temperature
-            name: Temperature
-          - entity: sensor.shokabow_weather_uvindex
-            name: UV Index
-          - entity: sensor.shokabow_weather_voltage
-            name: Voltage
+      # - type: glance
+        # id: station
+        # title: Weather Station
+        # entities:
+          # - entity: binary_sensor.shokabow_weather_night
+            # name: Night
+          # - entity: binary_sensor.shokabow_weather_rain
+            # name: Rain
+          # - entity: sensor.shokabow_weather_humidity
+            # name: Humidity
+          # - entity: sensor.shokabow_weather_luminance
+            # name: Luminance
+          # - entity: sensor.shokabow_weather_pressure
+            # name: Pressure
+          # - entity: sensor.shokabow_weather_temperature
+            # name: Temperature
+          # - entity: sensor.shokabow_weather_uvindex
+            # name: UV Index
+          # - entity: sensor.shokabow_weather_voltage
+            # name: Voltage
       - type: "custom:weather-card"
         entity: weather.dark_sky
         id: darksky

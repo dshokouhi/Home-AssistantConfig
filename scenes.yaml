@@ -13,7 +13,7 @@
     light.bar_flex: off
     light.dannys: off
     light.toshs: off
-    light.cabinet_lights: off
+    #light.cabinet_lights: off
     light.patio: off
     light.ollies_lights_level: off
     #switch.little_christmas_trees_switch: off
@@ -28,7 +28,7 @@
 - name: Colorful
   entities:
     light.bar_flex: on
-    light.cabinet_lights: on
+    #light.cabinet_lights: on
     light.spot: on
     light.hallway_light:
       state: on
@@ -58,7 +58,7 @@
     light.living_room_lights_level: off
     switch.backyard_lights_switch: off
     light.bar_flex: off
-    light.cabinet_lights: off
+    #light.cabinet_lights: off
     light.dannys: off
     light.hallway_light: off
     light.ollies_lights_level: off

@@ -664,6 +664,7 @@
         channel: alarm
         sticky: true
         importance: high
+        notification_icon: "mdi:shield-home"
   - service: switch.turn_on
     entity_id: switch.living_room_state
   - delay: "00:00:30"
@@ -712,6 +713,7 @@
         channel: alarm
         sticky: true
         importance: high
+        notification_icon: "mdi:shield-home"
   - service: switch.turn_on
     entity_id: switch.den_state
   - delay: "00:00:30"
@@ -757,6 +759,7 @@
         channel: alarm
         sticky: true
         importance: high
+        notification_icon: "mdi:shield-home"
   - service: switch.turn_on
     entity_id: switch.kitchen_state
   - delay: "00:00:30"
@@ -819,7 +822,7 @@
       message: "The alarm has been tripped ⚠ from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: TTS
       title: "Warning the alarm was just tripped at the following windows/doors: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
@@ -842,7 +845,7 @@
       message: "The alarm has been activated."
       target:
       - !secret discord_alarm
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: TTS
       title: "The alarm has been activated."
@@ -900,7 +903,7 @@
       message: "The alarm has been activated since nobody is home"
       target:
       - !secret discord_alarm
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: TTS
       title: "The alarm has been activated since nobody is home"
@@ -1079,7 +1082,7 @@
       message: "The following window(s) is/are open but the alarm is turned on ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: TTS
       title: "The following windows are open but the alarm is on: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
@@ -1118,7 +1121,7 @@
       message: "The alarm has been triggered since it was not disarmed for 60 seconds 👮‍♀‍ , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: TTS
       title: "Attention the alarm has been triggered by: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
@@ -2162,7 +2165,7 @@
     entity_id: input_boolean.night_mode
     to: 'on'
   action:
-  - service: notify.mobile_app_toshs_pixel_3_xl
+  - service: notify.mobile_app_toshs_pixel_4_xl
     data:
       message: command_broadcast_intent
       title: "com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK"
@@ -2170,7 +2173,7 @@
         channel: "com.urbandroid.sleep"
         ttl: 0
         priority: high
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: command_broadcast_intent
       title: "com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK"
@@ -2349,6 +2352,7 @@
         group: alert
         sticky: true
         importance: high
+        notification_icon: "mdi:smoke-detector-variant-alert"
 
 - alias: CO2 Detected
   trigger:
@@ -2387,6 +2391,7 @@
         group: alert
         sticky: true
         importance: high
+        notification_icon: "mdi:smoke-detector-variant-alert"
 
 ################################################
 #
@@ -2544,7 +2549,7 @@
     entity_id: input_boolean.danny_sleep
     state: 'off'
   action:
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: 'Welcome 🏠 do you need help❓'
       title: 'Shokouhi Zoo'
@@ -2559,6 +2564,7 @@
         tag: location
         timeout: 600
         importance: high
+        notification_icon: "mdi:home-map-marker"
   - wait_template: "{{ is_state('binary_sensor.front_door', 'on') }}"
   - service: notify.android
     data:
@@ -2584,7 +2590,7 @@
     event_data:
       action: action1
   action:
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: 'action1'
       data:
@@ -2592,6 +2598,7 @@
         priority: 'high'
         group: test
         timeout: 30
+        notification_icon: "mdi:gesture-tap"
 
 - alias: action2
   trigger:
@@ -2600,7 +2607,7 @@
     event_data:
       action: action2
   action:
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: 'action2'
       data:
@@ -2608,6 +2615,7 @@
         priority: 'high'
         group: test
         timeout: 30
+        notification_icon: "mdi:gesture-tap"
 
 - alias: Notify bayesian off
   trigger:
@@ -2619,7 +2627,7 @@
     entity_id: input_boolean.danny_sleep
     state: 'off'
   action:
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: TTS
       title: "You are not home, did you forget anything?"
@@ -2656,7 +2664,7 @@
     entity_id: input_boolean.tosh_sleep
     state: 'off'
   action:
-  - service: notify.mobile_app_toshs_pixel_3_xl
+  - service: notify.mobile_app_toshs_pixel_4_xl
     data:
       message: 'Welcome 🏠 do you need help❓'
       title: 'Shokouhi Zoo'
@@ -2671,6 +2679,7 @@
         tag: location
         timeout: 600
         importance: high
+        notification_icon: "mdi:home-map-marker"
   - wait_template: "{{ is_state('binary_sensor.front_door', 'on') }}"
   - service: notify.android
     data:
@@ -2690,7 +2699,7 @@
     entity_id: input_boolean.tosh_sleep
     state: 'off'
   action:
-  - service: notify.mobile_app_toshs_pixel_3_xl
+  - service: notify.mobile_app_toshs_pixel_4_xl
     data:
       message: TTS
       title: "Tosh has left the zoo. Did you forget anything?"
@@ -2701,7 +2710,7 @@
 - alias: Tosh awake and left
   trigger:
   - platform: state
-    entity_id: device_tracker.toshs_pixel_3_xl
+    entity_id: device_tracker.toshs_pixel_4_xl
     to: 'not_home'
     for:
       minutes: 5
@@ -2715,7 +2724,7 @@
       entity_id: sun.sun
       state: 'above_horizon'
   action:
-  - service: notify.mobile_app_toshs_pixel_3_xl
+  - service: notify.mobile_app_toshs_pixel_4_xl
     data:
       message: command_broadcast_intent
       title: "com.urbandroid.sleep.alarmclock.STOP_SLEEP_TRACK"
@@ -4419,6 +4428,7 @@
         channel: "Left On"
         group: kitchen_tv
         tag: kitchen_tv
+        notification_icon: "mdi:television-ambient-light"
         actions:
         - action: 'TV_YES'
           title: 'Yes'
@@ -4464,6 +4474,7 @@
         channel: "Left On"
         group: living_room_tv
         tag: living_room_tv
+        notification_icon: "mdi:television-ambient-light"
         actions:
         - action: 'TV_YES'
           title: 'Yes'
@@ -4509,6 +4520,7 @@
         channel: "Left On"
         group: gardener
         tag: gardener
+        notification_icon: "mdi:grass"
         actions:
         - action: 'GARDENER_YES'
           title: 'Yes'
@@ -4695,7 +4707,7 @@
     entity_id: sensor.cat_litter_luminance
     above: 50
   action:
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: clear_notification
       data:
@@ -4735,7 +4747,7 @@
   - wait_template: "{{ is_state('alarm_control_panel.home', 'disarmed') }}"
   - service: input_boolean.turn_off
     entity_id: input_boolean.cat_litter_cleaned
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
       data:
@@ -4747,6 +4759,7 @@
         persistent: true
         sticky: true
         alert_once: true
+        notification_icon: "mdi:cat"
   - service: input_boolean.turn_on
     entity_id: input_boolean.cat_litter_notifying
   - service: notify.discord
@@ -4778,7 +4791,7 @@
       entity_id: input_boolean.vacation_mode
       state: 'off'
   action:
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
       data:
@@ -4790,6 +4803,7 @@
         persistent: true
         sticky: true
         alert_once: true
+        notification_icon: "mdi:cat"
 ################################################
 #
 #      Cube Automations
@@ -5338,7 +5352,7 @@
     event_data:
       tag_id: 4bdace23-1e7b-4c36-a7ce-caca845c4283
   action:
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: "NFC tag scanned by {% set person = states.person|selectattr('attributes.user_id', 'eq', trigger.event.context.user_id)|first %}{{ person.attributes.friendly_name }}"
       data:
@@ -5346,6 +5360,7 @@
         priority: high
         group: nfc
         channel: NFC
+        notification_icon: "mdi:nfc"
 
 - alias: Zone entered
   trigger:
@@ -5365,7 +5380,7 @@
   - platform: event
     event_type: android.intent_received
   action:
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: "Intent received by user {% set person = states.person|selectattr('attributes.user_id', 'eq', trigger.event.context.user_id)|first %}{{ person.attributes.friendly_name }} with action {{ trigger.event.data.intent }}"
       data:
@@ -5373,6 +5388,7 @@
         priority: high
         group: intents
         channel: Intents
+        notification_icon: "mdi:email-receive"
 
 - alias: Save Danny Mi Band Steps
   mode: queued
@@ -5431,14 +5447,15 @@
 - alias: Phone alarm
   trigger:
     platform: time
-    at: sensor.dannys_pixel_4_xl_next_alarm
+    at: sensor.dannys_pixel_6_pro_next_alarm
   action:
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: "alarm going off"
       data:
         ttl: 0
         priority: high
+        notification_icon: "mdi:alarm-check"
 
 ################################################
 #
@@ -5452,7 +5469,7 @@
     at: "08:00:00"
   action:
   - service: light.turn_on
-    entity_id: light.aquarium_light, light.aquarium_light_55g
+    entity_id: light.aquarium_light, light.aquarium_light_55g, light.cabinet_lights
   - service: switch.turn_on
     entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_triangle_light, switch.aquarium_30g_light, switch.aquarium_5g_light
 
@@ -5462,7 +5479,7 @@
     at: "20:00:00"
   action:
   - service: light.turn_off
-    entity_id: light.aquarium_light, light.aquarium_light_55g
+    entity_id: light.aquarium_light, light.aquarium_light_55g, light.cabinet_lights
   - service: switch.turn_off
     entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_triangle_light, switch.aquarium_30g_light, switch.aquarium_5g_light
 
@@ -5526,6 +5543,7 @@
         priority: high
         group: aquarium
         channel: Aquarium
+        notification_icon: "mdi:fish"
 ################################################
 #
 #      3D Printer Automations
@@ -5562,7 +5580,7 @@
   - condition: state
     entity_id: alarm_control_panel.home
     state: 'disarmed'
-  - service: notify.mobile_app_dannys_pixel_4_xl
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: Print is ready to come off the bed. Would you like to turn off the printer?
       data:
@@ -5571,6 +5589,7 @@
         tag: printer
         channel: Printer
         group: printer
+        notification_icon: "mdi:printer-3d"
         actions:
         - action: "PRINTER_OFF"
           title: "Turn off"
