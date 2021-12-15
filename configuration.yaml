@@ -1462,10 +1462,10 @@ image_processing:
       categories:
         - person
 
-weather:
-  - platform: darksky
-    api_key: !secret darksky_api
-    mode: daily
+# weather:
+  # - platform: darksky
+    # api_key: !secret darksky_api
+    # mode: daily
 
 counter:
   cat_litter_motion:
@@ -1495,12 +1495,12 @@ climate:
     max_temp: 210
     precision: 0.1
 
-octoprint:
-  host: 192.168.1.91
-  api_key: !secret octoprint_api
-  port: 5000
-  bed: true
-  number_of_tools: 1
+# octoprint:
+  # host: 192.168.1.91
+  # api_key: !secret octoprint_api
+  # port: 5000
+  # bed: true
+  # number_of_tools: 1
 
 hacs:
   token: !secret github_api
@@ -1512,7 +1512,7 @@ ombi:
 
 rest_command:
   assistant_broadcast:
-    url: http://192.168.1.91:3000/assistant
+    url: http://192.168.1.229:3000/assistant
     method: POST
     content_type: 'application/json'
     payload: '{"command":"{{ command }}", "user":"hass-broadcast", "broadcast":true}'

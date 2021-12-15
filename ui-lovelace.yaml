@@ -352,6 +352,8 @@ views:
         conditions:
           - entity: climate.sous_vide
             state_not: 'disconnected'
+          - entity: climate.sous_vide
+            state_not: 'off'
         card:
           type: entities
           title: Sous Vide
@@ -927,8 +929,8 @@ views:
           - entity: sensor.octoprint_current_state
             secondary_info: last-changed
           - sensor.octoprint_job_percentage
-          - sensor.octoprint_time_remaining_format
-          - sensor.octoprint_time_elapsed_format
+          - sensor.octoprint_estimated_finish_time
+          - sensor.octoprint_start_time
           - sensor.octoprint_actual_bed_temp
           - sensor.octoprint_target_bed_temp
           - sensor.octoprint_actual_tool0_temp
@@ -983,6 +985,19 @@ views:
         filter:
           include:
             - entity_id: "*toshs_pixel_4*"
+              options:
+                secondary_info: last-changed
+      - type: custom:auto-entities
+        id: danny-watch
+        card:
+          type: entities
+          title: Danny Watch
+          show_header_toggle: false
+        sort:
+          method: name
+        filter:
+          include:
+            - entity_id: "*danny_s_watch_*"
               options:
                 secondary_info: last-changed
   - title: Cameras

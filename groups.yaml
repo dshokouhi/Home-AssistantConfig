@@ -15,8 +15,8 @@ tracked_users:
   - device_tracker.3e_07_70_34_37_cc
   - device_tracker.32_3f_1f_7a_e1_27
   - device_tracker.ce_c7_ce_26_fc_43
-  - device_tracker.toshs_pixel_3_xl
-  - device_tracker.dannys_pixel_4_xl
+  - device_tracker.toshs_pixel_4_xl
+  - device_tracker.dannys_pixel_6_pro
 
 all_windows:
   name: All Windows

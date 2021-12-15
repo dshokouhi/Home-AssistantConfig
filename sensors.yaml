@@ -334,68 +334,68 @@
      uptime_days:
        value_template: "{{ ((as_timestamp(now()) - as_timestamp(states('sensor.uptime'))) /60 /60 /24) | round(2) }}"
 
-     octoprint_time_elapsed_format:
-       friendly_name: 'Printing Time Elapsed'
-       value_template: >-
-          {% set etime = states.sensor.octoprint_time_elapsed.state | int %}
-          {% set seconds = etime % 60 %}
-          {% set minutes = ((etime % 3600) / 60) | int %}
-          {% set hours = ((etime % 86400) / 3600) | int %}
-          {% set days = (etime / 86400) | int %}
-          {%- if days > 0 -%}
-            {%- if days == 1 -%}
-              1 day
-            {%- else -%}
-              {{ days }} days
-            {%- endif -%}
-            {{ ', ' }}
-          {%- endif -%}
-          {%- if hours > 0 -%}
-            {%- if hours == 1 -%}
-              1 hour
-            {%- else -%}
-              {{ hours }} hours
-            {%- endif -%}
-            {{ ', ' }}
-          {%- endif -%}
-          {%- if minutes > 0 -%}
-            {%- if minutes == 1 -%}
-              1 minute
-            {%- else -%}
-              {{ minutes }} minutes
-            {%- endif -%}
-          {%- endif -%}
-     octoprint_time_remaining_format:
-       friendly_name: 'Printing Time Remaining'
-       value_template: >-
-         {% set rtime = states.sensor.octoprint_time_remaining.state | int %}
-         {% set seconds = rtime % 60 %}
-         {% set minutes = ((rtime % 3600) / 60) | int %}
-         {% set hours = ((rtime % 86400) / 3600) | int %}
-         {% set days = (rtime / 86400) | int %}
-         {%- if days > 0 -%}
-           {%- if days == 1 -%}
-             1 day
-           {%- else -%}
-             {{ days }} days
-           {%- endif -%}
-           {{ ', ' }}
-         {%- endif -%}
-         {%- if hours > 0 -%}
-           {%- if hours == 1 -%}
-             1 hour
-           {%- else -%}
-             {{ hours }} hours
-           {%- endif -%}
-           {{ ', ' }}
-         {%- endif -%}
-         {%- if minutes > 0 -%}
-           {%- if minutes == 1 -%}
-             1 minute
-           {%- else -%}
-             {{ minutes }} minutes
-           {%- endif -%}
-         {%- endif -%}
+     # octoprint_time_elapsed_format:
+       # friendly_name: 'Printing Time Elapsed'
+       # value_template: >-
+          # {% set etime = states.sensor.octoprint_time_elapsed.state | int %}
+          # {% set seconds = etime % 60 %}
+          # {% set minutes = ((etime % 3600) / 60) | int %}
+          # {% set hours = ((etime % 86400) / 3600) | int %}
+          # {% set days = (etime / 86400) | int %}
+          # {%- if days > 0 -%}
+            # {%- if days == 1 -%}
+              # 1 day
+            # {%- else -%}
+              # {{ days }} days
+            # {%- endif -%}
+            # {{ ', ' }}
+          # {%- endif -%}
+          # {%- if hours > 0 -%}
+            # {%- if hours == 1 -%}
+              # 1 hour
+            # {%- else -%}
+              # {{ hours }} hours
+            # {%- endif -%}
+            # {{ ', ' }}
+          # {%- endif -%}
+          # {%- if minutes > 0 -%}
+            # {%- if minutes == 1 -%}
+              # 1 minute
+            # {%- else -%}
+              # {{ minutes }} minutes
+            # {%- endif -%}
+          # {%- endif -%}
+     # octoprint_time_remaining_format:
+       # friendly_name: 'Printing Time Remaining'
+       # value_template: >-
+         # {% set rtime = states.sensor.octoprint_time_remaining.state | int %}
+         # {% set seconds = rtime % 60 %}
+         # {% set minutes = ((rtime % 3600) / 60) | int %}
+         # {% set hours = ((rtime % 86400) / 3600) | int %}
+         # {% set days = (rtime / 86400) | int %}
+         # {%- if days > 0 -%}
+           # {%- if days == 1 -%}
+             # 1 day
+           # {%- else -%}
+             # {{ days }} days
+           # {%- endif -%}
+           # {{ ', ' }}
+         # {%- endif -%}
+         # {%- if hours > 0 -%}
+           # {%- if hours == 1 -%}
+             # 1 hour
+           # {%- else -%}
+             # {{ hours }} hours
+           # {%- endif -%}
+           # {{ ', ' }}
+         # {%- endif -%}
+         # {%- if minutes > 0 -%}
+           # {%- if minutes == 1 -%}
+             # 1 minute
+           # {%- else -%}
+             # {{ minutes }} minutes
+           # {%- endif -%}
+         # {%- endif -%}
 
  - platform: uptime
  
@@ -487,15 +487,6 @@
    zone: 547
    county: 37
    scan_interval: 600
-
- # - platform: bloomsky
-   # monitored_conditions:
-     # - Temperature
-     # - Humidity
-     # - Pressure
-     # - UVIndex
-     # - Luminance
-     # - Voltage
 
  - platform: history_stats
    name: Dannys Pixel 6 Pro Daily Screen On Time

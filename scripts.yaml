@@ -666,16 +666,16 @@ christmas_on:
   - service: switch.turn_on
     entity_id: switch.christmas_tree_switch
     #, switch.little_christmas_trees_switch, switch.living_room_camera_plug
-  # - service: light.turn_on
-    # entity_id: light.wled_master
+  - service: light.turn_on
+    entity_id: light.outdoor_plug
 
 christmas_off:
   sequence:
   - service: switch.turn_off
     entity_id: switch.christmas_tree_switch
     #, switch.little_christmas_trees_switch, switch.living_room_camera_plug
-  # - service: light.turn_off
-    # entity_id: light.wled_master
+  - service: light.turn_off
+    entity_id: light.outdoor_plug
 
 house_deep_cleaning:
   sequence:
