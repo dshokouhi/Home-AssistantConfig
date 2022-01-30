@@ -1310,6 +1310,7 @@ cover:
     covers:
       den_curtains:
         friendly_name: Den Curtains
+        unique_id: harmony_den_curtains
         value_template: "{{ is_state('input_boolean.den_curtains', 'on' ) }}"
         open_cover:
           - service: script.turn_on
@@ -1322,6 +1323,7 @@ cover:
             entity_id: script.stop_den_curtains
       bedroom_curtains:
         friendly_name: Bedroom Curtains
+        unique_id: harmony_bedroom_curtains
         value_template: "{{ is_state('input_boolean.bedroom_curtains', 'on' ) }}"
         open_cover:
           - service: script.turn_on
@@ -1334,6 +1336,7 @@ cover:
             entity_id: script.stop_bedroom_curtains
       bay_window_curtains:
         friendly_name: Bay Window Curtains
+        unique_id: harmony_bay_window_curtains
         value_template: "{{ is_state('input_boolean.bay_window_curtains', 'on' ) }}"
         open_cover:
           - service: script.turn_on
@@ -1346,6 +1349,7 @@ cover:
             entity_id: script.stop_bay_window_curtains
       ollies_curtains:
         friendly_name: Ollies Curtains
+        unique_id: harmony_ollies_curtains
         value_template: "{{ is_state('input_boolean.ollies_curtains', 'on' ) }}"
         open_cover:
           - service: script.turn_on

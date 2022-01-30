@@ -1000,6 +1000,19 @@ views:
             - entity_id: "*danny_s_watch_*"
               options:
                 secondary_info: last-changed
+      - type: custom:auto-entities
+        id: danny-quest
+        card:
+          type: entities
+          title: Danny's Quest
+          show_header_toggle: false
+        sort:
+          method: name
+        filter:
+          include:
+            - entity_id: "*quest_*"
+              options:
+                secondary_info: last-changed
   - title: Cameras
     path: cameras
     icon: mdi:camera

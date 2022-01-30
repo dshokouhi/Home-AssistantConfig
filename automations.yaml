@@ -364,11 +364,16 @@
         position: center
       message: "The dryer is done 🎉.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running 🙈 {% else %} Time to get your clothes 👍 {% endif %}"
       title: Shokabow Zoo
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "The dryer is done 🎉.{% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running 🙈 {% else %} Time to get your clothes 👍 {% endif %}"
-      target:
-      - !secret discord_house
+      title: Laundry
+      data:
+        ttl: 0
+        priority: high
+        channel: Laundry
+        group: laundry
+        notification_icon: "mdi:washing-machine"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
@@ -396,11 +401,16 @@
         position: center
       message: "The washer is done 🎉.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running 🙈 {% else %} Time to switch laundry 👍 {% endif %}"
       title: Shokabow Zoo
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "The washer is done 🎉.{% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running 🙈 {% else %} Time to switch laundry 👍 {% endif %}"
-      target:
-      - !secret discord_house
+      title: Laundry
+      data:
+        ttl: 0
+        priority: high
+        channel: Laundry
+        group: laundry
+        notification_icon: "mdi:washing-machine"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
@@ -428,11 +438,16 @@
       title: Shokabow Zoo
   - service: input_boolean.turn_off
     entity_id: input_boolean.dishwasher_status
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "The dishes are done! 🎉"
-      target:
-      - !secret discord_house
+      data:
+        ttl: 0
+        priority: high
+        channel: Dishwasher
+        tag: dishes
+        group: dishes
+        notification_icon: "mdi:washing-machine"
   - service: input_boolean.turn_on
     entity_id: input_boolean.dishes_clean
   - condition: state
@@ -509,11 +524,15 @@
     entity_id: sensor.front_door_lock_alarm_type
     to: '11'
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "The front door lock is jammed 🚪🔒⛔."
-      target:
-      - !secret discord_house
+      data:
+        ttl: 0
+        priority: high
+        channel: Lock
+        group: lock
+        notification_icon: "mdi:lock-alert"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
@@ -536,11 +555,16 @@
       entity_id: input_boolean.gardener
       state: 'off'
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} has been left open for 30 seconds 🚪🙀"
-      target:
-      - !secret discord_house
+      title: Door Open
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: alert
+        notification_icon: "mdi:door-open"
   - service: tts.google_say
     entity_id: media_player.den_home_hub
     data_template:
@@ -604,11 +628,16 @@
     entity_id: media_player.den_home_hub
     data_template:
       message: "Please close the den sliding door, the thermostat is set to {{ states('climate.thermostat') }}."
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "Please close the den sliding 🚪, the themostat is set to {{ states('climate.thermostat') }}."
-      target:
-      - !secret discord_house
+      title: Door Open
+      data:
+        ttl: 0
+        priority: high
+        group: door
+        tag: door
+        notification_icon: "mdi:door-open"
 
 ################################################
 #
@@ -1077,11 +1106,16 @@
   - service: notify.slack
     data_template:
       message: "The following window(s) is/are open but the alarm is turned on: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "The following window(s) is/are open but the alarm is turned on ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
-      target:
-      - !secret discord_alarm
+      title: Window Open
+      data:
+        ttl: 0
+        priority: high
+        channel: alarm
+        group: alarm
+        notification_icon: "mdi:window-open"
   - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: TTS
@@ -1099,11 +1133,16 @@
   - service: notify.slack
     data:
       message: "Too many incorrect codes used on front door. Keypad locked. 🔐 "
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "Too many incorrect codes used on front door. Keypad locked. 🔐 "
-      target:
-      - !secret discord_alarm
+      title: Keypad Locked
+      data:
+        ttl: 0
+        priority: high
+        channel: alarm
+        group: alarm
+        notification_icon: "mdi:lock-remove"
 
 - alias: Notify alarm triggered
   trigger:
@@ -1785,11 +1824,16 @@
     state: 'off'
   action:
   - wait_template: "{{ is_state('alarm_control_panel.home', 'disarmed') }}"
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "You got mail 📬"
-      target:
-      - !secret discord_house
+      data:
+        ttl: 0
+        priority: high
+        channel: Mail
+        group: mail
+        tag: mail
+        notification_icon: "mdi:mailbox"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -2102,11 +2146,16 @@
       entity_id: input_boolean.shower_mode
       state: 'off'
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "The thermostat 🌡 is on and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
-      target:
-      - !secret discord_house
+      title: Window Open
+      data:
+        ttl: 0
+        priority: high
+        channel: Thermostat
+        group: thermostat
+        notification_icon: "mdi:window-open"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -2496,11 +2545,16 @@
     condition: template
     value_template: "{{ trigger.to_state.attributes.friendly_name != 'Notify zwave device died' }}"
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} has died 💀 "
-      target:
-      - !secret discord_danny
+      title: Device Died
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: dead
+        notification_icon: "mdi:skull"
 
 - alias: Notify zha device died
   trigger:
@@ -2527,11 +2581,16 @@
     for:
       minutes: 15
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} has died 💀 "
-      target:
-      - !secret discord_danny
+      title: Device Died
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: dead
+        notification_icon: "mdi:skull"
 
 ################################################
 #
@@ -2640,19 +2699,19 @@
       # target:
       # - !secret discord_danny
 
-- alias: Mobile app location
-  trigger:
-    platform: state
-    entity_id: device_tracker.dannys_pixel_4_xl, device_tracker.toshs_pixel_3_xl
-  condition:
-    condition: template
-    value_template: "{{ trigger.to_state.state != trigger.from_state.state }}"
-  action:
-  - service: notify.discord
-    data_template:
-      message: "{{ trigger.to_state.attributes.friendly_name }} mobile app is {{ trigger.to_state.state }}"
-      target:
-      - !secret discord_danny
+# - alias: Mobile app location
+  # trigger:
+    # platform: state
+    # entity_id: device_tracker.dannys_pixel_4_xl, device_tracker.toshs_pixel_3_xl
+  # condition:
+    # condition: template
+    # value_template: "{{ trigger.to_state.state != trigger.from_state.state }}"
+  # action:
+  # - service: notify.discord
+    # data_template:
+      # message: "{{ trigger.to_state.attributes.friendly_name }} mobile app is {{ trigger.to_state.state }}"
+      # target:
+      # - !secret discord_danny
 
 - alias: Notify bayesian on tosh
   trigger:
@@ -2808,11 +2867,16 @@
       entity_id: binary_sensor.windows
       state: 'on'
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "Its getting hot ♨, close the following windows so the cooler turns on: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
-      target:
-      - !secret discord_house
+      title: Window Open
+      data:
+        ttl: 0
+        priority: high
+        channel: Thermostat
+        group: thermostat
+        notification_icon: "mdi:window-open"
   - service: shell_command.cool_windows
   - wait_template: "{{ is_state('binary_sensor.windows', 'off') }}"
   - condition: template
@@ -2906,11 +2970,16 @@
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "Please open a window and turn off the thermostat 🌡 .  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ state_attr('weather.kvny_daynight', 'temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} outside."
-      target:
-      - !secret discord_house
+      title: Open Windows
+      data:
+        ttl: 0
+        priority: high
+        channel: Thermostat
+        group: thermostat
+        notification_icon: "mdi:window-open"
 
 - alias: Heat up house if below 63
   trigger:
@@ -3089,11 +3158,15 @@
     entity_id: binary_sensor.shokabow_weather_rain
     state: 'off'
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "The water heater is leaking. 🚱 "
-      target:
-      - !secret discord_house
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: alert
+        notification_icon: "mdi:pipe-leak"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
@@ -3173,16 +3246,16 @@
 #
 ################################################
 
-- alias: Timer out of sync
-  trigger:
-    platform: event
-    event_type: timer_out_of_sync
-  action:
-  - service: notify.discord
-    data_template:
-      message: "Timer out of sync. ⏲ "
-      target:
-      - !secret discord_danny
+# - alias: Timer out of sync
+  # trigger:
+    # platform: event
+    # event_type: timer_out_of_sync
+  # action:
+  # - service: notify.discord
+    # data_template:
+      # message: "Timer out of sync. ⏲ "
+      # target:
+      # - !secret discord_danny
 
 ################################################
 #
@@ -3216,11 +3289,16 @@
     for:
       minutes: 10
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} offline 💻⛔⚠"
-      target:
-      - !secret discord_danny
+      title: Computer Offline
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: alert
+        notification_icon: "mdi:laptop"
 
 ################################################
 #
@@ -3239,11 +3317,16 @@
     entity_id: sensor.ssl_certificate_expiry
     below: 5
   action:
-  - service: notify.discord
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days! ❌⚠ "
-      target:
-      - !secret discord_danny
+      title: Expiring
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: alert
+        notification_icon: "mdi:certificate"
 
 - alias: Disk Getting Full
   trigger:
@@ -3254,13 +3337,18 @@
   condition:
     condition: numeric_state
     entity_id: sensor.disk_use_percent_home
-    above: 50
+    above: 80
   action:
-  - service: notify.discord
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
-      message: "Home assistant drive getting full, over 50%! Check journal and zoneminder ❌⚠ "
-      target:
-      - !secret discord_danny
+      message: "Home assistant drive getting full, over 80%! Check journal and zoneminder ❌⚠ "
+      title: Space Full
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: alert
+        notification_icon: "mdi:disc-alert"
 
 ################################################
 #
@@ -3696,11 +3784,16 @@
         position: center
       message: 'Leak detected 🚱 at home {{ trigger.to_state.attributes.friendly_name }} 🏠 '
       title: Shokabow Zoo
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "Leak detected 🚱 at home {{ trigger.to_state.attributes.friendly_name }} 🏠 "
-      target:
-      - !secret discord_danny
+      title: Alert
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: alert
+        notification_icon: "mdi:pipe-leak"
 
 ################################################
 #
@@ -3912,7 +4005,7 @@
        {{ states.sensor.bbq_temperature.state|int >= 120 }}
      {%- else -%}
      {%- endif %}
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: >-
           {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
@@ -3931,8 +4024,13 @@
             Tri-tip is almost done 🐮🤤 
           {%- else -%}
           {%- endif %}
-      target:
-      - !secret discord_house
+      title: BBQ
+      data:
+        ttl: 0
+        priority: high
+        channel: BBQ
+        group: bbq
+        notification_icon: "mdi:grill"
   - service: shell_command.bbq_almost
   - wait_template: >
      {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
@@ -3951,7 +4049,7 @@
        {{ states.sensor.bbq_temperature.state|int >= 130 }}
      {%- else -%}
      {%- endif %}
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: >
           {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
@@ -3970,8 +4068,13 @@
             Tri-tip is done 🐮 🍽
           {%- else -%}
           {%- endif %}
-      target:
-      - !secret discord_house
+      title: BBQ
+      data:
+        ttl: 0
+        priority: high
+        channel: BBQ
+        group: bbq
+        notification_icon: "mdi:grill"
   - service: shell_command.bbq_done
   - service: notify.den
     data_template:
@@ -4067,11 +4170,15 @@
     entity_id: sensor.season
     state: summer
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "Pool pump 🏊‍♀️ is offline :no_entry, go outside and hit reset ⚠ "
-      target:
-      - !secret discord_house
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: alert
+        notification_icon: "mdi:pool"
 
 - alias: Save pool temperature
   trigger:
@@ -4211,9 +4318,9 @@
       at: '18:00:00'
   condition:
     condition: template
-    value_template: "{{ (state_attr('fan.den_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.living_room_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.bedroom_air_purifier', 'filter_life_remaining')| int <= 3) or (state_attr('fan.ollies_air_purifier', 'filter_life_remaining')| int <= 3) }}"
+    value_template: "{{ (states('sensor.den_air_purifier_filter_life_remaining')| int <= 3) or (states('sensor.living_room_air_purifier_filter_life_remaining')| int <= 3) or (states('sensor.bedroom_air_purifier_filter_life_remaining')| int <= 3) or (states('sensor.ollies_air_purifier_filter_life_remaining')| int <= 3) }}"
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: >-
          {% if states('sensor.den_air_purifier_filter_life_remaining')| int <= 3 %}
@@ -4226,9 +4333,12 @@
            Clean Ollies air purifier filter, filter level {{ states('sensor.ollies_air_purifier_filter_life_remaining') }} ⚠
          {% else %}
          {% endif %}
-      target:
-      - !secret discord_house
-
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: alert
+        notification_icon: "mdi:air-filter"
 ################################################
 #
 #      Next Rocket Launch Automations
@@ -4252,11 +4362,16 @@
     - condition: template
       value_template: "{{ state_attr('sensor.next_launch', 'stream') != None }}"
   action:
-  - service: notify.discord
+  - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: "Rocket launch 🚀 within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }} 🎥 "
-      target:
-      - !secret discord_house
+      title: Space Launch
+      data:
+        ttl: 0
+        priority: high
+        channel: Rocket
+        group: rocket
+        notification_icon: "mdi:rocket-launch"
 
 ################################################
 #
@@ -4304,7 +4419,7 @@
         color: red
         duration: 3
         position: bottom-right
-        file:
+        image:
           path: "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
       message: >
             {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }} 📸.
@@ -4707,7 +4822,7 @@
     entity_id: sensor.cat_litter_luminance
     above: 50
   action:
-  - service: notify.mobile_app_dannys_pixel_6_pro
+  - service: notify.android
     data:
       message: clear_notification
       data:
@@ -4747,7 +4862,7 @@
   - wait_template: "{{ is_state('alarm_control_panel.home', 'disarmed') }}"
   - service: input_boolean.turn_off
     entity_id: input_boolean.cat_litter_cleaned
-  - service: notify.mobile_app_dannys_pixel_6_pro
+  - service: notify.android
     data:
       message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
       data:
@@ -4762,11 +4877,6 @@
         notification_icon: "mdi:cat"
   - service: input_boolean.turn_on
     entity_id: input_boolean.cat_litter_notifying
-  - service: notify.discord
-    data_template:
-      message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
-      target:
-      - !secret discord_house
 
 - alias: Update cat litter notification based on alarm
   trigger:
@@ -4791,7 +4901,7 @@
       entity_id: input_boolean.vacation_mode
       state: 'off'
   action:
-  - service: notify.mobile_app_dannys_pixel_6_pro
+  - service: notify.android
     data:
       message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
       data:
@@ -4810,147 +4920,147 @@
 #
 ################################################
 
-- alias: Mute den on double tap
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube
-      action_type: tap_twice
-  condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: remote.harmony_hub_den
-      state: 'on'
-    - condition: state
-      entity_id: alarm_control_panel.home
-      state: 'disarmed'
-  action:
-    service: remote.send_command
-    data:
-      entity_id: remote.harmony_hub_den
-      device: 55196241
-      command: 'Mute'
+# - alias: Mute den on double tap
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.cube_action
+    # event_data:
+      # entity_id: binary_sensor.cube
+      # action_type: tap_twice
+  # condition:
+    # condition: and
+    # conditions:
+    # - condition: state
+      # entity_id: remote.harmony_hub_den
+      # state: 'on'
+    # - condition: state
+      # entity_id: alarm_control_panel.home
+      # state: 'disarmed'
+  # action:
+    # service: remote.send_command
+    # data:
+      # entity_id: remote.harmony_hub_den
+      # device: 55196241
+      # command: 'Mute'
 
-- alias: Toggle patio lights on flip 90
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube
-      action_type: flip90
-  condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: sun.sun
-      state: below_horizon
-    - condition: state
-      entity_id: alarm_control_panel.home
-      state: 'disarmed'
-  action:
-    service: light.toggle
-    entity_id: light.patio
+# - alias: Toggle patio lights on flip 90
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.cube_action
+    # event_data:
+      # entity_id: binary_sensor.cube
+      # action_type: flip90
+  # condition:
+    # condition: and
+    # conditions:
+    # - condition: state
+      # entity_id: sun.sun
+      # state: below_horizon
+    # - condition: state
+      # entity_id: alarm_control_panel.home
+      # state: 'disarmed'
+  # action:
+    # service: light.toggle
+    # entity_id: light.patio
 
-- alias: Notify rotate cube degrees
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube
-      action_type: rotate
-  action:
-  - service: notify.discord
-    data_template:
-      message: "Cube rotated {{ trigger.event.data.action_value }} degrees."
-      target:
-      - !secret discord_danny
+# - alias: Notify rotate cube degrees
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.cube_action
+    # event_data:
+      # entity_id: binary_sensor.cube
+      # action_type: rotate
+  # action:
+  # - service: notify.discord
+    # data_template:
+      # message: "Cube rotated {{ trigger.event.data.action_value }} degrees."
+      # target:
+      # - !secret discord_danny
 
-- alias: Pause or Play on flip 180
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube
-      action_type: flip180
-  condition:
-    condition: or
-    conditions:
-    - condition: state
-      entity_id: media_player.den_shield_tv
-      state: 'playing'
-    - condition: state
-      entity_id: media_player.den_shield_tv
-      state: 'paused'
-  action:
-  - service: media_player.media_play_pause
-    entity_id: media_player.den_shield_tv
-  - condition: state
-    entity_id: sensor.den_shield_app
-    state: 'Vaders'
-  - condition: state
-    entity_id: media_player.den_shield_tv
-    state: 'playing'
-  - service: media_player.media_play_pause
-    entity_id: media_player.den_shield_tv
+# - alias: Pause or Play on flip 180
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.cube_action
+    # event_data:
+      # entity_id: binary_sensor.cube
+      # action_type: flip180
+  # condition:
+    # condition: or
+    # conditions:
+    # - condition: state
+      # entity_id: media_player.den_shield_tv
+      # state: 'playing'
+    # - condition: state
+      # entity_id: media_player.den_shield_tv
+      # state: 'paused'
+  # action:
+  # - service: media_player.media_play_pause
+    # entity_id: media_player.den_shield_tv
+  # - condition: state
+    # entity_id: sensor.den_shield_app
+    # state: 'Vaders'
+  # - condition: state
+    # entity_id: media_player.den_shield_tv
+    # state: 'playing'
+  # - service: media_player.media_play_pause
+    # entity_id: media_player.den_shield_tv
 
-- alias: Toggle den fan on shake
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.cube_action
-    event_data:
-      entity_id: binary_sensor.cube
-      action_type: shake_air
-  condition:
-    condition: state
-    entity_id: alarm_control_panel.home
-    state: 'disarmed'
-  action:
-    service: switch.toggle
-    entity_id: switch.den_fan
+# - alias: Toggle den fan on shake
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.cube_action
+    # event_data:
+      # entity_id: binary_sensor.cube
+      # action_type: shake_air
+  # condition:
+    # condition: state
+    # entity_id: alarm_control_panel.home
+    # state: 'disarmed'
+  # action:
+    # service: switch.toggle
+    # entity_id: switch.den_fan
 
-- alias: Notify vibration movement
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.movement
-    event_data:
-      entity_id: binary_sensor.vibration_sensor
-      movement_type: vibrate
-  action:
-  - service: notify.discord
-    data_template:
-      message: "Vibration detected."
-      target:
-      - !secret discord_danny
+# - alias: Notify vibration movement
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.movement
+    # event_data:
+      # entity_id: binary_sensor.vibration_sensor
+      # movement_type: vibrate
+  # action:
+  # - service: notify.discord
+    # data_template:
+      # message: "Vibration detected."
+      # target:
+      # - !secret discord_danny
 
-- alias: Notify vibration movement tilt
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.movement
-    event_data:
-      entity_id: binary_sensor.vibration_sensor
-      movement_type: tilt
-  action:
-  - service: notify.discord
-    data_template:
-      message: "Vibration tilt detected."
-      target:
-      - !secret discord_danny
+# - alias: Notify vibration movement tilt
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.movement
+    # event_data:
+      # entity_id: binary_sensor.vibration_sensor
+      # movement_type: tilt
+  # action:
+  # - service: notify.discord
+    # data_template:
+      # message: "Vibration tilt detected."
+      # target:
+      # - !secret discord_danny
 
-- alias: Notify vibration movement free fall
-  trigger:
-    platform: event
-    event_type: xiaomi_aqara.movement
-    event_data:
-      entity_id: binary_sensor.vibration_sensor
-      movement_type: free_fall
-  action:
-  - service: notify.discord
-    data_template:
-      message: "Vibration free fall detected."
-      target:
-      - !secret discord_danny
+# - alias: Notify vibration movement free fall
+  # trigger:
+    # platform: event
+    # event_type: xiaomi_aqara.movement
+    # event_data:
+      # entity_id: binary_sensor.vibration_sensor
+      # movement_type: free_fall
+  # action:
+  # - service: notify.discord
+    # data_template:
+      # message: "Vibration free fall detected."
+      # target:
+      # - !secret discord_danny
 
 ################################################
 #
@@ -4972,11 +5082,16 @@
   - delay: "00:00:05"
   - condition: template
     value_template: "{{ (state_attr('climate.sous_vide', 'current_temperature') | int == state_attr('climate.sous_vide', 'temperature') | int) and (is_state('climate.sous_vide', 'heat')) }}"
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }} 🍳 "
-      target:
-      - !secret discord_house
+      title: Food
+      data:
+        ttl: 0
+        priority: high
+        channel: BBQ
+        group: bbq
+        notification_icon: "mdi:chef-hat"
   - service: notify.den
     data_template:
       data:
@@ -5055,11 +5170,17 @@
     entity_id: media_player.kitchen_home, media_player.den_home_hub, media_player.bedroom_display, media_player.bathroom_home
     data:
       message: "Ollies door is open"
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: Ollies door is open 👶
-      target:
-      - !secret discord_house
+      title: Door Open
+      data:
+        ttl: 0
+        priority: high
+        channel: alert
+        group: alert
+        tag: ollie-door
+        notification_icon: "mdi:door-open"
 
 - alias: Baby monitor on den shield
   trigger:
@@ -5092,15 +5213,28 @@
     entity_id: sensor.ollies_average_temperature
     below: 60
   condition:
-    condition: state
-    entity_id: input_boolean.baby_sleeping
-    state: 'on'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.baby_sleeping
+      state: 'on'
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: sensor.ollies_air_purifier_temp
+        state: 'unavailable'
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "Ollies room temperature is at {{ states('sensor.ollies_average_temperature') }} 🌡 {% if states('sensor.ollies_average_temperature') | int > 75%} 🔥 {% else %} {% endif %} 👶 check the heater positioning"
-      target:
-      - !secret discord_house
+      data:
+        ttl: 0
+        priority: high
+        channel: Ollie
+        group: ollie
+        tag: ollie
+        notification_icon: "mdi:thermometer-alert"
+        alert_once: true
 
 - alias: Turn on Ollies heater when its cold
   trigger:
@@ -5168,11 +5302,15 @@
         {% else %}
         {% endif %}
   action:
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} is at ({{ trigger.to_state.state }}%), plug it in"
-      target:
-      - !secret discord_house
+      data:
+        ttl: 0
+        priority: high
+        channel: Battery
+        group: battery
+        notification_icon: "mdi:battery-10"
 
 - alias: Turn off Ollies heater if heat is on or baby sleeping turns off
   trigger:
@@ -5214,11 +5352,15 @@
   action:
   - service: switch.turn_off
     entity_id: switch.ollies_heater
-  - service: notify.discord
+  - service: notify.android
     data_template:
       message: "Ollies heater has been turned off because power was too high ({{ trigger.to_state.state }} watts), retrying again in 1 minute"
-      target:
-      - !secret discord_house
+      data:
+        ttl: 0
+        priority: high
+        channel: Ollie
+        group: ollie
+        notification_icon: "mdi:radiator-off"
   - service: rest_command.assistant_broadcast
     data_template:
       command: "Ollies heater turned off because power was too high, retrying in 1 minute"
