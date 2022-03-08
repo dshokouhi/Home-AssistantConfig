@@ -431,16 +431,6 @@ group: !include groups.yaml
 ifttt:
    key: !secret ifttt
 
-# bloomsky:
-   # api_key: !secret bloomsky
-
-# device_tracker:
-  # - platform: nmap_tracker
-    # consider_home: 60
-    # hosts:
-    # - 192.168.1.222
-    # - 192.168.1.220
-
 mqtt:
   broker: 192.168.1.47
   discovery: true
@@ -473,63 +463,6 @@ media_player:
  - platform: onkyo
    host: 192.168.1.27
    name: Onkyo Den
-
- - platform: androidtv
-   host: 192.168.1.72
-   name: Den Shield TV
-   adb_server_ip: localhost
-   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
-   apps:
-     com.google.android.youtube.tv: "Youtube"
-     org.xbmc.kodi: "Kodi"
-     com.netflix.ninja: "Netflix"
-     com.google.android.tvlauncher: "Homescreen"
-     com.plexapp.android: "Plex"
-     ar.tvplayer.tv: "TiviMate"
-
- - platform: androidtv
-   host: 192.168.1.92
-   name: Bedroom Shield TV
-   adb_server_ip: localhost
-   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
-   apps:
-     com.google.android.youtube.tv: "Youtube"
-     org.xbmc.kodi: "Kodi"
-     com.netflix.ninja: "Netflix"
-     com.google.android.tvlauncher: "Homescreen"
-     com.plexapp.android: "Plex"
-     ar.tvplayer.tv: "TiviMate"
-
- - platform: androidtv
-   host: 192.168.1.214
-   name: Living Room Google TV
-   adb_server_ip: localhost
-   adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
-   apps:
-     com.google.android.youtube.tv: "Youtube"
-     org.xbmc.kodi: "Kodi"
-     com.netflix.ninja: "Netflix"
-     com.google.android.tvlauncher: "Homescreen"
-     com.plexapp.android: "Plex"
-     ar.tvplayer.tv: "TiviMate"
-
- # - platform: androidtv
-   # host: 192.168.1.182
-   # name: Kitchen Fire Stick
-   # adb_server_ip: localhost
-   # adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
-
- # - platform: androidtv
-   # host: 192.168.1.18
-   # name: Ollies Fire Stick
-   # adb_server_ip: localhost
-   # adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
-
- # - platform: androidtv
-   # host: 192.168.1.44
-   # name: Outdoor Fire Stick
-   # adb_server_ip: localhost
-   # adbkey: "/home/homeassistant/.homeassistant/.android/adbkey"
 
 spotify:
   client_id: !secret spotify_client_id_danny
@@ -676,39 +609,7 @@ camera:
    name: Ferret Cage
    input: -rtsp_transport tcp -i rtsp://192.168.1.33/ch0_0.h264
 
- #- platform: bloomsky
-
 notify:
- # - platform: nfandroidtv
-   # name: Den
-   # host: 192.168.1.29
-   # timeout: 15
-
- # - platform: nfandroidtv
-   # name: Kitchen
-   # host: 192.168.1.182
-   # timeout: 15
-
- # - platform: nfandroidtv
-   # name: Bedroom
-   # host: 192.168.1.92
-   # timeout: 15
-
- # - platform: nfandroidtv
-   # name: Outdoor
-   # host: 192.168.1.44
-   # timeout: 15
-
- # - platform: nfandroidtv
-   # name: Ollies
-   # host: 192.168.1.18
-   # timeout: 15
-
- # - platform: nfandroidtv
-   # name: Living Room
-   # host: 192.168.1.214
-   # timeout: 15
-
  - platform: slack
    name: slack
    api_key: !secret slack_bot
@@ -1466,11 +1367,6 @@ image_processing:
       categories:
         - person
 
-# weather:
-  # - platform: darksky
-    # api_key: !secret darksky_api
-    # mode: daily
-
 counter:
   cat_litter_motion:
     icon: mdi:cat
@@ -1493,18 +1389,11 @@ climate:
     mode_state_template: "{{ value_json.state }}"
     mode_command_topic: anova/command/run
     temperature_command_topic: anova/command/temp
-    send_if_off: true
+   # send_if_off: true
     temp_step: 0.5
     min_temp: 77
     max_temp: 210
     precision: 0.1
-
-# octoprint:
-  # host: 192.168.1.91
-  # api_key: !secret octoprint_api
-  # port: 5000
-  # bed: true
-  # number_of_tools: 1
 
 hacs:
   token: !secret github_api
@@ -1528,6 +1417,3 @@ utility_meter:
   toshs_daily_steps:
     source: sensor.toshs_pixel_4_xl_steps_sensor
     cycle: daily
-
-webostv:
-  host: 192.168.1.219

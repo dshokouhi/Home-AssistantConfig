@@ -105,7 +105,7 @@ views:
             - entity_id: "*octoprint*"
             - entity_id: sensor.pool_temperature
             - entity_id: sensor.ambient_pool_temperature
-            - entity_id: sensor.cat_litter_air_temperature
+            - entity_id: sensor.cat_litter_temperature
             - entity_id: input_number.pool_temp
             - entity_id: sensor.den_pi_cpu_thermal_1_temperature
             - entity_id: sensor.pi_hole_cpu_thermal_1_temperature
@@ -499,14 +499,14 @@ views:
         show_header_toggle: false
         state_color: true
         entities:
-          - entity: binary_sensor.cat_litter_motion_detected
+          - entity: binary_sensor.cat_litter_home_security_motion_detected
             secondary_info: last-changed
           - counter.cat_litter_motion
           - entity: input_boolean.cat_litter_cleaned
             secondary_info: last-changed
-          - sensor.cat_litter_humidity
-          - sensor.cat_litter_luminance
-          - sensor.cat_litter_air_temperature
+          - sensor.cat_litter_humidity1
+          - sensor.cat_litter_illuminance
+          - sensor.cat_litter_temperature
       # - type: conditional
         # conditions:
           # - entity: light.outdoor_plug

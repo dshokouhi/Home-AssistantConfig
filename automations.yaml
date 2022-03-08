@@ -630,7 +630,7 @@
       message: "Please close the den sliding door, the thermostat is set to {{ states('climate.thermostat') }}."
   - service: notify.android
     data_template:
-      message: "Please close the den sliding 🚪, the themostat is set to {{ states('climate.thermostat') }}."
+      message: "Please close the den sliding 🚪, the thermostat is set to {{ states('climate.thermostat') }}."
       title: Door Open
       data:
         ttl: 0
@@ -638,6 +638,18 @@
         group: door
         tag: door
         notification_icon: "mdi:door-open"
+  - wait_for_trigger:
+    - platform: state
+      entity_id: binary_sensor.den_sliding_door
+      to: 'off'
+    - platform: state
+      entity_id: climate.thermostat
+      to: 'off'
+  - service: notify.android
+    data:
+      message: clear_notification
+      data:
+        tag: door
 
 ################################################
 #
@@ -1334,78 +1346,6 @@
       target:
       - !secret discord_alarm
 
-################################################
-#
-#      Ollies automation
-#
-################################################
-
-- alias: Ollies Lights On
-  trigger:
-    platform: state
-    entity_id: light.ollies_lights_level
-    to: 'on'
-    for:
-      seconds: 15
-  condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: input_boolean.night_mode
-      state: 'off'
-    - condition: state
-      entity_id: input_boolean.baby_sleeping
-      state: 'off'
-  action:
-  - service: light.turn_on
-    entity_id: light.o1
-    data:
-      brightness_pct: 100
-  - service: light.turn_on
-    entity_id: light.o2
-    data:
-      brightness_pct: 100
-  - service: light.turn_on
-    entity_id: light.o3
-    data:
-      brightness_pct: 100
-  - service: light.turn_on
-    entity_id: light.o4
-    data:
-      brightness_pct: 100
-  - service: light.turn_on
-    entity_id: light.ollies_lights_level
-    data:
-      brightness_pct: 100
-
-- alias: Ollies Lights Off
-  trigger:
-    platform: state
-    entity_id: light.ollies_lights_level
-    to: 'off'
-  action:
-  - service: light.turn_off
-    entity_id: light.o1
-  - service: light.turn_off
-    entity_id: light.o2
-  - service: light.turn_off
-    entity_id: light.o3
-  - service: light.turn_off
-    entity_id: light.o4
-
-- alias: Turn off light that randomly turns on
-  trigger:
-    platform: state
-    entity_id: light.o1, light.o2, light.o3, light.o4
-    to: 'on'
-  condition:
-    condition: state
-    entity_id: light.ollies_lights_level
-    state: 'off'
-  action:
-    service: light.turn_off
-    data:
-      entity_id: "{{ trigger.entity_id }}"
 
 ################################################
 #
@@ -2154,12 +2094,25 @@
         ttl: 0
         priority: high
         channel: Thermostat
+        tag: window
         group: thermostat
         notification_icon: "mdi:window-open"
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
   - service: shell_command.thermostat_window
+  - wait_for_trigger:
+    - platform: state
+      entity_id: binary_sensor.windows
+      to: 'off'
+    - platform: state
+      entity_id: climate.thermostat
+      to: 'off'
+  - service: notify.android
+    data:
+      message: clear_notification
+      data:
+        tag: window
 
 ################################################
 #
@@ -4312,33 +4265,20 @@
 
 - alias: Clean Air Purifier Filter
   trigger:
-    - platform: time
-      at: '10:00:00'
-    - platform: time
-      at: '18:00:00'
-  condition:
-    condition: template
-    value_template: "{{ (states('sensor.den_air_purifier_filter_life_remaining')| int <= 3) or (states('sensor.living_room_air_purifier_filter_life_remaining')| int <= 3) or (states('sensor.bedroom_air_purifier_filter_life_remaining')| int <= 3) or (states('sensor.ollies_air_purifier_filter_life_remaining')| int <= 3) }}"
+    - platform: numeric_state
+      entity_id: sensor.den_air_purifier_filter_life_remaining, sensor.living_room_air_purifier_filter_life_remaining, sensor.bedroom_air_purifier_filter_life_remaining, sensor.ollies_air_purifier_filter_life_remaining
+      below: 3
   action:
   - service: notify.android
     data_template:
-      message: >-
-         {% if states('sensor.den_air_purifier_filter_life_remaining')| int <= 3 %}
-           Clean den air purifier filter, filter level {{ states('sensor.den_air_purifier_filter_life_remaining') }} ⚠
-         {% elif states('sensor.living_room_air_purifier_filter_life_remaining')| int <= 3 %}
-           Clean living room air purifier filter, filter level {{ states('sensor.living_room_air_purifier_filter_life_remaining') }} ⚠
-         {% elif states('sensor.bedroom_air_purifier_filter_life_remaining')| int <= 3 %}
-           Clean bedroom air purifier filter, filter level {{ states('sensor.bedroom_air_purifier_filter_life_remaining') }} ⚠
-         {% elif states('sensor.ollies_air_purifier_filter_life_remaining')| int <= 3 %}
-           Clean Ollies air purifier filter, filter level {{ states('sensor.ollies_air_purifier_filter_life_remaining') }} ⚠
-         {% else %}
-         {% endif %}
+      message: "{{ trigger.to_state.attributes.friendly_name }} is below 3, time to clean the air purifier filter"
       data:
         ttl: 0
         priority: high
         channel: alert
         group: alert
         notification_icon: "mdi:air-filter"
+ 
 ################################################
 #
 #      Next Rocket Launch Automations
@@ -4354,7 +4294,7 @@
     conditions:
     - condition: template
       value_template: >-
-          {% if ((as_timestamp(now()) > (as_timestamp(states.sensor.next_launch.attributes.launch_time) | int - 3600 ) ) ) and ((as_timestamp(states.sensor.next_launch.attributes.launch_time) > (as_timestamp(now()) )))%}
+          {% if ((as_timestamp(now()) > (as_timestamp(states.sensor.launch_time.state) | int - 3600 ) ) ) and ((as_timestamp(states.sensor.launch_time.state) > (as_timestamp(now()) )))%}
             true
           {% else %}
             false
@@ -4364,7 +4304,7 @@
   action:
   - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
-      message: "Rocket launch 🚀 within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.agency }} at {{ ( as_timestamp( strptime(states.sensor.next_launch.attributes.launch_time, '%B %d, %Y %H:%M:%S %Z') ) ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }} 🎥 "
+      message: "Rocket launch 🚀 within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.provider }} at {{ ( as_timestamp( strptime(states.sensor.launch_time.state, '%B %d, %Y %H:%M:%S %Z') ) ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }} 🎥 "
       title: Space Launch
       data:
         ttl: 0
@@ -4801,7 +4741,7 @@
 - alias: Increase Cat Motion Counter
   trigger:
     platform: state
-    entity_id: binary_sensor.cat_litter_motion_detected
+    entity_id: binary_sensor.cat_litter_home_security_motion_detected
     to: 'on'
   action:
     service: counter.increment
@@ -4819,7 +4759,7 @@
 - alias: Cat Litter Cleaned When Opened
   trigger:
     platform: numeric_state
-    entity_id: sensor.cat_litter_luminance
+    entity_id: sensor.cat_litter_illuminance
     above: 50
   action:
   - service: notify.android
@@ -4864,7 +4804,7 @@
     entity_id: input_boolean.cat_litter_cleaned
   - service: notify.android
     data:
-      message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
+      message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 😼🚽💩🧹 box, time to clean."
       data:
         ttl: 0
         priority: high
@@ -4903,7 +4843,7 @@
   action:
   - service: notify.android
     data:
-      message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 🐱🐈🐱‍👤🙀 box, time to clean."
+      message: "There have been {{ states('counter.cat_litter_motion') }} trips to the cat 😼🚽💩🧹 box, time to clean."
       data:
         ttl: 0
         priority: high
@@ -5151,36 +5091,40 @@
         {% else %}
         {% endif %}
 
-- alias: Announce ollies door is open while he is sleeping
+- alias: Announce ollies lights are on while he is sleeping
   trigger:
     platform: state
-    entity_id: binary_sensor.ollies_door
+    entity_id: light.ollies_lights_level
     to: 'on'
   condition:
-    condition: and
-    conditions:
-    - condition: state
-      entity_id: input_boolean.baby_sleeping
-      state: 'on'
-    - condition: state
-      entity_id: binary_sensor.ollies_door
-      state: 'on'
+  - condition: state
+    entity_id: input_boolean.baby_sleeping
+    state: 'on'
   action:
   - service: tts.google_say
     entity_id: media_player.kitchen_home, media_player.den_home_hub, media_player.bedroom_display, media_player.bathroom_home
     data:
-      message: "Ollies door is open"
+      message: "Ollies lights are on"
   - service: notify.android
     data_template:
-      message: Ollies door is open 👶
-      title: Door Open
+      message: Ollies lights are on 👶
+      title: Baby Awake
       data:
         ttl: 0
         priority: high
         channel: alert
         group: alert
-        tag: ollie-door
-        notification_icon: "mdi:door-open"
+        tag: ollie-lights
+        notification_icon: "mdi:lightbulb-on"
+  - wait_for_trigger:
+    - platform: state
+      entity_id: light.ollies_lights_level
+      to: 'off'
+  - service: notify.android
+    data:
+      message: clear_notification
+      data:
+        tag: ollie-lights
 
 - alias: Baby monitor on den shield
   trigger:
