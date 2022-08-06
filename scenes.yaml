@@ -15,7 +15,7 @@
     light.toshs: off
     #light.cabinet_lights: off
     light.patio: off
-    light.ollies_lights_level: off
+    #light.ollies_lights_level: off
     #switch.little_christmas_trees_switch: off
     #switch.christmas_tree_switch: off
     light.nook_lamp: off

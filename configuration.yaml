@@ -12,214 +12,7 @@ homeassistant:
   - /home/homeassistant/.homeassistant/snapshot
   - /home/homeassistant/.homeassistant
 
-
 frontend:
-  themes:
-    material_dark_green:
-      light_green: "#08a8a5"
-      dark_green: "#017775"
-      dark_grey: "#232326"
-      light_grey: "#344249"
-
-      red: "#d10404"
-      yellow: "#fffa0c"
-      white: "#f7f7f7"
-      pink: "#ff0090"
-
-#Top bar, activate text on script, selected icon on home assistant menu, top panel of media players, text in config page, text on developer tools states page, mqtt publish text, logbook text
-      primary-color: "var(--light_green)"
-# divider on dev tools info page
-      light-primary-color: "var(--red)"
-# some hyperlinked text
-      dark-primary-color: "var(--red)"
-# color of heading text when item selected from home screen ex: light
-      text-primary-color: "var(--white)"
-# main background, top of side panel
-      primary-background-color: "var(--dark_grey)"
-# not sure where used 
-      sidebar-text_-_background: "var(--pink)"
-# card background colour, part of media player background
-      #paper-card-background-color: "var(--light_grey)"
-      card-background-color: "var(--light-grey)"
-# mqtt pubish header and thats it 
-      paper-card-header-color: "var(--white)"
-# main background colour of states page
-      secondary-background-color: "var(--dark_grey)"
-# most of the text used
-      primary-text-color: "var(--white)"
-#secondary pieces of text 
-      secondary-text-color: "var(--white)"
-#main background of side panel 
-      paper-listbox-background-color: "var(--light_grey)"
-#not sure where used
-      paper-toggle-button-checked-ink-color: "var(--pink)"
-#switch colour when on
-      paper-toggle-button-checked-button-color: "var(--yellow)"
-#Backgroud of switch/toggle when on
-      paper-toggle-button-checked-bar-color: "var(--yellow)"
-#slide knob on brightness/volumes when not 0
-      paper-slider-knob-color: "var(--yellow)"
-#slide knob on brightness/volumes when 0
-      paper-slider-knob-start-color: "var(--red)"
-#don't know where used
-      paper-slider-pin-color: "var(--pink)"
-#colour of brightness/volume slider line in used portion 
-      paper-slider-active-color: "var(--yellow)"
-#not sure where used
-      paper-slider-secondary-color: "var(--pink)"
-# background of brightness/volume slider line not used portion 
-      paper-slider-container-color: "var(--red)"
-#not sure where used
-      paper-progress-secondary-color: "var(--pink)"
-#background of theme selection toggle tiny use 
-      paper-item-selected_-_background-color: "var(--light_green)"
-#text, not sure which one "var(--white)"
-      paper-item-icon_-_color: "var(--pink)"
-# icon on state page when off
-      paper-item-icon-color: "var(--dark_green)"
-#states icon when active 
-      paper-item-icon-active-color: "var(--yellow)"
-#colour of switch toggle when off, icon on selected page of menu 
-      paper-grey-50: "var(--light_green)"
-#background of selected screen on menu "var(--light_green)"
-      paper-grey-200: "var(--dark_green)"
-#Backgound of label icon
-      label-badge-background-color: "var(--light_grey)"
-#colour of text in label icon 
-      label-badge-text-color: "var(--white)"
-#colour of edge of sensor labels
-      label-badge-red: "var(--red)"
-#not sure where used
-      label-badge-blue: "var(--pink)"
-      label-badge-green: "var(--pink)"
-      label-badge-yellow: "var(--pink)"
-      label-badge-grey: "var(--pink)"
-# Row 1 on entities page
-      table-row-background-color: "var(--light_grey)"
-# row 2 on entities page
-      table-row-alternative-background-color: "var(--dark_grey)"
-    oled:
-      primary-color: 'black'
-      accent-color: '#03A9F4'
-      dark-primary-color: 'var(--accent-color)'
-      light-primary-color: 'var(--accent-color)'
-      primary-text-color: '#FFFFFF'
-      text-primary-color: 'var(--primary-text-color)'
-      secondary-text-color: '#03A9F4'
-      disabled-text-color: 'white'
-      label-badge-border-color: 'green'
-      sidebar-icon-color: 'black'
-      primary-background-color: 'black'
-      secondary-background-color: '#222222'
-      divider-color: 'black'
-      table-row-background-color: '#292929'
-      table-row-alternative-background-color: '#292929'
-      paper-listbox-color: 'black'
-      paper-listbox-background-color: '#03A9F4'
-      paper-grey-50: 'black'
-      paper-grey-200: 'black'
-      paper-card-header-color: 'red'
-      card-background-color: 'black'
-      paper-dialog-background-color: 'black'
-      paper-item-icon-color: 'var(--primary-text-color)'
-      paper-item-icon-active-color: '#03A9F4'
-      paper-item-icon_-_color: 'green'
-      paper-item-selected_-_background-color: '#292929'
-      paper-tabs-selection-bar-color: 'green'
-      label-badge-red: 'var(--accent-color)'
-      label-badge-text-color: 'var(--primary-text-color)'
-      label-badge-background-color: '#222222'
-      paper-toggle-button-checked-button-color: 'var(--accent-color)'
-      paper-toggle-button-checked-bar-color: 'var(--accent-color)'
-      paper-toggle-button-checked-ink-color: 'var(--accent-color)'
-      paper-toggle-button-unchecked-button-color: 'var(--disabled-text-color)'
-      paper-toggle-button-unchecked-bar-color: 'var(--disabled-text-color)'
-      paper-toggle-button-unchecked-ink-color: 'var(--disabled-text-color)'
-      paper-slider-knob-color: 'var(--accent-color)'
-      paper-slider-knob-start-color: 'var(--accent-color)'
-      paper-slider-pin-color: 'var(--accent-color)'
-      paper-slider-active-color: 'var(--accent-color)'
-      paper-slider-container-color: 'linear-gradient(var(--primary-background-color), var(--secondary-background-color)) no-repeat'
-      paper-slider-secondary-color: 'var(--secondary-background-color)'
-      paper-slider-disabled-active-color: 'var(--disabled-text-color)'
-      google-red-500: '#b58e31'
-      google-green-500: '#2980b9'
-    material_dark_theme_2:
-      # Accent Colour (Edit this to change the accent) #
-      accent: "#08a8a5"
-
-      # Background
-      primary-background-color: "#121212"
-
-      # Text
-      primary-text-color: "#FFFFFF"
-      secondary-text-color: "#FFFFFF"
-      disabled-text-color: "#8C8C8C"
-      sidebar-selected-text-color: "var(--accent)"
-
-      # Card
-      card-background-color: "#1D1D1D"
-      #paper-card-background-color: "#1D1D1D"
-
-      # Colours
-      primary-color: "#08a8a5"
-      secondary-background-color: "#1D1D1D"
-      accent-color: "var(--accent)"
-      dark-primary-color: "var(--accent)"
-      light-primary-color: "var(--accent)"
-
-      # Controls
-      toggle-button-color: "var(--accent)"
-      paper-toggle-button-checked-button-color: "var(--accent)"
-      switch-checked-color: "var(--accent)"
-      paper-toggle-button-checked-bar-color: "var(--accent)"
-      paper-toggle-button-checked-ink-color: "var(--accent)"
-      paper-toggle-button-unchecked-button-color: "#001a4d"
-      switch-unchecked-button-color: "#001a4d"
-      paper-toggle-button-unchecked-bar-color: "#787878"
-      switch-unchecked-track-color: "#787878"
-      paper-checkbox-checked-color: "var(--accent)"
-      paper-checkbox-checked-ink-color: "var(--accent)"
-      paper-radio-button-checked-color: "var(--accent)"
-      paper-input-container-focus-color: "var(--accent)"
-      paper-dropdown-menu-focus-color: "var(--accent)"
-      slider-color: "var(--accent)"
-      mdc-theme-primary: "var(--accent)"
-
-      # Icons
-      state-icon-color: "#A0A0A0"
-      state-icon-active-color: "var(--accent)"
-      sidebar-selected-icon-color: "var(--accent)"
-      sidebar-icon-color: "#A0A0A0"
-
-      # Badges
-      ha-label-badge-color: "var(--accent)"
-      label-badge-background-color: "#121212"
-      label-badge-text-color: "var(--secondary-text-color)"
-
-      # Tabs
-      paper-tab-ink: "var(--accent)"
-
-      # Divider
-      divider-color: "#2D2D2D"
-
-      # Lumo
-      lumo-base-color: "#2D2D2D"
-      lumo-tint-5pct: "none"
-      lumo-shade-5pct: "#272727"
-      paper-grey-200: "#272727"
-      lumo-primary-color-10pct: "#2D2D2D"
-      lumo-primary-color-50pct: "none"
-      lumo-box-shadow-m: "none"
-      lumo-primary-color: "var(--accent)"
-      lumo-header-text-color: "var(--primary-text-color)"
-      lumo-body-text-color: "var(--primary-text-color)"
-      lumo-tertiary-text-color: "var(--secondary-text-color)"
-      lumo-primary-contrast-color: "var(--primary-text-color)"
-
-      # Cards
-      ha-card-border-radius: "10px"
-      ha-card-box-shadow: "0px 5px 5px rgba(0,0,0,0.3)"
 
 config:
 
@@ -242,7 +35,7 @@ http:
    ssl_certificate: !secret sslcert
    ssl_key: !secret sslkey
 
-updater:
+#updater:
   #include_used_components: true
 
 discovery:
@@ -431,11 +224,11 @@ group: !include groups.yaml
 ifttt:
    key: !secret ifttt
 
-mqtt:
-  broker: 192.168.1.47
-  discovery: true
-  discovery_prefix: homeassistant
-  port: 1883
+# mqtt:
+  # broker: 192.168.1.47
+  # discovery: true
+  # discovery_prefix: homeassistant
+  # port: 1883
 
 alarm_control_panel:
   platform: manual
@@ -1073,6 +866,33 @@ google_assistant:
     switch.harmony_hub_den_shield_tv:
       expose: false
     switch.harmony_hub_bedroom_bedroom_shield_tv:
+      expose: false
+    group.aquarium_lights:
+      expose: true
+      room: "Living Room"
+    switch.aquarium_5g_light:
+      expose: false
+    light.aquarium_light:
+      expose: false
+    switch.aquarium_20g_light:
+      expose: false
+    switch.aquarium_triangle_light:
+      expose: false
+    light.cabinet_lights:
+      expose: false
+    switch.aquarium_30g_light:
+      expose: false
+    switch.aquarium_50g_light:
+      expose: false
+    light.aquarium_light_55g:
+      expose: false
+    switch.shrimp_aquarium_light:
+      expose: false
+    switch.shrimp_2_aquarium_plug_2:
+      expose: false
+    switch.volcano:
+      expose: false
+    switch.aquarium_55g_bubble_light:
       expose: false
 
 namecheapdns:

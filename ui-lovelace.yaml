@@ -7,6 +7,7 @@ views:
       - entity: alarm_control_panel.home
         name: House Alarm
       - sun.sun
+      - sensor.moon
     cards:
       - type: entity-filter
         id: leaks
@@ -274,7 +275,6 @@ views:
         show_header_toggle: false
         entities:
           - light.bar_flex
-          - light.cabinet_lights
           - entity: light.island_lights
             state_color: true
           - entity: binary_sensor.kitchen_audio_detected
@@ -583,20 +583,20 @@ views:
     path: aquariums
     icon: mdi:fish
     cards:
-      # - type: entities
-        # id: aquarium-1g
-        # title: Aquarium 1G
-        # show_header_toggle: false
-        # state_color: true
-        # entities:
-          # - entity: sensor.aquarium_1g_temp
+      - type: entities
+        id: aquarium-all-lights
+        title: Aquarium Lights
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: group.aquarium_lights
       - type: entities
         id: aquarium-5g
         title: Betta (5G)
         show_header_toggle: false
         state_color: true
         entities:
-          - entity: switch.aquarium_5g_light
+          - entity: switch.beta_light
           - entity: sensor.betta_aquarium_temp
             secondary_info: last-changed
       - type: entities
@@ -611,7 +611,7 @@ views:
             secondary_info: last-changed
       - type: entities
         id: aquarium-20g
-        title: Female Guppy (20G)
+        title: Shrimp Tank (20G)
         show_header_toggle: false
         state_color: true
         entities:
@@ -620,11 +620,13 @@ views:
             secondary_info: last-changed
       - type: entities
         id: aquarium-triangle
-        title: Male Guppy (Triangle)
+        title: Triangle
         show_header_toggle: false
         state_color: true
         entities:
           - entity: switch.aquarium_triangle_light
+          - entity: light.cabinet_lights
+            name: Side Light
       - type: entities
         id: aquarium-30g
         title: Oranda Goldfish (30G)
@@ -653,7 +655,6 @@ views:
           - entity: sensor.50g_aquarium_temp
             secondary_info: last-changed
           - entity: switch.aquarium_55g_bubble_light
-          - entity: switch.aquarium_55g_scentsy
       - type: entities
         id: shrimp-aquarium
         title: Blue Shrimp Aquarium

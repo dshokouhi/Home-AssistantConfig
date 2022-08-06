@@ -35,8 +35,6 @@ monitored_contacts:
   entities:
   - binary_sensor.bathroom_window
   - binary_sensor.bedroom_window
-  - binary_sensor.catio_firepit_door
-  - binary_sensor.catio_pool_door
   - binary_sensor.den_sliding_door
   - binary_sensor.den_window
   - binary_sensor.front_door
@@ -46,3 +44,18 @@ monitored_contacts:
   - binary_sensor.living_room_right_bay_window
   - binary_sensor.living_room_side_window
   - binary_sensor.ollies_window
+
+aquarium_lights:
+  name: Aquarium Lights
+  icon: mdi:fishbowl-outline
+  entities:
+  - switch.beta_light
+  - light.aquarium_light
+  - switch.aquarium_20g_light
+  - switch.aquarium_triangle_light
+  - light.cabinet_lights
+  - switch.aquarium_30g_light
+  - switch.aquarium_50g_light
+  - light.aquarium_light_55g
+  - switch.shrimp_aquarium_light
+  - switch.shrimp_2_aquarium_plug_2

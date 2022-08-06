@@ -793,6 +793,7 @@ bedroom_tablet_baby_sleep:
       payload: "on"
 
 update_lights_dynamic:
+  mode: restart
   sequence:
   - delay: "00:00:05"
   - service: mqtt.publish

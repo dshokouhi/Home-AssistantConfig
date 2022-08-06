@@ -686,7 +686,8 @@
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸 "
       data:
-        file: "/home/homeassistant/.homeassistant/www/living_room_camera.jpg"
+        file:
+          path: "/home/homeassistant/.homeassistant/www/living_room_camera.jpg"
   - service: notify.discord
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸 "
@@ -735,7 +736,8 @@
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸"
       data:
-        file: "/home/homeassistant/.homeassistant/www/den_camera.jpg"
+        file:
+          path: "/home/homeassistant/.homeassistant/www/den_camera.jpg"
   - service: notify.discord
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot. 📸 "
@@ -781,7 +783,8 @@
     data:
       message: "Kitchen camera triggered snapshot 📸 "
       data:
-        file: "/home/homeassistant/.homeassistant/www/kitchen.jpg"
+        file:
+          path: "/home/homeassistant/.homeassistant/www/kitchen.jpg"
   - service: notify.discord
     data_template:
       message: "Kitchen camera triggered snapshot 📸"
@@ -866,7 +869,8 @@
   - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: TTS
-      title: "Warning the alarm was just tripped at the following windows/doors: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+      data:
+        tts_text: "Warning the alarm was just tripped at the following windows/doors: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
 
 - alias: Goodbye on Alarm
   trigger:
@@ -889,10 +893,10 @@
   - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: TTS
-      title: "The alarm has been activated."
       data:
         ttl: 0
         priority: 'high'
+        tts_text: "The alarm has been activated."
   - delay: "00:00:05"
   - service: script.turn_on
     entity_id: script.update_lights_dynamic
@@ -947,10 +951,10 @@
   - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: TTS
-      title: "The alarm has been activated since nobody is home"
       data:
         ttl: 0
         priority: 'high'
+        tts_text: "The alarm has been activated since nobody is home"
 
 - alias: Disarm alarm when someone comes home
   trigger:
@@ -1131,10 +1135,10 @@
   - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: TTS
-      title: "The following windows are open but the alarm is on: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       data:
         ttl: 0
         priority: 'high'
+        tts_text: "The following windows are open but the alarm is on: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
 
 - alias: Notify door lock keypad locked
   trigger:
@@ -1175,10 +1179,10 @@
   - service: notify.mobile_app_dannys_pixel_6_pro
     data_template:
       message: TTS
-      title: "Attention the alarm has been triggered by: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       data:
         ttl: 0
         priority: 'high'
+        tts_text: "Attention the alarm has been triggered by: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
   - service: switch.turn_on
     entity_id: switch.siren_switch
   - service: script.turn_on
@@ -1792,6 +1796,7 @@
 ################################################
 
 - alias: Bedroom closet light
+  mode: queued
   trigger:
   - platform: state
     entity_id: binary_sensor.bedroom_closet_door
@@ -2170,17 +2175,17 @@
   - service: notify.mobile_app_toshs_pixel_4_xl
     data:
       message: command_broadcast_intent
-      title: "com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK"
       data:
-        channel: "com.urbandroid.sleep"
+        intent_package_name: "com.urbandroid.sleep"
+        intent_action: "com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK"
         ttl: 0
         priority: high
   - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: command_broadcast_intent
-      title: "com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK"
       data:
-        channel: "com.urbandroid.sleep"
+        intent_package_name: "com.urbandroid.sleep"
+        intent_action: "com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK"
         ttl: 0
         priority: high
   - service: input_boolean.turn_on
@@ -2243,7 +2248,7 @@
       state: 'cool'
   action:
   - delay: "00:30:00"
-  - wait_template: "{{ states('sensor.thermostat_temperature')|int <= state_attr('climate.thermostat', 'temperature') }}"
+  - wait_template: "{{ states('sensor.thermostat_temperature')|int <= state_attr('climate.thermostat', 'temperature')|int }}"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'on'
@@ -2552,6 +2557,7 @@
 ################################################
 
 - alias: Notify bayesian on
+  mode: queued
   trigger:
     platform: state
     entity_id: binary_sensor.dannys_bayesian_presence
@@ -2642,10 +2648,10 @@
   - service: notify.mobile_app_dannys_pixel_6_pro
     data:
       message: TTS
-      title: "You are not home, did you forget anything?"
       data:
         ttl: 0
         priority: 'high'
+        tts_text: "You are not home, did you forget anything?"
   # - service: notify.discord
     # data_template:
       # message: "You are not home 🏠, did you forget anything?"
@@ -2714,10 +2720,10 @@
   - service: notify.mobile_app_toshs_pixel_4_xl
     data:
       message: TTS
-      title: "Tosh has left the zoo. Did you forget anything?"
       data:
         ttl: 0
         priority: high
+        tts_text: "Tosh has left the zoo. Did you forget anything?"
 
 - alias: Tosh awake and left
   trigger:
@@ -2739,9 +2745,9 @@
   - service: notify.mobile_app_toshs_pixel_4_xl
     data:
       message: command_broadcast_intent
-      title: "com.urbandroid.sleep.alarmclock.STOP_SLEEP_TRACK"
       data:
-        channel: "com.urbandroid.sleep"
+        intent_package_name: "com.urbandroid.sleep"
+        intent_action: "com.urbandroid.sleep.alarmclock.STOP_SLEEP_TRACK"
         ttl: 0
         priority: high
   - service: input_boolean.turn_off
@@ -4815,6 +4821,9 @@
         sticky: true
         alert_once: true
         notification_icon: "mdi:cat"
+        actions:
+        - action: 'REMIND_LATER'
+          title: Remind Later
   - service: input_boolean.turn_on
     entity_id: input_boolean.cat_litter_notifying
 
@@ -4854,6 +4863,25 @@
         sticky: true
         alert_once: true
         notification_icon: "mdi:cat"
+        actions:
+        - action: 'REMIND_LATER'
+          title: 'Remind Later'
+
+- alias: Cat Litter Remind Later
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: 'REMIND_LATER'
+  action:
+  - service: notify.android
+    data:
+      message: clear_notification
+      data:
+        tag: cat-litter
+        ttl: 0
+        priority: high
+
 ################################################
 #
 #      Cube Automations
@@ -5092,6 +5120,7 @@
         {% endif %}
 
 - alias: Announce ollies lights are on while he is sleeping
+  mode: queued
   trigger:
     platform: state
     entity_id: light.ollies_lights_level
@@ -5557,7 +5586,7 @@
   - service: light.turn_on
     entity_id: light.aquarium_light, light.aquarium_light_55g, light.cabinet_lights
   - service: switch.turn_on
-    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_triangle_light, switch.aquarium_30g_light, switch.aquarium_5g_light
+    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_triangle_light, switch.aquarium_30g_light, switch.beta_light
 
 - alias: Aquarium Lights Night
   trigger:
@@ -5567,7 +5596,7 @@
   - service: light.turn_off
     entity_id: light.aquarium_light, light.aquarium_light_55g, light.cabinet_lights
   - service: switch.turn_off
-    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_triangle_light, switch.aquarium_30g_light, switch.aquarium_5g_light
+    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_triangle_light, switch.aquarium_30g_light, switch.beta_light
 
 - alias: Feed fish
   trigger:
