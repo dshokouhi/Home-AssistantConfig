@@ -31,12 +31,8 @@ automation: !include automations.yaml
 scene: !include scenes.yaml
 
 http:
-   #base_url: !secret baseurl
    ssl_certificate: !secret sslcert
    ssl_key: !secret sslkey
-
-#updater:
-  #include_used_components: true
 
 discovery:
   ignore:
@@ -224,12 +220,6 @@ group: !include groups.yaml
 ifttt:
    key: !secret ifttt
 
-# mqtt:
-  # broker: 192.168.1.47
-  # discovery: true
-  # discovery_prefix: homeassistant
-  # port: 1883
-
 alarm_control_panel:
   platform: manual
   name: "Home"
@@ -256,10 +246,6 @@ media_player:
  - platform: onkyo
    host: 192.168.1.27
    name: Onkyo Den
-
-spotify:
-  client_id: !secret spotify_client_id_danny
-  client_secret: !secret spotify_client_secret_danny
 
 amcrest:
  - host: 192.168.1.42
@@ -311,45 +297,6 @@ amcrest:
    - audio_detected
 
 camera:
- - platform: generic
-   still_image_url: !secret garage_side_gate_image
-   stream_source: !secret garage_side_gate_h264
-   name: Garage Side Gate
-
- - platform: generic
-   still_image_url: !secret kitchen_side_gate_image
-   stream_source: !secret kitchen_side_gate_h264
-   name: Kitchen Side Gate
-
- - platform: generic
-   still_image_url: !secret patio_image
-   stream_source: !secret patio_h264
-   name: Patio
-
- - platform: generic
-   still_image_url: !secret frontyard_driveway_image
-   stream_source: !secret frontyard_driveway_h264
-   name: Frontyard Driveway
-
- - platform: generic
-   still_image_url: !secret frontyard_side_gate_image
-   stream_source: !secret frontyard_side_gate_h264
-   name: Frontyard Side Gate
-
- - platform: generic
-   still_image_url: !secret den_backyard_image
-   stream_source: !secret den_backyard_h264
-   name: Den Backyard
-
- - platform: generic
-   still_image_url: !secret frontyard_cars_image
-   stream_source: !secret frontyard_cars_h264
-   name: Frontyard Cars
-
- - platform: generic
-   name: OctoPrint Gcode Preview
-   still_image_url: "{{ states('sensor.octoprint_gcode_image') }}"
-
  - platform: local_file
    name: Frontyard Driveway Scan
    file_path: /home/homeassistant/.homeassistant/snapshot/frontyard_driveway_latest.jpg
@@ -403,20 +350,10 @@ camera:
    input: -rtsp_transport tcp -i rtsp://192.168.1.33/ch0_0.h264
 
 notify:
- - platform: slack
-   name: slack
-   api_key: !secret slack_bot
-   default_channel: '#hass'
-   username: hass
-
- - platform: discord
-   name: discord
-   token: !secret discord
-
  - platform: group
    name: discord_alerts
    services:
-   - service: discord
+   - service: hass
      data:
        target:
        - !secret discord_house
@@ -436,10 +373,6 @@ alert:
     skip_first: true
     notifiers:
     - discord_alerts
-
-google:
-   client_id: !secret google_client_id
-   client_secret: !secret google_secret_key
 
 google_assistant:
   project_id: hass-ga-908cf
@@ -869,7 +802,6 @@ google_assistant:
       expose: false
     group.aquarium_lights:
       expose: true
-      room: "Living Room"
     switch.aquarium_5g_light:
       expose: false
     light.aquarium_light:
@@ -1022,10 +954,6 @@ input_number:
     mode: box
     unit_of_measurement: "F"
 
-neato:
-  client_id: !secret neato_id
-  client_secret: !secret neato_secret
-
 cover:
   - platform: template
     covers:
@@ -1087,26 +1015,9 @@ xiaomi_aqara:
   gateways:
   - key: !secret xiaomi_gateway_key
     host: 192.168.1.58
-
-zoneminder:
-  host: 192.168.1.48:80
-  username: !secret zoneminder_user
-  password: !secret zoneminder_pass
  
 influxdb:
   max_retries: 10
-    
-sabnzbd:
-  host: 192.168.1.24
-  port: 6030
-  api_key: !secret sab
-  sensors:
-    - 'current_status'
-    - 'speed'
-    - 'queue_size'
-    - 'queue_remaining'
-    - 'disk_size'
-    - 'disk_free'
 
 panel_iframe:
   configurator:
@@ -1194,9 +1105,9 @@ counter:
   tensorflow:
     name: Image Scans
 
-climate:
-  - platform: mqtt
-    name: Sous vide
+mqtt:
+  climate:
+  - name: Sous vide
     modes:
       - disconnected
       - "off"
@@ -1214,6 +1125,141 @@ climate:
     min_temp: 77
     max_temp: 210
     precision: 0.1
+  binary_sensor:
+  - name: Patio Offline
+    state_topic: blue_iris/binary_sensor/patio/connectivity
+    payload_on: 'off'
+    payload_off: 'on'
+    device_class: connectivity
+
+  - name: Patio Motion
+    state_topic: blue_iris/binary_sensor/patio/motion
+    payload_on: 'on'
+    payload_off: 'off'
+    device_class: motion
+
+  - name: Frontyard Driveway Offline
+    state_topic: blue_iris/binary_sensor/frontyard_drwy/connectivity
+    payload_on: 'off'
+    payload_off: 'on'
+    device_class: connectivity
+
+  - name: Frontyard Driveway Motion
+    state_topic: blue_iris/binary_sensor/frontyard_drwy/motion
+    payload_on: 'on'
+    payload_off: 'off'
+    device_class: motion
+
+  - name: Frontyard Side Gate Offline
+    state_topic: blue_iris/binary_sensor/frontyard_sg/connectivity
+    payload_on: 'off'
+    payload_off: 'on'
+    device_class: connectivity
+
+  - name: Frontyard Side Gate Motion
+    state_topic: blue_iris/binary_sensor/frontyard_sg/motion
+    payload_on: 'on'
+    payload_off: 'off'
+    device_class: motion
+
+  - name: Garage Side Gate Offline
+    state_topic: blue_iris/binary_sensor/garage_sg/connectivity
+    payload_on: 'off'
+    payload_off: 'on'
+    device_class: connectivity
+
+  - name: Garage Side Gate Motion
+    state_topic: blue_iris/binary_sensor/garage_sg/motion
+    payload_on: 'on'
+    payload_off: 'off'
+    device_class: motion
+
+  - name: Kitchen Side Gate Offline
+    state_topic: blue_iris/binary_sensor/kitchen_sg/connectivity
+    payload_on: 'off'
+    payload_off: 'on'
+    device_class: connectivity
+
+  - name: Kitchen Side Gate Motion
+    state_topic: blue_iris/binary_sensor/kitchen_sg/motion
+    payload_on: 'on'
+    payload_off: 'off'
+    device_class: motion
+
+  - name: Den Backyard Offline
+    state_topic: blue_iris/binary_sensor/den_by/connectivity
+    payload_on: 'off'
+    payload_off: 'on'
+    device_class: connectivity
+
+  - name: Den Backyard Motion
+    state_topic: blue_iris/binary_sensor/den_by/motion
+    payload_on: 'on'
+    payload_off: 'off'
+    device_class: motion
+
+  - name: Frontyard Cars Offline
+    state_topic: blue_iris/binary_sensor/front_cars/connectivity
+    payload_on: 'off'
+    payload_off: 'on'
+    device_class: connectivity
+
+  - name: Frontyard Cars Motion
+    state_topic: blue_iris/binary_sensor/front_cars/motion
+    payload_on: 'on'
+    payload_off: 'off'
+    device_class: motion
+
+  - name: Ferret Camera Motion
+    state_topic: ferret_cam/binary_sensor/motion
+    payload_on: 'on'
+    payload_off: 'off'
+    device_class: motion
+  switch:
+  - name: Sous Vide Timer
+    state_topic: anova/timer
+    command_topic: anova/command/timer_run
+    payload_on: 'heat'
+    payload_off: 'off'
+    state_on: 'heat'
+    state_off: 'off'
+    optimistic: false
+    retain: true
+    value_template: "{{ value_json.timer_state }}"
+    icon: 'mdi:timer-outline'
+  sensor:
+  - name: Sous Vide Timer
+    state_topic: anova/timer
+    value_template: "{{ (value_json.timer | int) }}"
+    icon: 'mdi:timer-outline'
+
+  - name: Octoprint Progress
+    state_topic: "octoPrint/progress/printing"
+    value_template: "{{ value_json.progress }}"
+    unit_of_measurement: '%'
+
+  - name: 'Danny Bedroom'
+    state_topic: !secret mqtt_danny_bedroom
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+  - name: 'Tosh Bedroom'
+    state_topic: !secret mqtt_tosh_bedroom
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+  - name: 'Danny Den'
+    state_topic: !secret mqtt_danny_den
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+  - name: 'Tosh Den'
+    state_topic: !secret mqtt_tosh_den
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+  - name: 'Octoprint Gcode Image'
+    state_topic: "octoPrint/progress/printing"
+    value_template: "http://192.168.1.91:5000/plugin/UltimakerFormatPackage/thumbnail/{{(value_json.path)|regex_replace(find='gcode', replace='png', ignorecase=True)}}"
+    force_update: true
+  - name: Blue Iris Status
+    state_topic: "BlueIris/app"
 
 hacs:
   token: !secret github_api

@@ -201,17 +201,17 @@
      house_fan:
        friendly_name: House Fan
        unique_id: thermostat_house_fan
-       value_template: "{{ is_state_attr('climate.thermostat', 'fan_mode', 'On Low') }}"
+       value_template: "{{ is_state_attr('climate.thermostat', 'fan_mode', 'Low') }}"
        turn_on:
        - service: climate.set_fan_mode
          data:
            entity_id: climate.thermostat
-           fan_mode: 'On Low'
+           fan_mode: 'Low'
        turn_off:
        - service: climate.set_fan_mode
          data:
            entity_id: climate.thermostat
-           fan_mode: 'Auto Low'
+           fan_mode: 'Auto low'
 
  - platform: command_line
    switches:
@@ -228,10 +228,6 @@
      tasker_awake_tosh:
        command_on: python3 "/home/homeassistant/.homeassistant/tosh_awake.py"
 
- - platform: zoneminder
-   command_on: Record
-   command_off: None
-
  - platform: wake_on_lan
    mac: !secret tosh_w10_mac
    name: Tosh W10
@@ -246,16 +242,3 @@
    mac: !secret plex_mac
    name: Plex
    host: 192.168.1.60
-
- - platform: mqtt
-   name: Sous Vide Timer
-   state_topic: anova/timer
-   command_topic: anova/command/timer_run
-   payload_on: 'heat'
-   payload_off: 'off'
-   state_on: 'heat'
-   state_off: 'off'
-   optimistic: false
-   retain: true
-   value_template: "{{ value_json.timer_state }}"
-   icon: 'mdi:timer-outline'

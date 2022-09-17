@@ -133,16 +133,16 @@
        friendly_name: 'Bedroom Smoke'
 
      ollies_smoke_status:
-       value_template: '{%- if is_state("sensor.office_smoke_alarm_type", "0") %}
+       value_template: '{%- if is_state("sensor.ollies_smoke_alarm_type", "0") %}
                          Idle
                          {%else%}
-                           {%- if is_state("sensor.office_smoke_alarm_type", "1") %}
+                           {%- if is_state("sensor.ollies_smoke_alarm_type", "1") %}
                            Fire
-                           {%- elif is_state("sensor.office_smoke_alarm_type", "2") %}
+                           {%- elif is_state("sensor.ollies_smoke_alarm_type", "2") %}
                            CO2
-                           {%- elif is_state("sensor.office_smoke_alarm_type", "12") %}
+                           {%- elif is_state("sensor.ollies_smoke_alarm_type", "12") %}
                            Testing
-                           {%- elif is_state("sensor.office_smoke_alarm_type", "13") %}
+                           {%- elif is_state("sensor.ollies_smoke_alarm_type", "13") %}
                            Idle
                            {% else %}
                            Unknown
@@ -188,35 +188,18 @@
            Other
          {% endif %}
 
-     front_door_code:
-       friendly_name: 'Front Door Code'
-       value_template: >
-          {% if is_state('sensor.front_door_lock_user_code', '1') %}
-            Us
-          {% elif is_state('sensor.front_door_lock_user_code', '2') %}
-            Dad
-          {% elif is_state('sensor.front_door_lock_user_code', '3') %}
-            Zoo Keeper
-          {% elif is_state('sensor.front_door_lock_user_code', '4') %}
-            Courtney
-          {% elif is_state('sensor.front_door_lock_user_code', '5') %}
-            Izzy
-          {% else %}
-            Locked
-          {% endif %}
-
      postmates_tosh:
        friendly_name: Postmates Toshs Phone
        value_template: >
-            {% if is_state_attr('sensor.toshs_pixel_3_xl_last_notification', 'package', 'com.postmates.android') %}
-              {{ states('sensor.toshs_pixel_3_xl_last_notification') }}
+            {% if is_state_attr('sensor.toshs_pixel_4_xl_last_notification', 'package', 'com.postmates.android') %}
+              {{ states('sensor.toshs_pixel_4_xl_last_notification') }}
             {% else %}
               Nothing
             {% endif %}
        attribute_templates:
          title: >
-            {% if is_state_attr('sensor.toshs_pixel_3_xl_last_notification', 'package', 'com.postmates.android') %}
-              {{ state_attr('sensor.toshs_pixel_3_xl_last_notification', 'android.title') }}
+            {% if is_state_attr('sensor.toshs_pixel_4_xl_last_notification', 'package', 'com.postmates.android') %}
+              {{ state_attr('sensor.toshs_pixel_4_xl_last_notification', 'android.title') }}
             {% else %}
               Nothing
             {% endif %}
@@ -224,15 +207,15 @@
      instacart_tosh:
        friendly_name: Instacart Toshs Phone
        value_template: >
-            {% if is_state_attr('sensor.toshs_pixel_3_xl_last_notification', 'package', 'com.instacart.client') %}
-              {{ states('sensor.toshs_pixel_3_xl_last_notification') }}
+            {% if is_state_attr('sensor.toshs_pixel_4_xl_last_notification', 'package', 'com.instacart.client') %}
+              {{ states('sensor.toshs_pixel_4_xl_last_notification') }}
             {% else %}
               Nothing
             {% endif %}
        attribute_templates:
          title: >
-            {% if is_state_attr('sensor.toshs_pixel_3_xl_last_notification', 'package', 'com.instacart.client') %}
-              {{ state_attr('sensor.toshs_pixel_3_xl_last_notification', 'android.title') }}
+            {% if is_state_attr('sensor.toshs_pixel_4_xl_last_notification', 'package', 'com.instacart.client') %}
+              {{ state_attr('sensor.toshs_pixel_4_xl_last_notification', 'android.title') }}
             {% else %}
               Nothing
             {% endif %}
@@ -269,6 +252,65 @@
               Nothing
             {% endif %}
 
+     dannys_pixel_6_pro_beacon_room:
+       friendly_name: Dannys Pixel 6 Pro Beacon Room
+       icon_template: "mdi:cellphone-marker"
+       value_template: >
+            {% if is_state('sensor.dannys_pixel_6_pro_beacon_monitor', 'Monitoring') %}
+              {% set smallest = 0 %}
+              {% for attribute in states.sensor.dannys_pixel_6_pro_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
+                {% if loop.first %} {% set smallest = state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
+                {% if state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
+                  {% set smallest = state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) %}
+                  {% if attribute in '1a01a2b8-13a7-4c98-a732-496554720c3d' %}
+                    Den
+                  {% elif attribute in '9d05c5cc-b742-4b1d-96b8-6b8626854119' %}
+                    Kitchen
+                  {% elif attribute in 'a4e1b36e-252c-4995-8d7c-827ddea35b9f' %}
+                    Bedroom
+                  {% else %}
+                    {{ attribute }}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              {{ states('input_text.dannys_phone_last_room') }}
+            {% endif %}
+       attribute_templates:
+         distance: >
+            {% if is_state('sensor.dannys_pixel_6_pro_beacon_monitor', 'Monitoring') %}
+              {% set smallest = 0 %}
+              {% for attribute in states.sensor.dannys_pixel_6_pro_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
+                {% if loop.first %} {% set smallest = state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
+                {% if state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
+                  {{ state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) }}
+                {% endif %}
+              {% endfor %}
+            {% else %}
+             0
+            {% endif %}
+
+     dead_zwave_devices:
+       friendly_name: "Dead ZWave Devices"
+       value_template: >
+          {% if state_attr('sensor.dead_zwave_devices','entity_id') != none %}
+            {{ state_attr('sensor.dead_zwave_devices','entity_id') | count }}
+          {% else %}
+            {{ 0 }}
+          {% endif %}
+       attribute_templates:
+         entity_id: >
+            {% set exclude_filter = ['sensor.700_series_based_controller_node_status'] %}
+            {{
+              expand(integration_entities('Z-Wave JS') )
+              | rejectattr("entity_id", "in", exclude_filter)
+              | selectattr("entity_id", "search", "node_status")
+              | selectattr('state', 'in', 'dead, unavailable, unknown')
+              | map(attribute="object_id")
+              | map('regex_replace', find='(.*)_node_status', replace='button.\\1_ping', ignorecase=False)
+              | list
+            }}
+ 
  - platform: template
    sensors:
      harmony_den_activity:
@@ -297,14 +339,14 @@
        value_template: "{{ state_attr('sensor.dannys_pixel_6_pro_sleep_confidence', 'light') }}"
        unit_of_measurement: lx
 
-     toshs_pixel_3_xl_sleep_motion:
-       friendly_name: Toshs Pixel 3 XL Sleep Motion
-       value_template: "{{ state_attr('sensor.toshs_pixel_3_xl_sleep_confidence', 'motion') }}"
+     toshs_pixel_4_xl_sleep_motion:
+       friendly_name: Toshs Pixel 4 XL Sleep Motion
+       value_template: "{{ state_attr('sensor.toshs_pixel_4_xl_sleep_confidence', 'motion') }}"
        unit_of_measurement: motion
 
-     toshs_pixel_3_xl_sleep_light:
-       friendly_name: Toshs Pixel 3 XL Sleep Light
-       value_template: "{{ state_attr('sensor.toshs_pixel_3_xl_sleep_confidence', 'light') }}"
+     toshs_pixel_4_xl_sleep_light:
+       friendly_name: Toshs Pixel 4 XL Sleep Light
+       value_template: "{{ state_attr('sensor.toshs_pixel_4_xl_sleep_confidence', 'light') }}"
        unit_of_measurement: lx
 
      inside_outside_temp:
@@ -356,66 +398,6 @@
 
  - platform: cert_expiry
    host: !secret cert_expiry_host
-
- - platform: filesize
-   file_paths:
-   - /home/homeassistant/.homeassistant/home-assistant_v2.db
-
- - platform: zestimate
-   api_key: !secret zillow_api
-   zpid:
-   - !secret zillow_zpid
-
- - platform: mqtt
-   state_topic: !secret mqtt_danny_bedroom
-   value_template: '{{ value_json.confidence }}'
-   unit_of_measurement: '%'
-   name: 'Danny Bedroom'
-
- - platform: mqtt
-   state_topic: !secret mqtt_tosh_bedroom
-   value_template: '{{ value_json.confidence }}'
-   unit_of_measurement: '%'
-   name: 'Tosh Bedroom'
-
- - platform: mqtt
-   state_topic: !secret mqtt_danny_den
-   value_template: '{{ value_json.confidence }}'
-   unit_of_measurement: '%'
-   name: 'Danny Den'
-
- - platform: mqtt
-   state_topic: !secret mqtt_tosh_den
-   value_template: '{{ value_json.confidence }}'
-   unit_of_measurement: '%'
-   name: 'Tosh Den'
-
- - platform: mqtt
-   state_topic: "octoPrint/progress/printing"
-   value_template: "http://192.168.1.91:5000/plugin/UltimakerFormatPackage/thumbnail/{{(value_json.path)|regex_replace(find='gcode', replace='png', ignorecase=True)}}"
-   force_update: true
-   name: 'Octoprint Gcode Image'
-
- - platform: mqtt
-   state_topic: "BlueIris/app"
-   name: Blue Iris Status
-
- - platform: tautulli
-   api_key: !secret tautulli_api
-   host: 192.168.1.60
-   port: 8181/stats
-
- - platform: mqtt
-   name: Sous Vide Timer
-   state_topic: anova/timer
-   value_template: "{{ (value_json.timer | int) }}"
-   icon: 'mdi:timer-outline'
-
- - platform: mqtt
-   name: Octoprint Progress
-   state_topic: "octoPrint/progress/printing"
-   value_template: "{{ value_json.progress }}"
-   unit_of_measurement: '%'
 
  - platform: weatheralerts
    state: CA

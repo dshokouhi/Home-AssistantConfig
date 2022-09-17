@@ -530,7 +530,7 @@ views:
     icon: mdi:baby-face
     badges:
       - entity: sensor.ollies_air_purifier_temp
-      - entity: sensor.ollies_average_temperature
+      - entity: sensor.ollie_avg_temp
       - entity: sensor.ollies_closet_door
       - entity: sensor.ollies_door
       - entity: sensor.ollies_air_purifier_humidity
@@ -563,11 +563,7 @@ views:
           - entity: switch.ollies_heater
             secondary_info: last-changed
             state_color: true
-          - entity: switch.ollies_humidifier_switch
-            secondary_info: last-changed
-            state_color: true
           - entity: light.ollies_lamp
-          - entity: light.ollies_lights
           - entity: light.ollies_lights_level
           - entity: binary_sensor.ollies_motion
             secondary_info: last-changed
@@ -681,16 +677,14 @@ views:
     path: services
     icon: mdi:home-circle
     badges:
-      - entity: sensor.zestimate
-        name: Zestimate
       - entity: sensor.uptime_days
         name: System Uptime
-      - entity: sensor.home_assistant_v2_db
+      - entity: sensor.home_assistant_v2_db_size
         name: Database
       - sensor.load_1m
       - sensor.load_5m
       - sensor.load_15m
-      - entity: sensor.tautulli
+      - entity: sensor.tautulli_watching
         name: Plex Stats
       - entity: sensor.ombi_pending_requests
         name: Plex Requests
@@ -699,6 +693,7 @@ views:
       - entity: sensor.shakuyi_status
         name: Xbox Status
       - sensor.blue_iris_status
+      - sensor.connected_clients
     cards:
       - type: horizontal-stack
         id: stats
@@ -892,10 +887,6 @@ views:
         entities:
           - entity: input_boolean.danny_mi_band_sleep
             secondary_info: last-changed
-          - entity: sensor.danny_mi_band_steps
-            secondary_info: last-changed
-          - entity: sensor.danny_mi_band_heart_rate
-            secondary_info: last-changed
       - type: conditional
         conditions:
           - entity: light.wled
@@ -1012,6 +1003,19 @@ views:
         filter:
           include:
             - entity_id: "*quest_*"
+              options:
+                secondary_info: last-changed
+      - type: custom:auto-entities
+        id: danny-miband
+        card:
+          type: entities
+          title: Danny's Mi Band 7
+          show_header_toggle: false
+        sort:
+          method: name
+        filter:
+          include:
+            - entity_id: "miband.*"
               options:
                 secondary_info: last-changed
   - title: Cameras

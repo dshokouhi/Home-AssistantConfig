@@ -682,13 +682,13 @@
     data:
       entity_id: camera.living_room_camera
       filename: '/home/homeassistant/.homeassistant/www/living_room_camera.jpg'
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸 "
       data:
         file:
           path: "/home/homeassistant/.homeassistant/www/living_room_camera.jpg"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸 "
       target:
@@ -732,13 +732,13 @@
     data:
       entity_id: camera.den_camera
       filename: '/home/homeassistant/.homeassistant/www/den_camera.jpg'
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot 📸"
       data:
         file:
           path: "/home/homeassistant/.homeassistant/www/den_camera.jpg"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "{{ trigger.to_state.attributes.friendly_name }} triggered snapshot. 📸 "
       target:
@@ -779,13 +779,13 @@
     data:
       entity_id: camera.kitchen
       filename: '/home/homeassistant/.homeassistant/www/kitchen.jpg'
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data:
       message: "Kitchen camera triggered snapshot 📸 "
       data:
         file:
           path: "/home/homeassistant/.homeassistant/www/kitchen.jpg"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "Kitchen camera triggered snapshot 📸"
       target:
@@ -858,10 +858,10 @@
     state: 'armed_away'
   - service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.home
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "The alarm has been tripped ⚠ from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "The alarm has been tripped ⚠ from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
@@ -882,10 +882,10 @@
     entity_id: scene.goodbye
   - service: lock.lock
     entity_id: lock.front_door
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data:
       message: "The alarm has been activated."
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "The alarm has been activated."
       target:
@@ -897,9 +897,9 @@
         ttl: 0
         priority: 'high'
         tts_text: "The alarm has been activated."
-  - delay: "00:00:05"
-  - service: script.turn_on
-    entity_id: script.update_lights_dynamic
+  # - delay: "00:00:05"
+  # - service: script.turn_on
+    # entity_id: script.update_lights_dynamic
 
 - alias: Notify Alarm Off
   trigger:
@@ -908,10 +908,10 @@
     from: armed_away
     to: disarmed
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data:
       message: "The alarm has been deactivated."
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "The alarm has been deactivated."
       target:
@@ -940,10 +940,10 @@
   - service: alarm_control_panel.alarm_arm_away
     data:
       entity_id: alarm_control_panel.home
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data:
       message: "The alarm has been activated since nobody is home"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "The alarm has been activated since nobody is home"
       target:
@@ -969,10 +969,10 @@
   - service: alarm_control_panel.alarm_disarm
     data:
       entity_id: alarm_control_panel.home
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data:
       message: "The alarm has been deactivated since a tracked user is home"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "The alarm has been deactivated since a tracked user is home"
       target:
@@ -980,6 +980,10 @@
 
 - alias: Arm Alarm Front Door
   trigger:
+  - platform: event
+    event_type: "zwave_js_notification"
+    event_data:
+      event: 5
   - platform: state
     entity_id: sensor.front_door_lock_alarm_type
     to: '5'
@@ -994,6 +998,10 @@
 
 - alias: Disarm Alarm Front Door
   trigger:
+  - platform: event
+    event_type: "zwave_js_notification"
+    event_data:
+      event: 6
   - platform: state
     entity_id: sensor.front_door_lock_alarm_type
     to: '6'
@@ -1014,22 +1022,24 @@
     data:
       entity_id: alarm_control_panel.home
 
-- alias: Turn on lights if alarm is disarmed and code 1 unlocks
+- alias: Turn on lights if alarm is disarmed
   trigger:
-  - platform: state
-    entity_id: sensor.front_door_lock_alarm_type
-    to: '6'
-    for:
-      seconds: 1
+  - platform: event
+    event_type: "zwave_js_notification"
+    event_data:
+      event: 6
   condition:
-    condition: and
+    condition: or
     conditions:
     - condition: state
       entity_id: alarm_control_panel.home
       state: 'disarmed'
     - condition: state
-      entity_id: sensor.front_door_lock_user_code
-      state: '1'
+      entity_id: alarm_control_panel.home
+      state: 'arming'
+    - condition: state
+      entity_id: alarm_control_panel.home
+      state: 'pending'
   action:
   - service: light.turn_on
     entity_id: light.living_room_lights_level
@@ -1039,25 +1049,22 @@
     value_template: "{{ states.media_player.kodi_den.state != 'playing' and states.media_player.kodi_shield.state != 'playing' }}"
   - service: light.turn_on
     entity_id: light.den_lights_level
-  - service: script.turn_on
-    entity_id: script.update_lights_dynamic
+  # - service: script.turn_on
+    # entity_id: script.update_lights_dynamic
 
 - alias: Dad Unlock
   trigger:
-  - platform: state
-    entity_id: sensor.front_door_lock_alarm_type
-    to: '6'
-    for:
-      seconds: 1
-  condition:
-    condition: state
-    entity_id: sensor.front_door_code
-    state: 'Dad'
+  - platform: event
+    event_type: "zwave_js_notification"
+    event_data:
+      event: 6
+      parameters:
+        userId: 2
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data:
       message: "The front door has been unlocked by dad"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "The front door has been unlocked by dad"
       target:
@@ -1065,24 +1072,21 @@
   - service: tts.google_say
     entity_id: media_player.kitchen_home, media_player.den_home_hub, media_player.ollies_speaker
     data:
-      message: 'Hello just a friendly reminder to make sure the water bowls in the den, living room and also the ferret cage are refilled.  Dont forget to feed the ferrets and cats.  Please clean up the ferrets and cat litter. Thank you so much have a great day.'
+      message: 'Hello just a friendly reminder to make sure the water bowls in the den and living room are refilled. Thank you so much have a great day.'
 
 - alias: Zoo keeper Unlock
   trigger:
-  - platform: state
-    entity_id: sensor.front_door_lock_alarm_type
-    to: '6'
-    for:
-      seconds: 2
-  condition:
-    condition: state
-    entity_id: sensor.front_door_code
-    state: 'Zoo Keeper'
+  - platform: event
+    event_type: "zwave_js_notification"
+    event_data:
+      event: 6
+      parameters:
+        userId: 3
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data:
       message: "The front door has been unlocked by zoo keeper"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "The front door has been unlocked by zoo keeper"
       target:
@@ -1090,20 +1094,17 @@
 
 - alias: Izzy Unlock
   trigger:
-  - platform: state
-    entity_id: sensor.front_door_lock_alarm_type
-    to: '6'
-    for:
-      seconds: 2
-  condition:
-    condition: state
-    entity_id: sensor.front_door_code
-    state: 'Izzy'
+  - platform: event
+    event_type: "zwave_js_notification"
+    event_data:
+      event: 6
+      parameters:
+        userId: 4
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data:
       message: "The front door has been unlocked by Izzy"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "The front door has been unlocked by Izzy"
       target:
@@ -1119,7 +1120,7 @@
     entity_id: binary_sensor.windows
     state: 'on'
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "The following window(s) is/are open but the alarm is turned on: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
   - service: notify.android
@@ -1142,11 +1143,12 @@
 
 - alias: Notify door lock keypad locked
   trigger:
-    platform: state
-    entity_id: sensor.front_door_lock_alarm_type
-    to: '16'
+  - platform: event
+    event_type: "zwave_js_notification"
+    event_data:
+      event: 16
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data:
       message: "Too many incorrect codes used on front door. Keypad locked. 🔐 "
   - service: notify.android
@@ -1168,10 +1170,10 @@
   action:
   - service: light.turn_on
     entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.bedroom_lights_level, light.ollies_lights_level
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "The alarm has been triggered since it was not disarmed for 60 seconds 👮‍♀ , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "The alarm has been triggered since it was not disarmed for 60 seconds 👮‍♀‍ , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
@@ -1200,8 +1202,8 @@
     state: below_horizon
   - service: light.turn_on
     entity_id: light.patio
-  - service: script.turn_on
-    entity_id: script.update_lights_dynamic
+  # - service: script.turn_on
+    # entity_id: script.update_lights_dynamic
 
 - alias: Turn off armed night when we wake up
   trigger:
@@ -1266,10 +1268,10 @@
       entity_id: input_boolean.guest_mode
       state: 'off'
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "Alarm is in armed night and the following windows are open ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "Alarm is in armed night and the following windows are open ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
@@ -1294,10 +1296,10 @@
       entity_id: input_boolean.night_mode
       state: 'on'
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "The alarm is arming in night mode and the following windows are open ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "The alarm is arming in night mode and the following windows are open ⛔ : {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
@@ -1341,10 +1343,10 @@
     entity_id: switch.den_state, switch.baby_monitor_state, switch.living_room_state, switch.frontyard_driveway_state, switch.frontyard_side_gate_state, switch.garage_side_gate_state, switch.garage_state, switch.kitchen_side_gate_state, switch.kitchen_state, switch.patio_state
     to: 'on'
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "Alarm recording 📹 started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "Alarm recording 📹 started in {{ trigger.to_state.attributes.friendly_name | replace(' State', '') }}"
       target:
@@ -1447,7 +1449,7 @@
         position: center
       message: "Bedroom door 🚪 left open and boogie has left 🚙 for work, go close it!"
       title: Shokabow Zoo
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "Bedroom door 🚪 left open and boogie has left 🚙 for work, go close it!"
       target:
@@ -1832,7 +1834,7 @@
 - alias: Turn off Ollies closet if on for 15 min and door closed
   trigger:
   - platform: state
-    entity_id: light.office_closet
+    entity_id: switch.office_closet_switch
     to: 'on'
     for:
       minutes: 15
@@ -1841,10 +1843,11 @@
     entity_id: binary_sensor.ollies_closet_door
     state: 'off'
   action:
-    service: light.turn_off
-    entity_id: light.office_closet
+    service: switch.turn_off
+    entity_id: switch.office_closet_switch
     
 - alias: Ollies Closet Light
+  mode: restart
   trigger:
   - platform: state
     entity_id: binary_sensor.ollies_closet_door
@@ -1855,12 +1858,12 @@
   action:
     service_template: >
            {% if is_state("binary_sensor.ollies_closet_door", "on") %}
-             light.turn_on
+             switch.turn_on
            {% elif is_state("binary_sensor.ollies_closet_door", "off") %}
-             light.turn_off
+             switch.turn_off
            {% else %}
            {% endif %}
-    entity_id: light.office_closet
+    entity_id: switch.office_closet_switch
 
 - alias: Garage lights from frontyard
   trigger:
@@ -1894,10 +1897,10 @@
   - platform: state
     entity_id: binary_sensor.garage_backyard_door
     to: 'off'
-  condition:
-    condition: state
-    entity_id: binary_sensor.garage_frontyard_door
-    state: 'off'
+  # condition:
+    # condition: state
+    # entity_id: binary_sensor.garage_frontyard_door
+    # state: 'off'
   action:
   - service: switch.turn_off
     entity_id: switch.garage_switch
@@ -1914,10 +1917,10 @@
     to: 'on'
     for:
       minutes: 15
-  condition:
-    condition: state
-    entity_id: binary_sensor.garage_frontyard_door
-    state: 'off'
+  # condition:
+    # condition: state
+    # entity_id: binary_sensor.garage_frontyard_door
+    # state: 'off'
   action:
   - wait_template: "{{ states.binary_sensor.garage_motion_sensor.state == 'off' }}"
   - service: switch.turn_off
@@ -2036,7 +2039,7 @@
       entity_id: input_boolean.night_mode
       state: 'off'
   action:
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "Its raining 🌧 and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
@@ -2306,8 +2309,8 @@
     entity_id: light.living_room_lights_level
   - service: switch.turn_off
     entity_id: switch.siren_switch
-  - service: script.turn_on
-    entity_id: script.update_lights_dynamic
+  # - service: script.turn_on
+    # entity_id: script.update_lights_dynamic
   - condition: state
     entity_id: climate.thermostat
     state: cool
@@ -2334,7 +2337,7 @@
     entity_id: sensor.ollies_smoke_status
     to: 'Fire'
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }} 🚒🔥 "
   - service: notify.den
@@ -2345,7 +2348,7 @@
         position: center
       message: 'Smoke Detected! {{ trigger.to_state.attributes.friendly_name }} 🚒🔥'
       title: Shokabow Zoo
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }} 🚒🔥 "
       target:
@@ -2373,7 +2376,7 @@
     entity_id: sensor.ollies_smoke_status
     to: 'CO2'
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }} 🔥 "
   - service: notify.den
@@ -2384,7 +2387,7 @@
         position: center
       message: 'CO2 Detected! {{ trigger.to_state.attributes.friendly_name }} 🔥'
       title: Shokabow Zoo
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }} 🔥 "
       target:
@@ -2652,7 +2655,7 @@
         ttl: 0
         priority: 'high'
         tts_text: "You are not home, did you forget anything?"
-  # - service: notify.discord
+  # - service: notify.hass
     # data_template:
       # message: "You are not home 🏠, did you forget anything?"
       # target:
@@ -2666,7 +2669,7 @@
     # condition: template
     # value_template: "{{ trigger.to_state.state != trigger.from_state.state }}"
   # action:
-  # - service: notify.discord
+  # - service: notify.hass
     # data_template:
       # message: "{{ trigger.to_state.attributes.friendly_name }} mobile app is {{ trigger.to_state.state }}"
       # target:
@@ -2981,8 +2984,8 @@
       kelvin: 6500
   - service: light.turn_off
     entity_id: light.kitchen_lights_level, light.corner_lamp, light.patio, light.living_room_lights_level, light.ollies_lights_level, light.bedroom_lights_level, light.island_lights
-  - service: script.turn_on
-    entity_id: script.update_lights_dynamic
+  # - service: script.turn_on
+    # entity_id: script.update_lights_dynamic
   - condition: state
     entity_id: switch.fireplace
     state: 'off'
@@ -3026,8 +3029,8 @@
   action:
   - service: light.turn_off
     entity_id: light.den_lights_level, light.kitchen_lights_level, light.living_room_lights_level, light.patio, light.corner_lamp, light.island_lights
-  - service: script.turn_on
-    entity_id: script.update_lights_dynamic
+  # - service: script.turn_on
+    # entity_id: script.update_lights_dynamic
 
 - alias: Turn on lights when movie paused
   trigger:
@@ -3141,7 +3144,7 @@
     entity_id: binary_sensor.shokabow_weather_rain
     state: 'on'
   action:
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "There is rain 🌧 getting into the water heater."
       target:
@@ -3180,7 +3183,7 @@
           {% endmacro %}
           {{ battery_level() |trim != "" }}
   action:
-    - service: notify.discord
+    - service: notify.hass
       data_template:
         message: >
              {% macro battery_level() %}
@@ -3210,7 +3213,7 @@
     # platform: event
     # event_type: timer_out_of_sync
   # action:
-  # - service: notify.discord
+  # - service: notify.hass
     # data_template:
       # message: "Timer out of sync. ⏲ "
       # target:
@@ -3503,11 +3506,11 @@
   action:
   - service: light.turn_off
     entity_id: light.bedroom_lights_level, light.dannys, light.toshs
-  - delay: "00:00:05"
-  - service: mqtt.publish
-    data_template:
-      topic: "OpenZWave/1/command/requestnodedynamic/"
-      payload: '{ "node": 2 }'
+  # - delay: "00:00:05"
+  # - service: mqtt.publish
+    # data_template:
+      # topic: "OpenZWave/1/command/requestnodedynamic/"
+      # payload: '{ "node": 2 }'
 
 - alias: Turn off living room lights when no motion
   trigger:
@@ -3540,11 +3543,11 @@
   action:
   - service: light.turn_off
     entity_id: light.living_room_lights_level
-  - delay: "00:00:05"
-  - service: mqtt.publish
-    data_template:
-      topic: "OpenZWave/1/command/requestnodedynamic/"
-      payload: '{ "node": 4 }'
+  # - delay: "00:00:05"
+  # - service: mqtt.publish
+    # data_template:
+      # topic: "OpenZWave/1/command/requestnodedynamic/"
+      # payload: '{ "node": 4 }'
 
 - alias: Turn off kitchen lights when no motion
   trigger:
@@ -3732,7 +3735,7 @@
     entity_id: binary_sensor.bathroom_sink_leak_sensor
     to: 'on'
   action:
-  - service: notify.slack
+  - service: notify.plex_shokouhi
     data_template:
       message: "Leak detected 🚱 at home {{ trigger.to_state.attributes.friendly_name }} 🏠 "
   - service: notify.den
@@ -3881,7 +3884,7 @@
         for:
           minutes: 1
   action:
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: >
            {% if is_state("binary_sensor.tsxpresence", "on") %}
@@ -3919,7 +3922,7 @@
         for:
           minutes: 1
   action:
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: >
            {% if is_state("binary_sensor.rdxpresence", "on") %}
@@ -4131,7 +4134,7 @@
   action:
   - service: notify.android
     data_template:
-      message: "Pool pump 🏊‍♀️ is offline :no_entry, go outside and hit reset ⚠ "
+      message: "Pool pump 🏊‍♀️ is offline, go outside and hit reset ⚠ "
       data:
         ttl: 0
         priority: high
@@ -4198,8 +4201,8 @@
   - service: light.turn_off
     entity_id: light.kitchen_lights_level
   - delay: '00:{{ range(10,59) | random | int }}:{{ range(20,59) | random | int }}'
-  - service: script.turn_on
-    entity_id: script.update_lights_dynamic
+  # - service: script.turn_on
+    # entity_id: script.update_lights_dynamic
   - condition: state
     entity_id: alarm_control_panel.home
     state: 'armed_away'
@@ -4211,8 +4214,8 @@
     state: 'armed_away'
   - service: light.turn_off
     entity_id: light.bedroom_lights_level
-  - service: script.turn_on
-    entity_id: script.update_lights_dynamic
+  # - service: script.turn_on
+    # entity_id: script.update_lights_dynamic
 
 ################################################
 #
@@ -4283,6 +4286,8 @@
         priority: high
         channel: alert
         group: alert
+        tag: "{{ trigger.entity_id }}"
+        alert_once: true
         notification_icon: "mdi:air-filter"
  
 ################################################
@@ -4348,7 +4353,7 @@
     condition: template
     value_template: '{{ trigger.to_state.state |int > 0 }}'
   action:
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: >
             {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }} 📸.
@@ -4464,11 +4469,11 @@
              {% endif %}
   - condition: template
     value_template: "{{ trigger.entity_id == 'image_processing.tensorflow_living_room_camera' }}"
-  - delay: "00:00:05"
-  - service: mqtt.publish
-    data_template:
-      topic: "OpenZWave/1/command/requestnodedynamic/"
-      payload: '{ "node": 4 }'
+  # - delay: "00:00:05"
+  # - service: mqtt.publish
+    # data_template:
+      # topic: "OpenZWave/1/command/requestnodedynamic/"
+      # payload: '{ "node": 4 }'
 
 - alias: Notify kitchen tv on for 1 hour
   trigger:
@@ -4708,6 +4713,19 @@
   - service: "{% if is_state('input_text.sleep_as_android_tosh', 'sleep_tracking_stopped') %}input_boolean.turn_off{% elif is_state('input_text.sleep_as_android_tosh', 'sleep_tracking_started') %}input_boolean.turn_on{% else %}{% endif %}"
     entity_id: input_boolean.tosh_sleep
 
+- alias: Save last room danny phone
+  trigger:
+    platform: state
+    entity_id: sensor.dannys_pixel_6_pro_beacon_room
+    to:
+     - Den
+     - Kitchen
+     - Bedroom
+  action:
+  - service: input_text.set_value
+    data:
+      entity_id: input_text.dannys_phone_last_room
+      value: "{{ trigger.to_state.state }}"
 ################################################
 #
 #      ADB Automations
@@ -4939,7 +4957,7 @@
       # entity_id: binary_sensor.cube
       # action_type: rotate
   # action:
-  # - service: notify.discord
+  # - service: notify.hass
     # data_template:
       # message: "Cube rotated {{ trigger.event.data.action_value }} degrees."
       # target:
@@ -4996,7 +5014,7 @@
       # entity_id: binary_sensor.vibration_sensor
       # movement_type: vibrate
   # action:
-  # - service: notify.discord
+  # - service: notify.hass
     # data_template:
       # message: "Vibration detected."
       # target:
@@ -5010,7 +5028,7 @@
       # entity_id: binary_sensor.vibration_sensor
       # movement_type: tilt
   # action:
-  # - service: notify.discord
+  # - service: notify.hass
     # data_template:
       # message: "Vibration tilt detected."
       # target:
@@ -5024,7 +5042,7 @@
       # entity_id: binary_sensor.vibration_sensor
       # movement_type: free_fall
   # action:
-  # - service: notify.discord
+  # - service: notify.hass
     # data_template:
       # message: "Vibration free fall detected."
       # target:
@@ -5180,10 +5198,10 @@
 - alias: Notify temperature during sleep
   trigger:
   - platform: numeric_state
-    entity_id: sensor.ollies_average_temperature
+    entity_id: sensor.ollie_avg_temp
     above: 75
   - platform: numeric_state
-    entity_id: sensor.ollies_average_temperature
+    entity_id: sensor.ollie_avg_temp
     below: 60
   condition:
     condition: and
@@ -5199,7 +5217,7 @@
   action:
   - service: notify.android
     data_template:
-      message: "Ollies room temperature is at {{ states('sensor.ollies_average_temperature') }} 🌡 {% if states('sensor.ollies_average_temperature') | int > 75%} 🔥 {% else %} {% endif %} 👶 check the heater positioning"
+      message: "Ollies room temperature is at {{ states('sensor.ollie_avg_temp') }} 🌡 {% if states('sensor.ollie_avg_temp') | int > 75 %} 🔥 {% else %} {% endif %} 👶 check the heater positioning"
       data:
         ttl: 0
         priority: high
@@ -5212,7 +5230,7 @@
 - alias: Turn on Ollies heater when its cold
   trigger:
   - platform: numeric_state
-    entity_id: sensor.ollies_average_temperature
+    entity_id: sensor.ollie_avg_temp
     below: 61
   - platform: state
     entity_id: input_boolean.baby_sleeping
@@ -5234,7 +5252,7 @@
       entity_id: climate.thermostat
       state: 'off'
     - condition: numeric_state
-      entity_id: sensor.ollies_average_temperature
+      entity_id: sensor.ollie_avg_temp
       below: 61
   action:
     service: switch.turn_on
@@ -5243,7 +5261,7 @@
 - alias: Turn off Ollies heater when its hot
   trigger:
     platform: numeric_state
-    entity_id: sensor.ollies_average_temperature
+    entity_id: sensor.ollie_avg_temp
     above: 70
   condition:
     condition: and
@@ -5310,7 +5328,7 @@
     for:
       hours: 1
   action:
-  - wait_template: "{{ states('sensor.ollies_average_temperature') | int > 71 }}"
+  - wait_template: "{{ states('sensor.ollie_avg_temp') | int > 71 }}"
   - condition: state
     entity_id: switch.ollies_heater
     state: 'on'
@@ -5484,7 +5502,7 @@
   - platform: event
     event_type: android.zone_exited
   action:
-  - service: notify.discord
+  - service: notify.hass
     data_template:
       message: "{% set person = states.person|selectattr('attributes.user_id', 'eq', trigger.event.context.user_id)|first %}{{ person.attributes.friendly_name }} {{ trigger.event }} home zone with accuracy {{ trigger.event.data.accuracy }} "
       target:
@@ -5537,16 +5555,16 @@
   - platform: event
     event_type: android.intent_received
     event_data:
-      intent: com.mc.miband.tasker.fellAsleep
+      intent: com.mc.miband.tasker.trigger.fellAsleep
   - platform: event
     event_type: android.intent_received
     event_data:
-      intent: com.mc.miband.tasker.wokeUp
+      intent: com.mc.miband.tasker.trigger.wokeUp
   action:
     service: >-
-        {% if trigger.event.data.intent == 'com.mc.miband.tasker.wokeUp' %}
+        {% if trigger.event.data.intent == 'com.mc.miband.tasker.trigger.wokeUp' %}
           input_boolean.turn_off
-        {% elif trigger.event.data.intent == 'com.mc.miband.tasker.fellAsleep' %}
+        {% elif trigger.event.data.intent == 'com.mc.miband.tasker.trigger.fellAsleep' %}
           input_boolean.turn_on
         {% else %}
         {% endif %}
@@ -5623,21 +5641,6 @@
   - service: switch.turn_off
     entity_id: switch.aquarium_55g_bubble_light
 
-- alias: Aquarium lights in ollies room
-  trigger:
-  - platform: state
-    entity_id: sun.sun
-  - platform: state
-    entity_id: input_boolean.baby_sleeping
-  action:
-  - service: >-
-      {% if is_state('sun.sun', 'above_horizon') and is_state('input_boolean.baby_sleeping', 'off') %}
-        switch.turn_on
-      {% else %}
-        switch.turn_off
-      {% endif %}
-    entity_id: switch.aquarium_1g_light
-
 - alias: Notify aquarium temperature
   trigger:
   - platform: numeric_state
@@ -5657,6 +5660,8 @@
         ttl: 0
         priority: high
         group: aquarium
+        tag: "{{ trigger.entity_id }}"
+        alert_once: true
         channel: Aquarium
         notification_icon: "mdi:fish"
 ################################################
