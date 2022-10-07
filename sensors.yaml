@@ -262,11 +262,11 @@
                 {% if loop.first %} {% set smallest = state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
                 {% if state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
                   {% set smallest = state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) %}
-                  {% if attribute in '1a01a2b8-13a7-4c98-a732-496554720c3d' %}
+                  {% if attribute in '1a01a2b8-13a7-4c98-a732-496554720c3d_100_1' %}
                     Den
-                  {% elif attribute in '9d05c5cc-b742-4b1d-96b8-6b8626854119' %}
+                  {% elif attribute in '9d05c5cc-b742-4b1d-96b8-6b8626854119_100_1' %}
                     Kitchen
-                  {% elif attribute in 'a4e1b36e-252c-4995-8d7c-827ddea35b9f' %}
+                  {% elif attribute in 'a4e1b36e-252c-4995-8d7c-827ddea35b9f_100_1' %}
                     Bedroom
                   {% else %}
                     {{ attribute }}
@@ -284,6 +284,44 @@
                 {% if loop.first %} {% set smallest = state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
                 {% if state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
                   {{ state_attr('sensor.dannys_pixel_6_pro_beacon_monitor', attribute) | float(0.00) }}
+                {% endif %}
+              {% endfor %}
+            {% else %}
+             0
+            {% endif %}
+
+     toshs_pixel_4_xl_beacon_room:
+       friendly_name: Toshs Pixel 4 XL Beacon Room
+       icon_template: "mdi:cellphone-marker"
+       value_template: >
+            {% if is_state('sensor.toshs_pixel_4_xl_beacon_monitor', 'Monitoring') %}
+              {% set smallest = 0 %}
+              {% for attribute in states.sensor.toshs_pixel_4_xl_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
+                {% if loop.first %} {% set smallest = state_attr('sensor.toshs_pixel_4_xl_beacon_monitor', attribute) | float(0.00) %} {% endif %}
+                {% if state_attr('sensor.toshs_pixel_4_xl_beacon_monitor', attribute) | float(0.00) <= smallest %}
+                  {% set smallest = state_attr('sensor.toshs_pixel_4_xl_beacon_monitor', attribute) | float(0.00) %}
+                  {% if attribute in '1a01a2b8-13a7-4c98-a732-496554720c3d_100_1' %}
+                    Den
+                  {% elif attribute in '9d05c5cc-b742-4b1d-96b8-6b8626854119_100_1' %}
+                    Kitchen
+                  {% elif attribute in 'a4e1b36e-252c-4995-8d7c-827ddea35b9f_100_1' %}
+                    Bedroom
+                  {% else %}
+                    {{ attribute }}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              {{ states('input_text.toshs_phone_last_room') }}
+            {% endif %}
+       attribute_templates:
+         distance: >
+            {% if is_state('sensor.toshs_pixel_4_xl_beacon_monitor', 'Monitoring') %}
+              {% set smallest = 0 %}
+              {% for attribute in states.sensor.toshs_pixel_4_xl_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
+                {% if loop.first %} {% set smallest = state_attr('sensor.toshs_pixel_4_xl_beacon_monitor', attribute) | float(0.00) %} {% endif %}
+                {% if state_attr('sensor.toshs_pixel_4_xl_beacon_monitor', attribute) | float(0.00) <= smallest %}
+                  {{ state_attr('sensor.toshs_pixel_4_xl_beacon_monitor', attribute) | float(0.00) }}
                 {% endif %}
               {% endfor %}
             {% else %}

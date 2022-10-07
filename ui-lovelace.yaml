@@ -112,7 +112,7 @@ views:
             - entity_id: sensor.pi_hole_cpu_thermal_1_temperature
             - entity_id: "*battery_temperature*"
             - entity_id: sensor.pi_hole_cpu_thermal_1_temperature_2
-            - entity_id: sensor.den_pi_cpu_thermal_1_temperature_2
+            - entity_id: sensor.den_pi_cpu_thermal_1_temperature_3
         show_empty: false
       - type: entity-filter
         id: people
@@ -350,9 +350,9 @@ views:
       - type: conditional
         id: sousvidecond
         conditions:
-          - entity: climate.sous_vide
+          - entity: climate.anova
             state_not: 'disconnected'
-          - entity: climate.sous_vide
+          - entity: climate.anova
             state_not: 'off'
         card:
           type: entities
@@ -360,10 +360,8 @@ views:
           id: sousvide
           show_header_toggle: false
           entities:
-            - entity: climate.sous_vide
+            - entity: climate.anova
               secondary_info: last-changed
-            - entity: sensor.sous_vide_timer
-            - entity: switch.sous_vide_timer
   - title: Room
     path: room
     icon: mdi:home-modern
@@ -639,7 +637,7 @@ views:
         state_color: true
         entities:
           - entity: switch.aquarium_50g_light
-          - entity: sensor.aquarium_50g_temperature
+          - entity: sensor.angelfish_aquarium_temp
             secondary_info: last-changed
       - type: entities
         id: aquarium-55g
@@ -821,7 +819,9 @@ views:
             name: Run Test
             tap_action:
               action: call-service
-              service: speedtestdotnet.speedtest
+              service: homeassistant.update_entity
+              target:
+                entity_id: sensor.speedtest_download
       - type: glance
         id: servercloset
         title: Server Closet
@@ -1015,7 +1015,7 @@ views:
           method: name
         filter:
           include:
-            - entity_id: "miband.*"
+            - entity_id: "*dannys_miband*"
               options:
                 secondary_info: last-changed
   - title: Cameras
@@ -1311,6 +1311,9 @@ views:
       - type: "custom:weather-card"
         entity: weather.kvny_daynight
         id: kvny
+      - type: "custom:weather-card"
+        entity: weather.tomorrow_io_home_hourly
+        id: tomorrow-io-hourly
   - title: OZW
     icon: mdi:z-wave
     path: ozw

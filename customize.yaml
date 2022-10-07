@@ -622,8 +622,11 @@ sensor.toshs_phone_charging_type:
 sensor.pool_temperature:
   device_class: temperature
 
-sensor.danny_mi_band_steps:
+sensor.dannys_miband_steps:
   unit_of_measurement: steps
 
-sensor.danny_mi_band_heart_rate:
+sensor.dannys_miband_heartrate:
   unit_of_measurement: BPM
+
+sensor.dannys_miband_battery:
+  unit_of_measurement: '%'

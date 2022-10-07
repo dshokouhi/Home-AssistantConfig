@@ -3241,7 +3241,9 @@
     - condition: template
       value_template: "{{ states('sensor.sabnzbd_speed')|int == 0 }}"
   action:
-    - service: speedtestdotnet.speedtest
+    - service: homeassistant.update_entity
+      target:
+        entity_id: sensor.speedtest_download
 
 - alias: Notify PC offline
   trigger:
@@ -4726,6 +4728,20 @@
     data:
       entity_id: input_text.dannys_phone_last_room
       value: "{{ trigger.to_state.state }}"
+
+- alias: Save last room tosh phone
+  trigger:
+    platform: state
+    entity_id: sensor.toshs_pixel_4_xl_beacon_room
+    to:
+     - Den
+     - Kitchen
+     - Bedroom
+  action:
+  - service: input_text.set_value
+    data:
+      entity_id: input_text.toshs_phone_last_room
+      value: "{{ trigger.to_state.state }}"
 ################################################
 #
 #      ADB Automations
@@ -5057,20 +5073,20 @@
 - alias: Notify when Sous Vide is ready
   trigger:
     platform: state
-    entity_id: climate.sous_vide
+    entity_id: climate.anova
     to: 'heat'
   condition:
     condition: template
-    value_template: "{{ state_attr('climate.sous_vide', 'current_temperature') | int != state_attr('climate.sous_vide', 'temperature') | int }}"
+    value_template: "{{ state_attr('climate.anova', 'current_temperature') | int != state_attr('climate.anova', 'temperature') | int }}"
   action:
   - delay: "00:02:00"
-  - wait_template: "{{ state_attr('climate.sous_vide', 'current_temperature') | int == state_attr('climate.sous_vide', 'temperature') | int }}"
+  - wait_template: "{{ state_attr('climate.anova', 'current_temperature') | int == state_attr('climate.anova', 'temperature') | int }}"
   - delay: "00:00:05"
   - condition: template
-    value_template: "{{ (state_attr('climate.sous_vide', 'current_temperature') | int == state_attr('climate.sous_vide', 'temperature') | int) and (is_state('climate.sous_vide', 'heat')) }}"
+    value_template: "{{ (state_attr('climate.anova', 'current_temperature') | int == state_attr('climate.anova', 'temperature') | int) and (is_state('climate.anova', 'heat')) }}"
   - service: notify.android
     data_template:
-      message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }} 🍳 "
+      message: "Sous vide is ready at {{ state_attr('climate.anova', 'current_temperature') }} 🍳 "
       title: Food
       data:
         ttl: 0
@@ -5084,7 +5100,7 @@
         color: red
         duration: 10
         position: center
-      message: "Sous vide is ready at {{ state_attr('climate.sous_vide', 'current_temperature') }} 🍳"
+      message: "Sous vide is ready at {{ state_attr('climate.anova', 'current_temperature') }} 🍳"
       title: Shokabow Zoo
   - condition: state
     entity_id: input_boolean.night_mode
@@ -5644,10 +5660,10 @@
 - alias: Notify aquarium temperature
   trigger:
   - platform: numeric_state
-    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp, sensor.betta_aquarium_temp, sensor.oranda_aquarium_temp
+    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp, sensor.betta_aquarium_temp, sensor.oranda_aquarium_temp, sensor.angelfish_aquarium_temp
     above: 81
   - platform: numeric_state
-    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp, sensor.betta_aquarium_temp
+    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp, sensor.betta_aquarium_temp, sensor.angelfish_aquarium_temp
     below: 70
   - platform: numeric_state
     entity_id: sensor.oranda_aquarium_temp
@@ -5675,6 +5691,7 @@
     platform: state
     entity_id: binary_sensor.octoprint_printing
     to: 'off'
+    from: 'on'
   condition:
     condition: not
     conditions:
@@ -5691,6 +5708,7 @@
     platform: state
     entity_id: binary_sensor.octoprint_printing
     to: 'off'
+    from: 'on'
   condition:
     condition: state
     entity_id: alarm_control_panel.home
@@ -5715,6 +5733,16 @@
           title: "Turn off"
         - action: "PRINTER_ON"
           title: "Leave on"
+  - wait_template: "{{ is_state('binary_sensor.octoprint_printing', 'on') }}"
+    timeout: "02:00:00"
+    continue_on_timeout: false
+  - service: notify.mobile_app_dannys_pixel_6_pro
+    data:
+      message: clear_notification
+      data:
+        tag: printer
+        tto: 0
+        priority: high
 
 - alias: Turn off printer from notification
   trigger:

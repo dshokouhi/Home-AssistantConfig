@@ -30,6 +30,29 @@
             or is_state('binary_sensor.living_room_side_window', 'on')
             or is_state('binary_sensor.ollies_window', 'on') }}
 
+     percipitation_outlook:
+       friendly_name: "Percipitation Outlook"
+       value_template: "{{ state_attr('weather.kvny_hourly', 'forecast') is search('rainy') or state_attr('weather.kvny_hourly', 'forecast') is search('snowy') }}"
+       #icon_template: "{{ 'mdi:water' if state_attr('binary_sensor.percipitation_outlook', 'friendly_message') is search('Rain') 'mdi:snowflake' if state_attr('binary_sensor.percipitation_outlook', 'friendly_message') is search('Snow') else 'mdi:weather-sunny' }}"
+       attribute_templates:
+         friendly_message: >
+            {% set ns = namespace(rain_expected = 'False') %}
+            {% for forecast in state_attr('weather.kvny_hourly', 'forecast') %}
+            {% if ns.rain_expected == 'False' %}
+            {% if forecast.condition is search("rainy") %}
+            {% set ns.rain_expected = 'True' %}
+            Rain {{ "in " ~ loop.index0 ~ " hours" if loop.index0 > 1 else "soon" }},
+            {{ "light" if forecast.precipitation < 0.11 else "moderate" if forecast.precipitation < 0.31 else "heavy" }}
+            {% elif forecast.condition is search("snowy") %}
+            {% set ns.rain_expected = 'True' %}
+            Snow {{ "in " ~ loop.index0 ~ " hours" if loop.index0 > 1 else "soon" }}, {{forecast.precipitation}} inches
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% if ns.rain_expected == 'False' %}
+            Precipitation not expected
+            {% endif %}
+            
  - platform: bayesian
    prior: 0.6
    name: "Dannys Bayesian Presence"
