@@ -113,6 +113,15 @@ views:
             - entity_id: "*battery_temperature*"
             - entity_id: sensor.pi_hole_cpu_thermal_1_temperature_2
             - entity_id: sensor.den_pi_cpu_thermal_1_temperature_3
+            - entity_id: sensor.h5181_84fe_temperature_alarm_probe_1
+            - entity_id: sensor.ollies_air_purifier_temp
+            - entity_id: sensor.ollies_closet_door
+            - entity_id: sensor.ollies_door
+            - entity_id: sensor.ollies_window
+            - entity_id: sensor.den_air_purifier_temp
+            - entity_id: sensor.den_window
+            - entity_id: sensor.den_sliding_door
+            - entity_id: "*bbq*"
         show_empty: false
       - type: entity-filter
         id: people
@@ -573,6 +582,31 @@ views:
             state_color: true
           - entity: switch.ollies_tv
             state_color: true
+  - title: Cooking
+    path: cooking
+    icon: mdi:chef-hat
+    cards:
+      - type: entities
+        id: probes
+        title: BBQ Probes
+        show_header_toggle: false
+        entities:
+          - entity: sensor.bbq_signal_strength
+          - entity: sensor.bbq_temperature_probe_1
+          - entity: sensor.bbq_temperature_alarm_probe_1
+          - entity: sensor.bbq_temperature_probe_2
+          - entity: sensor.bbq_temperature_alarm_probe_2
+          - entity: sensor.bbq_temperature_probe_3
+          - entity: sensor.bbq_temperature_alarm_probe_3
+          - entity: sensor.bbq_temperature_probe_4
+          - entity: sensor.bbq_temperature_alarm_probe_4
+      - type: entities
+        title: Sous Vide
+        id: sousvide
+        show_header_toggle: false
+        entities:
+          - entity: climate.anova
+            secondary_info: last-changed
   - title: Aquariums
     path: aquariums
     icon: mdi:fish
@@ -618,7 +652,7 @@ views:
         show_header_toggle: false
         state_color: true
         entities:
-          - entity: switch.aquarium_triangle_light
+          - entity: switch.triangle_aquarium_plug_3
           - entity: light.cabinet_lights
             name: Side Light
       - type: entities
@@ -668,7 +702,7 @@ views:
         entities:
           - entity: switch.shrimp_2_aquarium_plug_2
             name: Green Shrimp Aquarium Light
-          - entity: sensor.shrimp2_aquarium_temp
+          - entity: sensor.shrimp2_aquarium_temp_2
             name: Green Shrimp Aquarium Temperature
             secondary_info: last-changed
   - title: Services
@@ -963,7 +997,7 @@ views:
           method: name
         filter:
           include:
-            - entity_id: "*dannys_pixel_6*"
+            - entity_id: "*dannys_pixel_7*"
               options:
                 secondary_info: last-changed
       - type: custom:auto-entities
@@ -976,9 +1010,13 @@ views:
           method: name
         filter:
           include:
-            - entity_id: "*toshs_pixel_4*"
+            - entity_id: "*toshs_pixel_6*"
               options:
                 secondary_info: last-changed
+  - title: Watches
+    path: watches
+    icon: mdi:watch
+    cards:
       - type: custom:auto-entities
         id: danny-watch
         card:
@@ -989,9 +1027,13 @@ views:
           method: name
         filter:
           include:
-            - entity_id: "*danny_s_watch_*"
+            - entity_id: "*dannys_pixel_watch_*"
               options:
                 secondary_info: last-changed
+  - title: Quest
+    path: quest
+    icon: mdi:virtual-reality
+    cards:
       - type: custom:auto-entities
         id: danny-quest
         card:
@@ -1003,19 +1045,6 @@ views:
         filter:
           include:
             - entity_id: "*quest_*"
-              options:
-                secondary_info: last-changed
-      - type: custom:auto-entities
-        id: danny-miband
-        card:
-          type: entities
-          title: Danny's Mi Band 7
-          show_header_toggle: false
-        sort:
-          method: name
-        filter:
-          include:
-            - entity_id: "*dannys_miband*"
               options:
                 secondary_info: last-changed
   - title: Cameras
@@ -1479,6 +1508,7 @@ views:
         filter:
           include:
             - entity_id: "*aqi*"
+            - entity_id: "*pm2_5"
       - type: custom:auto-entities
         id: purifiers
         card:

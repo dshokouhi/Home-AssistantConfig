@@ -12,11 +12,10 @@ sprinklers:
 tracked_users:
   name: Tracked Users
   entities:
-  - device_tracker.3e_07_70_34_37_cc
-  - device_tracker.32_3f_1f_7a_e1_27
-  - device_tracker.ce_c7_ce_26_fc_43
-  - device_tracker.toshs_pixel_4_xl
-  - device_tracker.dannys_pixel_6_pro
+  - device_tracker.nmap_tracker_f0_5c_77_ce_45_5b
+  - device_tracker.nmap_tracker_ae_8b_0d_c3_8c_8e
+  - device_tracker.toshs_pixel_6_pro
+  - device_tracker.dannys_pixel_7_pro
 
 all_windows:
   name: All Windows

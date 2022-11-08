@@ -58,17 +58,17 @@
    name: "Dannys Bayesian Presence"
    probability_threshold: 0.82
    observations:
-   - entity_id: 'device_tracker.nmap_tracker_ba_44_87_65_78_c2'
-     prob_given_true: 0.99
-     prob_given_false: 0.3
-     platform: 'state'
-     to_state: 'home'
-   - entity_id: 'device_tracker.dannys_pixel_6_pro'
+   # - entity_id: 'device_tracker.nmap_tracker_ba_44_87_65_78_c2'
+     # prob_given_true: 0.99
+     # prob_given_false: 0.3
+     # platform: 'state'
+     # to_state: 'home'
+   - entity_id: 'device_tracker.dannys_pixel_7_pro'
      prob_given_true: 0.9
      prob_given_false: 0.3
      platform: 'state'
      to_state: 'home'
-   - entity_id: 'sensor.dannys_pixel_6_pro_wifi_connection'
+   - entity_id: 'sensor.dannys_pixel_7_pro_wifi_connection'
      prob_given_false: 0.2
      prob_given_true: 0.99
      platform: 'state'
@@ -79,17 +79,17 @@
    name: "Natachas Bayesian Presence"
    probability_threshold: 0.82
    observations:
-   - entity_id: 'device_tracker.nmap_tracker_f0_5c_77_ce_45_5b'
-     prob_given_true: 0.99
-     prob_given_false: 0.3
-     platform: 'state'
-     to_state: 'home'
-   - entity_id: 'device_tracker.toshs_pixel_4_xl'
+   # - entity_id: 'device_tracker.nmap_tracker_f0_5c_77_ce_45_5b'
+     # prob_given_true: 0.99
+     # prob_given_false: 0.3
+     # platform: 'state'
+     # to_state: 'home'
+   - entity_id: 'device_tracker.toshs_pixel_6_pro'
      prob_given_true: 0.9
      prob_given_false: 0.3
      platform: 'state'
      to_state: 'home'
-   - entity_id: 'sensor.toshs_pixel_4_xl_wifi_connection'
+   - entity_id: 'sensor.toshs_pixel_6_pro_wifi_connection'
      prob_given_false: 0.2
      prob_given_true: 0.99
      platform: 'state'
