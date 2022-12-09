@@ -1574,7 +1574,7 @@
       - thu
       - fri
     - condition: numeric_state
-      entity_id: sensor.thermostat_temperature
+      entity_id: sensor.thermostat_air_temperature
       below: 66
     - condition: state
       entity_id: input_boolean.vacation_mode
@@ -1597,7 +1597,7 @@
     data:
       entity_id: climate.thermostat
       temperature: 70
-  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') | int == states('sensor.thermostat_temperature') | int }}"
+  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') | int == states('sensor.thermostat_air_temperature') | int }}"
   - delay: "00:01:00"
   - service: climate.set_hvac_mode
     data:
@@ -2154,7 +2154,7 @@
 - alias: Turn off fan if house is cold
   trigger:
   - platform: numeric_state
-    entity_id: sensor.thermostat_temperature
+    entity_id: sensor.thermostat_air_temperature
     below: 65
   condition:
     condition: state
@@ -2251,7 +2251,7 @@
       state: 'cool'
   action:
   - delay: "00:30:00"
-  - wait_template: "{{ states('sensor.thermostat_temperature')|int <= state_attr('climate.thermostat', 'temperature')|int }}"
+  - wait_template: "{{ states('sensor.thermostat_air_temperature')|int <= state_attr('climate.thermostat', 'temperature')|int }}"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'on'
@@ -2263,7 +2263,7 @@
 - alias: Cool down house while sleeping
   trigger:
   - platform: numeric_state
-    entity_id: sensor.thermostat_temperature
+    entity_id: sensor.thermostat_air_temperature
     above: 75
   - platform: state
     entity_id: input_boolean.night_mode
@@ -2275,7 +2275,7 @@
       entity_id: input_boolean.night_mode
       state: 'on'
     - condition: numeric_state
-      entity_id: sensor.thermostat_temperature
+      entity_id: sensor.thermostat_air_temperature
       above: 75
   action:
   - service: climate.set_hvac_mode
@@ -2772,7 +2772,7 @@
 - alias: Cool down house if thermostat gets above 80 and nobody is home
   trigger:
   - platform: numeric_state
-    entity_id: sensor.thermostat_temperature
+    entity_id: sensor.thermostat_air_temperature
     above: 79
   condition:
     condition: state
@@ -2792,7 +2792,7 @@
 - alias: Cool down house if thermostat gets above 80 and someone is home
   trigger:
   - platform: numeric_state
-    entity_id: sensor.thermostat_temperature
+    entity_id: sensor.thermostat_air_temperature
     above: 79
   condition:
     condition: and
@@ -2817,7 +2817,7 @@
 - alias: Cool down house if thermostat gets above 80 and someone is home but window is open
   trigger:
   - platform: numeric_state
-    entity_id: sensor.thermostat_temperature
+    entity_id: sensor.thermostat_air_temperature
     above: 79
   condition:
     condition: and
@@ -2842,7 +2842,7 @@
   - service: shell_command.cool_windows
   - wait_template: "{{ is_state('binary_sensor.windows', 'off') }}"
   - condition: template
-    value_template: "{{ states('sensor.thermostat_temperature') | int >= 79 }}"
+    value_template: "{{ states('sensor.thermostat_air_temperature') | int >= 79 }}"
   - condition: state
     entity_id: binary_sensor.windows
     state: 'off'
@@ -2925,7 +2925,7 @@
       state: 'disarmed'
   action:
   - delay: "00:01:00"
-  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') == states('sensor.thermostat_temperature') | int }}"
+  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') == states('sensor.thermostat_air_temperature') | int }}"
   - condition: state
     entity_id: sensor.inside_outside_temp
     state: 'True'
@@ -2934,7 +2934,7 @@
     state: 'off'
   - service: notify.android
     data_template:
-      message: "Please open a window and turn off the thermostat 🌡 .  It is {{ states('sensor.thermostat_temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} inside compared to {{ state_attr('weather.kvny_daynight', 'temperature') }} {{ state_attr('sensor.thermostat_temperature', 'unit_of_measurement') }} outside."
+      message: "Please open a window and turn off the thermostat 🌡 .  It is {{ states('sensor.thermostat_air_temperature') }} {{ state_attr('sensor.thermostat_air_temperature', 'unit_of_measurement') }} inside compared to {{ state_attr('weather.kvny_daynight', 'temperature') }} {{ state_attr('sensor.thermostat_air_temperature', 'unit_of_measurement') }} outside."
       title: Open Windows
       data:
         ttl: 0
@@ -2946,7 +2946,7 @@
 - alias: Heat up house if below 63
   trigger:
   - platform: numeric_state
-    entity_id: sensor.thermostat_temperature
+    entity_id: sensor.thermostat_air_temperature
     below: 63
   action:
   - service: climate.set_hvac_mode
@@ -2958,7 +2958,7 @@
     data:
       entity_id: climate.thermostat
       temperature: 67
-  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') | int == states('sensor.thermostat_temperature') | int }}"
+  - wait_template: "{{ state_attr('climate.thermostat', 'temperature') | int == states('sensor.thermostat_air_temperature') | int }}"
   - delay: "00:01:00"
   - service: climate.set_hvac_mode
     data:
@@ -5144,10 +5144,10 @@
     entity_id: switch.ollies_sound_machine_plug
   - service: media_player.volume_set
     data_template:
-      entity_id: media_player.living_room_home, media_player.bedroom_display, media_player.bathroom_home, media_player.kitchen_home
+      entity_id: media_player.living_room_home, media_player.bathroom_home, media_player.kitchen_home
       volume_level: >-
         {% if trigger.to_state.state == 'on' %}
-          0.3
+          0.4
         {% elif trigger.to_state.state == 'off' %}
           0.6
         {% else %}
@@ -5537,6 +5537,21 @@
         priority: high
         group: intents
         channel: Intents
+        notification_icon: "mdi:email-receive"
+
+- alias: Nest event received
+  trigger:
+  - platform: event
+    event_type: nest_event
+  action:
+  - service: notify.mobile_app_dannys_pixel_7_pro
+    data_template:
+      message: "Nest event received type of: {{trigger.event.data.type }}"
+      data:
+        ttl: 0
+        priority: high
+        group: nest
+        channel: Nest
         notification_icon: "mdi:email-receive"
 
 - alias: Save Danny Mi Band Steps

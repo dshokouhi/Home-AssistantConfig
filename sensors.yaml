@@ -390,7 +390,7 @@
      inside_outside_temp:
        friendly_name: Inside vs Outside Temperature
        value_template: >-
-         {% if states('sensor.thermostat_temperature') | int > state_attr('weather.kvny_daynight', 'temperature') | int %}
+         {% if states('sensor.thermostat_air_temperature') | int > state_attr('weather.kvny_daynight', 'temperature') | int %}
            True
          {% else %}
            False
@@ -413,6 +413,11 @@
 
      uptime_days:
        value_template: "{{ ((as_timestamp(now()) - as_timestamp(states('sensor.uptime'), 0)) /60 /60 /24) | round(2) }}"
+
+     dannys_pixel_watch_heart_rate_accuracy:
+       friendly_name: "Dannys Pixel Watch Heart Rate Accuracy"
+       value_template: "{{ state_attr('sensor.dannys_pixel_watch_heart_rate', 'accuracy') }}"
+       icon_template: "mdi:heart-pulse"
 
  #- platform: uptime
  

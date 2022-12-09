@@ -664,18 +664,18 @@ baby_monitor_alarm:
 christmas_on:
   sequence:
   - service: switch.turn_on
-    entity_id: switch.christmas_tree_switch, switch.spare_plug
+    entity_id: switch.christmas_tree_switch, switch.spare_plug, switch.triangle_aquarium_plug_1
     #, switch.little_christmas_trees_switch, switch.living_room_camera_plug
-  - service: light.turn_on
-    entity_id: light.outdoor_plug
+  #- service: light.turn_on
+  #  entity_id: light.outdoor_plug
 
 christmas_off:
   sequence:
   - service: switch.turn_off
-    entity_id: switch.christmas_tree_switch, switch.spare_plug
+    entity_id: switch.christmas_tree_switch, switch.spare_plug, switch.triangle_aquarium_plug_1
     #, switch.little_christmas_trees_switch, switch.living_room_camera_plug
-  - service: light.turn_off
-    entity_id: light.outdoor_plug
+  #- service: light.turn_off
+  #  entity_id: light.outdoor_plug
 
 house_deep_cleaning:
   sequence:
@@ -769,7 +769,7 @@ cast_kitchen:
  
 action_test:
   sequence:
-  - service: notify.mobile_app_dannys_pixel_6_pro
+  - service: notify.mobile_app_dannys_pixel_7_pro
     data:
       message: test
       data:

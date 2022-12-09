@@ -1106,25 +1106,6 @@ counter:
     name: Image Scans
 
 mqtt:
-  climate:
-  - name: Sous vide
-    modes:
-      - disconnected
-      - "off"
-      - heat
-    current_temperature_topic: anova/status
-    current_temperature_template: "{{ value_json.current_temp }}"
-    temperature_state_topic: anova/status
-    temperature_state_template: "{{ value_json.target_temp }}"
-    mode_state_topic: anova/status
-    mode_state_template: "{{ value_json.state }}"
-    mode_command_topic: anova/command/run
-    temperature_command_topic: anova/command/temp
-   # send_if_off: true
-    temp_step: 0.5
-    min_temp: 77
-    max_temp: 210
-    precision: 0.1
   binary_sensor:
   - name: Patio Offline
     state_topic: blue_iris/binary_sensor/patio/connectivity

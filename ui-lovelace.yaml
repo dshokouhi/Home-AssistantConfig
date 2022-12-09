@@ -256,7 +256,7 @@ views:
             state_color: true
           - cover.den_curtains
           - switch.den_fan
-          - entity: sensor.den_fire_hd8_light_sensor
+          - entity: sensor.den_tablet_light_sensor
             name: Den Illumination
           - light.den_lights_level
           - entity: binary_sensor.den_camera_motion_detected
@@ -290,6 +290,8 @@ views:
             name: Kitchen Audio
             secondary_info: last-changed
             state_color: true
+          - entity: sensor.den_fire_hd8_light_sensor
+            name: Kitchen Illumination
           - light.kitchen_lights_level
           - entity: binary_sensor.kitchen_motion_detected
             name: Kitchen Motion
