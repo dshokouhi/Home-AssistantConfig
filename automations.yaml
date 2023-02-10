@@ -377,7 +377,9 @@
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
-  - service: shell_command.dryer_done
+  - service: notify.google_assistant_sdk
+    data:
+      message: "The dryer is done {% if is_state('input_boolean.washer_status', 'on') %} However the washer is still running {% else %} Time to get your clothes {% endif %}"
 
 - alias: Washer Notification
   trigger:
@@ -414,7 +416,9 @@
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
-  - service: shell_command.washer_done
+  - service: notify.google_assistant_sdk
+    data:
+      message: "The washer is done {% if is_state('input_boolean.dryer_status', 'on') %} However the dryer is still running {% else %} Time to switch laundry {% endif %}"
 
 - alias: Dishwasher Notification
   trigger:
@@ -453,7 +457,9 @@
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
-  - service: shell_command.dishes_done
+  - service: notify.google_assistant_sdk
+    data:
+      message: "The dishes are done"
 
 - alias: Washer Start
   trigger:
@@ -536,7 +542,9 @@
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
-  - service: shell_command.front_door_jammed
+  - service: notify.google_assistant_sdk
+    data:
+      message: "The front door lock is jammed"
 
 - alias: Notify Catio Door Left Open
   trigger:
@@ -592,7 +600,7 @@
       state: 'off'
   action:
   - service: tts.google_say
-    entity_id: media_player.den_home_hub, media_player.kitchen_home
+    entity_id: media_player.den_home_hub, media_player.kitchen_display
     data_template:
       message: "Printing paused."
 
@@ -1070,7 +1078,7 @@
       target:
       - !secret discord_alarm
   - service: tts.google_say
-    entity_id: media_player.kitchen_home, media_player.den_home_hub, media_player.ollies_speaker
+    entity_id: media_player.kitchen_display, media_player.den_home_hub, media_player.ollies_speaker
     data:
       message: 'Hello just a friendly reminder to make sure the water bowls in the den and living room are refilled. Thank you so much have a great day.'
 
@@ -1486,7 +1494,7 @@
         state: 'armed_night'
   action:
   - service: tts.google_say
-    entity_id: media_player.kitchen_home
+    entity_id: media_player.kitchen_display
     data:
       message: "Don't forget to take your meds"
 
@@ -1783,7 +1791,9 @@
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
-  - service: shell_command.mail
+  - service: notify.google_assistant_sdk
+    data:
+      message: "You got mail"
   - service: notify.den
     data:
       data:
@@ -2047,7 +2057,10 @@
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
-  - service: shell_command.rain_window
+  - service: notify.google_assistant_sdk
+    data:
+      message: "Its raining and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
+
 
 - alias: Thermostat on and window open
   trigger:
@@ -2108,7 +2121,9 @@
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
-  - service: shell_command.thermostat_window
+  - service: notify.google_assistant_sdk
+    data:
+      message: "The thermostat is on and the following windows are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
   - wait_for_trigger:
     - platform: state
       entity_id: binary_sensor.windows
@@ -2432,7 +2447,7 @@
               {%-elif is_state("input_select.cast_devices", "Ollies") %}
                 media_player.ollies_speaker
               {%-elif is_state("input_select.cast_devices", "Kitchen") %}
-                media_player.kitchen_home
+                media_player.kitchen_display
               {%-elif is_state("input_select.cast_devices", "Bathroom") %}
                 media_player.bathroom_home
               {%-elif is_state("input_select.cast_devices", "Bedroom") %}
@@ -2463,7 +2478,7 @@
             {%-elif is_state("input_select.cast_devices", "Ollies") %}
               media_player.ollies_speaker
             {%-elif is_state("input_select.cast_devices", "Kitchen") %}
-              media_player.kitchen_home
+              media_player.kitchen_display
             {%-elif is_state("input_select.cast_devices", "Bathroom") %}
               media_player.bathroom_home
             {%-elif is_state("input_select.cast_devices", "Bedroom") %}
@@ -2602,7 +2617,9 @@
     event_data:
       action: KEY_ONE
   action:
-  - service: shell_command.boogie_help
+  - service: notify.google_assistant_sdk
+    data:
+      message: "Boogie I need help outside"
 
 - alias: action1
   trigger:
@@ -2839,7 +2856,9 @@
         channel: Thermostat
         group: thermostat
         notification_icon: "mdi:window-open"
-  - service: shell_command.cool_windows
+  - service: notify.google_assistant_sdk
+    data:
+      message: "Its getting hot, close the following windows so the cooler turns on: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.all_windows', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
   - wait_template: "{{ is_state('binary_sensor.windows', 'off') }}"
   - condition: template
     value_template: "{{ states('sensor.thermostat_air_temperature') | int >= 79 }}"
@@ -3132,7 +3151,9 @@
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
-  - service: shell_command.water_heater_leak
+  - service: notify.google_assistant_sdk
+    data:
+      message: "The water heater is leaking"
         
 - alias: Water heater and rain notification
   trigger:
@@ -3152,7 +3173,9 @@
   - condition: state
     entity_id: group.tracked_users
     state: 'home'
-  - service: shell_command.rain_water_heater
+  - service: notify.google_assistant_sdk
+    data:
+      message: "There is rain getting into the water heater"
 
 ################################################
 #
@@ -3328,10 +3351,13 @@
   action:
   - service: switch.turn_on
     entity_id: switch.house_fan
+  - condition: state
+    entity_id: media_player.bathroom_home
+    state: 'off'
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_home
-      media_content_id: "https://19253.live.streamtheworld.com/KROQFMAAC_SC?sbmid=651e8669-2a3c-4d9e-be0b-4bf2db6fed8d&DIST=CBS&TGT=radiocomPlayer&SRC=CBS&lsid=cookie:2e321e7d-030e-4333-b196-e76c5cbb13f2"
+      media_content_id: "https://prod-3-91-231-242.wostreaming.net/audacy-kroqfmaac-hlsc.m3u8/?source=aud-webplayer&z=1232ee8c0304477fb39efdb5cbe564da&p=2"
       media_content_type: "audio/mp4"
       
 - alias: Shower Mode Turned Off
@@ -3376,7 +3402,7 @@
   - service: media_player.play_media
     data:
       entity_id: media_player.bathroom_home
-      media_content_id: "https://19253.live.streamtheworld.com/KROQFMAAC_SC?sbmid=651e8669-2a3c-4d9e-be0b-4bf2db6fed8d&DIST=CBS&TGT=radiocomPlayer&SRC=CBS&lsid=cookie:2e321e7d-030e-4333-b196-e76c5cbb13f2"
+      media_content_id: "https://prod-3-91-231-242.wostreaming.net/audacy-kroqfmaac-hlsc.m3u8/?source=aud-webplayer&z=1232ee8c0304477fb39efdb5cbe564da&p=2"
       media_content_type: "audio/mp4"
     
 - alias: Shower mode off if bathroom speaker not playing or humidity drops below 60
@@ -3715,9 +3741,9 @@
        duration: 10
       message: "Someone is at the front door 🚪"
       title: Shokabow Zoo
-  - service: rest_command.assistant_broadcast
-    data_template:
-      command: "Someone is at the front door"
+  - service: notify.google_assistant_sdk
+    data:
+      message: "Someone is at the front door"
 
 ################################################
 #
@@ -3995,7 +4021,26 @@
         channel: BBQ
         group: bbq
         notification_icon: "mdi:grill"
-  - service: shell_command.bbq_almost
+  - service: notify.google_assistant_sdk
+    data:
+      message: >-
+          {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+            Beef Ribs are almost done
+          {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+            Brisket is almost done
+          {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+            Chicken is almost done
+          {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+            Fish is almost done
+          {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+            Steak is almost done
+          {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
+            Turkey is almost done
+          {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+            Tri-tip is almost done
+          {%- else -%}
+            Food is almost done
+          {%- endif %}
   - wait_template: >
      {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
        {{ states.sensor.bbq_temperature.state|int >= 205 }}
@@ -4039,7 +4084,26 @@
         channel: BBQ
         group: bbq
         notification_icon: "mdi:grill"
-  - service: shell_command.bbq_done
+  - service: notify.google_assistant_sdk
+    data:
+      message: >-
+          {% if is_state("input_select.bbq_probe1", "Beef Ribs") -%}
+            Beef Ribs are done
+          {% elif is_state("input_select.bbq_probe1", "Brisket") -%}
+            Brisket is done
+          {% elif is_state("input_select.bbq_probe1", "Chicken") -%}
+            Chicken is done
+          {% elif is_state("input_select.bbq_probe1", "Fish") -%}
+            Fish is done
+          {% elif is_state("input_select.bbq_probe1", "Steak") -%}
+            Steak is done
+          {% elif is_state("input_select.bbq_probe1", "Turkey") -%}
+            Turkey is done
+          {% elif is_state("input_select.bbq_probe1", "Tritip") -%}
+            Tri-tip is done
+          {%- else -%}
+            Food is done
+          {%- endif %}
   - service: notify.den
     data_template:
       data:
@@ -5073,20 +5137,20 @@
 - alias: Notify when Sous Vide is ready
   trigger:
     platform: state
-    entity_id: climate.anova
-    to: 'heat'
+    entity_id: sensor.anova_state
+    to: 'Preheating'
   condition:
     condition: template
-    value_template: "{{ state_attr('climate.anova', 'current_temperature') | int != state_attr('climate.anova', 'temperature') | int }}"
+    value_template: "{{ states('sensor.anova_target_temperature_2') | int > states('sensor.anova_water_temperature') | int }}"
   action:
   - delay: "00:02:00"
-  - wait_template: "{{ state_attr('climate.anova', 'current_temperature') | int == state_attr('climate.anova', 'temperature') | int }}"
+  - wait_template: "{{ states('sensor.anova_target_temperature_2') | int == states('sensor.anova_water_temperature') | int }}"
   - delay: "00:00:05"
   - condition: template
-    value_template: "{{ (state_attr('climate.anova', 'current_temperature') | int == state_attr('climate.anova', 'temperature') | int) and (is_state('climate.anova', 'heat')) }}"
+    value_template: "{{ (states('sensor.anova_target_temperature_2') | int == states('sensor.anova_water_temperature') | int) and (is_state('sensor.anova_state', 'Cooking')) }}"
   - service: notify.android
     data_template:
-      message: "Sous vide is ready at {{ state_attr('climate.anova', 'current_temperature') }} 🍳 "
+      message: "Sous vide is ready at {{ states('sensor.anova_target_temperature_2') }} 🍳🧑‍🍳 "
       title: Food
       data:
         ttl: 0
@@ -5100,12 +5164,14 @@
         color: red
         duration: 10
         position: center
-      message: "Sous vide is ready at {{ state_attr('climate.anova', 'current_temperature') }} 🍳"
+      message: "Sous vide is ready at {{ states('sensor.anova_target_temperature_2') }} 🍳🧑‍🍳"
       title: Shokabow Zoo
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
-  - service: shell_command.sous_vide_temp_ready
+  - service: notify.google_assistant_sdk
+    data:
+      message: "Sous vide is ready at {{ states('sensor.anova_target_temperature_2') }}"
 
 ################################################
 #
@@ -5144,7 +5210,7 @@
     entity_id: switch.ollies_sound_machine_plug
   - service: media_player.volume_set
     data_template:
-      entity_id: media_player.living_room_home, media_player.bathroom_home, media_player.kitchen_home
+      entity_id: media_player.living_room_home, media_player.bathroom_home, media_player.kitchen_display
       volume_level: >-
         {% if trigger.to_state.state == 'on' %}
           0.4
@@ -5165,7 +5231,7 @@
     state: 'on'
   action:
   - service: tts.google_say
-    entity_id: media_player.kitchen_home, media_player.den_home_hub, media_player.bedroom_display, media_player.bathroom_home
+    entity_id: media_player.kitchen_display, media_player.den_home_hub, media_player.bedroom_display, media_player.bathroom_home
     data:
       message: "Ollies lights are on"
   - service: notify.android
@@ -5368,9 +5434,9 @@
         channel: Ollie
         group: ollie
         notification_icon: "mdi:radiator-off"
-  - service: rest_command.assistant_broadcast
-    data_template:
-      command: "Ollies heater turned off because power was too high, retrying in 1 minute"
+  - service: notify.google_assistant_sdk
+    data:
+      message: "Ollies heater turned off because power was too high, retrying in 1 minute"
   - delay: "00:01:00"
   - service: switch.turn_on
     entity_id: switch.ollies_heater
@@ -5679,7 +5745,7 @@
     above: 81
   - platform: numeric_state
     entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp_2, sensor.betta_aquarium_temp, sensor.angelfish_aquarium_temp
-    below: 70
+    below: 68
   - platform: numeric_state
     entity_id: sensor.oranda_aquarium_temp
     below: 60

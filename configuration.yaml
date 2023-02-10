@@ -6,6 +6,8 @@ homeassistant:
   unit_system: imperial
   time_zone: America/Los_Angeles
   customize: !include customize.yaml
+  currency: USD
+  country: US
   external_url: !secret baseurl
   # customize_glob: !include custom-ui.yaml
   allowlist_external_dirs:

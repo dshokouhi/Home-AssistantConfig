@@ -252,6 +252,22 @@
               Nothing
             {% endif %}
 
+     anova_danny:
+       friendly_name: Anova Dannys Phone
+       value_template: >
+            {% if is_state_attr('sensor.dannys_pixel_7_pro_last_notification', 'package', 'com.anovaculinary.android') %}
+              {{ states('sensor.dannys_pixel_7_pro_last_notification') }}
+            {% else %}
+              Nothing
+            {% endif %}
+       attribute_templates:
+         title: >
+            {% if is_state_attr('sensor.dannys_pixel_7_pro_last_notification', 'package', 'com.anovaculinary.android') %}
+              {{ state_attr('sensor.dannys_pixel_7_pro_last_notification', 'android.title') }}
+            {% else %}
+              Nothing
+            {% endif %}
+
      dannys_pixel_7_pro_beacon_room:
        friendly_name: Dannys Pixel 7 Pro Beacon Room
        icon_template: "mdi:cellphone-marker"

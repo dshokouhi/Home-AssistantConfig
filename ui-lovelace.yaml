@@ -122,6 +122,7 @@ views:
             - entity_id: sensor.den_window
             - entity_id: sensor.den_sliding_door
             - entity_id: "*bbq*"
+            - entity_id: "sensor.anova*"
         show_empty: false
       - type: entity-filter
         id: people
@@ -331,14 +332,16 @@ views:
         id: vacuum
         show_header_toggle: false
         entities:
-          - entity: vacuum.mr_neato
-            name: Den Vacuum
+          - entity: vacuum.robot_vacuum
             secondary_info: last-changed
-          - entity: sensor.den_vacuum_status
-          - entity: vacuum.mrs_neato
-            name: House Vacuum
-            secondary_info: last-changed
-          - entity: sensor.house_vacuum_status
+          # - entity: vacuum.mr_neato
+            # name: Den Vacuum
+            # secondary_info: last-changed
+          # - entity: sensor.den_vacuum_status
+          # - entity: vacuum.mrs_neato
+            # name: House Vacuum
+            # secondary_info: last-changed
+          # - entity: sensor.house_vacuum_status
       - type: conditional
         id: bbqcond
         conditions:
@@ -358,21 +361,21 @@ views:
               state_color: true
       - type: thermostat
         entity: climate.thermostat
-      - type: conditional
-        id: sousvidecond
-        conditions:
-          - entity: climate.anova
-            state_not: 'disconnected'
-          - entity: climate.anova
-            state_not: 'off'
-        card:
-          type: entities
-          title: Sous Vide
-          id: sousvide
-          show_header_toggle: false
-          entities:
-            - entity: climate.anova
-              secondary_info: last-changed
+      # - type: conditional
+        # id: sousvidecond
+        # conditions:
+          # - entity: climate.anova
+            # state_not: 'disconnected'
+          # - entity: climate.anova
+            # state_not: 'off'
+        # card:
+          # type: entities
+          # title: Sous Vide
+          # id: sousvide
+          # show_header_toggle: false
+          # entities:
+            # - entity: climate.anova
+              # secondary_info: last-changed
   - title: Room
     path: room
     icon: mdi:home-modern
@@ -607,7 +610,17 @@ views:
         id: sousvide
         show_header_toggle: false
         entities:
-          - entity: climate.anova
+          - entity: sensor.anova_mode
+            secondary_info: last-changed
+          - entity: sensor.anova_state
+            secondary_info: last-changed
+          - entity: sensor.anova_water_temperature
+            secondary_info: last-changed
+          - entity: sensor.anova_triac_temperature
+            secondary_info: last-changed
+          - entity: sensor.anova_heater_temperature
+            secondary_info: last-changed
+          - entity: sensor.anova_target_temperature_2
             secondary_info: last-changed
   - title: Aquariums
     path: aquariums
@@ -1333,9 +1346,9 @@ views:
             # name: UV Index
           # - entity: sensor.shokabow_weather_voltage
             # name: Voltage
-      - type: "custom:weather-card"
-        entity: weather.dark_sky
-        id: darksky
+      # - type: "custom:weather-card"
+        # entity: weather.dark_sky
+        # id: darksky
       - type: "custom:weather-card"
         entity: weather.home
         id: metno
