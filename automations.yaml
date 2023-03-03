@@ -610,7 +610,7 @@
     entity_id: binary_sensor.den_sliding_door
     to: 'on'
     for:
-      minutes: 3
+      minutes: 5
   - platform: state
     entity_id: climate.thermostat
     to: 'cool'
@@ -4396,71 +4396,72 @@
 #
 ################################################
 
-- alias: Image processing on motion detection frontyard
-  mode: parallel
-  trigger:
-    platform: state
-    entity_id: binary_sensor.frontyard_driveway_motion, binary_sensor.frontyard_side_gate_motion, binary_sensor.frontyard_cars_motion
-  condition:
-    condition: state
-    entity_id: input_boolean.gardener
-    state: 'off'
-  action:
-  - service: image_processing.scan
-    data_template:
-      entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
+# - alias: Image processing on motion detection frontyard
+  # mode: parallel
+  # trigger:
+    # platform: state
+    # entity_id: binary_sensor.frontyard_driveway_motion, binary_sensor.frontyard_side_gate_motion, binary_sensor.frontyard_cars_motion
+  # condition:
+    # condition: state
+    # entity_id: input_boolean.gardener
+    # state: 'off'
+  # action:
+  # - service: image_processing.scan
+    # data_template:
+      # entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
 
-- alias: Notify image processing
-  mode: parallel
-  trigger:
-    platform: state
-    entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_frontyard_cars, image_processing.tensorflow_kitchen, image_processing.tensorflow_den_backyard
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.state |int > 0 }}'
-  action:
-  - service: notify.hass
-    data_template:
-      message: >
-            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }} 📸.
-      target:
-      - !secret discord_images
-      data:
-        images:
-        - "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
-  - condition: template
-    value_template: "{{ (trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway') or (trigger.entity_id == 'image_processing.tensorflow_frontyard_side_gate') or (trigger.entity_id == 'image_processing.tensorflow_frontyard_cars') }}"
-  - service: notify.den
-    data_template:
-      data:
-        color: red
-        duration: 3
-        position: bottom-right
-        image:
-          path: "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
-      message: >
-            {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }} 📸.
-      title: Shokabow Zoo
+# - alias: Notify image processing
+  # mode: parallel
+  # trigger:
+    # platform: state
+    # entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_frontyard_cars, image_processing.tensorflow_kitchen, image_processing.tensorflow_den_backyard
+  # condition:
+    # condition: template
+    # value_template: '{{ trigger.to_state.state |int > 0 }}'
+  # action:
+  # - service: notify.hass
+    # data_template:
+      # message: >
+            # {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }} 📸.
+      # target:
+      # - !secret discord_images
+      # data:
+        # images:
+        # - "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
+  # - condition: template
+    # value_template: "{{ (trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway') or (trigger.entity_id == 'image_processing.tensorflow_frontyard_side_gate') or (trigger.entity_id == 'image_processing.tensorflow_frontyard_cars') }}"
+  # - service: notify.den
+    # data_template:
+      # data:
+        # color: red
+        # duration: 3
+        # position: bottom-right
+        # image:
+          # path: "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
+      # message: >
+            # {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }} 📸.
+      # title: Shokabow Zoo
 
-- alias: Image Processing When Away
-  mode: parallel
-  trigger:
-    platform: state
-    entity_id: binary_sensor.patio_motion, binary_sensor.kitchen_side_gate_motion, binary_sensor.garage_side_gate_motion, binary_sensor.den_backyard_motion
-  condition:
-  - condition: state
-    entity_id: alarm_control_panel.home
-    state: armed_away
-  action:
-  - service: image_processing.scan
-    data_template:
-      entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
+# - alias: Image Processing When Away
+  # mode: parallel
+  # trigger:
+    # platform: state
+    # entity_id: binary_sensor.patio_motion, binary_sensor.kitchen_side_gate_motion, binary_sensor.garage_side_gate_motion, binary_sensor.den_backyard_motion
+  # condition:
+  # - condition: state
+    # entity_id: alarm_control_panel.home
+    # state: armed_away
+  # action:
+  # - service: image_processing.scan
+    # data_template:
+      # entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
 
-- alias: Image processing in kitchen on motion when someone is home and awake
+- alias: Turn on kitchen lights when someone is home and awake in the kitchen
   mode: queued
   trigger:
-    platform: state
-    entity_id: binary_sensor.kitchen_motion_detected
+    platform: numeric_state
+    entity_id: sensor.frigate_kitchen_camera_person
+    above: 0
   condition:
     condition: and
     conditions:
@@ -4483,15 +4484,16 @@
       entity_id: input_boolean.guest_sleeping
       state: 'off'
   action:
-  - service: image_processing.scan
+  - service: light.turn_on
     data:
-      entity_id: image_processing.tensorflow_kitchen
+      entity_id: light.kitchen_lights_level
 
-- alias: Image processing in living room on motion when someone is home and awake
+- alias: Turn on living room lights someone is home and awake
   mode: queued
   trigger:
-    platform: state
-    entity_id: binary_sensor.living_room_camera_motion_detected
+    platform: numeric_state
+    entity_id: sensor.frigate_living_room_camera_person
+    above: 0
   condition:
     condition: and
     conditions:
@@ -4511,30 +4513,30 @@
       entity_id: input_boolean.guest_sleeping
       state: 'off'
   action:
-  - service: image_processing.scan
-    data:
-      entity_id: image_processing.tensorflow_living_room_camera
-
-- alias: Turn on lights when person detected
-  mode: parallel
-  trigger:
-    platform: state
-    entity_id: image_processing.tensorflow_kitchen, image_processing.tensorflow_living_room_camera
-  condition:
-    condition: template
-    value_template: '{{ trigger.to_state.state |int > 0 }}'
-  action:
   - service: light.turn_on
-    data_template:
-      entity_id: >
-             {% if trigger.entity_id == 'image_processing.tensorflow_kitchen' %}
-               light.kitchen_lights_level
-             {% elif trigger.entity_id == 'image_processing.tensorflow_living_room_camera' %}
-               light.living_room_lights_level
-             {% else %}
-             {% endif %}
-  - condition: template
-    value_template: "{{ trigger.entity_id == 'image_processing.tensorflow_living_room_camera' }}"
+    data:
+      entity_id: light.living_room_lights_level
+
+# - alias: Turn on lights when person detected
+  # mode: parallel
+  # trigger:
+    # platform: state
+    # entity_id: image_processing.tensorflow_kitchen, image_processing.tensorflow_living_room_camera
+  # condition:
+    # condition: template
+    # value_template: '{{ trigger.to_state.state |int > 0 }}'
+  # action:
+  # - service: light.turn_on
+    # data_template:
+      # entity_id: >
+             # {% if trigger.entity_id == 'image_processing.tensorflow_kitchen' %}
+               # light.kitchen_lights_level
+             # {% elif trigger.entity_id == 'image_processing.tensorflow_living_room_camera' %}
+               # light.living_room_lights_level
+             # {% else %}
+             # {% endif %}
+  # - condition: template
+    # value_template: "{{ trigger.entity_id == 'image_processing.tensorflow_living_room_camera' }}"
   # - delay: "00:00:05"
   # - service: mqtt.publish
     # data_template:
@@ -5200,6 +5202,14 @@
       {% else %}
       {% endif %}
     entity_id: switch.nursery_power_strip_port_6
+  - service_template: >-
+      {% if trigger.to_state.state == 'on' %}
+        light.turn_on
+      {% elif trigger.to_state.state == 'off' %}
+        light.turn_off
+      {% else %}
+      {% endif %}
+    entity_id: light.ollies_lamp
   - service_template: >-
       {% if trigger.to_state.state == 'off' %}
         switch.turn_off
