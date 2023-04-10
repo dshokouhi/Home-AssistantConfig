@@ -662,15 +662,6 @@ views:
           - entity: sensor.aquarium_20g_temp
             secondary_info: last-changed
       - type: entities
-        id: aquarium-triangle
-        title: Triangle
-        show_header_toggle: false
-        state_color: true
-        entities:
-          - entity: switch.triangle_aquarium_plug_3
-          - entity: light.cabinet_lights
-            name: Side Light
-      - type: entities
         id: aquarium-30g
         title: Oranda Goldfish (30G)
         show_header_toggle: false

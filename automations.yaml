@@ -178,6 +178,41 @@
       brightness_pct: 100
       kelvin: 6500
 
+- alias: Turn on living room bias lighting bedroom at night
+  trigger:
+  - platform: state
+    entity_id: switch.living_room_tv
+    from: 'off'
+    to: 'on'
+  - platform: sun
+    event: sunset
+    offset: "00:01:00"
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state
+      entity_id: switch.living_room_tv
+      state: 'on'
+  action:
+  - service: light.turn_on
+    entity_id: light.cabinet_lights
+    data:
+      brightness_pct: 100
+      kelvin: 6500
+
+- alias: Turn off living room bias lights with TV
+  trigger:
+  - platform: state
+    entity_id: switch.living_room_tv
+    from: 'on'
+    to: 'off'
+  action:
+  - service: light.turn_off
+    entity_id: light.cabinet_lights
+
 - alias: Harmony Den activity start
   trigger:
     platform: state
@@ -5709,9 +5744,9 @@
     at: "08:00:00"
   action:
   - service: light.turn_on
-    entity_id: light.aquarium_light, light.aquarium_light_55g, light.cabinet_lights
+    entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_on
-    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.triangle_aquarium_plug_3, switch.aquarium_30g_light, switch.beta_light
+    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light
 
 - alias: Aquarium Lights Night
   trigger:
@@ -5719,9 +5754,9 @@
     at: "20:00:00"
   action:
   - service: light.turn_off
-    entity_id: light.aquarium_light, light.aquarium_light_55g, light.cabinet_lights
+    entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_off
-    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.triangle_aquarium_plug_3, switch.aquarium_30g_light, switch.beta_light
+    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light
 
 - alias: Feed fish
   trigger:
