@@ -7,10 +7,6 @@
      dishwasher_running:
        value_template: "{{ states('sensor.dishwasher') | int > 5}}"
 
- - platform: obihai
-   host: 192.168.1.126
-   password: !secret obihai_password
-
  - platform: template
    sensors:
      den_smoke_status:

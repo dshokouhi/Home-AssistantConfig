@@ -4518,6 +4518,9 @@
     - condition: state
       entity_id: input_boolean.guest_sleeping
       state: 'off'
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: 'off'
   action:
   - service: light.turn_on
     data:
@@ -4546,6 +4549,9 @@
       state: 'off'
     - condition: state
       entity_id: input_boolean.guest_sleeping
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.vacation_mode
       state: 'off'
   action:
   - service: light.turn_on
@@ -5255,7 +5261,7 @@
     entity_id: switch.ollies_sound_machine_plug
   - service: media_player.volume_set
     data_template:
-      entity_id: media_player.living_room_home, media_player.bathroom_home, media_player.kitchen_display
+      entity_id: media_player.living_room_home, media_player.bathroom_home, media_player.kitchen_display, media_player.bedroom_display
       volume_level: >-
         {% if trigger.to_state.state == 'on' %}
           0.4
@@ -5787,7 +5793,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp_2, sensor.betta_aquarium_temp, sensor.oranda_aquarium_temp, sensor.angelfish_aquarium_temp
-    above: 81
+    above: 83
   - platform: numeric_state
     entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp_2, sensor.betta_aquarium_temp, sensor.angelfish_aquarium_temp
     below: 68
