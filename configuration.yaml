@@ -46,10 +46,6 @@ discovery:
 conversation:
 
 history:
-  exclude:
-    domains:
-    - automation
-    - script
 
 logbook:
   exclude:

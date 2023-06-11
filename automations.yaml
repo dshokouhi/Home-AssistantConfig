@@ -4729,6 +4729,7 @@
   trigger:
     platform: webhook
     webhook_id: !secret neato_hallway
+    local_only: false
   action:
   - service: neato.custom_cleaning
     data:
@@ -4739,6 +4740,7 @@
   trigger:
     platform: webhook
     webhook_id: !secret neato_kitchen
+    local_only: false
   action:
   - service: neato.custom_cleaning
     data:
@@ -4749,6 +4751,7 @@
   trigger:
     platform: webhook
     webhook_id: !secret neato_deep_kitchen
+    local_only: false
   action:
   - service: script.turn_on
     entity_id: script.kitchen_deep_cleaning
@@ -4757,6 +4760,7 @@
   trigger:
     platform: webhook
     webhook_id: !secret neato_living_room
+    local_only: false
   action:
   - service: neato.custom_cleaning
     data:
@@ -4767,6 +4771,7 @@
   trigger:
     platform: webhook
     webhook_id: !secret goodnight
+    local_only: false
   action:
   - service: scene.turn_on
     entity_id: scene.goodnight
@@ -4782,6 +4787,7 @@
   trigger:
     platform: webhook
     webhook_id: !secret danny_awake_webhook
+    local_only: false
   action:
   - service: switch.turn_off
     entity_id: switch.tasker_sleep_danny
@@ -4790,6 +4796,7 @@
   trigger:
     platform: webhook
     webhook_id: !secret tosh_awake_webhook
+    local_only: false
   action:
   - service: switch.turn_off
     entity_id: switch.tasker_sleep_tosh
@@ -4798,6 +4805,7 @@
   trigger:
     platform: webhook
     webhook_id: !secret sleep_as_android_danny_webhook
+    local_only: false
   action:
   - service: input_text.set_value
     data:
@@ -4812,6 +4820,7 @@
   trigger:
     platform: webhook
     webhook_id: !secret sleep_as_android_tosh_webhook
+    local_only: false
   action:
   - service: input_text.set_value
     data:
@@ -5180,20 +5189,13 @@
 - alias: Notify when Sous Vide is ready
   trigger:
     platform: state
-    entity_id: sensor.anova_state
+    entity_id: sensor.anova_precision_cooker_state
     to: 'Preheating'
-  condition:
-    condition: template
-    value_template: "{{ states('sensor.anova_target_temperature_2') | int > states('sensor.anova_water_temperature') | int }}"
   action:
-  - delay: "00:02:00"
-  - wait_template: "{{ states('sensor.anova_target_temperature_2') | int == states('sensor.anova_water_temperature') | int }}"
-  - delay: "00:00:05"
-  - condition: template
-    value_template: "{{ (states('sensor.anova_target_temperature_2') | int == states('sensor.anova_water_temperature') | int) and (is_state('sensor.anova_state', 'Cooking')) }}"
+  - wait_template: "{{ is_state('sensor.anova_precision_cooker_state', 'Cooking') }}"
   - service: notify.android
     data_template:
-      message: "Sous vide is ready at {{ states('sensor.anova_target_temperature_2') }} 🍳🧑‍🍳 "
+      message: "Sous vide is ready at {{ states('sensor.anova_precision_cooker_target_temperature') }} 🍳🧑‍🍳 "
       title: Food
       data:
         ttl: 0
@@ -5207,14 +5209,14 @@
         color: red
         duration: 10
         position: center
-      message: "Sous vide is ready at {{ states('sensor.anova_target_temperature_2') }} 🍳🧑‍🍳"
+      message: "Sous vide is ready at {{ states('sensor.anova_precision_cooker_target_temperature') }} 🍳🧑‍🍳"
       title: Shokabow Zoo
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'off'
   - service: notify.google_assistant_sdk
     data:
-      message: "Sous vide is ready at {{ states('sensor.anova_target_temperature_2') }}"
+      message: "Sous vide is ready at {{ states('sensor.anova_precision_cooker_target_temperature') }}"
 
 ################################################
 #
@@ -5752,7 +5754,7 @@
   - service: light.turn_on
     entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_on
-    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light
+    entity_id: switch.aquarium_20g_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light
 
 - alias: Aquarium Lights Night
   trigger:
@@ -5762,7 +5764,7 @@
   - service: light.turn_off
     entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_off
-    entity_id: switch.aquarium_20g_light, switch.shrimp_aquarium_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light
+    entity_id: switch.aquarium_20g_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light
 
 - alias: Feed fish
   trigger:
@@ -5792,10 +5794,10 @@
 - alias: Notify aquarium temperature
   trigger:
   - platform: numeric_state
-    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp_2, sensor.betta_aquarium_temp, sensor.oranda_aquarium_temp, sensor.angelfish_aquarium_temp
+    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.snail_aquarium_temp, sensor.oranda_aquarium_temp, sensor.angelfish_aquarium_temp
     above: 83
   - platform: numeric_state
-    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.shrimp2_aquarium_temp_2, sensor.betta_aquarium_temp, sensor.angelfish_aquarium_temp
+    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.snail_aquarium_temp, sensor.angelfish_aquarium_temp
     below: 68
   - platform: numeric_state
     entity_id: sensor.oranda_aquarium_temp

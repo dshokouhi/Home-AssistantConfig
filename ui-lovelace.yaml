@@ -268,8 +268,6 @@ views:
           - entity: remote.harmony_hub_den
             secondary_info: last-changed
           - light.tv_lights
-          - entity: remote.xboxone_remote
-            secondary_info: last-changed
           # - type: weblink
             # name: test
             # url: "app://net.dinglisch.android.taskerm"
@@ -610,17 +608,17 @@ views:
         id: sousvide
         show_header_toggle: false
         entities:
-          - entity: sensor.anova_mode
+          - entity: sensor.anova_precision_cooker_mode
             secondary_info: last-changed
-          - entity: sensor.anova_state
+          - entity: sensor.anova_precision_cooker_state
             secondary_info: last-changed
-          - entity: sensor.anova_water_temperature
+          - entity: sensor.anova_precision_cooker_water_temperature
             secondary_info: last-changed
-          - entity: sensor.anova_triac_temperature
+          - entity: sensor.anova_precision_cooker_triac_temperature
             secondary_info: last-changed
-          - entity: sensor.anova_heater_temperature
+          - entity: sensor.anova_precision_cooker_heater_temperature
             secondary_info: last-changed
-          - entity: sensor.anova_target_temperature_2
+          - entity: sensor.anova_precision_cooker_target_temperature
             secondary_info: last-changed
   - title: Aquariums
     path: aquariums
@@ -633,15 +631,6 @@ views:
         state_color: true
         entities:
           - entity: group.aquarium_lights
-      - type: entities
-        id: aquarium-5g
-        title: Betta (5G)
-        show_header_toggle: false
-        state_color: true
-        entities:
-          - entity: switch.beta_light
-          - entity: sensor.betta_aquarium_temp
-            secondary_info: last-changed
       - type: entities
         id: aquarium-10g
         title: Puffers (10G)
@@ -690,26 +679,24 @@ views:
             secondary_info: last-changed
           - entity: switch.aquarium_55g_bubble_light
       - type: entities
-        id: shrimp-aquarium
-        title: Blue Shrimp Aquarium
+        id: aquarium-5g
+        title: Shrimp (3.5G)
         show_header_toggle: false
         state_color: true
         entities:
-          - entity: switch.shrimp_aquarium_light
-            name: Blue Shrimp Aquarium Light
+          - entity: switch.beta_light
           - entity: sensor.shrimp_aquarium_temp
             secondary_info: last-changed
-            name: Blue Shrimp Aquarium Temperature
       - type: entities
-        id: shrimp2-aquarium
-        title: Green Shrimp Aquarium
+        id: snail-aquarium
+        title: Snail (3.5G)
         show_header_toggle: false
         state_color: true
         entities:
           - entity: switch.shrimp_2_aquarium_plug_2
-            name: Green Shrimp Aquarium Light
-          - entity: sensor.shrimp2_aquarium_temp_2
-            name: Green Shrimp Aquarium Temperature
+            name: Snail Aquarium Light
+          - entity: sensor.snail_aquarium_temp
+            name: Snail Aquarium Temperature
             secondary_info: last-changed
   - title: Services
     path: services

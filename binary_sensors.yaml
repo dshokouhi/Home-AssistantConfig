@@ -94,6 +94,3 @@
      prob_given_true: 0.99
      platform: 'state'
      to_state: 'shakuyi-5G'
-
- - platform: workday
-   country: US
