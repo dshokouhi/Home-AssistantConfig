@@ -750,6 +750,7 @@
         sticky: true
         importance: high
         notification_icon: "mdi:shield-home"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
   - service: switch.turn_on
     entity_id: switch.living_room_state
   - delay: "00:00:30"
@@ -800,6 +801,7 @@
         sticky: true
         importance: high
         notification_icon: "mdi:shield-home"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
   - service: switch.turn_on
     entity_id: switch.den_state
   - delay: "00:00:30"
@@ -847,6 +849,7 @@
         sticky: true
         importance: high
         notification_icon: "mdi:shield-home"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
   - service: switch.turn_on
     entity_id: switch.kitchen_state
   - delay: "00:00:30"
@@ -1176,6 +1179,7 @@
         channel: alarm
         group: alarm
         notification_icon: "mdi:window-open"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
   - service: notify.mobile_app_dannys_pixel_7_pro
     data_template:
       message: TTS
@@ -2413,6 +2417,7 @@
         sticky: true
         importance: high
         notification_icon: "mdi:smoke-detector-variant-alert"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
 
 - alias: CO2 Detected
   trigger:
@@ -2452,6 +2457,7 @@
         sticky: true
         importance: high
         notification_icon: "mdi:smoke-detector-variant-alert"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
 
 ################################################
 #
@@ -5754,7 +5760,7 @@
   - service: light.turn_on
     entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_on
-    entity_id: switch.aquarium_20g_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light
+    entity_id: switch.aquarium_20g_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light, switch.oranda_aquarium_light
 
 - alias: Aquarium Lights Night
   trigger:
@@ -5764,7 +5770,7 @@
   - service: light.turn_off
     entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_off
-    entity_id: switch.aquarium_20g_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light
+    entity_id: switch.aquarium_20g_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light, switch.oranda_aquarium_light
 
 - alias: Feed fish
   trigger:
@@ -5797,10 +5803,10 @@
     entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.snail_aquarium_temp, sensor.oranda_aquarium_temp, sensor.angelfish_aquarium_temp
     above: 83
   - platform: numeric_state
-    entity_id: sensor.aquarium_temperature, sensor.aquarium_20g_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.snail_aquarium_temp, sensor.angelfish_aquarium_temp
+    entity_id: sensor.aquarium_temperature, sensor.oranda_aquarium_temp, sensor.50g_aquarium_temp, sensor.shrimp_aquarium_temp, sensor.aquarium_50g_temperature, sensor.snail_aquarium_temp, sensor.angelfish_aquarium_temp
     below: 68
   - platform: numeric_state
-    entity_id: sensor.oranda_aquarium_temp
+    entity_id: sensor.aquarium_20g_temp
     below: 60
   action:
   - service: notify.android

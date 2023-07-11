@@ -213,20 +213,20 @@
            entity_id: climate.thermostat
            fan_mode: 'Auto low'
 
- - platform: command_line
-   switches:
-     tasker_sleep_danny:
-       command_on: python3 "/home/homeassistant/.homeassistant/danny_sleep.py"
+ # - platform: command_line
+   # switches:
+     # tasker_sleep_danny:
+       # command_on: python3 "/home/homeassistant/.homeassistant/danny_sleep.py"
 
- - platform: command_line
-   switches:
-     tasker_sleep_tosh:
-       command_on: python3 "/home/homeassistant/.homeassistant/tosh_sleep.py"
+ # - platform: command_line
+   # switches:
+     # tasker_sleep_tosh:
+       # command_on: python3 "/home/homeassistant/.homeassistant/tosh_sleep.py"
 
- - platform: command_line
-   switches:
-     tasker_awake_tosh:
-       command_on: python3 "/home/homeassistant/.homeassistant/tosh_awake.py"
+ # - platform: command_line
+   # switches:
+     # tasker_awake_tosh:
+       # command_on: python3 "/home/homeassistant/.homeassistant/tosh_awake.py"
 
  - platform: wake_on_lan
    mac: !secret tosh_w10_mac

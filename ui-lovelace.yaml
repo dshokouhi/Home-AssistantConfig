@@ -643,21 +643,22 @@ views:
             secondary_info: last-changed
       - type: entities
         id: aquarium-20g
-        title: Shrimp Tank (20G)
-        show_header_toggle: false
-        state_color: true
-        entities:
-          - entity: switch.aquarium_20g_light
-          - entity: sensor.aquarium_20g_temp
-            secondary_info: last-changed
-      - type: entities
-        id: aquarium-30g
-        title: Oranda Goldfish (30G)
+        title: Shrimp Tank (30G)
         show_header_toggle: false
         state_color: true
         entities:
           - entity: switch.aquarium_30g_light
           - entity: sensor.oranda_aquarium_temp
+            secondary_info: last-changed
+      - type: entities
+        id: aquarium-30g
+        title: Oranda Goldfish (65G)
+        show_header_toggle: false
+        state_color: true
+        entities:
+          - entity: switch.beta_light
+            name: Oranda Aquarium Light
+          - entity: sensor.aquarium_20g_temp
             secondary_info: last-changed
       - type: entities
         id: aquarium-50g
@@ -678,26 +679,26 @@ views:
           - entity: sensor.50g_aquarium_temp
             secondary_info: last-changed
           - entity: switch.aquarium_55g_bubble_light
-      - type: entities
-        id: aquarium-5g
-        title: Shrimp (3.5G)
-        show_header_toggle: false
-        state_color: true
-        entities:
-          - entity: switch.beta_light
-          - entity: sensor.shrimp_aquarium_temp
-            secondary_info: last-changed
-      - type: entities
-        id: snail-aquarium
-        title: Snail (3.5G)
-        show_header_toggle: false
-        state_color: true
-        entities:
-          - entity: switch.shrimp_2_aquarium_plug_2
-            name: Snail Aquarium Light
-          - entity: sensor.snail_aquarium_temp
-            name: Snail Aquarium Temperature
-            secondary_info: last-changed
+      # - type: entities
+        # id: aquarium-5g
+        # title: Shrimp (3.5G)
+        # show_header_toggle: false
+        # state_color: true
+        # entities:
+          # - entity: switch.beta_light
+          # - entity: sensor.shrimp_aquarium_temp
+            # secondary_info: last-changed
+      # - type: entities
+        # id: snail-aquarium
+        # title: Snail (3.5G)
+        # show_header_toggle: false
+        # state_color: true
+        # entities:
+          # - entity: switch.shrimp_2_aquarium_plug_2
+            # name: Snail Aquarium Light
+          # - entity: sensor.snail_aquarium_temp
+            # name: Snail Aquarium Temperature
+            # secondary_info: last-changed
   - title: Services
     path: services
     icon: mdi:home-circle
@@ -976,6 +977,23 @@ views:
             name: Photo
           - entity: sensor.epson_et_7750_series_yellow_ink
             name: Yellow
+  - title: Car
+    path: car
+    icon: mdi:car
+    cards:
+      - type: custom:auto-entities
+        id: subaru-ascent-sensors
+        card:
+          type: entities
+          title: Subaru Ascent Sensors
+          show_header_toggle: false
+        sort:
+          method: name
+        filter:
+          include:
+            - entity_id: "*sensor.2023_ascent*"
+              options:
+                secondary_info: last-changed
   - title: Phones
     path: phones
     icon: mdi:cellphone
