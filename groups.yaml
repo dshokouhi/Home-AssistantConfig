@@ -50,8 +50,6 @@ aquarium_lights:
   entities:
   - switch.beta_light
   - light.aquarium_light
-  - switch.aquarium_20g_light
   - switch.aquarium_30g_light
   - switch.aquarium_50g_light
   - light.aquarium_light_55g
-  - switch.shrimp_2_aquarium_plug_2

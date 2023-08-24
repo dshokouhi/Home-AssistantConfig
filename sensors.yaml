@@ -311,7 +311,7 @@
      inside_outside_temp:
        friendly_name: Inside vs Outside Temperature
        value_template: >-
-         {% if states('sensor.thermostat_air_temperature') | int > state_attr('weather.kvny_daynight', 'temperature') | int %}
+         {% if states('sensor.thermostat_air_temperature') | int(0) > state_attr('weather.kvny_daynight', 'temperature') | int(0) %}
            True
          {% else %}
            False
@@ -363,7 +363,7 @@
 
  - platform: weatheralerts
    state: CA
-   zone: 547
+   zone: 372
    county: 37
    scan_interval: 600
 

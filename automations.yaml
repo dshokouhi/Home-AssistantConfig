@@ -2305,7 +2305,7 @@
       state: 'cool'
   action:
   - delay: "00:30:00"
-  - wait_template: "{{ states('sensor.thermostat_air_temperature')|int <= state_attr('climate.thermostat', 'temperature')|int }}"
+  - wait_template: "{{ states('sensor.thermostat_air_temperature')|int(0) <= state_attr('climate.thermostat', 'temperature')|int(0) }}"
   - condition: state
     entity_id: input_boolean.night_mode
     state: 'on'
@@ -3268,23 +3268,6 @@
 
 ################################################
 #
-#      Log Notification
-#
-################################################
-
-# - alias: Timer out of sync
-  # trigger:
-    # platform: event
-    # event_type: timer_out_of_sync
-  # action:
-  # - service: notify.hass
-    # data_template:
-      # message: "Timer out of sync. ⏲ "
-      # target:
-      # - !secret discord_danny
-
-################################################
-#
 #      Download Automations
 #
 ################################################
@@ -3923,88 +3906,6 @@
 
 ################################################
 #
-#      Car Presence Automations
-#
-################################################
-
-- alias: Danny car
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.tsxpresence
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.tsxpresence
-    to: 'off'
-  condition:
-  - condition: and
-    conditions:
-    - condition: template
-      value_template: "{{ (is_state('binary_sensor.tsxpresence', 'off') and is_state('device_tracker.tsx', 'home')) or (is_state('binary_sensor.tsxpresence', 'on') and is_state('device_tracker.tsx', 'not_home')) }}"
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: device_tracker.tsx
-        state: 'home'
-        for:
-          minutes: 1
-      - condition: state
-        entity_id: device_tracker.tsx
-        state: 'not_home'
-        for:
-          minutes: 1
-  action:
-  - service: notify.hass
-    data_template:
-      message: >
-           {% if is_state("binary_sensor.tsxpresence", "on") %}
-             TSX arrived home 🚗
-           {% elif is_state("binary_sensor.tsxpresence", "off") %}
-             TSX left home 🚗 
-           {% else %}
-           {% endif %}
-      target:
-      - !secret discord_danny
-
-- alias: Tosh car
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.rdxpresence
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.rdxpresence
-    to: 'off'
-  condition:
-  - condition: and
-    conditions:
-    - condition: template
-      value_template: "{{ (is_state('binary_sensor.rdxpresence', 'off') and is_state('device_tracker.rdx', 'home')) or (is_state('binary_sensor.rdxpresence', 'on') and is_state('device_tracker.rdx', 'not_home')) }}"
-    - condition: or
-      conditions:
-      - condition: state
-        entity_id: device_tracker.rdx
-        state: 'home'
-        for:
-          minutes: 1
-      - condition: state
-        entity_id: device_tracker.rdx
-        state: 'not_home'
-        for:
-          minutes: 1
-  action:
-  - service: notify.hass
-    data_template:
-      message: >
-           {% if is_state("binary_sensor.rdxpresence", "on") %}
-             RDX arrived home 🚙
-           {% elif is_state("binary_sensor.rdxpresence", "off") %}
-             RDX left home 🚙
-           {% else %}
-           {% endif %}
-      target:
-      - !secret discord_danny
-
-################################################
-#
 #      BBQ Automations
 #
 ################################################
@@ -4231,7 +4132,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.pool_pump_power
-    below: 3
+    below: 9
     for:
       minutes: 10
   condition:
@@ -4248,26 +4149,6 @@
         channel: alert
         group: alert
         notification_icon: "mdi:pool"
-
-- alias: Save pool temperature
-  trigger:
-    platform: state
-    entity_id: sensor.pool_temperature
-  condition:
-    condition: and
-    conditions:
-    - condition: template
-      value_template: "{{ (states('sensor.pool_temperature') | int < 150) and (trigger.to_state.state != states('input_number.pool_temp'))}}"
-    - condition: not
-      conditions:
-      - condition: state
-        entity_id: sensor.pool_temperature
-        state: unavailable
-  action:
-  - service: input_number.set_value
-    data_template:
-      entity_id: input_number.pool_temp
-      value: "{{ trigger.to_state.state }}"
 
 ################################################
 #
@@ -4437,65 +4318,37 @@
 #
 ################################################
 
-# - alias: Image processing on motion detection frontyard
-  # mode: parallel
-  # trigger:
-    # platform: state
-    # entity_id: binary_sensor.frontyard_driveway_motion, binary_sensor.frontyard_side_gate_motion, binary_sensor.frontyard_cars_motion
-  # condition:
-    # condition: state
-    # entity_id: input_boolean.gardener
-    # state: 'off'
-  # action:
-  # - service: image_processing.scan
-    # data_template:
-      # entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
-
-# - alias: Notify image processing
-  # mode: parallel
-  # trigger:
-    # platform: state
-    # entity_id: image_processing.tensorflow_frontyard_driveway, image_processing.tensorflow_frontyard_side_gate, image_processing.tensorflow_den_camera, image_processing.tensorflow_living_room_camera, image_processing.tensorflow_baby_monitor, image_processing.tensorflow_outdoor_camera, image_processing.tensorflow_patio, image_processing.tensorflow_garage_side_gate, image_processing.tensorflow_frontyard_cars, image_processing.tensorflow_kitchen, image_processing.tensorflow_den_backyard
-  # condition:
-    # condition: template
-    # value_template: '{{ trigger.to_state.state |int > 0 }}'
-  # action:
-  # - service: notify.hass
-    # data_template:
-      # message: >
-            # {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }} 📸.
-      # target:
-      # - !secret discord_images
-      # data:
-        # images:
-        # - "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
-  # - condition: template
-    # value_template: "{{ (trigger.entity_id == 'image_processing.tensorflow_frontyard_driveway') or (trigger.entity_id == 'image_processing.tensorflow_frontyard_side_gate') or (trigger.entity_id == 'image_processing.tensorflow_frontyard_cars') }}"
-  # - service: notify.den
-    # data_template:
-      # data:
-        # color: red
-        # duration: 3
-        # position: bottom-right
-        # image:
-          # path: "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id.split('.')[1].replace('tensorflow_', '') }}_latest.jpg"
-      # message: >
-            # {% for object in state_attr(trigger.entity_id,'matches').keys() -%}{%- if loop.first %}{% elif loop.last %}, {% else %}, {% endif -%}{{ object|title }}{%- endfor %} detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace('tensorflow ', '') }} 📸.
-      # title: Shokabow Zoo
-
-# - alias: Image Processing When Away
-  # mode: parallel
-  # trigger:
-    # platform: state
-    # entity_id: binary_sensor.patio_motion, binary_sensor.kitchen_side_gate_motion, binary_sensor.garage_side_gate_motion, binary_sensor.den_backyard_motion
-  # condition:
-  # - condition: state
-    # entity_id: alarm_control_panel.home
-    # state: armed_away
-  # action:
-  # - service: image_processing.scan
-    # data_template:
-      # entity_id: "image_processing.tensorflow_{{ trigger.entity_id.split('.')[1].replace('_motion', '') }}"
+- alias: Notify image processing
+  mode: parallel
+  trigger:
+    platform: state
+    entity_id: sensor.frigate_frontyard_porch_camera_person, sensor.frigate_frontyard_cars_camera_person
+  condition:
+    condition: template
+    value_template: '{{ trigger.to_state.state |int > 0 }}'
+  action:
+  - service: camera.snapshot
+    data:
+      entity_id: "{% if trigger.entity_id == 'sensor.frigate_frontyard_cars_camera_person' %}camera.frigate_frontyard_cars_camera_snapshot{% else %}camera.frigate_frontyard_porch_camera_snapshot{% endif %}"
+      filename: '/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id }}.jpg'
+  - service: notify.hass
+    data_template:
+      message: "Person detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace(' camera person', '').replace('frigate ', '') }} 📸."
+      target:
+      - !secret discord_images
+      data:
+        images:
+        - "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id }}.jpg"
+  - service: notify.den
+    data_template:
+      data:
+        color: red
+        duration: 3
+        position: bottom-right
+        image:
+          path: "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id }}.jpg"
+      message: "Person detected in {{ trigger.entity_id.split('.')[1].replace('_', ' ').replace(' camera person', '').replace('frigate ', '') }} 📸."
+      title: Shokabow Zoo
 
 - alias: Turn on kitchen lights when someone is home and awake in the kitchen
   mode: queued
@@ -4563,32 +4416,6 @@
   - service: light.turn_on
     data:
       entity_id: light.living_room_lights_level
-
-# - alias: Turn on lights when person detected
-  # mode: parallel
-  # trigger:
-    # platform: state
-    # entity_id: image_processing.tensorflow_kitchen, image_processing.tensorflow_living_room_camera
-  # condition:
-    # condition: template
-    # value_template: '{{ trigger.to_state.state |int > 0 }}'
-  # action:
-  # - service: light.turn_on
-    # data_template:
-      # entity_id: >
-             # {% if trigger.entity_id == 'image_processing.tensorflow_kitchen' %}
-               # light.kitchen_lights_level
-             # {% elif trigger.entity_id == 'image_processing.tensorflow_living_room_camera' %}
-               # light.living_room_lights_level
-             # {% else %}
-             # {% endif %}
-  # - condition: template
-    # value_template: "{{ trigger.entity_id == 'image_processing.tensorflow_living_room_camera' }}"
-  # - delay: "00:00:05"
-  # - service: mqtt.publish
-    # data_template:
-      # topic: "OpenZWave/1/command/requestnodedynamic/"
-      # payload: '{ "node": 4 }'
 
 - alias: Notify kitchen tv on for 1 hour
   trigger:
@@ -5196,7 +5023,9 @@
   trigger:
     platform: state
     entity_id: sensor.anova_precision_cooker_state
-    to: 'Preheating'
+    to:
+      - 'Preheating'
+      - 'No state'
   action:
   - wait_template: "{{ is_state('sensor.anova_precision_cooker_state', 'Cooking') }}"
   - service: notify.android
@@ -5588,33 +5417,6 @@
 
 ################################################
 #
-#      Weight Sensor Automations
-#
-################################################
-
-# - alias: Weight Sensor
-  # trigger:
-    # platform: numeric_state
-    # entity_id: sensor.hx711_value
-    # above: 2
-  # condition:
-    # condition: and
-    # conditions:
-    # - condition: state
-      # entity_id: sun.sun
-      # state: below_horizon
-    # - condition: state
-      # entity_id: alarm_control_panel.home
-      # state: disarmed
-  # action:
-  # - service: light.turn_on
-    # entity_id: light.bookshelf_left
-  # - wait_template: "{{ states('sensor.hx711_value') | int < 2 }}"
-  # - service: light.turn_off
-    # entity_id: light.bookshelf_left
-
-################################################
-#
 #      Android Event Automations
 #
 ################################################
@@ -5679,60 +5481,6 @@
         channel: Nest
         notification_icon: "mdi:email-receive"
 
-- alias: Save Danny Mi Band Steps
-  mode: queued
-  trigger:
-    platform: event
-    event_type: android.intent_received
-    event_data:
-      intent: com.mc.miband.stepsGot
-  action:
-    service: input_number.set_value
-    data:
-      entity_id: input_number.danny_mi_band_steps
-      value: "{{ trigger.event.data.value }}"
-
-- alias: Save Danny Mi Band Heart Rate
-  mode: queued
-  trigger:
-    platform: event
-    event_type: android.intent_received
-    event_data:
-      intent: com.mc.miband.heartRateGot
-  action:
-    service: input_number.set_value
-    data:
-      entity_id: input_number.danny_mi_band_heart_rate
-      value: "{{ trigger.event.data.value }}"
-
-- alias: Save Danny Mi Band Sleep
-  mode: queued
-  trigger:
-  - platform: event
-    event_type: android.intent_received
-    event_data:
-      intent: com.mc.miband.tasker.trigger.fellAsleep
-  - platform: event
-    event_type: android.intent_received
-    event_data:
-      intent: com.mc.miband.tasker.trigger.wokeUp
-  action:
-    service: >-
-        {% if trigger.event.data.intent == 'com.mc.miband.tasker.trigger.wokeUp' %}
-          input_boolean.turn_off
-        {% elif trigger.event.data.intent == 'com.mc.miband.tasker.trigger.fellAsleep' %}
-          input_boolean.turn_on
-        {% else %}
-        {% endif %}
-    data:
-      entity_id: >-
-        {% if trigger.event.context.user_id == '8290db6a0fc449a491470c631e1e5d77' %}
-          input_boolean.danny_mi_band_sleep
-        {% elif trigger.event.context.user_id == '0a800877081d4593b2a5f8e0ecca7c54' %}
-          input_boolean.tosh_mi_band_sleep
-        {% else %}
-        {% endif %}
-
 - alias: Phone alarm
   trigger:
     platform: time
@@ -5760,7 +5508,7 @@
   - service: light.turn_on
     entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_on
-    entity_id: switch.aquarium_20g_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light, switch.oranda_aquarium_light
+    entity_id: switch.aquarium_20g_light, switch.aquarium_50g_light, switch.aquarium_30g_light, switch.beta_light, switch.oranda_aquarium_light
 
 - alias: Aquarium Lights Night
   trigger:
@@ -5770,7 +5518,7 @@
   - service: light.turn_off
     entity_id: light.aquarium_light, light.aquarium_light_55g
   - service: switch.turn_off
-    entity_id: switch.aquarium_20g_light, switch.aquarium_50g_light, switch.shrimp_2_aquarium_plug_2, switch.aquarium_30g_light, switch.beta_light, switch.oranda_aquarium_light
+    entity_id: switch.aquarium_20g_light, switch.aquarium_50g_light, switch.aquarium_30g_light, switch.beta_light, switch.oranda_aquarium_light
 
 - alias: Feed fish
   trigger:
@@ -5820,6 +5568,7 @@
         alert_once: true
         channel: Aquarium
         notification_icon: "mdi:fish"
+ 
 ################################################
 #
 #      3D Printer Automations

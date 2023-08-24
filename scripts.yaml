@@ -808,3 +808,17 @@ update_lights_dynamic:
     data_template:
       topic: "OpenZWave/1/command/requestnodedynamic/"
       payload: '{ "node": 7 }'
+ 
+car_notif_test:
+  alias: Car Notification Test
+  sequence:
+  - service: notify.mobile_app_dannys_pixel_7_pro
+    data:
+      message: Testing car UI notification
+      data:
+        ttl: 0
+        priority: high
+        channel: car
+        car_ui: true
+        group: test
+        notification_icon: mdi:car

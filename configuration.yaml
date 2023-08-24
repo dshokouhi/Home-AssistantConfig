@@ -36,12 +36,12 @@ http:
    ssl_certificate: !secret sslcert
    ssl_key: !secret sslkey
 
-discovery:
-  ignore:
-  - netgear_router
-  - logitech_mediaserver
-  - songpal
-  - google_cast
+# discovery:
+  # ignore:
+  # - netgear_router
+  # - logitech_mediaserver
+  # - songpal
+  # - google_cast
 
 conversation:
 
@@ -211,7 +211,7 @@ script: !include scripts.yaml
 tts:
   - platform: google_translate
     service_name: google_say
-    base_url: !secret baseurl
+    #base_url: !secret baseurl
 
 group: !include groups.yaml
 
@@ -1007,12 +1007,22 @@ cover:
         stop_cover:
           - service: script.turn_on
             entity_id: script.stop_ollies_curtains
+      garage_door:
+        friendly_name: Garage Door
+        unique_id: fake_garage_door
+        value_template: "{{ is_state('input_boolean.garage_door', 'on') }}"
+        open_cover:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.garage_door
+        close_cover:
+          - service: input_boolean.turn_off
+            entity_id: input_boolean.garage_door
 
-xiaomi_aqara:
-  discovery_retry: 5
-  gateways:
-  - key: !secret xiaomi_gateway_key
-    host: 192.168.1.58
+# xiaomi_aqara:
+  # discovery_retry: 5
+  # gateways:
+  # - key: !secret xiaomi_gateway_key
+    # host: 192.168.1.58
  
 influxdb:
   max_retries: 10
@@ -1243,11 +1253,19 @@ mqtt:
     state_topic: "frigate/kitchen_camera/person"
   - name: Frigate living room camera person
     state_topic: "frigate/living_room_camera/person"
+  - name: Frigate frontyard porch camera person
+    state_topic: "frigate/frontyard_porch_camera/person"
+  - name: Frigate frontyard cars camera person
+    state_topic: "frigate/frontyard_cars_camera/person"
   camera:
   - name: Frigate kitchen camera snapshot
     topic: "frigate/kitchen_camera/person/snapshot"
   - name: Frigate living room camera snapshot
     topic: "frigate/living_room_camera/person/snapshot"
+  - name: Frigate frontyard porch camera snapshot
+    topic: "frigate/frontyard_porch_camera/person/snapshot"
+  - name: Frigate frontyard cars camera snapshot
+    topic: "frigate/frontyard_cars_camera/person/snapshot"
 
 hacs:
   token: !secret github_api

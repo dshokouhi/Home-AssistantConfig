@@ -415,7 +415,7 @@ binary_sensor.water_leak_sensor_158d0001bc24f5:
   
 binary_sensor.natachas_bayesian_presence:
   device_class: presence
-  entity_picture: https://lh4.googleusercontent.com/-aFZYEJLP6DI/AAAAAAAAAAI/AAAAAAAAhtw/8LhgmQhR_c4/photo.jpg
+  entity_picture: https://lh3.googleusercontent.com/contacts/ADUEL1zKFqL9NAF5Ibh8hCa-_KOaKWHgx2NewmJu3EH0xq9pdwp3YhAa=s300-p-k-rw-no
   friendly_name: Tosh
   
 binary_sensor.dannys_bayesian_presence:

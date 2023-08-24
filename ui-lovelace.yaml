@@ -658,6 +658,8 @@ views:
         entities:
           - entity: switch.beta_light
             name: Oranda Aquarium Light
+          - entity: switch.shrimp_2_aquarium_plug_2
+            name: Oranda Aquarium Fan
           - entity: sensor.aquarium_20g_temp
             secondary_info: last-changed
       - type: entities
@@ -1099,157 +1101,25 @@ views:
     icon: mdi:cctv
     cards:
       - type: picture-entity
-        entity: camera.den_backyard_scan
+        entity: camera.frigate_frontyard_cars_camera_snapshot
       - type: picture-entity
-        entity: camera.frontyard_cars_scan
+        entity: camera.frigate_frontyard_porch_camera_snapshot
       - type: picture-entity
-        entity: camera.frontyard_driveway_scan
+        entity: camera.frigate_kitchen_camera_snapshot
       - type: picture-entity
-        entity: camera.frontyard_side_gate_scan
-      - type: picture-entity
-        entity: camera.garage_side_gate_scan
-      - type: picture-entity
-        entity: camera.kitchen_side_gate_scan
-      - type: picture-entity
-        entity: camera.patio_scan
-      - type: picture-entity
-        entity: camera.den_scan
-      - type: picture-entity
-        entity: camera.baby_monitor_scan
-      - type: picture-entity
-        entity: camera.kitchen_scan
-      - type: picture-entity
-        entity: camera.living_room_scan
-      - type: picture-entity
-        entity: camera.garage_scan
+        entity: camera.frigate_living_room_camera_snapshot
       - type: glance
         id: tensorflow
         title: Image Processing Scanning
         entities:
-          - entity: image_processing.tensorflow_baby_monitor
-            name: Baby Monitor
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_baby_monitor
-          - entity: image_processing.tensorflow_den_camera
-            name: Den
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_den_camera
-          - entity: image_processing.tensorflow_den_backyard
-            name: Den Backyard
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_den_backyard
-          - entity: image_processing.tensorflow_frontyard_cars
-            name: Cars
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_frontyard_cars
-          - entity: image_processing.tensorflow_frontyard_driveway
-            name: Driveway
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_frontyard_driveway
-          - entity: image_processing.tensorflow_frontyard_side_gate
-            name: Frontyard
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_frontyard_side_gate
-          - entity: image_processing.tensorflow_outdoor_camera
-            name: Garage
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_outdoor_camera
-          - entity: image_processing.tensorflow_garage_side_gate
-            name: Garage Side
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_garage_side_gate
-          - entity: image_processing.tensorflow_kitchen
-            name: Kitchen
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_kitchen
-          - entity: image_processing.tensorflow_kitchen_side_gate
-            name: Kitchen Side
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_kitchen_side_gate
-          - entity: image_processing.tensorflow_living_room_camera
-            name: Living Room
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_living_room_camera
-          - entity: image_processing.tensorflow_patio
-            name: Patio
-            hold_action:
-              action: call-service
-              service: image_processing.scan
-              service_data:
-                entity_id: image_processing.tensorflow_patio
-      - type: entities
-        id: zm
-        title: ZoneMinder
-        state_color: true
-        entities:
-          - switch.baby_monitor_state
-          - switch.den_backyard_state
-          - switch.den_state
-          - switch.frontyard_cars_state
-          - switch.frontyard_driveway_state
-          - switch.frontyard_side_gate_state
-          - switch.garage_state
-          - switch.garage_side_gate_state
-          - switch.kitchen_state
-          - switch.kitchen_side_gate_state
-          - switch.living_room_state
-          - switch.patio_state
-      - type: glance
-        id: ring
-        title: Ring
-        entities:
-          - entity: sensor.door_view_battery
-            name: Door View Battery
-          - entity: sensor.ring_front_door_battery
-            name: Doorbell Battery
-          - entity: binary_sensor.door_view_ding
-            name: Door View Ding
-            show_last_changed: true
-          - entity: binary_sensor.front_door_ding
-            name: Doorbell Ding
-            show_last_changed: true
-          - entity: binary_sensor.door_view_motion
-            name: Door View Motion
-            show_last_changed: true
-          - entity: binary_sensor.front_door_motion
-            name: Doorbell Motion
-            show_last_changed: true
-          - entity: binary_sensor.side_gate_motion
-            name: Gate Motion
-            show_last_changed: true
+          - entity: sensor.frigate_frontyard_cars_camera_person
+            name: Frontyard Cars People Detected
+          - entity: sensor.frigate_frontyard_porch_camera_person
+            name: Frontyard Porch People Detected
+          - entity: sensor.frigate_kitchen_camera_person
+            name: Kitchen People Detected
+          - entity: sensor.frigate_living_room_camera_person
+            name: Living Room People Detected
   - title: Media Players
     path: media
     icon: mdi:cast
@@ -1320,7 +1190,7 @@ views:
     path: weather
     icon: mdi:weather-sunny
     badges:
-      - sensor.los_angeles_county_san_fernando_valley
+      - sensor.western_san_fernando_valley
     cards:
       # - type: glance
         # id: station
