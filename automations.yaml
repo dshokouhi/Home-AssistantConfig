@@ -371,6 +371,23 @@
     service: input_boolean.turn_on
     entity_id: input_boolean.kitchen_tv
 
+- alias: Set Den Bias Lights When Unavailable
+  trigger:
+    platform: state
+    entity_id: lights.tv_lights
+    from: unavailable
+  action:
+  - service: >-
+        {% if is_state('remote.harmony_hub_den', 'on') and is_state('lights.tv_lights', 'on') and is_state('sun.sun', 'above_horizon') %}
+          light.turn_off
+        {% elif is_state('remote.harmony_hub_den', 'on') and is_state('lights.tv_lights', 'off') and is_state('sun.sun', 'below_horizon') %}
+          light.turn_on
+        {% elif is_state('remote.harmony_hub_den', 'off') and is_state('lights.tv_lights', 'on') %}
+          light.turn_off
+        {% else %}
+        {% endif %}
+    entity_id: light.tv_lights
+
 ################################################
 #
 #      Laundry notifications
@@ -750,7 +767,7 @@
         sticky: true
         importance: high
         notification_icon: "mdi:shield-home"
-        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_8_pro_android_auto', 'on') }}"
   - service: switch.turn_on
     entity_id: switch.living_room_state
   - delay: "00:00:30"
@@ -801,7 +818,7 @@
         sticky: true
         importance: high
         notification_icon: "mdi:shield-home"
-        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_8_pro_android_auto', 'on') }}"
   - service: switch.turn_on
     entity_id: switch.den_state
   - delay: "00:00:30"
@@ -849,7 +866,7 @@
         sticky: true
         importance: high
         notification_icon: "mdi:shield-home"
-        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_8_pro_android_auto', 'on') }}"
   - service: switch.turn_on
     entity_id: switch.kitchen_state
   - delay: "00:00:30"
@@ -912,7 +929,7 @@
       message: "The alarm has been tripped ⚠ from the following windows/doors (may be false alarm, wait for triggered notification in 1 minute): {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data_template:
       message: TTS
       data:
@@ -936,7 +953,7 @@
       message: "The alarm has been activated."
       target:
       - !secret discord_alarm
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: TTS
       data:
@@ -994,7 +1011,7 @@
       message: "The alarm has been activated since nobody is home"
       target:
       - !secret discord_alarm
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: TTS
       data:
@@ -1179,8 +1196,8 @@
         channel: alarm
         group: alarm
         notification_icon: "mdi:window-open"
-        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
-  - service: notify.mobile_app_dannys_pixel_7_pro
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_8_pro_android_auto', 'on') }}"
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data_template:
       message: TTS
       data:
@@ -1225,7 +1242,7 @@
       message: "The alarm has been triggered since it was not disarmed for 60 seconds 👮‍♀‍ , check Slack for snapshots!! Following windows/doors triggered the alarm: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.monitored_contacts', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}"
       target:
       - !secret discord_alarm
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data_template:
       message: TTS
       data:
@@ -1450,10 +1467,10 @@
 #
 ################################################
 
-- alias: Boogie Morning Rule
+- alias: Bedroom Morning Rule
   trigger:
   - platform: time
-    at: "07:15:00"
+    at: "06:40:00"
   condition:
     condition: and
     conditions:
@@ -1476,35 +1493,9 @@
         entity_id: alarm_control_panel.home
         state: 'armed_night'
   action:
+  - wait_template: "{{ is_state('input_boolean.night_mode', 'off') }}"
   - service: light.turn_on
     entity_id: light.bedroom_lights_level
-  - service: cover.open_cover
-    entity_id: cover.bedroom_curtains
-  - wait_template: "{{ states.binary_sensor.natachas_bayesian_presence.state == 'off' }}"
-  - service: light.turn_off
-    entity_id: light.bedroom_lights_level
-  - service: switch.turn_off
-    entity_id: switch.bedroom_fan
-  - condition: state
-    entity_id: binary_sensor.bedroom_door
-    state: 'on'
-  - service: notify.den
-    data_template:
-      data:
-        color: red
-        duration: 10
-        position: center
-      message: "Bedroom door 🚪 left open and boogie has left 🚙 for work, go close it!"
-      title: Shokabow Zoo
-  - service: notify.hass
-    data_template:
-      message: "Bedroom door 🚪 left open and boogie has left 🚙 for work, go close it!"
-      target:
-      - !secret discord_danny
-  - service: tts.google_say
-    entity_id: media_player.den_home_hub
-    data:
-      message: "Bedroom door left open and boogie has left for work, go close it!"
 
 - alias: Boogie Take Your Meds
   trigger:
@@ -2229,7 +2220,7 @@
     entity_id: input_boolean.night_mode
     to: 'on'
   action:
-  - service: notify.mobile_app_toshs_pixel_6_pro
+  - service: notify.mobile_app_toshs_pixel_7_pro
     data:
       message: command_broadcast_intent
       data:
@@ -2237,7 +2228,7 @@
         intent_action: "com.urbandroid.sleep.alarmclock.START_SLEEP_TRACK"
         ttl: 0
         priority: high
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: command_broadcast_intent
       data:
@@ -2417,7 +2408,7 @@
         sticky: true
         importance: high
         notification_icon: "mdi:smoke-detector-variant-alert"
-        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_8_pro_android_auto', 'on') }}"
 
 - alias: CO2 Detected
   trigger:
@@ -2457,7 +2448,7 @@
         sticky: true
         importance: high
         notification_icon: "mdi:smoke-detector-variant-alert"
-        car_ui: "{{ is_state('binary_sensor.dannys_pixel_7_pro_android_auto', 'on') }}"
+        car_ui: "{{ is_state('binary_sensor.dannys_pixel_8_pro_android_auto', 'on') }}"
 
 ################################################
 #
@@ -2626,7 +2617,7 @@
     entity_id: input_boolean.danny_sleep
     state: 'off'
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: 'Welcome 🏠 do you need help❓'
       title: 'Shokouhi Zoo'
@@ -2669,7 +2660,7 @@
     event_data:
       action: action1
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: 'action1'
       data:
@@ -2686,7 +2677,7 @@
     event_data:
       action: action2
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: 'action2'
       data:
@@ -2706,7 +2697,7 @@
     entity_id: input_boolean.danny_sleep
     state: 'off'
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: TTS
       data:
@@ -2743,7 +2734,7 @@
     entity_id: input_boolean.tosh_sleep
     state: 'off'
   action:
-  - service: notify.mobile_app_toshs_pixel_6_pro
+  - service: notify.mobile_app_toshs_pixel_7_pro
     data:
       message: 'Welcome 🏠 do you need help❓'
       title: 'Shokouhi Zoo'
@@ -2778,7 +2769,7 @@
     entity_id: input_boolean.tosh_sleep
     state: 'off'
   action:
-  - service: notify.mobile_app_toshs_pixel_6_pro
+  - service: notify.mobile_app_toshs_pixel_7_pro
     data:
       message: TTS
       data:
@@ -2789,7 +2780,7 @@
 - alias: Tosh awake and left
   trigger:
   - platform: state
-    entity_id: device_tracker.toshs_pixel_6_pro
+    entity_id: device_tracker.toshs_pixel_7_pro
     to: 'not_home'
     for:
       minutes: 5
@@ -2803,7 +2794,7 @@
       entity_id: sun.sun
       state: 'above_horizon'
   action:
-  - service: notify.mobile_app_toshs_pixel_6_pro
+  - service: notify.mobile_app_toshs_pixel_7_pro
     data:
       message: command_broadcast_intent
       data:
@@ -3328,7 +3319,7 @@
     entity_id: sensor.ssl_certificate_expiry
     below: 5
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data_template:
       message: "Certificate expiring in {{ states.sensor.ssl_certificate_expiry.state }} days! ❌⚠ "
       title: Expiring
@@ -3350,7 +3341,7 @@
     entity_id: sensor.disk_use_percent_home
     above: 80
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data_template:
       message: "Home assistant drive getting full, over 80%! Check journal and zoneminder ❌⚠ "
       title: Space Full
@@ -4301,7 +4292,7 @@
     - condition: template
       value_template: "{{ state_attr('sensor.next_launch', 'stream') != None }}"
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data_template:
       message: "Rocket launch 🚀 within the hour! {{ states.sensor.next_launch.state }} by {{ states.sensor.next_launch.attributes.provider }} at {{ ( as_timestamp( strptime(states.sensor.launch_time.state, '%B %d, %Y %H:%M:%S %Z') ) ) | timestamp_custom('%h %d, %Y %I:%M %p')}}.  Streaming link: {{ states.sensor.next_launch.attributes.stream }} 🎥 "
       title: Space Launch
@@ -4339,6 +4330,9 @@
       data:
         images:
         - "/home/homeassistant/.homeassistant/snapshot/{{ trigger.entity_id }}.jpg"
+  - condition: state
+    entity_id: input_boolean.gardener
+    state: 'off'
   - service: notify.den
     data_template:
       data:
@@ -4667,7 +4661,7 @@
 - alias: Save last room danny phone
   trigger:
     platform: state
-    entity_id: sensor.dannys_pixel_7_pro_beacon_room
+    entity_id: sensor.dannys_pixel_8_pro_beacon_room
     to:
      - Den
      - Kitchen
@@ -4681,7 +4675,7 @@
 - alias: Save last room tosh phone
   trigger:
     platform: state
-    entity_id: sensor.toshs_pixel_6_pro_beacon_room
+    entity_id: sensor.toshs_pixel_7_pro_beacon_room
     to:
      - Den
      - Kitchen
@@ -4749,7 +4743,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.cat_litter_illuminance
-    above: 50
+    above: 70
   action:
   - service: notify.android
     data:
@@ -5428,7 +5422,7 @@
     event_data:
       tag_id: 4bdace23-1e7b-4c36-a7ce-caca845c4283
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data_template:
       message: "NFC tag scanned by {% set person = states.person|selectattr('attributes.user_id', 'eq', trigger.event.context.user_id)|first %}{{ person.attributes.friendly_name }}"
       data:
@@ -5456,7 +5450,7 @@
   - platform: event
     event_type: android.intent_received
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data_template:
       message: "Intent received by user {% set person = states.person|selectattr('attributes.user_id', 'eq', trigger.event.context.user_id)|first %}{{ person.attributes.friendly_name }} with action {{ trigger.event.data.intent }}"
       data:
@@ -5471,7 +5465,7 @@
   - platform: event
     event_type: nest_event
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data_template:
       message: "Nest event received type of: {{trigger.event.data.type }}"
       data:
@@ -5484,9 +5478,9 @@
 - alias: Phone alarm
   trigger:
     platform: time
-    at: sensor.dannys_pixel_7_pro_next_alarm
+    at: sensor.dannys_pixel_8_pro_next_alarm
   action:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data_template:
       message: "alarm going off"
       data:
@@ -5607,7 +5601,7 @@
   - condition: state
     entity_id: alarm_control_panel.home
     state: 'disarmed'
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: Print is ready to come off the bed. Would you like to turn off the printer?
       data:
@@ -5625,7 +5619,7 @@
   - wait_template: "{{ is_state('binary_sensor.octoprint_printing', 'on') }}"
     timeout: "02:00:00"
     continue_on_timeout: false
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: clear_notification
       data:

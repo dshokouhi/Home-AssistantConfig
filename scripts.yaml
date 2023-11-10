@@ -769,7 +769,7 @@ cast_kitchen:
  
 action_test:
   sequence:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: test
       data:
@@ -812,7 +812,7 @@ update_lights_dynamic:
 car_notif_test:
   alias: Car Notification Test
   sequence:
-  - service: notify.mobile_app_dannys_pixel_7_pro
+  - service: notify.mobile_app_dannys_pixel_8_pro
     data:
       message: Testing car UI notification
       data:

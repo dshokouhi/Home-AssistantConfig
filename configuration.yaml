@@ -359,8 +359,8 @@ notify:
  - platform: group
    name: android
    services:
-   - service: mobile_app_toshs_pixel_6_pro
-   - service: mobile_app_dannys_pixel_7_pro
+   - service: mobile_app_toshs_pixel_7_pro
+   - service: mobile_app_dannys_pixel_8_pro
 
 alert:
   front_door_unlocked:
@@ -1284,10 +1284,10 @@ rest_command:
 
 utility_meter:
   dannys_daily_steps:
-    source: sensor.dannys_pixel_7_pro_steps_sensor
+    source: sensor.dannys_pixel_8_pro_steps_sensor
     cycle: daily
   toshs_daily_steps:
-    source: sensor.toshs_pixel_6_pro_steps_sensor
+    source: sensor.toshs_pixel_7_pro_steps_sensor
     cycle: daily
   dannys_pixel_watch_daily_steps:
     source: sensor.dannys_pixel_watch_steps_sensor

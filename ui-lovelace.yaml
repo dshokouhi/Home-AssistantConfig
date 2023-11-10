@@ -133,8 +133,10 @@ views:
         entities:
           - binary_sensor.dannys_bayesian_presence
           - binary_sensor.natachas_bayesian_presence
+          - person.ollie
         state_filter:
           - 'on'
+          - 'home'
         show_empty: false
       - type: entity-filter
         id: cameras-offline
@@ -250,7 +252,6 @@ views:
         show_header_toggle: false
         entities:
           - light.bookshelf_left
-          - light.corner_lamp
           - entity: binary_sensor.den_camera_audio_detected
             name: Den Audio
             secondary_info: last-changed
@@ -289,8 +290,6 @@ views:
             name: Kitchen Audio
             secondary_info: last-changed
             state_color: true
-          - entity: sensor.den_fire_hd8_light_sensor
-            name: Kitchen Illumination
           - light.kitchen_lights_level
           - entity: binary_sensor.kitchen_motion_detected
             name: Kitchen Motion
@@ -469,26 +468,26 @@ views:
             secondary_info: last-changed
             state_color: true
           - light.patio
-      - type: entities
-        id: outdoor-motion
-        title: Outdoor Motion
-        state_color: true
-        show_header_toggle: false
-        entities:
-        - entity: binary_sensor.den_backyard_motion
-          secondary_info: last-changed
-        - entity: binary_sensor.frontyard_cars_motion
-          secondary_info: last-changed
-        - entity: binary_sensor.frontyard_driveway_motion
-          secondary_info: last-changed
-        - entity: binary_sensor.frontyard_side_gate_motion
-          secondary_info: last-changed
-        - entity: binary_sensor.garage_side_gate_motion
-          secondary_info: last-changed
-        - entity: binary_sensor.kitchen_side_gate_motion
-          secondary_info: last-changed
-        - entity: binary_sensor.patio_motion
-          secondary_info: last-changed
+      # - type: entities
+        # id: outdoor-motion
+        # title: Outdoor Motion
+        # state_color: true
+        # show_header_toggle: false
+        # entities:
+        # - entity: binary_sensor.den_backyard_motion
+          # secondary_info: last-changed
+        # - entity: binary_sensor.frontyard_cars_motion
+          # secondary_info: last-changed
+        # - entity: binary_sensor.frontyard_driveway_motion
+          # secondary_info: last-changed
+        # - entity: binary_sensor.frontyard_side_gate_motion
+          # secondary_info: last-changed
+        # - entity: binary_sensor.garage_side_gate_motion
+          # secondary_info: last-changed
+        # - entity: binary_sensor.kitchen_side_gate_motion
+          # secondary_info: last-changed
+        # - entity: binary_sensor.patio_motion
+          # secondary_info: last-changed
       - type: entities
         id: booleans
         title: House Settings
@@ -718,9 +717,9 @@ views:
         name: Plex Requests
       - entity: sensor.hacs
         name: HACS Updates
-      - entity: sensor.shakuyi_status
-        name: Xbox Status
-      - sensor.blue_iris_status
+     # - entity: sensor.shakuyi_status
+     #   name: Xbox Status
+      #- sensor.blue_iris_status
       - sensor.connected_clients
     cards:
       - type: horizontal-stack
@@ -731,9 +730,9 @@ views:
             entity: sensor.plex
             min: 0
             max: 10
-          - type: gauge
-            name: Ads Blocked
-            entity: sensor.pi_hole_ads_percentage_blocked_today
+          # - type: gauge
+            # name: Ads Blocked
+            # entity: sensor.pi_hole_ads_percentage_blocked_today
           - type: gauge
             name: SSL Expiration
             entity: sensor.ssl_certificate_expiry
@@ -787,18 +786,18 @@ views:
           - type: gauge
             name: Plex CPU Used
             entity: sensor.media_server_cpu_used
-      - type: horizontal-stack
-        id: pi-hole
-        cards:
-          - type: gauge
-            name: Pi Hole RAM Used
-            entity: sensor.pi_hole_ram_used_percent_2
-          - type: gauge
-            name: Pi Hole Disk Used
-            entity: sensor.pi_hole_used_percent
-          - type: gauge
-            name: Pi Hole CPU Used
-            entity: sensor.pi_hole_cpu_used_2
+      # - type: horizontal-stack
+        # id: pi-hole
+        # cards:
+          # - type: gauge
+            # name: Pi Hole RAM Used
+            # entity: sensor.pi_hole_ram_used_percent_2
+          # - type: gauge
+            # name: Pi Hole Disk Used
+            # entity: sensor.pi_hole_used_percent
+          # - type: gauge
+            # name: Pi Hole CPU Used
+            # entity: sensor.pi_hole_cpu_used_2
       - type: horizontal-stack
         id: sab-pc
         cards:
@@ -910,13 +909,13 @@ views:
         entities:
         - entity: sensor.next_launch
           secondary_info: last-changed
-      - type: entities
-        id: danny_mi_band
-        title: Dannys Mi Band
-        show_header_toggle: false
-        entities:
-          - entity: input_boolean.danny_mi_band_sleep
-            secondary_info: last-changed
+      # - type: entities
+        # id: danny_mi_band
+        # title: Dannys Mi Band
+        # show_header_toggle: false
+        # entities:
+          # - entity: input_boolean.danny_mi_band_sleep
+            # secondary_info: last-changed
       - type: conditional
         conditions:
           - entity: light.wled
@@ -1010,7 +1009,7 @@ views:
           method: name
         filter:
           include:
-            - entity_id: "*dannys_pixel_7*"
+            - entity_id: "*dannys_pixel_8*"
               options:
                 secondary_info: last-changed
       - type: custom:auto-entities
@@ -1023,7 +1022,7 @@ views:
           method: name
         filter:
           include:
-            - entity_id: "*toshs_pixel_6*"
+            - entity_id: "*toshs_pixel_7*"
               options:
                 secondary_info: last-changed
   - title: Watches
@@ -1034,7 +1033,7 @@ views:
         id: danny-watch
         card:
           type: entities
-          title: Danny Watch
+          title: Dannys Watch
           show_header_toggle: false
         sort:
           method: name
@@ -1058,6 +1057,36 @@ views:
         filter:
           include:
             - entity_id: "*quest_*"
+              options:
+                secondary_info: last-changed
+  - title: Toothbrush
+    path: toothbrush
+    icon: mdi:toothbrush-electric
+    cards:
+      - type: custom:auto-entities
+        id: danny-toothbrush
+        card:
+          type: entities
+          title: Danny's Toothbrush
+          show_header_toggle: false
+        sort:
+          method: name
+        filter:
+          include:
+            - entity_id: "*dannys_toothbrush_*"
+              options:
+                secondary_info: last-changed
+      - type: custom:auto-entities
+        id: tosh-toothbrush
+        card:
+          type: entities
+          title: Tosh's Toothbrush
+          show_header_toggle: false
+        sort:
+          method: name
+        filter:
+          include:
+            - entity_id: "*toshs_toothbrush_*"
               options:
                 secondary_info: last-changed
   - title: Cameras
@@ -1092,10 +1121,10 @@ views:
         entity: camera.patio
       - type: picture-entity
         entity: camera.side_gate
-      - type: picture-entity
-        entity: camera.mr_neato_cleaning_map
-      - type: picture-entity
-        entity: camera.mrs_neato_cleaning_map
+      # - type: picture-entity
+        # entity: camera.mr_neato_cleaning_map
+      # - type: picture-entity
+        # entity: camera.mrs_neato_cleaning_map
   - title: Image Processing Scans
     path: imageproc
     icon: mdi:cctv

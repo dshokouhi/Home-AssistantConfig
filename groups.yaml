@@ -14,8 +14,8 @@ tracked_users:
   entities:
   - device_tracker.nmap_tracker_f0_5c_77_ce_45_5b
   - device_tracker.nmap_tracker_ae_8b_0d_c3_8c_8e
-  - device_tracker.toshs_pixel_6_pro
-  - device_tracker.dannys_pixel_7_pro
+  - device_tracker.toshs_pixel_7_pro
+  - device_tracker.dannys_pixel_8_pro
 
 all_windows:
   name: All Windows

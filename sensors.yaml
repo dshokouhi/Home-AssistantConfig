@@ -96,15 +96,15 @@
      postmates_tosh:
        friendly_name: Postmates Toshs Phone
        value_template: >
-            {% if is_state_attr('sensor.toshs_pixel_6_pro_last_notification', 'package', 'com.postmates.android') %}
-              {{ states('sensor.toshs_pixel_6_pro_last_notification') }}
+            {% if is_state_attr('sensor.toshs_pixel_7_pro_last_notification', 'package', 'com.postmates.android') %}
+              {{ states('sensor.toshs_pixel_7_pro_last_notification') }}
             {% else %}
               Nothing
             {% endif %}
        attribute_templates:
          title: >
-            {% if is_state_attr('sensor.toshs_pixel_6_pro_last_notification', 'package', 'com.postmates.android') %}
-              {{ state_attr('sensor.toshs_pixel_6_pro_last_notification', 'android.title') }}
+            {% if is_state_attr('sensor.toshs_pixel_7_pro_last_notification', 'package', 'com.postmates.android') %}
+              {{ state_attr('sensor.toshs_pixel_7_pro_last_notification', 'android.title') }}
             {% else %}
               Nothing
             {% endif %}
@@ -112,15 +112,15 @@
      instacart_tosh:
        friendly_name: Instacart Toshs Phone
        value_template: >
-            {% if is_state_attr('sensor.toshs_pixel_6_pro_last_notification', 'package', 'com.instacart.client') %}
-              {{ states('sensor.toshs_pixel_6_pro_last_notification') }}
+            {% if is_state_attr('sensor.toshs_pixel_7_pro_last_notification', 'package', 'com.instacart.client') %}
+              {{ states('sensor.toshs_pixel_7_pro_last_notification') }}
             {% else %}
               Nothing
             {% endif %}
        attribute_templates:
          title: >
-            {% if is_state_attr('sensor.toshs_pixel_6_pro_last_notification', 'package', 'com.instacart.client') %}
-              {{ state_attr('sensor.toshs_pixel_6_pro_last_notification', 'android.title') }}
+            {% if is_state_attr('sensor.toshs_pixel_7_pro_last_notification', 'package', 'com.instacart.client') %}
+              {{ state_attr('sensor.toshs_pixel_7_pro_last_notification', 'android.title') }}
             {% else %}
               Nothing
             {% endif %}
@@ -128,15 +128,15 @@
      postmates_danny:
        friendly_name: Postmates Dannys Phone
        value_template: >
-            {% if is_state_attr('sensor.dannys_pixel_7_pro_last_notification', 'package', 'com.postmates.android') %}
-              {{ states('sensor.dannys_pixel_7_pro_last_notification') }}
+            {% if is_state_attr('sensor.dannys_pixel_8_pro_last_notification', 'package', 'com.postmates.android') %}
+              {{ states('sensor.dannys_pixel_8_pro_last_notification') }}
             {% else %}
               Nothing
             {% endif %}
        attribute_templates:
          title: >
-            {% if is_state_attr('sensor.dannys_pixel_7_pro_last_notification', 'package', 'com.postmates.android') %}
-              {{ state_attr('sensor.dannys_pixel_7_pro_last_notification', 'android.title') }}
+            {% if is_state_attr('sensor.dannys_pixel_8_pro_last_notification', 'package', 'com.postmates.android') %}
+              {{ state_attr('sensor.dannys_pixel_8_pro_last_notification', 'android.title') }}
             {% else %}
               Nothing
             {% endif %}
@@ -144,15 +144,15 @@
      instacart_danny:
        friendly_name: Instacart Dannys Phone
        value_template: >
-            {% if is_state_attr('sensor.dannys_pixel_7_pro_last_notification', 'package', 'com.instacart.client') %}
-              {{ states('sensor.dannys_pixel_7_pro_last_notification') }}
+            {% if is_state_attr('sensor.dannys_pixel_8_pro_last_notification', 'package', 'com.instacart.client') %}
+              {{ states('sensor.dannys_pixel_8_pro_last_notification') }}
             {% else %}
               Nothing
             {% endif %}
        attribute_templates:
          title: >
-            {% if is_state_attr('sensor.dannys_pixel_7_pro_last_notification', 'package', 'com.instacart.client') %}
-              {{ state_attr('sensor.dannys_pixel_7_pro_last_notification', 'android.title') }}
+            {% if is_state_attr('sensor.dannys_pixel_8_pro_last_notification', 'package', 'com.instacart.client') %}
+              {{ state_attr('sensor.dannys_pixel_8_pro_last_notification', 'android.title') }}
             {% else %}
               Nothing
             {% endif %}
@@ -160,29 +160,29 @@
      anova_danny:
        friendly_name: Anova Dannys Phone
        value_template: >
-            {% if is_state_attr('sensor.dannys_pixel_7_pro_last_notification', 'package', 'com.anovaculinary.android') %}
-              {{ states('sensor.dannys_pixel_7_pro_last_notification') }}
+            {% if is_state_attr('sensor.dannys_pixel_8_pro_last_notification', 'package', 'com.anovaculinary.android') %}
+              {{ states('sensor.dannys_pixel_8_pro_last_notification') }}
             {% else %}
               Nothing
             {% endif %}
        attribute_templates:
          title: >
-            {% if is_state_attr('sensor.dannys_pixel_7_pro_last_notification', 'package', 'com.anovaculinary.android') %}
-              {{ state_attr('sensor.dannys_pixel_7_pro_last_notification', 'android.title') }}
+            {% if is_state_attr('sensor.dannys_pixel_8_pro_last_notification', 'package', 'com.anovaculinary.android') %}
+              {{ state_attr('sensor.dannys_pixel_8_pro_last_notification', 'android.title') }}
             {% else %}
               Nothing
             {% endif %}
 
-     dannys_pixel_7_pro_beacon_room:
-       friendly_name: Dannys Pixel 7 Pro Beacon Room
+     dannys_pixel_8_pro_beacon_room:
+       friendly_name: Dannys Pixel 8 Pro Beacon Room
        icon_template: "mdi:cellphone-marker"
        value_template: >
-            {% if is_state('sensor.dannys_pixel_7_pro_beacon_monitor', 'Monitoring') %}
+            {% if is_state('sensor.dannys_pixel_8_pro_beacon_monitor', 'Monitoring') %}
               {% set smallest = 0 %}
-              {% for attribute in states.sensor.dannys_pixel_7_pro_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
-                {% if loop.first %} {% set smallest = state_attr('sensor.dannys_pixel_7_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
-                {% if state_attr('sensor.dannys_pixel_7_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
-                  {% set smallest = state_attr('sensor.dannys_pixel_7_pro_beacon_monitor', attribute) | float(0.00) %}
+              {% for attribute in states.sensor.dannys_pixel_8_pro_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
+                {% if loop.first %} {% set smallest = state_attr('sensor.dannys_pixel_8_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
+                {% if state_attr('sensor.dannys_pixel_8_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
+                  {% set smallest = state_attr('sensor.dannys_pixel_8_pro_beacon_monitor', attribute) | float(0.00) %}
                   {% if attribute in '1a01a2b8-13a7-4c98-a732-496554720c3d_100_1' %}
                     Den
                   {% elif attribute in '9d05c5cc-b742-4b1d-96b8-6b8626854119_100_1' %}
@@ -199,28 +199,28 @@
             {% endif %}
        attribute_templates:
          distance: >
-            {% if is_state('sensor.dannys_pixel_7_pro_beacon_monitor', 'Monitoring') %}
+            {% if is_state('sensor.dannys_pixel_8_pro_beacon_monitor', 'Monitoring') %}
               {% set smallest = 0 %}
-              {% for attribute in states.sensor.dannys_pixel_7_pro_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
-                {% if loop.first %} {% set smallest = state_attr('sensor.dannys_pixel_7_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
-                {% if state_attr('sensor.dannys_pixel_7_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
-                  {{ state_attr('sensor.dannys_pixel_7_pro_beacon_monitor', attribute) | float(0.00) }}
+              {% for attribute in states.sensor.dannys_pixel_8_pro_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
+                {% if loop.first %} {% set smallest = state_attr('sensor.dannys_pixel_8_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
+                {% if state_attr('sensor.dannys_pixel_8_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
+                  {{ state_attr('sensor.dannys_pixel_8_pro_beacon_monitor', attribute) | float(0.00) }}
                 {% endif %}
               {% endfor %}
             {% else %}
              0
             {% endif %}
 
-     toshs_pixel_6_pro_beacon_room:
-       friendly_name: Toshs Pixel 6 Pro Beacon Room
+     toshs_pixel_7_pro_beacon_room:
+       friendly_name: Toshs Pixel 7 Pro Beacon Room
        icon_template: "mdi:cellphone-marker"
        value_template: >
-            {% if is_state('sensor.toshs_pixel_6_pro_beacon_monitor', 'Monitoring') %}
+            {% if is_state('sensor.toshs_pixel_7_pro_beacon_monitor', 'Monitoring') %}
               {% set smallest = 0 %}
-              {% for attribute in states.sensor.toshs_pixel_6_pro_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
-                {% if loop.first %} {% set smallest = state_attr('sensor.toshs_pixel_6_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
-                {% if state_attr('sensor.toshs_pixel_6_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
-                  {% set smallest = state_attr('sensor.toshs_pixel_6_pro_beacon_monitor', attribute) | float(0.00) %}
+              {% for attribute in states.sensor.toshs_pixel_7_pro_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
+                {% if loop.first %} {% set smallest = state_attr('sensor.toshs_pixel_7_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
+                {% if state_attr('sensor.toshs_pixel_7_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
+                  {% set smallest = state_attr('sensor.toshs_pixel_7_pro_beacon_monitor', attribute) | float(0.00) %}
                   {% if attribute in '1a01a2b8-13a7-4c98-a732-496554720c3d_100_1' %}
                     Den
                   {% elif attribute in '9d05c5cc-b742-4b1d-96b8-6b8626854119_100_1' %}
@@ -237,12 +237,12 @@
             {% endif %}
        attribute_templates:
          distance: >
-            {% if is_state('sensor.toshs_pixel_6_pro_beacon_monitor', 'Monitoring') %}
+            {% if is_state('sensor.toshs_pixel_7_pro_beacon_monitor', 'Monitoring') %}
               {% set smallest = 0 %}
-              {% for attribute in states.sensor.toshs_pixel_6_pro_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
-                {% if loop.first %} {% set smallest = state_attr('sensor.toshs_pixel_6_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
-                {% if state_attr('sensor.toshs_pixel_6_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
-                  {{ state_attr('sensor.toshs_pixel_6_pro_beacon_monitor', attribute) | float(0.00) }}
+              {% for attribute in states.sensor.toshs_pixel_7_pro_beacon_monitor.attributes if not attribute in 'icon'  'friendly_name' %}
+                {% if loop.first %} {% set smallest = state_attr('sensor.toshs_pixel_7_pro_beacon_monitor', attribute) | float(0.00) %} {% endif %}
+                {% if state_attr('sensor.toshs_pixel_7_pro_beacon_monitor', attribute) | float(0.00) <= smallest %}
+                  {{ state_attr('sensor.toshs_pixel_7_pro_beacon_monitor', attribute) | float(0.00) }}
                 {% endif %}
               {% endfor %}
             {% else %}
@@ -288,24 +288,24 @@
        availability_template: "{{ not is_state('vacuum.mr_neato', 'unavailable') }}"
        friendly_name: Den Vacuum Status
 
-     dannys_pixel_7_pro_sleep_motion:
-       friendly_name: Dannys Pixel 7 Pro Sleep Motion
-       value_template: "{{ state_attr('sensor.dannys_pixel_7_pro_sleep_confidence', 'motion') }}"
+     dannys_pixel_8_pro_sleep_motion:
+       friendly_name: Dannys Pixel 8 Pro Sleep Motion
+       value_template: "{{ state_attr('sensor.dannys_pixel_8_pro_sleep_confidence', 'motion') }}"
        unit_of_measurement: motion
 
-     dannys_pixel_7_pro_sleep_light:
-       friendly_name: Dannys Pixel 7 Pro Sleep Light
-       value_template: "{{ state_attr('sensor.dannys_pixel_7_pro_sleep_confidence', 'light') }}"
+     dannys_pixel_8_pro_sleep_light:
+       friendly_name: Dannys Pixel 8 Pro Sleep Light
+       value_template: "{{ state_attr('sensor.dannys_pixel_8_pro_sleep_confidence', 'light') }}"
        unit_of_measurement: lx
 
-     toshs_pixel_6_pro_sleep_motion:
-       friendly_name: Toshs Pixel 6 Pro Sleep Motion
-       value_template: "{{ state_attr('sensor.toshs_pixel_6_pro_sleep_confidence', 'motion') }}"
+     toshs_pixel_7_pro_sleep_motion:
+       friendly_name: Toshs Pixel 7 Pro Sleep Motion
+       value_template: "{{ state_attr('sensor.toshs_pixel_7_pro_sleep_confidence', 'motion') }}"
        unit_of_measurement: motion
 
-     toshs_pixel_6_pro_sleep_light:
-       friendly_name: Toshs Pixel 6 Pro Sleep Light
-       value_template: "{{ state_attr('sensor.toshs_pixel_6_pro_sleep_confidence', 'light') }}"
+     toshs_pixel_7_pro_sleep_light:
+       friendly_name: Toshs Pixel 7 Pro Sleep Light
+       value_template: "{{ state_attr('sensor.toshs_pixel_7_pro_sleep_confidence', 'light') }}"
        unit_of_measurement: lx
 
      inside_outside_temp:
@@ -340,12 +340,12 @@
        value_template: "{{ state_attr('sensor.dannys_pixel_watch_heart_rate', 'accuracy') }}"
        icon_template: "mdi:heart-pulse"
  
- - platform: waqi
-   token: !secret aqi_key
-   locations:
-   - losangeles
-   stations:
-   - "Reseda, Los Angeles"
+ # - platform: waqi
+   # token: !secret aqi_key
+   # locations:
+   # - losangeles
+   # stations:
+   # - "Reseda, Los Angeles"
 
  - platform: systemmonitor
    resources:
@@ -368,8 +368,8 @@
    scan_interval: 600
 
  - platform: history_stats
-   name: Dannys Pixel 7 Pro Daily Screen On Time
-   entity_id: binary_sensor.dannys_pixel_7_pro_interactive
+   name: Dannys Pixel 8 Pro Daily Screen On Time
+   entity_id: binary_sensor.dannys_pixel_8_pro_interactive
    state: 'on'
    type: time
    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
@@ -377,8 +377,8 @@
      hours: 24
 
  - platform: history_stats
-   name: Dannys Pixel 7 Pro Daily Screen On Count
-   entity_id: binary_sensor.dannys_pixel_7_pro_interactive
+   name: Dannys Pixel 8 Pro Daily Screen On Count
+   entity_id: binary_sensor.dannys_pixel_8_pro_interactive
    state: 'on'
    type: count
    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
@@ -386,8 +386,8 @@
      hours: 24
 
  - platform: history_stats
-   name: Toshs Pixel 6 Pro Daily Screen On Time
-   entity_id: binary_sensor.toshs_pixel_6_pro_interactive
+   name: Toshs Pixel 7 Pro Daily Screen On Time
+   entity_id: binary_sensor.toshs_pixel_7_pro_interactive
    state: 'on'
    type: time
    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
@@ -395,8 +395,8 @@
      hours: 24
 
  - platform: history_stats
-   name: Toshs Pixel 6 Pro Daily Screen On Count
-   entity_id: binary_sensor.toshs_pixel_6_pro_interactive
+   name: Toshs Pixel 7 Pro Daily Screen On Count
+   entity_id: binary_sensor.toshs_pixel_7_pro_interactive
    state: 'on'
    type: count
    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
