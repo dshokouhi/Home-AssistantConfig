@@ -408,7 +408,7 @@
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.dryer_status
-  - service: notify.den
+  - service: notify.den_sony
     data_template:
       data:
         color: red
@@ -447,7 +447,7 @@
   action:
   - service: input_boolean.turn_off
     entity_id: input_boolean.washer_status
-  - service: notify.den
+  - service: notify.den_sony
     data_template:
       data:
         color: red
@@ -484,7 +484,7 @@
     entity_id: input_boolean.dishwasher_status
     state: 'on'
   action:
-  - service: notify.den
+  - service: notify.den_sony
     data:
       data:
         color: red
@@ -1496,11 +1496,13 @@
   - wait_template: "{{ is_state('input_boolean.night_mode', 'off') }}"
   - service: light.turn_on
     entity_id: light.bedroom_lights_level
+    data:
+      brightness_pct: 5
 
 - alias: Boogie Take Your Meds
   trigger:
   - platform: time
-    at: "08:00:00"
+    at: "07:15:00"
   condition:
     condition: and
     conditions:
@@ -1600,7 +1602,7 @@
 - alias: Heat up house in morning on work days
   trigger:
   - platform: time
-    at: "07:15:00"
+    at: "06:30:00"
   condition:
     condition: and
     conditions:
@@ -1650,7 +1652,7 @@
   condition:
     condition: time
     after: "04:00:00"
-    before: "08:00:00"
+    before: "07:00:00"
   action:
     service: light.turn_on
     entity_id: light.den_lights_level
@@ -1824,7 +1826,7 @@
   - service: notify.google_assistant_sdk
     data:
       message: "You got mail"
-  - service: notify.den
+  - service: notify.den_sony
     data:
       data:
         color: teal
@@ -2014,15 +2016,11 @@
   trigger:
   - platform: state
     entity_id: input_boolean.night_mode
-    to: 'on'
-  - event: sunset
-    platform: sun
-    offset: '-00:30:00'
   action:
     service: script.turn_on 
     data_template:
       entity_id: >
-       {% if trigger.entity_id == 'input_boolean.night_mode' %}
+       {% if trigger.to_state.state == 'on' %}
          script.christmas_off
        {% else %}
          script.christmas_on
@@ -2385,7 +2383,7 @@
   - service: notify.plex_shokouhi
     data_template:
       message: "Smoke detected at home {{ trigger.to_state.attributes.friendly_name }} 🚒🔥 "
-  - service: notify.den
+  - service: notify.den_sony
     data_template:
       data:
         color: red
@@ -2425,7 +2423,7 @@
   - service: notify.plex_shokouhi
     data_template:
       message: "CO2 detected at home {{ trigger.to_state.attributes.friendly_name }} 🔥 "
-  - service: notify.den
+  - service: notify.den_sony
     data_template:
       data:
         color: red
@@ -3730,7 +3728,7 @@
       for:
         minutes: 1
   action:
-  - service: notify.den
+  - service: notify.den_sony
     data:
       data:
         color: teal
@@ -3749,7 +3747,7 @@
     entity_id: alarm_control_panel.home
     state: disarmed
   action:
-  - service: notify.den
+  - service: notify.den_sony
     data:
       data:
        color: teal
@@ -3781,7 +3779,7 @@
   - service: notify.plex_shokouhi
     data_template:
       message: "Leak detected 🚱 at home {{ trigger.to_state.attributes.friendly_name }} 🏠 "
-  - service: notify.den
+  - service: notify.den_sony
     data_template:
       data:
         color: red
@@ -4037,7 +4035,7 @@
           {%- else -%}
             Food is done
           {%- endif %}
-  - service: notify.den
+  - service: notify.den_sony
     data_template:
       data:
         color: red
@@ -4333,7 +4331,7 @@
   - condition: state
     entity_id: input_boolean.gardener
     state: 'off'
-  - service: notify.den
+  - service: notify.den_sony
     data_template:
       data:
         color: red
@@ -5032,7 +5030,9 @@
         channel: BBQ
         group: bbq
         notification_icon: "mdi:chef-hat"
-  - service: notify.den
+        chronometer: true
+        when: "{{ as_timestamp(now()) | int }}"
+  - service: notify.den_sony
     data_template:
       data:
         color: red

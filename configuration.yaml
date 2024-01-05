@@ -64,12 +64,16 @@ logger:
     homeassistant.components.esphome: error
     homeassistant.components.rachio: info
     homeassistant.components.mobile_app: info
-    homeassistant.components.tensorflow: info
+    # homeassistant.components.tensorflow: info
     homeassistant.config_entries: error
     absl: info
     pychromecast: error
     zigpy: info
-    openzwave: info
+    # openzwave: info
+    # custom_components.ember_mug: debug
+    # ember_mug: debug
+    # bleak.backends.bluezdbus.client: debug
+    # bleak_retry_connector: debug
     # custom_components.rachio: debug
     # homeassistant.components.google_assistant: debug
     # homeassistant.components.plex: debug
@@ -87,7 +91,6 @@ logger:
     # homeassistant.setup: warn
 
 recorder:
-  purge_keep_days: 5
   exclude:
     domains:
     - automation

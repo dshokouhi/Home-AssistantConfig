@@ -6,6 +6,11 @@
        value_template: "{{ states('sensor.dryer_power_2') | int > 5}}"
      dishwasher_running:
        value_template: "{{ states('sensor.dishwasher') | int > 5}}"
+     ember_tumbler_raw_liquid:
+       friendly_name: "Dannys Ember Tumbler Raw Liquid Level"
+       value_template: "{{ state_attr('sensor.ember_tumbler_f29c65df6e3a_liquid_level', 'raw_liquid_level') }}"
+       icon_template: "mdi:cup-water"
+       unit_of_measurement: "level"
 
  - platform: template
    sensors:

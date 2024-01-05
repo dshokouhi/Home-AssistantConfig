@@ -123,6 +123,8 @@ views:
             - entity_id: sensor.den_sliding_door
             - entity_id: "*bbq*"
             - entity_id: "sensor.anova*"
+            - entity_id: sensor.reseda_los_angeles_temperature
+            - entity_id: "*ember*"
         show_empty: false
       - type: entity-filter
         id: people
@@ -358,6 +360,12 @@ views:
               state_color: true
       - type: thermostat
         entity: climate.thermostat
+        features:
+          - type: "climate-hvac-modes"
+            hvac_modes:
+              - "off"
+              - cool
+              - heat
       # - type: conditional
         # id: sousvidecond
         # conditions:
@@ -1089,6 +1097,23 @@ views:
             - entity_id: "*toshs_toothbrush_*"
               options:
                 secondary_info: last-changed
+  - title: Ember
+    icon: mdi:coffee
+    path: ember
+    cards:
+      - type: custom:auto-entities
+        id: danny-ember
+        card:
+          type: entities
+          title: Danny's Ember Tumbler
+          show_header_toggle: false
+        sort:
+          method: name
+        filter:
+          include:
+            - entity_id: "*ember_tumbler_*"
+              options:
+                secondary_info: last-changed
   - title: Cameras
     path: cameras
     icon: mdi:camera
@@ -1204,7 +1229,7 @@ views:
       - type: media-control
         entity: media_player.outdoor_speakers
       - type: media-control
-        entity: media_player.sony_bravia_tv
+        entity: media_player.sony_xr_77a80cl_2
       - type: media-control
         entity: media_player.stream_unlimited9639
       - type: media-control
