@@ -352,16 +352,16 @@
    # stations:
    # - "Reseda, Los Angeles"
 
- - platform: systemmonitor
-   resources:
-   - type: disk_use_percent
-     arg: "/home"
-   - type: memory_use_percent
-   - type: processor_use
-   - type: last_boot
-   - type: load_1m
-   - type: load_5m
-   - type: load_15m
+ # - platform: systemmonitor
+   # resources:
+   # - type: disk_use_percent
+     # arg: "/home"
+   # - type: memory_use_percent
+   # - type: processor_use
+   # - type: last_boot
+   # - type: load_1m
+   # - type: load_5m
+   # - type: load_15m
 
  - platform: cert_expiry
    host: !secret cert_expiry_host

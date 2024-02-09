@@ -665,7 +665,7 @@ views:
         entities:
           - entity: switch.beta_light
             name: Oranda Aquarium Light
-          - entity: switch.shrimp_2_aquarium_plug_2
+          - entity: switch.shrimp_2_aquarium_plug_1
             name: Oranda Aquarium Fan
           - entity: sensor.aquarium_20g_temp
             secondary_info: last-changed

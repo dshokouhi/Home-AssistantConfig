@@ -3226,10 +3226,10 @@
           {% macro battery_level() %}
           {% set domains = ['light', 'switch', 'sensor', 'lock', 'binary_sensor'] %}
           {% for domain in domains -%}
-          {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
-          {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
+          {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int(50) < threshold) or ("battery" in item.name | lower and "battery temperature" not in item.name | lower and "battery power" not in item.name | lower and "battery state" not in item.name | lower and "battery health" not in item.name | lower and ((item.state | int(50) < threshold and item.state|int(50) != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+          {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int(50) < threshold) -%}
           {{ item.name }}{% endif -%}
-          {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
+          {% if "battery" in item.name | lower and ((item.state | int(50) < threshold and item.state|int(50) != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
           {{ item.name }}{% endif -%}
           {% endfor %}
           {%- endfor %}
@@ -3243,10 +3243,10 @@
              {%- set threshold = 25 -%}
              {% set domains = ['light', 'switch', 'sensor', 'lock', 'binary_sensor'] %}
              {% for domain in domains -%}
-             {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) or ("battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
-             {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int < threshold) -%}
+             {% for item in states[domain] if ((item.attributes.battery_level is defined and item.attributes['battery_level'] | int(50) < threshold) or ("battery" in item.name | lower and "battery temperature" not in item.name | lower and "battery power" not in item.name | lower and "battery state" not in item.name | lower and "battery health" not in item.name | lower and ((item.state | int(50) < threshold and item.state|int(50) != 0) or item.state | lower == "low" or item.state | lower == "unknown"))) -%}
+             {% if (item.attributes.battery_level is defined and item.attributes['battery_level'] | int(50) < threshold) -%}
              {{ item.name }} ({{ item.attributes['battery_level'] }}){%- if not loop.last %}, {% endif -%}{% endif -%}
-             {% if "battery" in item.name | lower and ((item.state | int < threshold and item.state|int != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
+             {% if "battery" in item.name | lower and ((item.state | int(50) < threshold and item.state|int(50) != 0) or item.state | lower == "low" or item.state | lower == "unknown") -%}
              {{ item.name }} ({{ item.state }}) 🔋⛔ {% if not loop.last %}, {%- endif %} {% endif -%}
              {% endfor %}
              {%- endfor %}
@@ -3273,9 +3273,9 @@
       at: "17:00:00"
   condition:
     - condition: template
-      value_template: "{{ states('sensor.plex')|int == 0 }}"
+      value_template: "{{ states('sensor.plex')|int(1) == 0 }}"
     - condition: template
-      value_template: "{{ states('sensor.sabnzbd_speed')|int == 0 }}"
+      value_template: "{{ states('sensor.sabnzbd_speed')|int(1) == 0 }}"
   action:
     - service: homeassistant.update_entity
       target:
@@ -4314,7 +4314,7 @@
     entity_id: sensor.frigate_frontyard_porch_camera_person, sensor.frigate_frontyard_cars_camera_person
   condition:
     condition: template
-    value_template: '{{ trigger.to_state.state |int > 0 }}'
+    value_template: '{{ trigger.to_state.state |int(0) > 0 }}'
   action:
   - service: camera.snapshot
     data:
